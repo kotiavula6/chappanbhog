@@ -10,11 +10,15 @@ import UIKit
 
 class AboutVC: UIViewController {
 
+    @IBOutlet weak var gradientView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setGradientBackground(view: self.view)
+        DispatchQueue.main.async {
+            setGradientBackground(view: self.gradientView)
+        }
+        
     }
     
 

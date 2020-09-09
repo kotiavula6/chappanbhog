@@ -24,6 +24,20 @@
 		EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */; };
 		EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8C2508D73100DFD80F /* Constants.swift */; };
 		EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */; };
+		EEA8EF9C2508DC5C00DFD80F /* Brandon_reg_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF902508DC5B00DFD80F /* Brandon_reg_it.otf */; };
+		EEA8EF9D2508DC5C00DFD80F /* Brandon_light_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF912508DC5B00DFD80F /* Brandon_light_it.otf */; };
+		EEA8EF9E2508DC5C00DFD80F /* Brandon_thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF922508DC5B00DFD80F /* Brandon_thin.otf */; };
+		EEA8EF9F2508DC5C00DFD80F /* Brandon_thin_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF932508DC5B00DFD80F /* Brandon_thin_it.otf */; };
+		EEA8EFA02508DC5C00DFD80F /* Brandon_bld_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF942508DC5B00DFD80F /* Brandon_bld_it.otf */; };
+		EEA8EFA12508DC5C00DFD80F /* Brandon_blk_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF952508DC5B00DFD80F /* Brandon_blk_it.otf */; };
+		EEA8EFA22508DC5C00DFD80F /* Brandon_bld.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF962508DC5B00DFD80F /* Brandon_bld.otf */; };
+		EEA8EFA32508DC5C00DFD80F /* Brandon_med.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF972508DC5B00DFD80F /* Brandon_med.otf */; };
+		EEA8EFA42508DC5C00DFD80F /* Brandon_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF982508DC5B00DFD80F /* Brandon_light.otf */; };
+		EEA8EFA52508DC5C00DFD80F /* Brandon_blk.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF992508DC5B00DFD80F /* Brandon_blk.otf */; };
+		EEA8EFA62508DC5C00DFD80F /* Brandon_reg.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF9A2508DC5C00DFD80F /* Brandon_reg.otf */; };
+		EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */; };
+		EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFA82508DC7F00DFD80F /* Login.storyboard */; };
+		EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +81,20 @@
 		EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPicsTableCell.swift; sourceTree = "<group>"; };
 		EEA8EF8C2508D73100DFD80F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		EEA8EF902508DC5B00DFD80F /* Brandon_reg_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_reg_it.otf; sourceTree = "<group>"; };
+		EEA8EF912508DC5B00DFD80F /* Brandon_light_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_light_it.otf; sourceTree = "<group>"; };
+		EEA8EF922508DC5B00DFD80F /* Brandon_thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_thin.otf; sourceTree = "<group>"; };
+		EEA8EF932508DC5B00DFD80F /* Brandon_thin_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_thin_it.otf; sourceTree = "<group>"; };
+		EEA8EF942508DC5B00DFD80F /* Brandon_bld_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_bld_it.otf; sourceTree = "<group>"; };
+		EEA8EF952508DC5B00DFD80F /* Brandon_blk_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_blk_it.otf; sourceTree = "<group>"; };
+		EEA8EF962508DC5B00DFD80F /* Brandon_bld.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_bld.otf; sourceTree = "<group>"; };
+		EEA8EF972508DC5B00DFD80F /* Brandon_med.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_med.otf; sourceTree = "<group>"; };
+		EEA8EF982508DC5B00DFD80F /* Brandon_light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_light.otf; sourceTree = "<group>"; };
+		EEA8EF992508DC5B00DFD80F /* Brandon_blk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_blk.otf; sourceTree = "<group>"; };
+		EEA8EF9A2508DC5C00DFD80F /* Brandon_reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_reg.otf; sourceTree = "<group>"; };
+		EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_med_it.otf; sourceTree = "<group>"; };
+		EEA8EFA82508DC7F00DFD80F /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DashBoard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +125,18 @@
 		EE0887C825089C6F00FC8FDB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				EEA8EF942508DC5B00DFD80F /* Brandon_bld_it.otf */,
+				EEA8EF962508DC5B00DFD80F /* Brandon_bld.otf */,
+				EEA8EF952508DC5B00DFD80F /* Brandon_blk_it.otf */,
+				EEA8EF992508DC5B00DFD80F /* Brandon_blk.otf */,
+				EEA8EF912508DC5B00DFD80F /* Brandon_light_it.otf */,
+				EEA8EF982508DC5B00DFD80F /* Brandon_light.otf */,
+				EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */,
+				EEA8EF972508DC5B00DFD80F /* Brandon_med.otf */,
+				EEA8EF902508DC5B00DFD80F /* Brandon_reg_it.otf */,
+				EEA8EF9A2508DC5C00DFD80F /* Brandon_reg.otf */,
+				EEA8EF932508DC5B00DFD80F /* Brandon_thin_it.otf */,
+				EEA8EF922508DC5B00DFD80F /* Brandon_thin.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -105,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
+				EE0887C825089C6F00FC8FDB /* Fonts */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -137,7 +178,6 @@
 				EE31C6FD250775B900E87E98 /* Delegates */,
 				EE31C6FE250775CC00E87E98 /* Story Boards */,
 				EE31C7012507760600E87E98 /* View Controllers */,
-				EE0887C825089C6F00FC8FDB /* Fonts */,
 				EE31C6D6250774E300E87E98 /* Assets.xcassets */,
 				EE31C6D8250774E300E87E98 /* LaunchScreen.storyboard */,
 				EE31C6DB250774E300E87E98 /* Info.plist */,
@@ -176,6 +216,8 @@
 		EE31C6FE250775CC00E87E98 /* Story Boards */ = {
 			isa = PBXGroup;
 			children = (
+				EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */,
+				EEA8EFA82508DC7F00DFD80F /* Login.storyboard */,
 				EE31C6D0250774DF00E87E98 /* Main.storyboard */,
 			);
 			path = "Story Boards";
@@ -315,9 +357,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */,
 				EE31C6DA250774E300E87E98 /* LaunchScreen.storyboard in Resources */,
+				EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */,
+				EEA8EFA52508DC5C00DFD80F /* Brandon_blk.otf in Resources */,
+				EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */,
+				EEA8EF9D2508DC5C00DFD80F /* Brandon_light_it.otf in Resources */,
+				EEA8EFA02508DC5C00DFD80F /* Brandon_bld_it.otf in Resources */,
 				EE31C6D7250774E300E87E98 /* Assets.xcassets in Resources */,
+				EEA8EF9E2508DC5C00DFD80F /* Brandon_thin.otf in Resources */,
+				EEA8EF9C2508DC5C00DFD80F /* Brandon_reg_it.otf in Resources */,
+				EEA8EFA62508DC5C00DFD80F /* Brandon_reg.otf in Resources */,
+				EEA8EFA12508DC5C00DFD80F /* Brandon_blk_it.otf in Resources */,
+				EEA8EFA42508DC5C00DFD80F /* Brandon_light.otf in Resources */,
+				EEA8EFA22508DC5C00DFD80F /* Brandon_bld.otf in Resources */,
 				EE31C6D2250774DF00E87E98 /* Main.storyboard in Resources */,
+				EEA8EFA32508DC5C00DFD80F /* Brandon_med.otf in Resources */,
+				EEA8EF9F2508DC5C00DFD80F /* Brandon_thin_it.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
