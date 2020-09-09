@@ -22,6 +22,8 @@
 		EE31C70A2507931600E87E98 /* VerifyPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */; };
 		EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */; };
 		EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */; };
+		EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8C2508D73100DFD80F /* Constants.swift */; };
+		EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneVC.swift; sourceTree = "<group>"; };
 		EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVC.swift; sourceTree = "<group>"; };
 		EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPicsTableCell.swift; sourceTree = "<group>"; };
+		EEA8EF8C2508D73100DFD80F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 		EE0887CA25089C8D00FC8FDB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 				EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */,
 				EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */,
 				EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */,
+				EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -337,12 +343,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
+				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
 				EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */,
 				EE31C704250777C800E87E98 /* SplashVC.swift in Sources */,
 				EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */,
 				EE31C6CD250774DF00E87E98 /* SceneDelegate.swift in Sources */,
 				EE31C70825078B8700E87E98 /* RegisterVC.swift in Sources */,
 				EE31C6D5250774DF00E87E98 /* ChappanBhog.xcdatamodeld in Sources */,
+				EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */,
 				EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */,
 				EE31C70625078A9200E87E98 /* SignInVC.swift in Sources */,
 				EE31C70A2507931600E87E98 /* VerifyPhoneVC.swift in Sources */,
@@ -520,7 +528,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CCU5ALPCMX;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -540,7 +548,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CCU5ALPCMX;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
