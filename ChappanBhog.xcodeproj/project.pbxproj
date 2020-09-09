@@ -22,6 +22,11 @@
 		EE31C70A2507931600E87E98 /* VerifyPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */; };
 		EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */; };
 		EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */; };
+		EE82482725090EDC00C263F1 /* AboutVCcontact.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482625090EDC00C263F1 /* AboutVCcontact.swift */; };
+		EE8248292509152100C263F1 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE8248282509152100C263F1 /* Colors.xcassets */; };
+		EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482B25093F0700C263F1 /* CartViewVC.swift */; };
+		EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482D25093FD500C263F1 /* CartTableCell.swift */; };
+		EE8248302509438800C263F1 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482F2509438800C263F1 /* PaymentVC.swift */; };
 		EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8C2508D73100DFD80F /* Constants.swift */; };
 		EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */; };
 		EEA8EF9C2508DC5C00DFD80F /* Brandon_reg_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF902508DC5B00DFD80F /* Brandon_reg_it.otf */; };
@@ -79,6 +84,11 @@
 		EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneVC.swift; sourceTree = "<group>"; };
 		EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVC.swift; sourceTree = "<group>"; };
 		EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPicsTableCell.swift; sourceTree = "<group>"; };
+		EE82482625090EDC00C263F1 /* AboutVCcontact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVCcontact.swift; sourceTree = "<group>"; };
+		EE8248282509152100C263F1 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		EE82482B25093F0700C263F1 /* CartViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewVC.swift; sourceTree = "<group>"; };
+		EE82482D25093FD500C263F1 /* CartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableCell.swift; sourceTree = "<group>"; };
+		EE82482F2509438800C263F1 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		EEA8EF8C2508D73100DFD80F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		EEA8EF902508DC5B00DFD80F /* Brandon_reg_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_reg_it.otf; sourceTree = "<group>"; };
@@ -178,7 +188,7 @@
 				EE31C6FD250775B900E87E98 /* Delegates */,
 				EE31C6FE250775CC00E87E98 /* Story Boards */,
 				EE31C7012507760600E87E98 /* View Controllers */,
-				EE31C6D6250774E300E87E98 /* Assets.xcassets */,
+				EE82482A2509152700C263F1 /* Assets */,
 				EE31C6D8250774E300E87E98 /* LaunchScreen.storyboard */,
 				EE31C6DB250774E300E87E98 /* Info.plist */,
 				EE31C6D3250774DF00E87E98 /* ChappanBhog.xcdatamodeld */,
@@ -234,6 +244,9 @@
 				EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */,
 				EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */,
 				EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */,
+				EE82482625090EDC00C263F1 /* AboutVCcontact.swift */,
+				EE82482F2509438800C263F1 /* PaymentVC.swift */,
+				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -249,8 +262,18 @@
 			isa = PBXGroup;
 			children = (
 				EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */,
+				EE82482D25093FD500C263F1 /* CartTableCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		EE82482A2509152700C263F1 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				EE31C6D6250774E300E87E98 /* Assets.xcassets */,
+				EE8248282509152100C263F1 /* Colors.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +389,7 @@
 				EEA8EFA02508DC5C00DFD80F /* Brandon_bld_it.otf in Resources */,
 				EE31C6D7250774E300E87E98 /* Assets.xcassets in Resources */,
 				EEA8EF9E2508DC5C00DFD80F /* Brandon_thin.otf in Resources */,
+				EE8248292509152100C263F1 /* Colors.xcassets in Resources */,
 				EEA8EF9C2508DC5C00DFD80F /* Brandon_reg_it.otf in Resources */,
 				EEA8EFA62508DC5C00DFD80F /* Brandon_reg.otf in Resources */,
 				EEA8EFA12508DC5C00DFD80F /* Brandon_blk_it.otf in Resources */,
@@ -398,8 +422,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE82482725090EDC00C263F1 /* AboutVCcontact.swift in Sources */,
+				EE8248302509438800C263F1 /* PaymentVC.swift in Sources */,
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
+				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
+				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
 				EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */,
 				EE31C704250777C800E87E98 /* SplashVC.swift in Sources */,
 				EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */,
