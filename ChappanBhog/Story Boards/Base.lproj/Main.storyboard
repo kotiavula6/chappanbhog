@@ -3231,7 +3231,134 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OEs-bV-agb">
                                 <rect key="frame" x="0.0" y="110" width="375" height="557"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pQa-sN-VZz">
+                                        <rect key="frame" x="25" y="25" width="325" height="200"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9vh-lE-01Q">
+                                                <rect key="frame" x="20" y="30" width="285" height="150"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAb-OS-HYE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="285" height="37.5"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HiV-bY-r7H">
+                                                                <rect key="frame" x="0.0" y="0.0" width="285" height="37.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="HiV-bY-r7H" secondAttribute="bottom" id="881-KI-lPj"/>
+                                                            <constraint firstItem="HiV-bY-r7H" firstAttribute="top" secondItem="ZAb-OS-HYE" secondAttribute="top" id="YOA-rv-G3q"/>
+                                                            <constraint firstAttribute="trailing" secondItem="HiV-bY-r7H" secondAttribute="trailing" id="iFC-7g-ijg"/>
+                                                            <constraint firstItem="HiV-bY-r7H" firstAttribute="leading" secondItem="ZAb-OS-HYE" secondAttribute="leading" id="ps9-lM-u04"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okK-gR-BNq">
+                                                        <rect key="frame" x="0.0" y="37.5" width="285" height="37.5"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7VA-SM-OT3">
+                                                                <rect key="frame" x="0.0" y="0.0" width="285" height="37.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="7VA-SM-OT3" secondAttribute="trailing" id="3j0-Rm-myB"/>
+                                                            <constraint firstItem="7VA-SM-OT3" firstAttribute="leading" secondItem="okK-gR-BNq" secondAttribute="leading" id="755-I3-YoO"/>
+                                                            <constraint firstItem="7VA-SM-OT3" firstAttribute="top" secondItem="okK-gR-BNq" secondAttribute="top" id="UdB-5U-myH"/>
+                                                            <constraint firstAttribute="bottom" secondItem="7VA-SM-OT3" secondAttribute="bottom" id="nQg-dy-Wr0"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ky9-yK-8eP">
+                                                        <rect key="frame" x="0.0" y="75" width="285" height="37.5"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tS9-6E-6sH">
+                                                                <rect key="frame" x="0.0" y="0.0" width="285" height="37.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="tS9-6E-6sH" secondAttribute="trailing" id="CUb-vx-WHR"/>
+                                                            <constraint firstItem="tS9-6E-6sH" firstAttribute="top" secondItem="ky9-yK-8eP" secondAttribute="top" id="elj-a8-ebG"/>
+                                                            <constraint firstItem="tS9-6E-6sH" firstAttribute="leading" secondItem="ky9-yK-8eP" secondAttribute="leading" id="g0f-zh-pCT"/>
+                                                            <constraint firstAttribute="bottom" secondItem="tS9-6E-6sH" secondAttribute="bottom" id="wYN-MU-NqE"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zxx-Er-WQQ">
+                                                        <rect key="frame" x="0.0" y="112.5" width="285" height="37.5"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zY4-u9-Kyg">
+                                                                <rect key="frame" x="0.0" y="0.0" width="285" height="37.5"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="UPDATE PASSWORD">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="zY4-u9-Kyg" firstAttribute="top" secondItem="Zxx-Er-WQQ" secondAttribute="top" id="Kr0-NJ-z76"/>
+                                                            <constraint firstAttribute="trailing" secondItem="zY4-u9-Kyg" secondAttribute="trailing" id="UZl-vD-6g3"/>
+                                                            <constraint firstItem="zY4-u9-Kyg" firstAttribute="leading" secondItem="Zxx-Er-WQQ" secondAttribute="leading" id="WYW-wr-Qqc"/>
+                                                            <constraint firstAttribute="bottom" secondItem="zY4-u9-Kyg" secondAttribute="bottom" id="kpJ-qd-KNr"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="9vh-lE-01Q" secondAttribute="trailing" constant="20" id="56g-0U-YpO"/>
+                                            <constraint firstAttribute="height" constant="200" id="7e1-48-MoP"/>
+                                            <constraint firstItem="9vh-lE-01Q" firstAttribute="leading" secondItem="pQa-sN-VZz" secondAttribute="leading" constant="20" id="HKA-Zy-iSg"/>
+                                            <constraint firstItem="9vh-lE-01Q" firstAttribute="top" secondItem="pQa-sN-VZz" secondAttribute="top" constant="30" id="LBF-BE-ucK"/>
+                                            <constraint firstAttribute="bottom" secondItem="9vh-lE-01Q" secondAttribute="bottom" constant="20" id="yRs-4a-1Yu"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="pQa-sN-VZz" secondAttribute="trailing" constant="25" id="Zlg-TU-Gy1"/>
+                                    <constraint firstItem="pQa-sN-VZz" firstAttribute="top" secondItem="OEs-bV-agb" secondAttribute="top" constant="25" id="mBa-oF-ASO"/>
+                                    <constraint firstItem="pQa-sN-VZz" firstAttribute="leading" secondItem="OEs-bV-agb" secondAttribute="leading" constant="25" id="mU0-0u-UEE"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
