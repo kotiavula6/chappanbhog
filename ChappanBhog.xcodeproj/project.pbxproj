@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */; };
+		EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */; };
+		EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */; };
+		EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25617B2509FEE3001C54AA /* MyOrderVC.swift */; };
 		EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C6CA250774DF00E87E98 /* AppDelegate.swift */; };
 		EE31C6CD250774DF00E87E98 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C6CC250774DF00E87E98 /* SceneDelegate.swift */; };
 		EE31C6D2250774DF00E87E98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE31C6D0250774DF00E87E98 /* Main.storyboard */; };
@@ -67,6 +70,9 @@
 
 /* Begin PBXFileReference section */
 		EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardCategoriesVC.swift; sourceTree = "<group>"; };
+		EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordVC.swift; sourceTree = "<group>"; };
+		EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackYourOrderVC.swift; sourceTree = "<group>"; };
+		EE25617B2509FEE3001C54AA /* MyOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderVC.swift; sourceTree = "<group>"; };
 		EE31C6C7250774DF00E87E98 /* ChappanBhog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChappanBhog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE31C6CA250774DF00E87E98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE31C6CC250774DF00E87E98 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -255,7 +261,10 @@
 				EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */,
 				EE82482625090EDC00C263F1 /* AboutVCcontact.swift */,
 				EE82482F2509438800C263F1 /* PaymentVC.swift */,
+				EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */,
 				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
+				EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */,
+				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -435,6 +444,7 @@
 				EE8248302509438800C263F1 /* PaymentVC.swift in Sources */,
 				EE52F4B52509D5250026BE68 /* Inspectable.swift in Sources */,
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
+				EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
@@ -449,6 +459,8 @@
 				EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */,
 				EE31C70625078A9200E87E98 /* SignInVC.swift in Sources */,
 				EE52F4B32509D4440026BE68 /* Uiview+IBinspectable.swift in Sources */,
+				EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */,
+				EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */,
 				EE31C70A2507931600E87E98 /* VerifyPhoneVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
