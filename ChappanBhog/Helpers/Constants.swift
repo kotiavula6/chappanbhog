@@ -11,6 +11,11 @@ import UIKit
 
 //MARK:- BACKGROUND GRADIENT COLOR
 
+let SCREEN_WIDTH =  UIScreen.main.bounds.size.width
+let SCREEN_HEIGHT =  UIScreen.main.bounds.size.height
+let SCREEN_MAX_LENGTH = max(SCREEN_WIDTH, SCREEN_HEIGHT)
+let SCREEN_MIN_LENGTH = min(SCREEN_WIDTH, SCREEN_HEIGHT)
+
 func setGradientBackground(view: UIView) {
     let colorTop =  UIColor(red: 252.0/255.0, green: 167.0/255.0, blue: 51.0/255.0, alpha: 1.0).cgColor
     let colorBottom = UIColor(red: 229/255.0, green: 112.0/255.0, blue: 28.0/255.0, alpha: 1.0).cgColor
@@ -218,6 +223,7 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+
 func setShadowRadius(view:UIView) {
     view.layer.shadowColor = UIColor.black.cgColor
     view.layer.shadowOffset = CGSize(width: 0, height: 2.0)
@@ -227,3 +233,37 @@ func setShadowRadius(view:UIView) {
     //view.layer.masksToBounds = true
 }
 
+func setShadowatBottom (view: UIView, color: UIColor, shadowRadius: CGFloat) {
+    
+    view.layer.shadowColor = color.cgColor
+    view.layer.shadowOpacity = 0.5
+    view.layer.shadowRadius = shadowRadius
+    view.layer.shadowOffset = CGSize(width: 0, height: shadowRadius)
+    view.layer.masksToBounds = false
+    view.layoutIfNeeded()
+}
+
+func setBorder (view: UIView, color: UIColor, width: CGFloat) {
+    
+    view.layer.borderColor = color.cgColor
+    view.layer.borderWidth = width
+}
+
+struct AppConstant
+{
+    static let Size : CGSize  = UIScreen.main.bounds.size;
+    static let SCREEN_WIDTH = Size.width;
+    static let SCREEN_HEIGHT = Size.height;
+    static let APP_DELEGATES = UIApplication.shared.delegate as! AppDelegate
+    static let APP_STOREBOARD: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    
+    static let LOGIN_STOREBOARD: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
+    
+}
+func ShowAlert(AlertTitle: String,AlertDisc: String, View:UIViewController)
+   {
+       print(AlertTitle)
+       let alert = UIAlertController(title: AlertTitle, message: AlertDisc, preferredStyle: UIAlertController.Style.alert)
+       alert.addAction(UIAlertAction(title:"Ok", style: UIAlertAction.Style.default, handler: nil))
+       View.present(alert, animated: true, completion: nil)
+   }

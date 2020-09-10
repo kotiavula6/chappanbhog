@@ -18,16 +18,16 @@ class AboutVCcontact: UIViewController {
 
         // Do any additional setup after loading the view.
         DispatchQueue.main.async {
-                 setGradientBackground(view: self.gradientView)
-                 
-                 self.backView.layer.cornerRadius = 30
-                     self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            setGradientBackground(view: self.gradientView)
+            
+            self.backView.layer.cornerRadius = 30
+            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
             self.scrollview.layer.cornerRadius = 30
-                              self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
-          //  scrollview
-             }
+            //  scrollview
+        }
         
     }
     
