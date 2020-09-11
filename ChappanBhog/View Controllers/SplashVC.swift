@@ -13,7 +13,10 @@ class SplashVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        DispatchQueue.main.async {
+            setGradientBackground(view: self.view)
+        }
+ 
     }
     
 

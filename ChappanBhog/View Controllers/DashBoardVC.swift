@@ -10,21 +10,100 @@ import UIKit
 
 class DashBoardVC: UIViewController {
 
+
+    @IBOutlet weak var topPicsTableConstants: NSLayoutConstraint!
+    @IBOutlet weak var topPicsTable: UITableView!
+    @IBOutlet weak var searchBackView: UIView!
+    @IBOutlet weak var topPageCollection: UICollectionView!
+    @IBOutlet weak var productsCatCollection: UICollectionView!
+    @IBOutlet weak var alertView: UIView!
+    @IBOutlet weak var alertLBL: UILabel!
+    @IBOutlet weak var cartItemsLBL: UILabel!
+    @IBOutlet weak var searchTF: UITextField!
+    
+    @IBOutlet weak var backView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        DispatchQueue.main.async {
+            setGradientBackground(view: self.view)
+            self.backView.layer.cornerRadius = 30
+            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            
+            self.searchBackView.cornerRadius = self.searchBackView.frame.height/2
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func cartButtonAction(_ sender: UIButton) {
+        
     }
-    */
+    
+    @IBAction func menuButtonAction(_ sender: UIButton) {
+        
+        
+    }
+}
+extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TopPicsTableCell") as! TopPicsTableCell
+        DispatchQueue.main.async {
+            self.topPicsTableConstants.constant = self.topPicsTable.contentSize.height
+        }
+      
+        return cell
+    }
+
+
+}
+extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == topPageCollection {
+            let cell = topPageCollection.dequeueReusableCell(withReuseIdentifier: "DashboardPageCollectionCell", for: indexPath) as! DashboardPageCollectionCell
+            return cell
+        }
+        else {
+            let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
+            return cell
+        }
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == topPageCollection {
+            return CGSize(width: topPageCollection.frame.width, height: topPageCollection.frame.height)
+        }else {
+            return CGSize(width: productsCatCollection.frame.width/3.2, height: productsCatCollection.frame.height)
+        }
+    }
+
+
+}
+
+
+class DashboardPageCollectionCell: UICollectionViewCell {
+    
+    @IBOutlet weak var bannerIMG: UIImageView!
+    override func awakeFromNib() {
+        setShadowRadius(view: bannerIMG)
+    }
+}
+
+class DashboardProdutsCatCollectionCell: UICollectionViewCell {
+    
+    @IBOutlet weak var productIMG: UIImageView!
+    override func awakeFromNib() {
+        setShadowRadius(view: productIMG)
+    }
 }

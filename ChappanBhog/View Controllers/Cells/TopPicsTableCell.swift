@@ -10,7 +10,10 @@ import UIKit
 
 class TopPicsTableCell: UITableViewCell {
 
- 
-   
-
+    @IBOutlet weak var shadowView: UIView!
+    
+    override func awakeFromNib() {
+        setShadowRadius(view: shadowView)
+    }
+    
 }
