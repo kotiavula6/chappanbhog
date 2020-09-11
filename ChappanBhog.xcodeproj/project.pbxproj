@@ -25,6 +25,8 @@
 		EE31C70A2507931600E87E98 /* VerifyPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */; };
 		EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */; };
 		EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */; };
+		EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE458EE4250BA63B00BAA7E7 /* OurMenuVC.swift */; };
+		EE458EE7250BAB2300BAA7E7 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE458EE6250BAB2300BAA7E7 /* NotificationsVC.swift */; };
 		EE52F4B12509D3F00026BE68 /* UIColor+NewColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F4B02509D3F00026BE68 /* UIColor+NewColors.swift */; };
 		EE52F4B32509D4440026BE68 /* Uiview+IBinspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F4B22509D4440026BE68 /* Uiview+IBinspectable.swift */; };
 		EE52F4B52509D5250026BE68 /* Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F4B42509D5250026BE68 /* Inspectable.swift */; };
@@ -49,6 +51,8 @@
 		EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */; };
 		EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFA82508DC7F00DFD80F /* Login.storyboard */; };
 		EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */; };
+		EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */; };
+		EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B20250B9598000671EA /* MyAccountVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +97,8 @@
 		EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneVC.swift; sourceTree = "<group>"; };
 		EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVC.swift; sourceTree = "<group>"; };
 		EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPicsTableCell.swift; sourceTree = "<group>"; };
+		EE458EE4250BA63B00BAA7E7 /* OurMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurMenuVC.swift; sourceTree = "<group>"; };
+		EE458EE6250BAB2300BAA7E7 /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		EE52F4B02509D3F00026BE68 /* UIColor+NewColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NewColors.swift"; sourceTree = "<group>"; };
 		EE52F4B22509D4440026BE68 /* Uiview+IBinspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uiview+IBinspectable.swift"; sourceTree = "<group>"; };
 		EE52F4B42509D5250026BE68 /* Inspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspectable.swift; sourceTree = "<group>"; };
@@ -117,6 +123,8 @@
 		EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_med_it.otf; sourceTree = "<group>"; };
 		EEA8EFA82508DC7F00DFD80F /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DashBoard.storyboard; sourceTree = "<group>"; };
+		EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAddressVC.swift; sourceTree = "<group>"; };
+		EEDD1B20250B9598000671EA /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +273,10 @@
 				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
 				EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */,
 				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
+				EEDD1B20250B9598000671EA /* MyAccountVC.swift */,
+				EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */,
+				EE458EE4250BA63B00BAA7E7 /* OurMenuVC.swift */,
+				EE458EE6250BAB2300BAA7E7 /* NotificationsVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -445,9 +457,13 @@
 				EE52F4B52509D5250026BE68 /* Inspectable.swift in Sources */,
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
 				EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */,
+				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
+				EE458EE7250BAB2300BAA7E7 /* NotificationsVC.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
+				EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
+				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */,
 				EE31C704250777C800E87E98 /* SplashVC.swift in Sources */,
 				EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */,
