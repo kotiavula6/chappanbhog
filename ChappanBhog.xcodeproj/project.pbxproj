@@ -36,6 +36,8 @@
 		EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482B25093F0700C263F1 /* CartViewVC.swift */; };
 		EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482D25093FD500C263F1 /* CartTableCell.swift */; };
 		EE8248302509438800C263F1 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482F2509438800C263F1 /* PaymentVC.swift */; };
+		EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA13A0C250F5639004E9252 /* CommonMethods.swift */; };
+		EEA13A0F250F5685004E9252 /* SidMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA13A0E250F5685004E9252 /* SidMenuVC.swift */; };
 		EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */; };
 		EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8C2508D73100DFD80F /* Constants.swift */; };
 		EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */; };
@@ -110,6 +112,8 @@
 		EE82482B25093F0700C263F1 /* CartViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewVC.swift; sourceTree = "<group>"; };
 		EE82482D25093FD500C263F1 /* CartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableCell.swift; sourceTree = "<group>"; };
 		EE82482F2509438800C263F1 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
+		EEA13A0C250F5639004E9252 /* CommonMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
+		EEA13A0E250F5685004E9252 /* SidMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidMenuVC.swift; sourceTree = "<group>"; };
 		EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchRecordVC.swift; sourceTree = "<group>"; };
 		EEA8EF8C2508D73100DFD80F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
+				EEA13A0C250F5639004E9252 /* CommonMethods.swift */,
 				EE52F4B02509D3F00026BE68 /* UIColor+NewColors.swift */,
 				EE52F4B22509D4440026BE68 /* Uiview+IBinspectable.swift */,
 				EE52F4B42509D5250026BE68 /* Inspectable.swift */,
@@ -275,6 +280,7 @@
 				EE82482F2509438800C263F1 /* PaymentVC.swift */,
 				EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */,
 				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
+				EEA13A0E250F5685004E9252 /* SidMenuVC.swift */,
 				EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */,
 				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 				EEDD1B20250B9598000671EA /* MyAccountVC.swift */,
@@ -466,9 +472,11 @@
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
 				EE458EE7250BAB2300BAA7E7 /* NotificationsVC.swift in Sources */,
+				EEA13A0F250F5685004E9252 /* SidMenuVC.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
 				EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
+				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */,
 				EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */,

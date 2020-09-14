@@ -249,17 +249,7 @@ func setBorder (view: UIView, color: UIColor, width: CGFloat) {
     view.layer.borderWidth = width
 }
 
-struct AppConstant
-{
-    static let Size : CGSize  = UIScreen.main.bounds.size;
-    static let SCREEN_WIDTH = Size.width;
-    static let SCREEN_HEIGHT = Size.height;
-    static let APP_DELEGATES = UIApplication.shared.delegate as! AppDelegate
-    static let APP_STOREBOARD: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    
-    static let LOGIN_STOREBOARD: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
-    
-}
+
 func ShowAlert(AlertTitle: String,AlertDisc: String, View:UIViewController)
    {
        print(AlertTitle)

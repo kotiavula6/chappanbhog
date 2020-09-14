@@ -11,6 +11,7 @@ import UIKit
 class DashBoardVC: UIViewController {
 
 
+    @IBOutlet weak var alertHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var topPicsTableConstants: NSLayoutConstraint!
     @IBOutlet weak var topPicsTable: UITableView!
     @IBOutlet weak var searchBackView: UIView!
@@ -25,6 +26,11 @@ class DashBoardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(menuClicked))
+              swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+              self.view.addGestureRecognizer(swipeRight)
+        
         // Do any additional setup after loading the view.
         DispatchQueue.main.async {
             setGradientBackground(view: self.view)
@@ -32,7 +38,18 @@ class DashBoardVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
             self.searchBackView.cornerRadius = self.searchBackView.frame.height/2
+            self.alertHeightConstant.constant = 0
         }
+    }
+    
+    @objc func menuClicked() {
+          openMenuPanel(self)
+      }
+    
+    
+    @IBAction func openMenu(_ sender: UIButton) {
+        
+     openMenuPanel(self)
     }
     
     @IBAction func cartButtonAction(_ sender: UIButton) {

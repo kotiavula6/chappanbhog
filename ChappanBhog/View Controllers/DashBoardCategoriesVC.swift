@@ -24,9 +24,14 @@ class DashBoardCategoriesVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func openMenu(_ sender: UIButton) {
+        
+        
+        
+    }
 }
 
-extension DashBoardCategoriesVC:UICollectionViewDelegate,UICollectionViewDataSource {
+extension DashBoardCategoriesVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 15
@@ -36,15 +41,20 @@ extension DashBoardCategoriesVC:UICollectionViewDelegate,UICollectionViewDataSou
         let cell = catCollection.dequeueReusableCell(withReuseIdentifier: "DashboardCategCollCell", for: indexPath) as! DashboardCategCollCell
         
         if indexPath.row%2 == 0 {
+            
             cell.bottomViewHeightConstraint.constant = 0
-            cell.topViewHeightConstraint.constant = 150
+           
         }else {
             cell.topViewHeightConstraint.constant = 0
-            cell.bottomViewHeightConstraint.constant = 100
+           
         }
-        catCollection.layoutIfNeeded()
+        
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: catCollection.frame.width/2.3, height: catCollection.frame.height/2)
+    }
+    
     
     
 }
