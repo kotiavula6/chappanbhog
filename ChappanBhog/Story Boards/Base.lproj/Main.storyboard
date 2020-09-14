@@ -1031,6 +1031,9 @@
                                         <rect key="frame" x="45" y="0.0" width="270" height="45"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Light" family="Brandon Grotesque" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="searchTFAction:" destination="vVV-P0-LQe" eventType="editingDidBegin" id="5mG-US-Jfc"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

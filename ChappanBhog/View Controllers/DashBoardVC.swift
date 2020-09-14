@@ -67,6 +67,15 @@ class DashBoardVC: UIViewController {
         
         
     }
+    
+    
+    @IBAction func searchTFAction(_ sender: UITextField) {
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
+             self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
 }
 extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
