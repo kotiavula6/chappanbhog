@@ -88,11 +88,7 @@ extension UITextField {
         self.attributedPlaceholder = NSAttributedString(string: strPH, attributes: [NSAttributedString.Key.foregroundColor : color])
     }
     
-    func givingTextfieldLeftPadding(padding: CGFloat) {
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: self.bounds.height))
-        leftView = paddingView
-        leftViewMode = .always
-    }
+
     
     func setLeftIcon(_ icon: UIImage, padding: CGFloat, widthSize: CGFloat, heightSize: CGFloat) {
         let outerView = UIView(frame: CGRect(x: 0, y: 0, width: widthSize+padding, height: heightSize) )
@@ -257,3 +253,15 @@ func ShowAlert(AlertTitle: String,AlertDisc: String, View:UIViewController)
        alert.addAction(UIAlertAction(title:"Ok", style: UIAlertAction.Style.default, handler: nil))
        View.present(alert, animated: true, completion: nil)
    }
+extension UITextField {
+    func setLeftPaddingPoints(_ amount:CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
+    func setRightPaddingPoints(_ amount:CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.rightView = paddingView
+        self.rightViewMode = .always
+    }
+}

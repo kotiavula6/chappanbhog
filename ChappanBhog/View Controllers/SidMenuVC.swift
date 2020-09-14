@@ -13,6 +13,7 @@ let ScreenHeight = UIScreen.main.bounds.height
 
 class SidMenuVC: UIViewController {
 
+//    @IBOutlet weak var sideTable: UITableView!
     
     @IBOutlet weak var menuView: UIView!
     
@@ -35,19 +36,17 @@ class SidMenuVC: UIViewController {
     
     @IBAction func AboutClicked(_ sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AboutVC") as! AboutVC
-                   self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func CartClicked(_ sender: UIButton) {
     
-        let vc = storyboard?.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
-              self.navigationController?.pushViewController(vc, animated: true)
+
         
     }
     
     @IBAction func settingsClicked(_ sender: UIButton) {
-//        let vc = storyboard?.instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
-//              self.navigationController?.pushViewController(vc, animated: true)
+  
         
     }
     @IBAction func MyAccountClicked(_ sender: UIButton) {
@@ -87,3 +86,37 @@ class SidMenuVC: UIViewController {
 
     
 }
+//extension SidMenuVC:UITableViewDelegate,UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 10
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")   as? UITableViewCell
+//        cell?.textLabel?.text = "koooo"
+//
+//        return cell ?? UITableViewCell()
+//    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//
+//        UserDefaults.standard.set(indexPath.section, forKey:"viewController")
+//                 UIView.animate(withDuration: 0.3, animations:
+//                     {
+//                         self.leftMenuWidthConstant.constant = 0
+//                         self.view.layoutIfNeeded();
+//                 }, completion:
+//                     {
+//                         _ in
+//                         self.view.layoutIfNeeded();
+//                         self.dismiss(animated: false, completion:
+//                             {
+//                               let Notificationlist = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
+//                                      let nav = UINavigationController(rootViewController: Notificationlist)
+//                                      AppConstant.APP_DELEGATES.window!.rootViewController = nav
+//                         });
+//                 })
+//    }
+//
+//
+//}

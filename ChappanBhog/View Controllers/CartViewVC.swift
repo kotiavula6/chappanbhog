@@ -13,6 +13,7 @@ class CartViewVC: UIViewController {
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var cartLBL: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +22,20 @@ class CartViewVC: UIViewController {
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
             
         }
     }
+    @IBAction func backButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
-
-
+    @IBAction func increaseButtonClicked(_ sender: UIButton) {
+    }
+    
+    @IBAction func decreseButtonClicked(_ sender: UIButton) {
+    }
+    
 }
 extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

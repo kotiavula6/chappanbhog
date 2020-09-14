@@ -43,4 +43,9 @@ class ProductInfoVC: UIViewController {
         
     }
     
+    @IBAction func payButtonClicked(_ sender: UIButton) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+                       self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

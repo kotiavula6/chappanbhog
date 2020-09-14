@@ -11,6 +11,7 @@ import UIKit
 class DashBoardVC: UIViewController {
 
 
+    @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var alertHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var topPicsTableConstants: NSLayoutConstraint!
     @IBOutlet weak var topPicsTable: UITableView!
@@ -39,12 +40,18 @@ class DashBoardVC: UIViewController {
             
             self.searchBackView.cornerRadius = self.searchBackView.frame.height/2
             self.alertHeightConstant.constant = 0
+            self.cartLBL.cornerRadius = self.cartLBL.frame.height/2
         }
     }
     
     @objc func menuClicked() {
           openMenuPanel(self)
       }
+    @IBAction func cartButtonClicked(_ sender: UIButton) {
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     
     @IBAction func openMenu(_ sender: UIButton) {
@@ -74,6 +81,10 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         }
       
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+                       self.navigationController?.pushViewController(vc, animated: true)
     }
 
 

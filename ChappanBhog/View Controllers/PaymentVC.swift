@@ -33,7 +33,13 @@ class PaymentVC: UIViewController {
     }
     
 
-   
+    @IBAction func makePaymentButtonClicked(_ sender: Any) {
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
+    
 }
 extension PaymentVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
