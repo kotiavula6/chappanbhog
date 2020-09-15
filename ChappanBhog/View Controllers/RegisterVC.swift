@@ -9,13 +9,14 @@
 import UIKit
 
 class RegisterVC: UIViewController {
-
+    
+    @IBOutlet weak var flagIMG: UIImageView!
     @IBOutlet weak var countryContainer: UIView!
     @IBOutlet weak var mobileTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var countryCodeTF: UITextField!
     
-    var countryContaine:countryContainer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,23 +25,32 @@ class RegisterVC: UIViewController {
              mobileTF.setLeftPaddingPoints(10)
              emailTF.setLeftPaddingPoints(10)
              nameTF.setLeftPaddingPoints(10)
+            ViewSetUp()
     }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "" {
+
+
+    @IBAction func selectCountryTF(_ sender: UITextField) {
+        
+        let countryCodesViewController = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "COUNTRYCODES_STORY_IDENTIFIER") as? CountryCodesViewController
+            countryCodesViewController?.selectedTF = countryCodeTF
+            countryCodesViewController?.selectedImageView = flagIMG
+            countryCodesViewController?.modalPresentationStyle = .fullScreen
             
-            countryContaine = segue.destination as? countryContainer
-            countryContaine?.closeAction = {
-                self.view.sendSubviewToBack(self.countryContainer)
-            }
-        }
-    }
-    
-    @IBAction func countryCodeClicked(_ sender: UIButton) {
-        self.view.bringSubviewToFront(countryContainer)
+            let navigationController = UINavigationController(rootViewController: countryCodesViewController!)
+            navigationController.modalPresentationStyle = .fullScreen
+            
+            self.navigationController?.present(navigationController, animated: true, completion: nil)
         
     }
+    
+    func ViewSetUp() {
+        
+//        selectedCountryDictionary = getDefaultCountryDetailsOfDevice()
+        countryCodeTF.text =  (selectedCountryDictionary["dialCode"] as? String ?? "")
+            
+            flagIMG.image = (selectedCountryDictionary["emoji"] as? String ?? "").emojiToImage()
+    }
+    
     
     @IBAction func registerButtonAction(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC

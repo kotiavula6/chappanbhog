@@ -11,6 +11,7 @@
 		EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */; };
 		EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */; };
 		EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25617B2509FEE3001C54AA /* MyOrderVC.swift */; };
+		EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE318C222510703F00160640 /* ForgotPasswordVC.swift */; };
 		EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C6CA250774DF00E87E98 /* AppDelegate.swift */; };
 		EE31C6CD250774DF00E87E98 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C6CC250774DF00E87E98 /* SceneDelegate.swift */; };
 		EE31C6D2250774DF00E87E98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE31C6D0250774DF00E87E98 /* Main.storyboard */; };
@@ -55,6 +56,10 @@
 		EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */; };
 		EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFA82508DC7F00DFD80F /* Login.storyboard */; };
 		EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */; };
+		EECDFF17250FE99E000B293C /* CountryCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */; };
+		EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */; };
+		EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF1A250FEB18000B293C /* Extensions.swift */; };
+		EECDFF1E250FEC3D000B293C /* CountryCode.json in Resources */ = {isa = PBXBuildFile; fileRef = EECDFF1D250FEC3D000B293C /* CountryCode.json */; };
 		EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */; };
 		EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B20250B9598000671EA /* MyAccountVC.swift */; };
 		EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99B9250F8CE2001DE12F /* countryContainer.swift */; };
@@ -83,6 +88,7 @@
 		EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordVC.swift; sourceTree = "<group>"; };
 		EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackYourOrderVC.swift; sourceTree = "<group>"; };
 		EE25617B2509FEE3001C54AA /* MyOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderVC.swift; sourceTree = "<group>"; };
+		EE318C222510703F00160640 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		EE31C6C7250774DF00E87E98 /* ChappanBhog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChappanBhog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE31C6CA250774DF00E87E98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE31C6CC250774DF00E87E98 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +139,10 @@
 		EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_med_it.otf; sourceTree = "<group>"; };
 		EEA8EFA82508DC7F00DFD80F /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DashBoard.storyboard; sourceTree = "<group>"; };
+		EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodesViewController.swift; sourceTree = "<group>"; };
+		EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeCell.swift; sourceTree = "<group>"; };
+		EECDFF1A250FEB18000B293C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EECDFF1D250FEC3D000B293C /* CountryCode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCode.json; sourceTree = "<group>"; };
 		EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAddressVC.swift; sourceTree = "<group>"; };
 		EEDD1B20250B9598000671EA /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 		EEEF99B9250F8CE2001DE12F /* countryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countryContainer.swift; sourceTree = "<group>"; };
@@ -186,7 +196,9 @@
 		EE0887CA25089C8D00FC8FDB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EECDFF1C250FEB83000B293C /* CountryCodes */,
 				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
+				EECDFF1A250FEB18000B293C /* Extensions.swift */,
 				EEA13A0C250F5639004E9252 /* CommonMethods.swift */,
 				EE52F4B02509D3F00026BE68 /* UIColor+NewColors.swift */,
 				EE52F4B22509D4440026BE68 /* Uiview+IBinspectable.swift */,
@@ -276,9 +288,11 @@
 				EE31C70D2507B9ED00E87E98 /* Cells */,
 				EE31C703250777C800E87E98 /* SplashVC.swift */,
 				EE31C70525078A9200E87E98 /* SignInVC.swift */,
+				EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */,
 				EE31C70725078B8700E87E98 /* RegisterVC.swift */,
 				EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */,
 				EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */,
+				EE318C222510703F00160640 /* ForgotPasswordVC.swift */,
 				EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */,
 				EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */,
 				EEEF99B9250F8CE2001DE12F /* countryContainer.swift */,
@@ -310,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */,
+				EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */,
 				EE82482D25093FD500C263F1 /* CartTableCell.swift */,
 			);
 			path = Cells;
@@ -322,6 +337,14 @@
 				EE8248282509152100C263F1 /* Colors.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		EECDFF1C250FEB83000B293C /* CountryCodes */ = {
+			isa = PBXGroup;
+			children = (
+				EECDFF1D250FEC3D000B293C /* CountryCode.json */,
+			);
+			path = CountryCodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,6 +453,7 @@
 			files = (
 				EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */,
 				EE31C6DA250774E300E87E98 /* LaunchScreen.storyboard in Resources */,
+				EECDFF1E250FEC3D000B293C /* CountryCode.json in Resources */,
 				EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */,
 				EEA8EFA52508DC5C00DFD80F /* Brandon_blk.otf in Resources */,
 				EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */,
@@ -471,8 +495,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE82482725090EDC00C263F1 /* AboutVCcontact.swift in Sources */,
+				EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */,
 				EE8248302509438800C263F1 /* PaymentVC.swift in Sources */,
 				EE52F4B52509D5250026BE68 /* Inspectable.swift in Sources */,
+				EECDFF17250FE99E000B293C /* CountryCodesViewController.swift in Sources */,
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
 				EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */,
 				EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */,
@@ -482,12 +508,14 @@
 				EEA13A0F250F5685004E9252 /* SidMenuVC.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
 				EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */,
+				EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
 				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,
 				EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */,
 				EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */,
+				EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */,
 				EE31C704250777C800E87E98 /* SplashVC.swift in Sources */,
 				EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */,
 				EE31C6CD250774DF00E87E98 /* SceneDelegate.swift in Sources */,

@@ -32,5 +32,15 @@ class SignInVC: UIViewController {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "DashBoardVC") as! DashBoardVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
+ 
     
-}
+    @IBAction func forgotPasswordAction(_ sender: UIButton) {
+        
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ForgotPasswordVC") as! ForgotPasswordVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
+    
+

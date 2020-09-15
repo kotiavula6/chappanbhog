@@ -32,3 +32,38 @@ func openMenuPanel(_ viewController: UIViewController) {
     }
     viewController.present(vc, animated: false, completion: {})
 }
+
+func getDefaultCountryDetailsOfDevice(fillCountryCode: String = "") -> NSDictionary {
+    
+    if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
+        print(countryCode)
+        
+        let countryCodesArray = (countryDictionary["All Countries"] as? NSArray ?? NSArray())
+        
+        #if DEDEBUG
+        print(countryCodesArray)
+        #endif
+
+        // Put your key in predicate that is "Name"
+        var searchPredicate = NSPredicate(format: "code CONTAINS[C] %@", fillCountryCode.count == 0 ? countryCode.uppercased() : fillCountryCode.uppercased())
+        
+        if fillCountryCode.count > 0 {
+            if fillCountryCode.contains("+") {
+                searchPredicate = NSPredicate(format: "dialCode CONTAINS[C] %@", fillCountryCode.count == 0 ? countryCode.uppercased() : fillCountryCode)
+            }
+        }
+        
+        
+        
+        let array = countryCodesArray.filtered(using: searchPredicate)
+
+        #if DEDEBUG
+        print ("array = \(array)")
+        #endif
+
+        return (array.count > 0 ? array[0] as? NSDictionary : NSDictionary())!
+        
+    }
+    
+    return NSDictionary()
+}
