@@ -23,6 +23,7 @@ class CartViewVC: UIViewController {
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
+            self.cartLBL.layer.masksToBounds = true
             
         }
     }

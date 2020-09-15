@@ -59,7 +59,6 @@
 		EECDFF17250FE99E000B293C /* CountryCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */; };
 		EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */; };
 		EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF1A250FEB18000B293C /* Extensions.swift */; };
-		EECDFF1E250FEC3D000B293C /* CountryCode.json in Resources */ = {isa = PBXBuildFile; fileRef = EECDFF1D250FEC3D000B293C /* CountryCode.json */; };
 		EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */; };
 		EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B20250B9598000671EA /* MyAccountVC.swift */; };
 		EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99B9250F8CE2001DE12F /* countryContainer.swift */; };
@@ -142,7 +141,6 @@
 		EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodesViewController.swift; sourceTree = "<group>"; };
 		EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeCell.swift; sourceTree = "<group>"; };
 		EECDFF1A250FEB18000B293C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		EECDFF1D250FEC3D000B293C /* CountryCode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCode.json; sourceTree = "<group>"; };
 		EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAddressVC.swift; sourceTree = "<group>"; };
 		EEDD1B20250B9598000671EA /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 		EEEF99B9250F8CE2001DE12F /* countryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countryContainer.swift; sourceTree = "<group>"; };
@@ -342,7 +340,6 @@
 		EECDFF1C250FEB83000B293C /* CountryCodes */ = {
 			isa = PBXGroup;
 			children = (
-				EECDFF1D250FEC3D000B293C /* CountryCode.json */,
 			);
 			path = CountryCodes;
 			sourceTree = "<group>";
@@ -453,7 +450,6 @@
 			files = (
 				EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */,
 				EE31C6DA250774E300E87E98 /* LaunchScreen.storyboard in Resources */,
-				EECDFF1E250FEC3D000B293C /* CountryCode.json in Resources */,
 				EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */,
 				EEA8EFA52508DC5C00DFD80F /* Brandon_blk.otf in Resources */,
 				EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */,

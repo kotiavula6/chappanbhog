@@ -31,16 +31,16 @@ class RegisterVC: UIViewController {
 
     @IBAction func selectCountryTF(_ sender: UITextField) {
         
-        let countryCodesViewController = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "COUNTRYCODES_STORY_IDENTIFIER") as? CountryCodesViewController
-            countryCodesViewController?.selectedTF = countryCodeTF
-            countryCodesViewController?.selectedImageView = flagIMG
-            countryCodesViewController?.modalPresentationStyle = .fullScreen
-            
-            let navigationController = UINavigationController(rootViewController: countryCodesViewController!)
-            navigationController.modalPresentationStyle = .fullScreen
-            
-            self.navigationController?.present(navigationController, animated: true, completion: nil)
-        
+//        let countryCodesViewController = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "COUNTRYCODES_STORY_IDENTIFIER") as? CountryCodesViewController
+//            countryCodesViewController?.selectedTF = countryCodeTF
+//            countryCodesViewController?.selectedImageView = flagIMG
+//            countryCodesViewController?.modalPresentationStyle = .fullScreen
+//
+//            let navigationController = UINavigationController(rootViewController: countryCodesViewController!)
+//            navigationController.modalPresentationStyle = .fullScreen
+//
+//            self.navigationController?.present(navigationController, animated: true, completion: nil)
+//
     }
     
     func ViewSetUp() {

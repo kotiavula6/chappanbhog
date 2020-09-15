@@ -20,9 +20,8 @@ class DashBoardVC: UIViewController {
     @IBOutlet weak var productsCatCollection: UICollectionView!
     @IBOutlet weak var alertView: UIView!
     @IBOutlet weak var alertLBL: UILabel!
-    @IBOutlet weak var cartItemsLBL: UILabel!
     @IBOutlet weak var searchTF: UITextField!
-    
+    @IBOutlet weak var alertIMG: UIImageView!
     @IBOutlet weak var backView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +32,13 @@ class DashBoardVC: UIViewController {
               self.view.addGestureRecognizer(swipeRight)
         
         // Do any additional setup after loading the view.
+        SetUI()
+       
+    }
+    
+    func SetUI() {
         DispatchQueue.main.async {
+            self.cartLBL.layer.masksToBounds = true
             setGradientBackground(view: self.view)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -41,8 +46,11 @@ class DashBoardVC: UIViewController {
             self.searchBackView.cornerRadius = self.searchBackView.frame.height/2
             self.alertHeightConstant.constant = 0
             self.cartLBL.cornerRadius = self.cartLBL.frame.height/2
+            self.alertIMG.isHidden = true
+            
         }
     }
+    
     
     @objc func menuClicked() {
           openMenuPanel(self)
@@ -121,7 +129,7 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         if collectionView == topPageCollection {
             return CGSize(width: topPageCollection.frame.width, height: topPageCollection.frame.height)
         }else {
-            return CGSize(width: productsCatCollection.frame.width/3.2, height: productsCatCollection.frame.height)
+            return CGSize(width: productsCatCollection.frame.width/3, height: productsCatCollection.frame.height)
         }
     }
 
@@ -139,8 +147,16 @@ class DashboardPageCollectionCell: UICollectionViewCell {
 
 class DashboardProdutsCatCollectionCell: UICollectionViewCell {
     
+    @IBOutlet weak var backShadowView: UIView!
+    @IBOutlet weak var productNameLBL: UILabel!
     @IBOutlet weak var productIMG: UIImageView!
+    
     override func awakeFromNib() {
-        setShadowRadius(view: productIMG)
+      
+        setShadowRadius(view: backShadowView)
+        DispatchQueue.main.async {
+            self.backShadowView.layer.cornerRadius = self.backShadowView.frame.height/2
+               self.productIMG.layer.cornerRadius = self.backShadowView.frame.height/2
+        }
     }
 }

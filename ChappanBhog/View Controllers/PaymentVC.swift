@@ -13,6 +13,7 @@ class PaymentVC: UIViewController {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var banksCollection: UICollectionView!
+    @IBOutlet weak var cartLBL: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,8 @@ class PaymentVC: UIViewController {
                 
                 self.backView.layer.cornerRadius = 30
                 self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
+                     self.cartLBL.layer.masksToBounds = true
 //                
 //                self.scrollview.layer.cornerRadius = 30
 //                self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]

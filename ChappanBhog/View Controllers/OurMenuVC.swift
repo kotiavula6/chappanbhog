@@ -10,6 +10,7 @@ import UIKit
 
 class OurMenuVC: UIViewController {
 
+    @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var menuTable: UITableView!
     @IBOutlet weak var backView: UIView!
@@ -25,8 +26,9 @@ class OurMenuVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.menuTable.layer.cornerRadius = 30
                       self.menuTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-                      
-            
+            self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
+            self.cartLBL.layer.masksToBounds = true
+          
             
         }
         
