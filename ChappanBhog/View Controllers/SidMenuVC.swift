@@ -41,7 +41,16 @@ class SidMenuVC: UIViewController {
     
     @IBAction func CartClicked(_ sender: UIButton) {
     
-
+                let countryCodesViewController = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as? CartViewVC
+//                    countryCodesViewController?.selectedTF = countryCodeTF
+//                    countryCodesViewController?.selectedImageView = flagIMG
+                    countryCodesViewController?.modalPresentationStyle = .fullScreen
+        
+                    let navigationController = UINavigationController(rootViewController: countryCodesViewController!)
+                    navigationController.modalPresentationStyle = .fullScreen
+        
+                    self.navigationController?.present(navigationController, animated: true, completion: nil)
+        
         
     }
     

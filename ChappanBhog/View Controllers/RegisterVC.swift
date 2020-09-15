@@ -16,7 +16,7 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var countryCodeTF: UITextField!
-    
+    @IBOutlet weak var registerBTN: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +45,12 @@ class RegisterVC: UIViewController {
     
     func ViewSetUp() {
         
+        DispatchQueue.main.async {
+            self.registerBTN.layer.masksToBounds = true
+            setShadow(view: self.registerBTN, cornerRadius: 5, shadowRadius: 5, shadowOpacity: 5)
+        }
+        
+        
 //        selectedCountryDictionary = getDefaultCountryDetailsOfDevice()
         countryCodeTF.text =  (selectedCountryDictionary["dialCode"] as? String ?? "")
             
@@ -61,5 +67,13 @@ class RegisterVC: UIViewController {
     @IBAction func loginButtonClicked(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
                 self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func fbButtonAction(_ sender: UIButton) {
+    }
+    @IBAction func twitterAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func googleAction(_ sender: UIButton) {
     }
 }

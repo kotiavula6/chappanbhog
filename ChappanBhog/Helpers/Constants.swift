@@ -228,7 +228,7 @@ func setShadowRadius(view:UIView) {
     view.layer.cornerRadius = 20
   //  view.layer.masksToBounds = true
 }
-func setShadow(view:UIView ,cornerRadius:CGFloat ,shadowRadius:CGFloat ,shadowOpacity:CGFloat) {
+func setShadow(view:UIView ,cornerRadius:CGFloat ,shadowRadius:CGFloat ,shadowOpacity:CGFloat,width:CGFloat? = 2,height:CGFloat? = 2) {
     view.layer.shadowColor = UIColor.black.cgColor
     view.layer.shadowOffset = CGSize(width: 0, height: 2.0)
     view.layer.shadowOpacity = Float(shadowOpacity)

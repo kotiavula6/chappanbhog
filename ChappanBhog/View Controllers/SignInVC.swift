@@ -11,6 +11,7 @@ import UIKit
 class SignInVC: UIViewController {
 
     @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var signInBTN: UIButton!
     @IBOutlet weak var userNameTF: UITextField!
     
     override func viewDidLoad() {
@@ -19,9 +20,14 @@ class SignInVC: UIViewController {
         // Do any additional setup after loading the view.
         passwordTF.setLeftPaddingPoints(10)
         userNameTF.setLeftPaddingPoints(10)
+        setUI()
         
     }
-    
+    func setUI() {
+        DispatchQueue.main.async  {
+            setShadow(view: self.signInBTN, cornerRadius: 5, shadowRadius: 2, shadowOpacity: 2)
+        }
+    }
 
     @IBAction func creatAccountAction(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC

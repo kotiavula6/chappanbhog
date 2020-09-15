@@ -15,6 +15,7 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var backView: UIView!
     var quantity:Int = 1
+    @IBOutlet weak var cartLBL: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,8 @@ class ProductInfoVC: UIViewController {
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.cartLBL.layer.masksToBounds = true
+            self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
         }
         
     }
@@ -41,6 +44,11 @@ class ProductInfoVC: UIViewController {
             quantityLBL.text = "\(quantity)"
         }
         
+    }
+    
+    @IBAction func backButtonClicked(_ sender: UIButton) {
+        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func payButtonClicked(_ sender: UIButton) {
