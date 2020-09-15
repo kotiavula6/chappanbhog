@@ -11,11 +11,13 @@ import UIKit
 class ProductInfoVC: UIViewController {
     
     
+    @IBOutlet weak var payBTN: UIButton!
     @IBOutlet weak var quantityLBL: UILabel!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var backView: UIView!
     var quantity:Int = 1
     @IBOutlet weak var cartLBL: UILabel!
+    @IBOutlet weak var weightBTN: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,8 @@ class ProductInfoVC: UIViewController {
         
     }
     
+    @IBAction func weightButtonAction(_ sender: UIButton) {
+    }
     @IBAction func increseBTN(_ sender: UIButton) {
         quantity += 1
         quantityLBL.text = "\(quantity)"

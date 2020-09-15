@@ -14,6 +14,8 @@ class OurMenuVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var menuTable: UITableView!
     @IBOutlet weak var backView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

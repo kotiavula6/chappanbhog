@@ -23,6 +23,7 @@ class DashBoardVC: UIViewController {
     @IBOutlet weak var searchTF: UITextField!
     @IBOutlet weak var alertIMG: UIImageView!
     @IBOutlet weak var backView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

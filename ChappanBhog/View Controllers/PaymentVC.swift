@@ -23,6 +23,8 @@ class PaymentVC: UIViewController {
         DispatchQueue.main.async {
                 setGradientBackground(view: self.gradientView)
                 
+            self.cartLBL.layer.masksToBounds = true
+                     setGradientBackground(view: self.view)
                 self.backView.layer.cornerRadius = 30
                 self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2

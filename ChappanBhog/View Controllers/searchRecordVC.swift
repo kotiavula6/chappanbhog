@@ -15,6 +15,7 @@ class searchRecordVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var recordsCollection: UICollectionView!
+    @IBOutlet weak var cartLBL: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,8 @@ class searchRecordVC: UIViewController {
             self.searchView.cornerRadius = self.searchView.frame.height/2
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.cartLBL.layer.masksToBounds = true
+            self.cartLBL.cornerRadius = self.cartLBL.frame.height/2
         }
     }
     
@@ -56,7 +59,7 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == categoryCollection {
-                     return CGSize(width: recordsCollection.frame.width/3, height: recordsCollection.frame.width/3)
+                     return CGSize(width: recordsCollection.frame.width/4, height: recordsCollection.frame.width/4)
         }else {
         
         let width = (self.recordsCollection.frame.size.width/2.2)

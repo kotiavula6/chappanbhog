@@ -13,6 +13,7 @@ class DashBoardCategoriesVC: UIViewController {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var catCollection: UICollectionView!
+    @IBOutlet weak var cartLBL: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,8 @@ class DashBoardCategoriesVC: UIViewController {
             
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.cartLBL.layer.masksToBounds = true
+                     self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
         }
         // Do any additional setup after loading the view.
     }
