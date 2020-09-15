@@ -42,11 +42,25 @@ class SignInVC: UIViewController {
     
     @IBAction func forgotPasswordAction(_ sender: UIButton) {
         
-        
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ForgotPasswordVC") as! ForgotPasswordVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
+    @IBAction func fbAction(_ sender: UIButton) {
+        
+        
+    }
+    @IBAction func twitterAccount(_ sender: UIButton) {
+        
+        
+    }
+    
+    @IBAction func googleAction(_ sender: UIButton) {
+        
+        
+    }
+    
+    
     }
     
 

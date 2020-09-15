@@ -266,6 +266,9 @@
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chX-kX-cME">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <connections>
+                                                                    <action selector="fbAction:" destination="piG-qv-4Lz" eventType="touchUpInside" id="tuQ-7h-bTu"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -290,6 +293,9 @@
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGZ-sZ-jcu">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <connections>
+                                                                    <action selector="twitterAccount:" destination="piG-qv-4Lz" eventType="touchUpInside" id="CHt-yx-qyk"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -314,6 +320,9 @@
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Vr-PV-Tff">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <connections>
+                                                                    <action selector="googleAction:" destination="piG-qv-4Lz" eventType="touchUpInside" id="W4r-Hk-gIu"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1005,6 +1014,9 @@
                                         <state key="normal" title="Resend">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="ResendAction:" destination="eyl-4e-ob2" eventType="touchUpInside" id="sTe-SJ-aWX"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1031,6 +1043,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8p0-vE-kah"/>
                     </view>
+                    <connections>
+                        <outlet property="TF1" destination="Gkx-1J-gHP" id="eC3-FH-985"/>
+                        <outlet property="TF2" destination="fbH-r9-eX7" id="ANj-In-PLG"/>
+                        <outlet property="TF3" destination="20F-eR-00l" id="G3l-VJ-VqQ"/>
+                        <outlet property="TF4" destination="3bm-xy-Da7" id="gsm-F9-YOG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FxG-ha-zLb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2050,7 +2068,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rq3-qi-s2c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6026.3999999999996" y="137.18140929535232"/>
+            <point key="canvasLocation" x="6006" y="123"/>
         </scene>
         <!--PaymentVC-->
         <scene sceneID="4td-QF-ySD">
