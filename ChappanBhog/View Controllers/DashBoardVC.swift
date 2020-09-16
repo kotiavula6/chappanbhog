@@ -171,7 +171,7 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         if collectionView == topPageCollection {
             return CGSize(width: topPageCollection.frame.width, height: topPageCollection.frame.height)
         }else {
-            return CGSize(width: productsCatCollection.frame.height, height: productsCatCollection.frame.height)
+            return CGSize(width: productsCatCollection.frame.height/1.3, height: productsCatCollection.frame.height)
         }
     }
     

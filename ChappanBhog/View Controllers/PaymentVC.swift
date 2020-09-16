@@ -21,13 +21,23 @@ class PaymentVC: UIViewController {
     @IBOutlet weak var totalPriceLBL: UILabel!
     @IBOutlet weak var makePaymentBTN: UIButton!
     
+    @IBOutlet weak var acountHolderNameTF: UITextField!
+    @IBOutlet weak var cardNumberTF: UITextField!
+    
+    @IBOutlet weak var CVVTF: UITextField!
+    @IBOutlet weak var yearTF: UITextField!
+    @IBOutlet weak var monthTF: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         DispatchQueue.main.async {
-                setGradientBackground(view: self.gradientView)
+            
+            self.acountHolderNameTF.setLeftPaddingPoints(10)
+            self.cardNumberTF.setLeftPaddingPoints(10)
+         
                 
             self.cartLBL.layer.masksToBounds = true
                      setGradientBackground(view: self.view)
@@ -35,6 +45,7 @@ class PaymentVC: UIViewController {
                 self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
                      self.cartLBL.layer.masksToBounds = true
+  
 //                
 //                self.scrollview.layer.cornerRadius = 30
 //                self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
