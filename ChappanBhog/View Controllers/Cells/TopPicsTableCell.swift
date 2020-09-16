@@ -26,10 +26,10 @@ class TopPicsTableCell: UITableViewCell {
     
     
     override func awakeFromNib() {
-        setShadowRadius(view: shadowView)
-        DispatchQueue.main.async {
-            setShadow(view: self.shadowView, cornerRadius: 20, shadowRadius: 5, shadowOpacity: 2)
-        }
+//        setShadowRadius(view: shadowView)
+//        DispatchQueue.main.async {
+//            setShadow(view: self.shadowView, cornerRadius: 20, shadowRadius: 5, shadowOpacity: 2)
+ //       }
     }
     
     @IBAction func addToCartButtonAction(_ sender: UIButton) {

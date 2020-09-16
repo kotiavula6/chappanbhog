@@ -37,6 +37,9 @@ class MyAccountVC: UIViewController {
     }
     
     
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
@@ -54,7 +57,38 @@ extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
         
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        if indexPath.row == 1 {
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UpdatePasswordVC") as! UpdatePasswordVC
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        if indexPath.row == 2 {
+            
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyOrderVC") as! MyOrderVC
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        if indexPath.row == 3 {
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrackYourOrderVC") as! TrackYourOrderVC
+                 self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        if indexPath.row == 4 {
+            
+            
+                   let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+                        self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+    }
     
 }
 

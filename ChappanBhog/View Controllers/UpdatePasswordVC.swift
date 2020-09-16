@@ -10,10 +10,14 @@ import UIKit
 
 class UpdatePasswordVC: UIViewController {
 
+    @IBOutlet weak var updatePasswordBTN: UIButton!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var oldPasswordTF: UITextField!
     
+    @IBOutlet weak var newPasswordTF: UITextField!
+    @IBOutlet weak var phoneTF: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,9 +33,13 @@ class UpdatePasswordVC: UIViewController {
             
             //  scrollview
         }
-
-        
-        
+ 
+    }
+    
+    @IBAction func backButtonClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func updatePasswordButtonAction(_ sender: UIButton) {
     }
     
 }

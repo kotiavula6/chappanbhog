@@ -13,22 +13,30 @@ class TrackYourOrderVC: UIViewController {
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var trackOrderBTN: UIButton!
+    
+    @IBOutlet weak var deliveryAddressLBL: UILabel!
+    @IBOutlet weak var estimatedTimeLBL: UILabel!
+    @IBOutlet weak var productNameLBL: UILabel!
+    @IBOutlet weak var orderIDTF: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        orderIDTF.setLeftPaddingPoints(10)
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
             
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            //
-            //                self.scrollview.layer.cornerRadius = 30
-            //                self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
-            //  scrollview
+ 
         }
+    }
+    @IBAction func backButtonClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     
+    @IBAction func trackOrderButtonAction(_ sender: UIButton) {
+        
+    }
 }

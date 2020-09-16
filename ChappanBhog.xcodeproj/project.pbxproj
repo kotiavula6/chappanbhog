@@ -56,6 +56,8 @@
 		EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */; };
 		EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFA82508DC7F00DFD80F /* Login.storyboard */; };
 		EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */; };
+		EEC5EA1A25116A8600E5529F /* sideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5EA1825116A8600E5529F /* sideMenu.swift */; };
+		EEC5EA1B25116A8600E5529F /* sideMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEC5EA1925116A8600E5529F /* sideMenu.xib */; };
 		EECDFF17250FE99E000B293C /* CountryCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */; };
 		EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */; };
 		EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF1A250FEB18000B293C /* Extensions.swift */; };
@@ -138,6 +140,8 @@
 		EEA8EF9B2508DC5C00DFD80F /* Brandon_med_it.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_med_it.otf; sourceTree = "<group>"; };
 		EEA8EFA82508DC7F00DFD80F /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DashBoard.storyboard; sourceTree = "<group>"; };
+		EEC5EA1825116A8600E5529F /* sideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideMenu.swift; sourceTree = "<group>"; };
+		EEC5EA1925116A8600E5529F /* sideMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = sideMenu.xib; sourceTree = "<group>"; };
 		EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodesViewController.swift; sourceTree = "<group>"; };
 		EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeCell.swift; sourceTree = "<group>"; };
 		EECDFF1A250FEB18000B293C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 		EE31C7012507760600E87E98 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EEC5EA1725116A5E00E5529F /* SideMenu */,
 				EE31C70D2507B9ED00E87E98 /* Cells */,
 				EE31C703250777C800E87E98 /* SplashVC.swift */,
 				EE31C70525078A9200E87E98 /* SignInVC.swift */,
@@ -335,6 +340,15 @@
 				EE8248282509152100C263F1 /* Colors.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		EEC5EA1725116A5E00E5529F /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				EEC5EA1825116A8600E5529F /* sideMenu.swift */,
+				EEC5EA1925116A8600E5529F /* sideMenu.xib */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		EECDFF1C250FEB83000B293C /* CountryCodes */ = {
@@ -451,6 +465,7 @@
 				EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */,
 				EE31C6DA250774E300E87E98 /* LaunchScreen.storyboard in Resources */,
 				EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */,
+				EEC5EA1B25116A8600E5529F /* sideMenu.xib in Resources */,
 				EEA8EFA52508DC5C00DFD80F /* Brandon_blk.otf in Resources */,
 				EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */,
 				EEA8EF9D2508DC5C00DFD80F /* Brandon_light_it.otf in Resources */,
@@ -514,6 +529,7 @@
 				EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */,
 				EE31C704250777C800E87E98 /* SplashVC.swift in Sources */,
 				EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */,
+				EEC5EA1A25116A8600E5529F /* sideMenu.swift in Sources */,
 				EE31C6CD250774DF00E87E98 /* SceneDelegate.swift in Sources */,
 				EE52F4B12509D3F00026BE68 /* UIColor+NewColors.swift in Sources */,
 				EE31C70825078B8700E87E98 /* RegisterVC.swift in Sources */,

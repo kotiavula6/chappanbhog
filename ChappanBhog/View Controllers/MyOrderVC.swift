@@ -26,6 +26,9 @@ class MyOrderVC: UIViewController {
         
         
     }
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
 
 
@@ -51,6 +54,8 @@ extension MyOrderVC: UITableViewDelegate,UITableViewDataSource {
 class MyordreTableCell: UITableViewCell {
     
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var productNameLBL: UILabel!
+    
     
     override func awakeFromNib() {
         setShadowRadius(view: shadowView)

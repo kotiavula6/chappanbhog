@@ -15,6 +15,12 @@ class PaymentVC: UIViewController {
     @IBOutlet weak var banksCollection: UICollectionView!
     @IBOutlet weak var cartLBL: UILabel!
     
+    @IBOutlet weak var orderTotaLBL: UILabel!
+    
+    @IBOutlet weak var deliveryChargeLBL: UILabel!
+    @IBOutlet weak var totalPriceLBL: UILabel!
+    @IBOutlet weak var makePaymentBTN: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,7 +43,10 @@ class PaymentVC: UIViewController {
             }
     }
     
-
+    @IBAction func backButtonClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func makePaymentButtonClicked(_ sender: Any) {
         
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC

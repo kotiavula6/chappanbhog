@@ -25,7 +25,7 @@ class SignInVC: UIViewController {
     }
     func setUI() {
         DispatchQueue.main.async  {
-            setShadow(view: self.signInBTN, cornerRadius: 5, shadowRadius: 2, shadowOpacity: 2)
+        
         }
     }
 
