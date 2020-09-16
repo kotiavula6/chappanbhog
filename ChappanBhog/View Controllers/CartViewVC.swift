@@ -10,6 +10,7 @@ import UIKit
 
 class CartViewVC: UIViewController {
 
+    @IBOutlet weak var subTitleView: UIView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
@@ -24,6 +25,7 @@ class CartViewVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
             self.cartLBL.layer.masksToBounds = true
+     
             
         }
     }

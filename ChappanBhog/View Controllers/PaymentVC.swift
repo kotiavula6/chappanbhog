@@ -40,7 +40,7 @@ class PaymentVC: UIViewController {
          
                 
             self.cartLBL.layer.masksToBounds = true
-                     setGradientBackground(view: self.view)
+                     setGradientBackground(view: self.gradientView)
                 self.backView.layer.cornerRadius = 30
                 self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
@@ -77,7 +77,7 @@ extension PaymentVC: UICollectionViewDelegate,UICollectionViewDataSource,UIColle
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: banksCollection.frame.width, height: banksCollection.frame.height)
+        return CGSize(width: banksCollection.frame.width-50, height: banksCollection.frame.height)
     }
     
 }
@@ -89,8 +89,12 @@ class BanksCollectionCell: UICollectionViewCell {
     
     
     @IBOutlet weak var shadowView: UIView!
+    
     override func awakeFromNib() {
-        setShadowRadius(view: shadowView)
+        DispatchQueue.main.async {
+            self.shadowView.layer.masksToBounds = true
+            self.shadowView.layer.cornerRadius = 20
+        }
         
     }
    

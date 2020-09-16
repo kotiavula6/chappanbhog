@@ -29,8 +29,7 @@ class MyAccountVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             setGradientBackground(view: self.profileImage)
             self.profileImage.cornerRadius = self.profileImage.frame.height/2
-            
-            setShadowatBottom(view: self.shadowViewBottom, color: .black, shadowRadius: 5)
+      
             
         }
         

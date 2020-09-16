@@ -32,6 +32,8 @@
 		EE52F4B32509D4440026BE68 /* Uiview+IBinspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F4B22509D4440026BE68 /* Uiview+IBinspectable.swift */; };
 		EE52F4B52509D5250026BE68 /* Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52F4B42509D5250026BE68 /* Inspectable.swift */; };
 		EE5E384B250BB82300DCDE18 /* ProductInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5E384A250BB82300DCDE18 /* ProductInfoVC.swift */; };
+		EE7740232511D74500E994B8 /* EnquirlyFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7740222511D74500E994B8 /* EnquirlyFormVC.swift */; };
+		EE7740252511E74B00E994B8 /* StatesPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7740242511E74B00E994B8 /* StatesPopUpVC.swift */; };
 		EE82482725090EDC00C263F1 /* AboutVCcontact.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482625090EDC00C263F1 /* AboutVCcontact.swift */; };
 		EE8248292509152100C263F1 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE8248282509152100C263F1 /* Colors.xcassets */; };
 		EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482B25093F0700C263F1 /* CartViewVC.swift */; };
@@ -116,6 +118,8 @@
 		EE52F4B22509D4440026BE68 /* Uiview+IBinspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uiview+IBinspectable.swift"; sourceTree = "<group>"; };
 		EE52F4B42509D5250026BE68 /* Inspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspectable.swift; sourceTree = "<group>"; };
 		EE5E384A250BB82300DCDE18 /* ProductInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoVC.swift; sourceTree = "<group>"; };
+		EE7740222511D74500E994B8 /* EnquirlyFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquirlyFormVC.swift; sourceTree = "<group>"; };
+		EE7740242511E74B00E994B8 /* StatesPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesPopUpVC.swift; sourceTree = "<group>"; };
 		EE82482625090EDC00C263F1 /* AboutVCcontact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVCcontact.swift; sourceTree = "<group>"; };
 		EE8248282509152100C263F1 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		EE82482B25093F0700C263F1 /* CartViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewVC.swift; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 		EE31C7012507760600E87E98 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EE7740212511D72600E994B8 /* containers */,
 				EEC5EA1725116A5E00E5529F /* SideMenu */,
 				EE31C70D2507B9ED00E87E98 /* Cells */,
 				EE31C703250777C800E87E98 /* SplashVC.swift */,
@@ -331,6 +336,15 @@
 				EE82482D25093FD500C263F1 /* CartTableCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		EE7740212511D72600E994B8 /* containers */ = {
+			isa = PBXGroup;
+			children = (
+				EE7740222511D74500E994B8 /* EnquirlyFormVC.swift */,
+				EE7740242511E74B00E994B8 /* StatesPopUpVC.swift */,
+			);
+			path = containers;
 			sourceTree = "<group>";
 		};
 		EE82482A2509152700C263F1 /* Assets */ = {
@@ -534,6 +548,8 @@
 				EE52F4B12509D3F00026BE68 /* UIColor+NewColors.swift in Sources */,
 				EE31C70825078B8700E87E98 /* RegisterVC.swift in Sources */,
 				EE31C6D5250774DF00E87E98 /* ChappanBhog.xcdatamodeld in Sources */,
+				EE7740232511D74500E994B8 /* EnquirlyFormVC.swift in Sources */,
+				EE7740252511E74B00E994B8 /* StatesPopUpVC.swift in Sources */,
 				EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */,
 				EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */,
 				EE31C70625078A9200E87E98 /* SignInVC.swift in Sources */,

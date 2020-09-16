@@ -19,8 +19,8 @@ class searchRecordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
             self.searchView.cornerRadius = self.searchView.frame.height/2
@@ -35,6 +35,9 @@ class searchRecordVC: UIViewController {
         
         
     }
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 
@@ -47,30 +50,30 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == categoryCollection {
             let cell = categoryCollection.dequeueReusableCell(withReuseIdentifier: "searchCategoryCollection", for: indexPath) as! searchCategoryCollection
-                            return cell
+            return cell
         }else {
             let cell = recordsCollection.dequeueReusableCell(withReuseIdentifier: "SearchRecordCollectionCell", for: indexPath) as! SearchRecordCollectionCell
-                   return cell
+            return cell
         }
         
-       
+        
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == categoryCollection {
-                     return CGSize(width: recordsCollection.frame.width/4, height: recordsCollection.frame.width/4)
+            return CGSize(width: recordsCollection.frame.width/4, height: recordsCollection.frame.width/4)
         }else {
-        
-        let width = (self.recordsCollection.frame.size.width/2.2)
-           let height = self.recordsCollection.frame.size.height/1.3
-                      return CGSize(width: width, height: height)
+            
+            let width = (self.recordsCollection.frame.size.width/2.2)
+            let height = self.recordsCollection.frame.size.height/1.3
+            return CGSize(width: width, height: height)
         }
-    
-   
+        
+        
     }
     
-        
+    
     
 }
 
@@ -79,13 +82,15 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
 
 
 class searchCategoryCollection: UICollectionViewCell {
-
+    
 }
 
 //class
 class SearchRecordCollectionCell: UICollectionViewCell {
+    
     @IBOutlet weak var shadowView:UIView!
     override func awakeFromNib() {
-        setShadowRadius(view: shadowView)
+        
     }
+    
 }

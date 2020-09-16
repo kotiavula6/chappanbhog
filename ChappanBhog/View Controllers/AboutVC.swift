@@ -18,6 +18,9 @@ class AboutVC: UIViewController {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     
+    @IBOutlet weak var enquiryContainer: UIView!
+    var enquiryView:EnquirlyFormVC?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,11 +28,11 @@ class AboutVC: UIViewController {
         DispatchQueue.main.async {
             
             setGradientBackground(view: self.gradientView)
-            self.nameTF.setLeftPaddingPoints(10)
-            self.nameTF.layer.masksToBounds = true
-            
-            self.emailTF.setLeftPaddingPoints(10)
-            self.emailTF.layer.masksToBounds = true
+//            self.nameTF.setLeftPaddingPoints(10)
+//            self.nameTF.layer.masksToBounds = true
+//            
+//            self.emailTF.setLeftPaddingPoints(10)
+//            self.emailTF.layer.masksToBounds = true
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
@@ -40,8 +43,28 @@ class AboutVC: UIViewController {
         
     }
     
+    
+    //MARK:- Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EnquirlyFormVC"{
+            
+            enquiryView = segue.destination as? EnquirlyFormVC
+            
+            enquiryView?.EnquiryAction = {
+                
+            }
+            
+            
+        }
+    }
+    
     @IBAction func enquiryNowButtonAction(_ sender: UIButton) {
         
+    }
+    
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

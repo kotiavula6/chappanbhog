@@ -20,12 +20,12 @@ class CartTableCell: UITableViewCell {
     @IBOutlet weak var quantityLBL: UILabel!
     @IBOutlet weak var quantityIncreaseBTN: UIButton!
     @IBOutlet weak var quantityDecreaseBTN: UIButton!
-    
     @IBOutlet weak var shadowView: UIView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        setShadowRadius(view: shadowView)
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

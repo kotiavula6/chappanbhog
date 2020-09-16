@@ -23,15 +23,16 @@ class UpdatePasswordVC: UIViewController {
 
         // Do any additional setup after loading the view.
         DispatchQueue.main.async {
+            
             setGradientBackground(view: self.gradientView)
             setShadowRadius(view: self.shadowView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            //
-            //                self.scrollview.layer.cornerRadius = 30
-            //                self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
-            //  scrollview
+            self.phoneTF.setLeftPaddingPoints(10)
+            self.oldPasswordTF.setLeftPaddingPoints(10)
+            self.newPasswordTF.setLeftPaddingPoints(10)
+            
         }
  
     }
