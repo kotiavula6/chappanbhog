@@ -22,6 +22,11 @@ class CartViewVC: UIViewController {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
+            
+//            subTitleView
+             self.subTitleView.layer.cornerRadius = 30
+              self.subTitleView.layer.masksToBounds = true
+              self.subTitleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
             self.cartLBL.layer.masksToBounds = true

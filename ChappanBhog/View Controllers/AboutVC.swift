@@ -33,12 +33,16 @@ class AboutVC: UIViewController {
 //            
 //            self.emailTF.setLeftPaddingPoints(10)
 //            self.emailTF.layer.masksToBounds = true
+            SetAppearance()
+            
+        }
+        
+        func SetAppearance() {
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
             self.scrollview.layer.cornerRadius = 30
             self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            
         }
         
     }
