@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SKCountryPicker
 
 class RegisterVC: UIViewController {
+    
+    //MARK:- OUTLETS
     
     @IBOutlet weak var flagIMG: UIImageView!
     @IBOutlet weak var countryContainer: UIView!
@@ -18,62 +21,80 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var countryCodeTF: UITextField!
     @IBOutlet weak var registerBTN: UIButton!
     
+    
+    //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-             mobileTF.setLeftPaddingPoints(10)
-             emailTF.setLeftPaddingPoints(10)
-             nameTF.setLeftPaddingPoints(10)
-            ViewSetUp()
-    }
-
-
-    @IBAction func selectCountryTF(_ sender: UITextField) {
         
-//        let countryCodesViewController = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "COUNTRYCODES_STORY_IDENTIFIER") as? CountryCodesViewController
-//            countryCodesViewController?.selectedTF = countryCodeTF
-//            countryCodesViewController?.selectedImageView = flagIMG
-//            countryCodesViewController?.modalPresentationStyle = .fullScreen
-//
-//            let navigationController = UINavigationController(rootViewController: countryCodesViewController!)
-//            navigationController.modalPresentationStyle = .fullScreen
-//
-//            self.navigationController?.present(navigationController, animated: true, completion: nil)
-//
+        // Do any additional setup after loading the view.
+        mobileTF.setLeftPaddingPoints(10)
+        emailTF.setLeftPaddingPoints(10)
+        nameTF.setLeftPaddingPoints(10)
+        ViewSetUp()
     }
     
+    //MARK:- FUNCTIONS
     func ViewSetUp() {
         
         DispatchQueue.main.async {
             self.registerBTN.layer.masksToBounds = true
             setShadow(view: self.registerBTN, cornerRadius: 5, shadowRadius: 5, shadowOpacity: 5)
+            
+            self.flagIMG.layer.cornerRadius = self.flagIMG.frame.height/2
+               self.flagIMG.layer.masksToBounds = true
         }
         
         
-//        selectedCountryDictionary = getDefaultCountryDetailsOfDevice()
-        countryCodeTF.text =  (selectedCountryDictionary["dialCode"] as? String ?? "")
-            
-            flagIMG.image = (selectedCountryDictionary["emoji"] as? String ?? "").emojiToImage()
-    }
-    
-    
-    @IBAction func registerButtonAction(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
-                   self.navigationController?.pushViewController(vc, animated: true)
+        guard let country = CountryManager.shared.currentCountry else {
+            //            self.countryBTN.setTitle("Pick Country", for: .normal)
+            self.flagIMG.isHidden = true
+            return
+        }
+        //        countryBTN.setTitle(country.dialingCode, for: .normal)
+        flagIMG.image = country.flag
+        //      countryBTN.clipsToBounds = true
         
     }
     
-    @IBAction func loginButtonClicked(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-                self.navigationController?.pushViewController(vc, animated: true)
+    
+    
+    //MARK:- ACTIONS
+    
+    @IBAction func selectCountryButtonClicked(_ sender: UIButton) {
+        // Invoke below static method to present country picker without section control
+        // CountryPickerController.presentController(on: self) { ... }
+        
+        let countryController = CountryPickerWithSectionViewController.presentController(on: self) { [weak self] (country: Country) in
+            
+            guard let self = self else { return }
+            
+            self.flagIMG.image = country.flag
+            //             self.countryBTN.setTitle(country.dialingCode, for: .normal)
+            
+        }
+        
+        // can customize the countryPicker here e.g font and color
+        countryController.detailColor = UIColor.red
     }
     
-    @IBAction func fbButtonAction(_ sender: UIButton) {
-    }
-    @IBAction func twitterAction(_ sender: UIButton) {
-    }
+
+
+@IBAction func registerButtonAction(_ sender: UIButton) {
+    let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
+    self.navigationController?.pushViewController(vc, animated: true)
     
-    @IBAction func googleAction(_ sender: UIButton) {
-    }
+}
+
+@IBAction func loginButtonClicked(_ sender: UIButton) {
+    let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+    self.navigationController?.pushViewController(vc, animated: true)
+}
+
+@IBAction func fbButtonAction(_ sender: UIButton) {
+}
+@IBAction func twitterAction(_ sender: UIButton) {
+}
+
+@IBAction func googleAction(_ sender: UIButton) {
+}
 }

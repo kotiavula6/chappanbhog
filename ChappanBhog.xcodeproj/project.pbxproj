@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26DBFB4ACCAD4F798C7FFFBA /* Pods_ChappanBhog_ChappanBhogUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C75507117C2AE67A47C24BA /* Pods_ChappanBhog_ChappanBhogUITests.framework */; };
+		4D4E2ED5E44F73120AAAE4A1 /* Pods_ChappanBhogTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63AB1724AF6435A3F10ADF0 /* Pods_ChappanBhogTests.framework */; };
 		EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */; };
 		EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */; };
 		EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */; };
@@ -67,6 +69,7 @@
 		EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B20250B9598000671EA /* MyAccountVC.swift */; };
 		EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99B9250F8CE2001DE12F /* countryContainer.swift */; };
 		EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99BB250F909E001DE12F /* CountryCodes.swift */; };
+		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0732C66D00AABB24720BF5E2 /* Pods-ChappanBhogTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhogTests.release.xcconfig"; path = "Target Support Files/Pods-ChappanBhogTests/Pods-ChappanBhogTests.release.xcconfig"; sourceTree = "<group>"; };
+		55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChappanBhog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61EB06DD3DCA7AF81BDACA9C /* Pods-ChappanBhogTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhogTests.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhogTests/Pods-ChappanBhogTests.debug.xcconfig"; sourceTree = "<group>"; };
+		80EE80C662FDED952E79BC31 /* Pods-ChappanBhog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog.debug.xcconfig"; sourceTree = "<group>"; };
+		9C75507117C2AE67A47C24BA /* Pods_ChappanBhog_ChappanBhogUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChappanBhog_ChappanBhogUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B63AB1724AF6435A3F10ADF0 /* Pods_ChappanBhogTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChappanBhogTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB2CD4A479F2D97EF9CAD937 /* Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhog-ChappanBhogUITests/Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CDD274D392B440DB35843C1B /* Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig"; path = "Target Support Files/Pods-ChappanBhog-ChappanBhogUITests/Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D51D90C04B8F3C70B0121A8C /* Pods-ChappanBhog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog.release.xcconfig"; path = "Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog.release.xcconfig"; sourceTree = "<group>"; };
 		EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardCategoriesVC.swift; sourceTree = "<group>"; };
 		EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordVC.swift; sourceTree = "<group>"; };
 		EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackYourOrderVC.swift; sourceTree = "<group>"; };
@@ -160,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D4E2ED5E44F73120AAAE4A1 /* Pods_ChappanBhogTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,12 +188,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26DBFB4ACCAD4F798C7FFFBA /* Pods_ChappanBhog_ChappanBhogUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BB079BAF53FD33C9BB3C2F8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80EE80C662FDED952E79BC31 /* Pods-ChappanBhog.debug.xcconfig */,
+				D51D90C04B8F3C70B0121A8C /* Pods-ChappanBhog.release.xcconfig */,
+				BB2CD4A479F2D97EF9CAD937 /* Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig */,
+				CDD274D392B440DB35843C1B /* Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig */,
+				61EB06DD3DCA7AF81BDACA9C /* Pods-ChappanBhogTests.debug.xcconfig */,
+				0732C66D00AABB24720BF5E2 /* Pods-ChappanBhogTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		EE0887C825089C6F00FC8FDB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +251,8 @@
 				EE31C6E3250774E300E87E98 /* ChappanBhogTests */,
 				EE31C6EE250774E300E87E98 /* ChappanBhogUITests */,
 				EE31C6C8250774DF00E87E98 /* Products */,
+				3BB079BAF53FD33C9BB3C2F8 /* Pods */,
+				FB4A14B890CDCB3711F7B036 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -372,6 +403,16 @@
 			path = CountryCodes;
 			sourceTree = "<group>";
 		};
+		FB4A14B890CDCB3711F7B036 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */,
+				9C75507117C2AE67A47C24BA /* Pods_ChappanBhog_ChappanBhogUITests.framework */,
+				B63AB1724AF6435A3F10ADF0 /* Pods_ChappanBhogTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -379,9 +420,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE31C6F4250774E300E87E98 /* Build configuration list for PBXNativeTarget "ChappanBhog" */;
 			buildPhases = (
+				0F3E893F5C754B307DFF5775 /* [CP] Check Pods Manifest.lock */,
 				EE31C6C3250774DF00E87E98 /* Sources */,
 				EE31C6C4250774DF00E87E98 /* Frameworks */,
 				EE31C6C5250774DF00E87E98 /* Resources */,
+				250109450DE1F00D1073E8EE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -396,6 +439,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE31C6F7250774E300E87E98 /* Build configuration list for PBXNativeTarget "ChappanBhogTests" */;
 			buildPhases = (
+				B6EA0F5CA1078DDB3C4A14CF /* [CP] Check Pods Manifest.lock */,
 				EE31C6DC250774E300E87E98 /* Sources */,
 				EE31C6DD250774E300E87E98 /* Frameworks */,
 				EE31C6DE250774E300E87E98 /* Resources */,
@@ -414,9 +458,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE31C6FA250774E300E87E98 /* Build configuration list for PBXNativeTarget "ChappanBhogUITests" */;
 			buildPhases = (
+				B558B75C98A49388AE81FAE4 /* [CP] Check Pods Manifest.lock */,
 				EE31C6E7250774E300E87E98 /* Sources */,
 				EE31C6E8250774E300E87E98 /* Frameworks */,
 				EE31C6E9250774E300E87E98 /* Resources */,
+				67316AD832921913584DB836 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -513,6 +559,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F3E893F5C754B307DFF5775 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChappanBhog-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		250109450DE1F00D1073E8EE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67316AD832921913584DB836 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChappanBhog-ChappanBhogUITests/Pods-ChappanBhog-ChappanBhogUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChappanBhog-ChappanBhogUITests/Pods-ChappanBhog-ChappanBhogUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChappanBhog-ChappanBhogUITests/Pods-ChappanBhog-ChappanBhogUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B558B75C98A49388AE81FAE4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChappanBhog-ChappanBhogUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6EA0F5CA1078DDB3C4A14CF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChappanBhogTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EE31C6C3250774DF00E87E98 /* Sources */ = {
@@ -728,6 +877,7 @@
 		};
 		EE31C6F5250774E300E87E98 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80EE80C662FDED952E79BC31 /* Pods-ChappanBhog.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -748,6 +898,7 @@
 		};
 		EE31C6F6250774E300E87E98 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D51D90C04B8F3C70B0121A8C /* Pods-ChappanBhog.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -768,6 +919,7 @@
 		};
 		EE31C6F8250774E300E87E98 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61EB06DD3DCA7AF81BDACA9C /* Pods-ChappanBhogTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -789,6 +941,7 @@
 		};
 		EE31C6F9250774E300E87E98 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0732C66D00AABB24720BF5E2 /* Pods-ChappanBhogTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -810,6 +963,7 @@
 		};
 		EE31C6FB250774E300E87E98 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB2CD4A479F2D97EF9CAD937 /* Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -829,6 +983,7 @@
 		};
 		EE31C6FC250774E300E87E98 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CDD274D392B440DB35843C1B /* Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

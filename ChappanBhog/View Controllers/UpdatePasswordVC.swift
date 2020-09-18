@@ -18,10 +18,15 @@ class UpdatePasswordVC: UIViewController {
     
     @IBOutlet weak var newPasswordTF: UITextField!
     @IBOutlet weak var phoneTF: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+       setAppearence()
+    }
+    
+    func setAppearence() {
         DispatchQueue.main.async {
             
             setGradientBackground(view: self.gradientView)
@@ -33,14 +38,17 @@ class UpdatePasswordVC: UIViewController {
             self.oldPasswordTF.setLeftPaddingPoints(10)
             self.newPasswordTF.setLeftPaddingPoints(10)
             
+            
         }
- 
+        
     }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func updatePasswordButtonAction(_ sender: UIButton) {
+        
     }
     
 }
