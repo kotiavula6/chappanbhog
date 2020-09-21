@@ -30,7 +30,7 @@ class UpdatePasswordVC: UIViewController {
         DispatchQueue.main.async {
             
             setGradientBackground(view: self.gradientView)
-            setShadowRadius(view: self.shadowView)
+           
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             

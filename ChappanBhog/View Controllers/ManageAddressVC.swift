@@ -49,7 +49,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     func setAppearance() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
-            setShadowRadius(view: self.shadowView)
+         //   setShadowRadius(view: self.shadowView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             

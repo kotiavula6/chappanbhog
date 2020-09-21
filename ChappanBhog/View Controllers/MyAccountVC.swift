@@ -10,6 +10,7 @@ import UIKit
 
 class MyAccountVC: UIViewController {
     
+    @IBOutlet weak var imageBackView: UIView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
@@ -23,16 +24,24 @@ class MyAccountVC: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        DispatchQueue.main.async {
-            setGradientBackground(view: self.gradientView)
-            self.backView.layer.cornerRadius = 30
-            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            setGradientBackground(view: self.profileImage)
-            self.profileImage.cornerRadius = self.profileImage.frame.height/2
-      
-            
-        }
+        setAppearance()
         
+    }
+    
+    func setAppearance() {
+        DispatchQueue.main.async {
+              setGradientBackground(view: self.gradientView)
+              self.backView.layer.cornerRadius = 30
+              self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+//              setGradientBackground(view: self.profileImage)
+              self.profileImage.cornerRadius = self.profileImage.frame.height/2
+        
+              self.imageBackView.cornerRadius = self.imageBackView.frame.height/2
+            
+            self.shadowViewBottom.cornerRadius = 30
+            self.shadowViewBottom.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            
+          }
     }
     
     
