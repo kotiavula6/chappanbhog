@@ -39,6 +39,7 @@ class MyAccountVC: UIViewController {
               self.imageBackView.cornerRadius = self.imageBackView.frame.height/2
             
             self.shadowViewBottom.cornerRadius = 30
+           self.shadowViewBottom.layer.masksToBounds = true
             self.shadowViewBottom.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
           }
