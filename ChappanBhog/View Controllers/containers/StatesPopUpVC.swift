@@ -12,15 +12,22 @@ class StatesPopUpVC: UIViewController {
     
     let States = ["Telangana", "Punjab", "NewDelhi","Gujarath","HimachalPradesh"]
     
+    //MARK:- OUTLETS
     @IBOutlet weak var backView: UIView!
     var selctedState:String = ""
     var didSelectAction:(()->())?
     var closeButtonAction:(()->())?
     
+    
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        setAppearance()
         
-        // Do any additional setup after loading the view.
+    }
+    
+    func setAppearance() {
         DispatchQueue.main.async {
             self.backView.cornerRadius = 8
             self.backView.layer.masksToBounds = true

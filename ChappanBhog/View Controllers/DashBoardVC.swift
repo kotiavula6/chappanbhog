@@ -29,16 +29,14 @@ class DashBoardVC: UIViewController {
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(menuClicked))
-        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
-        self.view.addGestureRecognizer(swipeRight)
-        
-        // Do any additional setup after loading the view.
+  
         setAppearence()
-        
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.sidemenu.view.removeFromSuperview()
+    }
+    
     
     //MARK:- UI APPEARENCE
     func setAppearence() {
@@ -81,19 +79,20 @@ class DashBoardVC: UIViewController {
             }
             
         }
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(menuClicked))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        self.sidemenu.view.removeFromSuperview()
-    }
     
-    
+    //OPEN SIDE MENU
     @objc func menuClicked() {
         //openMenuPanel(self)
         self.view.addSubview(sidemenu.view)
     }
     
-    //MARK:- Actions
+    //MARK:- ACTIONS
     @IBAction func cartButtonClicked(_ sender: UIButton) {
         
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC

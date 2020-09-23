@@ -9,7 +9,8 @@
 import UIKit
 
 class PaymentVC: UIViewController {
-
+    
+    //MARK:- OUTLETS
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var banksCollection: UICollectionView!
@@ -28,31 +29,38 @@ class PaymentVC: UIViewController {
     @IBOutlet weak var yearTF: UITextField!
     @IBOutlet weak var monthTF: UITextField!
     
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
+        
+    }
+    
+    //MARK:- FUNCTIONS
+    func setAppearance() {
         DispatchQueue.main.async {
             
             self.acountHolderNameTF.setLeftPaddingPoints(10)
             self.cardNumberTF.setLeftPaddingPoints(10)
-         
-                
+            
+            
             self.cartLBL.layer.masksToBounds = true
-                     setGradientBackground(view: self.gradientView)
-                self.backView.layer.cornerRadius = 30
-                self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            setGradientBackground(view: self.gradientView)
+            self.backView.layer.cornerRadius = 30
+            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
-                     self.cartLBL.layer.masksToBounds = true
-  
-//                
-//                self.scrollview.layer.cornerRadius = 30
-//                self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-                
-                //  scrollview
-            }
+            self.cartLBL.layer.masksToBounds = true
+            
+            //
+            //                self.scrollview.layer.cornerRadius = 30
+            //                self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            
+            //  scrollview
+        }
     }
+    //MARK:- ACTIONS
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -62,10 +70,12 @@ class PaymentVC: UIViewController {
         
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
     
 }
+
+//MARK:- COLLECTIONVIEW METHODS
 extension PaymentVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -97,5 +107,5 @@ class BanksCollectionCell: UICollectionViewCell {
         }
         
     }
-   
+    
 }

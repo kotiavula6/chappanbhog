@@ -10,6 +10,7 @@ import UIKit
 
 class AboutVC: UIViewController {
     
+    //MARK:- OUTLETS
     @IBOutlet weak var enquiryBTN: UIButton!
     @IBOutlet weak var messageTV: UITextView!
     @IBOutlet weak var emailTF: UITextField!
@@ -17,39 +18,36 @@ class AboutVC: UIViewController {
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
-    
     @IBOutlet weak var enquiryContainer: UIView!
     var enquiryView:EnquirlyFormVC?
     
+    //MARK:- APPLICAITON LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        DispatchQueue.main.async {
-            
-            setGradientBackground(view: self.gradientView)
-//            self.nameTF.setLeftPaddingPoints(10)
-//            self.nameTF.layer.masksToBounds = true
-//            
-//            self.emailTF.setLeftPaddingPoints(10)
-//            self.emailTF.layer.masksToBounds = true
-            SetAppearance()
-            
-        }
+        SetAppearance()
         
-        func SetAppearance() {
-            self.backView.layer.cornerRadius = 30
-            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        DispatchQueue.main.async {
+            setGradientBackground(view: self.gradientView)
+            //            self.nameTF.setLeftPaddingPoints(10)
+            //            self.nameTF.layer.masksToBounds = true
+            //
+            //            self.emailTF.setLeftPaddingPoints(10)
+            //            self.emailTF.layer.masksToBounds = true
             
-            self.scrollview.layer.cornerRadius = 30
-            self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         }
         
     }
+    //MARK:- FUCNCTIONS
+    func SetAppearance() {
+        self.backView.layer.cornerRadius = 30
+        self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        self.scrollview.layer.cornerRadius = 30
+        self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+    }
     
-    
-    //MARK:- Segue
-    
+    //MARK:- SEGUE
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EnquirlyFormVC"{
             
@@ -59,10 +57,11 @@ class AboutVC: UIViewController {
                 
             }
             
-            
         }
     }
     
+    
+    //MARK:- ACTIONS
     @IBAction func enquiryNowButtonAction(_ sender: UIButton) {
         
     }

@@ -27,23 +27,24 @@ class RegisterVC: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        mobileTF.setLeftPaddingPoints(10)
-        emailTF.setLeftPaddingPoints(10)
-        nameTF.setLeftPaddingPoints(10)
-        ViewSetUp()
+        
+        setAppearance()
     }
     
     //MARK:- FUNCTIONS
-    func ViewSetUp() {
+    func setAppearance() {
         
         DispatchQueue.main.async {
             self.registerBTN.layer.masksToBounds = true
             setShadow(view: self.registerBTN, cornerRadius: 5, shadowRadius: 5, shadowOpacity: 5)
             
             self.flagIMG.layer.cornerRadius = self.flagIMG.frame.height/2
-               self.flagIMG.layer.masksToBounds = true
+            self.flagIMG.layer.masksToBounds = true
         }
         
+        mobileTF.setLeftPaddingPoints(10)
+        emailTF.setLeftPaddingPoints(10)
+        nameTF.setLeftPaddingPoints(10)
         
         guard let country = CountryManager.shared.currentCountry else {
             //            self.countryBTN.setTitle("Pick Country", for: .normal)
@@ -77,24 +78,24 @@ class RegisterVC: UIViewController {
         countryController.detailColor = UIColor.red
     }
     
-
-
-@IBAction func registerButtonAction(_ sender: UIButton) {
-    let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
-    self.navigationController?.pushViewController(vc, animated: true)
     
-}
-
-@IBAction func loginButtonClicked(_ sender: UIButton) {
-    let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-    self.navigationController?.pushViewController(vc, animated: true)
-}
-
-@IBAction func fbButtonAction(_ sender: UIButton) {
-}
-@IBAction func twitterAction(_ sender: UIButton) {
-}
-
-@IBAction func googleAction(_ sender: UIButton) {
-}
+    
+    @IBAction func registerButtonAction(_ sender: UIButton) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    @IBAction func loginButtonClicked(_ sender: UIButton) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func fbButtonAction(_ sender: UIButton) {
+    }
+    @IBAction func twitterAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func googleAction(_ sender: UIButton) {
+    }
 }

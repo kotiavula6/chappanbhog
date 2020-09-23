@@ -9,16 +9,21 @@
 import UIKit
 
 class VerifyPhoneVC: UIViewController {
-
+    
+    //MARK:- OUTLETS
     @IBOutlet weak var TF4: UITextField!
     @IBOutlet weak var TF3: UITextField!
     @IBOutlet weak var TF2: UITextField!
     @IBOutlet weak var TF1: UITextField!
+    
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
+    
+    //MARK:- ACTIONS
     
     @IBAction func ResendAction(_ sender: UIButton) {
         

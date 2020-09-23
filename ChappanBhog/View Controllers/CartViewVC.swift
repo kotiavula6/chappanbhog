@@ -9,31 +9,40 @@
 import UIKit
 
 class CartViewVC: UIViewController {
-
+    
+    //MARK:- OUTLETS
     @IBOutlet weak var subTitleView: UIView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var cartLBL: UILabel!
+    @IBOutlet weak var itemsLeftLBL: UILabel!
     
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setAppearance()
+        
+    }
+    //MARK:- FUNCTIONS
+    func setAppearance() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             
-//            subTitleView
-             self.subTitleView.layer.cornerRadius = 30
-              self.subTitleView.layer.masksToBounds = true
-              self.subTitleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            //            subTitleView
+            self.subTitleView.layer.cornerRadius = 30
+            self.subTitleView.layer.masksToBounds = true
+            self.subTitleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
             self.cartLBL.layer.masksToBounds = true
-     
+            
             
         }
     }
+    
+    //MARK:- ACTIONS
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -45,6 +54,7 @@ class CartViewVC: UIViewController {
     }
     
 }
+//MARK:- TABLEVIEW METHODS
 extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
@@ -58,7 +68,5 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
-    
     
 }

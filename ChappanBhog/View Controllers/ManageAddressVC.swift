@@ -10,13 +10,8 @@ import UIKit
 
 class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource,UIToolbarDelegate {
     
+    //MARK:- OUTLETS
     @IBOutlet weak var statesContainer: UIView!
-    var statsView:StatesPopUpVC?
-    var gradePicker: UIPickerView!
-    
-    let States = ["Telangana", "Punjab", "NewDelhi","Gujarath","HimachalPradesh"]
-    
-    
     @IBOutlet weak var updateAddressBTN: UIButton!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var backView: UIView!
@@ -28,7 +23,13 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var phoneNoTF: UITextField!
     @IBOutlet weak var addressTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
+    var statsView:StatesPopUpVC?
+    var gradePicker: UIPickerView!
     
+    let States = ["Telangana", "Punjab", "NewDelhi","Gujarath","HimachalPradesh"]
+    
+    
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,11 +46,11 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         setAppearance()
         
     }
-    
+    //MARK:- FUCNTIONS
     func setAppearance() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
-         //   setShadowRadius(view: self.shadowView)
+            //   setShadowRadius(view: self.shadowView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
@@ -65,10 +66,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         
     }
     
-    @IBAction func stateTFAction(_ sender: UIButton) {
-        self.view.bringSubviewToFront(statesContainer)
-    }
-    //MARK:- Segue
+    //MARK:- SEGUE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "StatesPopUpVC"{
@@ -88,7 +86,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         }
     }
     
-    
+  //MARKK:- PICKERVIEW METHODS
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -107,10 +105,15 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         self.view.endEditing(true)
     }
     
-//        @IBAction func stateTFAction(_ sender: UITextField) {
-//    
-//    
-//        }
+    //        @IBAction func stateTFAction(_ sender: UITextField) {
+    //
+    //
+    //        }
+    
+    //MARK:- ACTIONS
+    @IBAction func stateTFAction(_ sender: UIButton) {
+        self.view.bringSubviewToFront(statesContainer)
+    }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)

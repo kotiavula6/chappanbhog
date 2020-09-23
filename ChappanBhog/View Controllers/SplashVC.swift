@@ -10,15 +10,19 @@ import UIKit
 
 class SplashVC: UIViewController {
 
+    //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        DispatchQueue.main.async {
-            setGradientBackground(view: self.view)
-        }
         
+        setAppearance()
         _ = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(navigateTologinPage), userInfo: nil, repeats: false)
  
+    }
+   //MARK:- FUNCTIONS
+    func setAppearance() {
+        DispatchQueue.main.async {
+                 setGradientBackground(view: self.view)
+             }
     }
     
     @objc func navigateTologinPage() {

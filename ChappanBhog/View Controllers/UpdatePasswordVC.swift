@@ -9,28 +9,31 @@
 import UIKit
 
 class UpdatePasswordVC: UIViewController {
-
+    
+    //MARK:- OUTLETS
     @IBOutlet weak var updatePasswordBTN: UIButton!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var oldPasswordTF: UITextField!
-    
     @IBOutlet weak var newPasswordTF: UITextField!
     @IBOutlet weak var phoneTF: UITextField!
     
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-       setAppearence()
+        setAppearence()
     }
     
+    
+    //MARK:- FUCNTIONS
     func setAppearence() {
         DispatchQueue.main.async {
             
             setGradientBackground(view: self.gradientView)
-           
+            
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
@@ -43,6 +46,7 @@ class UpdatePasswordVC: UIViewController {
         
     }
     
+    //MARK:- ACTIONS
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

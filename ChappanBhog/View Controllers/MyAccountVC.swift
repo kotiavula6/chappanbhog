@@ -10,16 +10,19 @@ import UIKit
 
 class MyAccountVC: UIViewController {
     
+    //MARK:- OUTLETS
+    @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var bacVieww: UIView!
     @IBOutlet weak var imageBackView: UIView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var profileImage: UIImageView!
-    
     @IBOutlet weak var listTableHeight: NSLayoutConstraint!
     @IBOutlet weak var shadowViewBottom: UIView!
     let listArray = ["ADDRESS","PASSWORD","MY ORDERS","TRACK YOUR ORDER","PAYMENTS"]
     
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,30 +30,38 @@ class MyAccountVC: UIViewController {
         setAppearance()
         
     }
-    
+    //MARK:- FUNCTIONS
     func setAppearance() {
         DispatchQueue.main.async {
-              setGradientBackground(view: self.gradientView)
-              self.backView.layer.cornerRadius = 30
-              self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-//              setGradientBackground(view: self.profileImage)
-              self.profileImage.cornerRadius = self.profileImage.frame.height/2
-        
-              self.imageBackView.cornerRadius = self.imageBackView.frame.height/2
+            
+            setGradientBackground(view: self.gradientView)
+            self.backView.layer.cornerRadius = 30
+            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            
+            self.bacVieww.layer.cornerRadius = 30
+            self.bacVieww.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            
+            self.profileImage.cornerRadius = self.profileImage.frame.height/2
+            
+            self.imageBackView.cornerRadius = self.imageBackView.frame.height/2
             
             self.shadowViewBottom.cornerRadius = 30
-           self.shadowViewBottom.layer.masksToBounds = true
+            //           self.shadowViewBottom.layer.masksToBounds = true
             self.shadowViewBottom.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.scrollview.cornerRadius = 30
+            self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             
-          }
+            
+        }
     }
     
-    
+    //MARK:- ACTIONS
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
 }
+//MARK:- TABLEVIEW METHODS
 extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listArray.count
@@ -87,21 +98,21 @@ extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
         if indexPath.row == 3 {
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrackYourOrderVC") as! TrackYourOrderVC
-                 self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
             
         }
         if indexPath.row == 4 {
             
             
-                   let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
-                        self.navigationController?.pushViewController(vc, animated: true)
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+            self.navigationController?.pushViewController(vc, animated: true)
             
         }
     }
     
 }
 
-//class
+//TABLE CLASS
 class MyAccountListTableCell: UITableViewCell {
     
     @IBOutlet weak var nameLBL:UILabel!

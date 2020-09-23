@@ -12,25 +12,36 @@ class NotificationsVC: UIViewController {
 
     var listArray = ["Stories are, perhaps, the","best way to teach life ","ou can teach them","the values and morals ","without being preachy","some short moral stories f","kids to enjoy the story"]
     
+    //MARK:- OUTLETS
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var notificationsTable: UITableView!
     
+    //MARK:- APPLICAION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
-        DispatchQueue.main.async {
-            setGradientBackground(view: self.gradientView)
-            self.notificationsTable.layer.cornerRadius = 30
-            self.notificationsTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-   
-            
-        }
+        setAppearance()
     }
     
-
+    
+    //MARK:- FUNCTIONS
+    func setAppearance() {
+             DispatchQueue.main.async {
+                 setGradientBackground(view: self.gradientView)
+                 self.notificationsTable.layer.cornerRadius = 30
+                 self.notificationsTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+             }
+    }
+    
+    //MARK:- ACTIONS
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
+//MARK:- TABLEVIEW METHODS
 extension NotificationsVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listArray.count
@@ -50,10 +61,16 @@ extension NotificationsVC: UITableViewDelegate,UITableViewDataSource {
   
 }
 
+
+//TABLEVIEW CLASS
 class NotificationListTableCell: UITableViewCell {
     
+    @IBOutlet weak var newLBL: UILabel!
     @IBOutlet weak var nameLBL: UILabel!
     @IBOutlet weak var newWidthConstraint: NSLayoutConstraint!
+    override func awakeFromNib() {
+        newLBL.clipsToBounds = true
+    }
     
 }
 

@@ -10,33 +10,38 @@ import UIKit
 
 class ProductInfoVC: UIViewController {
     
-    
+    //MARK:- OUTLETS
     @IBOutlet weak var payBTN: UIButton!
     @IBOutlet weak var quantityLBL: UILabel!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var backView: UIView!
-    var quantity:Int = 1
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var weightBTN: UIButton!
+    var quantity:Int = 1
     
+    
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        setAppearance()
         
-        // Do any additional setup after loading the view.
-        
+    }
+    
+    //MARK:- FUNCTIONS
+    func setAppearance() {
         DispatchQueue.main.async {
-            
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true
             self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
         }
-        
     }
     
+    //MARK:- ACTIONS
     @IBAction func weightButtonAction(_ sender: UIButton) {
     }
+    
     @IBAction func increseBTN(_ sender: UIButton) {
         quantity += 1
         quantityLBL.text = "\(quantity)"
@@ -57,7 +62,7 @@ class ProductInfoVC: UIViewController {
     
     @IBAction func payButtonClicked(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
-                       self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
