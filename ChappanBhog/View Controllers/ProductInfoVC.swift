@@ -10,6 +10,7 @@ import UIKit
 
 class ProductInfoVC: UIViewController {
     
+    @IBOutlet weak var productBacView: UIView!
     //MARK:- OUTLETS
     @IBOutlet weak var payBTN: UIButton!
     @IBOutlet weak var quantityLBL: UILabel!
@@ -18,6 +19,7 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var weightBTN: UIButton!
     var quantity:Int = 1
+    @IBOutlet weak var scrollView: UIScrollView!
     
     
     //MARK:- APPLICATION LIFE CYCLE
@@ -33,6 +35,9 @@ class ProductInfoVC: UIViewController {
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.scrollView.layer.cornerRadius = 30
+                      self.scrollView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            
             self.cartLBL.layer.masksToBounds = true
             self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
         }

@@ -19,19 +19,19 @@ struct AppConstant
 }
 
 
-func openMenuPanel(_ viewController: UIViewController) {
-    
-    let vc: SidMenuVC = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SidMenuVC") as! SidMenuVC
-    vc.modalPresentationStyle = .overFullScreen;
-    vc.view.backgroundColor = UIColor.init(white: 0/255.0, alpha: 0.5)
-    vc.completionHandler = {
-        value in
-        print(value)
-        
-      //  AppUtil.PushController(value:value, View:viewController)
-    }
-    viewController.present(vc, animated: false, completion: {})
-}
+//func openMenuPanel(_ viewController: UIViewController) {
+//    
+//    let vc: SidMenuVC = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SidMenuVC") as! SidMenuVC
+//    vc.modalPresentationStyle = .overFullScreen;
+//    vc.view.backgroundColor = UIColor.init(white: 0/255.0, alpha: 0.5)
+//    vc.completionHandler = {
+//        value in
+//        print(value)
+//        
+//      //  AppUtil.PushController(value:value, View:viewController)
+//    }
+//    viewController.present(vc, animated: false, completion: {})
+//}
 
 //func getDefaultCountryDetailsOfDevice(fillCountryCode: String = "") -> NSDictionary {
 //    

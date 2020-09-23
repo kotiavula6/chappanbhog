@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,8 @@
 		4D4E2ED5E44F73120AAAE4A1 /* Pods_ChappanBhogTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63AB1724AF6435A3F10ADF0 /* Pods_ChappanBhogTests.framework */; };
 		EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */; };
 		EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */; };
+		EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */; };
+		EE21FDC7251BC5D90075EA5F /* productWeightVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */; };
 		EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */; };
 		EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25617B2509FEE3001C54AA /* MyOrderVC.swift */; };
 		EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE318C222510703F00160640 /* ForgotPasswordVC.swift */; };
@@ -42,7 +44,6 @@
 		EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482D25093FD500C263F1 /* CartTableCell.swift */; };
 		EE8248302509438800C263F1 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482F2509438800C263F1 /* PaymentVC.swift */; };
 		EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA13A0C250F5639004E9252 /* CommonMethods.swift */; };
-		EEA13A0F250F5685004E9252 /* SidMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA13A0E250F5685004E9252 /* SidMenuVC.swift */; };
 		EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */; };
 		EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8C2508D73100DFD80F /* Constants.swift */; };
 		EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */; };
@@ -101,6 +102,8 @@
 		D51D90C04B8F3C70B0121A8C /* Pods-ChappanBhog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog.release.xcconfig"; path = "Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog.release.xcconfig"; sourceTree = "<group>"; };
 		EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardCategoriesVC.swift; sourceTree = "<group>"; };
 		EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordVC.swift; sourceTree = "<group>"; };
+		EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productWeightVC.swift; sourceTree = "<group>"; };
+		EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = productWeightVC.xib; sourceTree = "<group>"; };
 		EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackYourOrderVC.swift; sourceTree = "<group>"; };
 		EE25617B2509FEE3001C54AA /* MyOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderVC.swift; sourceTree = "<group>"; };
 		EE318C222510703F00160640 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -138,7 +141,6 @@
 		EE82482D25093FD500C263F1 /* CartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableCell.swift; sourceTree = "<group>"; };
 		EE82482F2509438800C263F1 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		EEA13A0C250F5639004E9252 /* CommonMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
-		EEA13A0E250F5685004E9252 /* SidMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidMenuVC.swift; sourceTree = "<group>"; };
 		EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchRecordVC.swift; sourceTree = "<group>"; };
 		EEA8EF8C2508D73100DFD80F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
@@ -205,7 +207,6 @@
 				61EB06DD3DCA7AF81BDACA9C /* Pods-ChappanBhogTests.debug.xcconfig */,
 				0732C66D00AABB24720BF5E2 /* Pods-ChappanBhogTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -242,6 +243,15 @@
 				EE0887C825089C6F00FC8FDB /* Fonts */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EE21FDC3251BC5A70075EA5F /* WeightXIB */ = {
+			isa = PBXGroup;
+			children = (
+				EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */,
+				EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */,
+			);
+			path = WeightXIB;
 			sourceTree = "<group>";
 		};
 		EE31C6BE250774DF00E87E98 = {
@@ -323,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				EE7740212511D72600E994B8 /* containers */,
+				EE21FDC3251BC5A70075EA5F /* WeightXIB */,
 				EEC5EA1725116A5E00E5529F /* SideMenu */,
 				EE31C70D2507B9ED00E87E98 /* Cells */,
 				EE31C703250777C800E87E98 /* SplashVC.swift */,
@@ -339,7 +350,6 @@
 				EE82482F2509438800C263F1 /* PaymentVC.swift */,
 				EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */,
 				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
-				EEA13A0E250F5685004E9252 /* SidMenuVC.swift */,
 				EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */,
 				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 				EEDD1B20250B9598000671EA /* MyAccountVC.swift */,
@@ -524,6 +534,7 @@
 			files = (
 				EEA8EFA92508DC7F00DFD80F /* Login.storyboard in Resources */,
 				EE31C6DA250774E300E87E98 /* LaunchScreen.storyboard in Resources */,
+				EE21FDC7251BC5D90075EA5F /* productWeightVC.xib in Resources */,
 				EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */,
 				EEC5EA1B25116A8600E5529F /* sideMenu.xib in Resources */,
 				EEA8EFA52508DC5C00DFD80F /* Brandon_blk.otf in Resources */,
@@ -679,11 +690,11 @@
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
 				EE458EE7250BAB2300BAA7E7 /* NotificationsVC.swift in Sources */,
-				EEA13A0F250F5685004E9252 /* SidMenuVC.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
 				EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */,
 				EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
+				EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */,
 				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,

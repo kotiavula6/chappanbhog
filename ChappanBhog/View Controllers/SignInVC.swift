@@ -41,8 +41,11 @@ class SignInVC: UIViewController {
     }
     
     @IBAction func signInButtonClicked(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "DashBoardVC") as! DashBoardVC
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "DashBoardVC") as! DashBoardVC
+//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+          self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     

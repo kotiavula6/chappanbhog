@@ -9,30 +9,42 @@
 import UIKit
 
 class DashBoardCategoriesVC: UIViewController {
-
+    
+    
+    //MARK:- OUTLETS
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var catCollection: UICollectionView!
     @IBOutlet weak var cartLBL: UILabel!
     
+    
+    //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setAppearnace()
+        
+        // Do any additional setup after loading the view.
+    }
+    //MARK:- FUNCTIONS
+    func setAppearnace() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
             
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true
-                     self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
+            self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
         }
-        // Do any additional setup after loading the view.
     }
-
+    
+    //MARK:- ACTIONS
     @IBAction func openMenu(_ sender: UIButton) {
         
     }
+    
 }
-
+//MARK:- COLLECTIONVIEW METHODS
 extension DashBoardCategoriesVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -65,7 +77,7 @@ extension DashBoardCategoriesVC:UICollectionViewDelegate,UICollectionViewDataSou
 class DashboardCategCollCell: UICollectionViewCell {
     
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
- 
+    
     @IBOutlet weak var backView: UIView!
     
 }

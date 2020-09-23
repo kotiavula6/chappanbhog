@@ -30,7 +30,10 @@ class VerifyPhoneVC: UIViewController {
     }
     
     @IBAction func verifyClicked(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "DashBoardVC") as! DashBoardVC
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
         self.navigationController?.pushViewController(vc, animated: true)
+        
     }
+    
 }

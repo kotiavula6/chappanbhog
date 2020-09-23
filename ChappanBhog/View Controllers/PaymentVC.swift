@@ -35,15 +35,13 @@ class PaymentVC: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        
+        setAppearance()
     }
     
     //MARK:- FUNCTIONS
     func setAppearance() {
         DispatchQueue.main.async {
             
-            self.acountHolderNameTF.setLeftPaddingPoints(10)
-            self.cardNumberTF.setLeftPaddingPoints(10)
             
             
             self.cartLBL.layer.masksToBounds = true
@@ -59,6 +57,10 @@ class PaymentVC: UIViewController {
             
             //  scrollview
         }
+        
+        self.acountHolderNameTF.setLeftPaddingPoints(10)
+        self.cardNumberTF.setLeftPaddingPoints(10)
+        
     }
     //MARK:- ACTIONS
     

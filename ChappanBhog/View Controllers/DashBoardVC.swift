@@ -177,7 +177,7 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     
 }
 
-
+//COLLECTION CELLS
 class DashboardPageCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var bannerIMG: UIImageView!
