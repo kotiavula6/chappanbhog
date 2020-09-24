@@ -7,6 +7,17 @@ target 'ChappanBhog' do
 
   # Pods for ChappanBhog
 pod 'SKCountryPicker'
+pod 'Alamofire', '~> 5.2'
+pod 'SwiftyJSON'
+pod 'SVProgressHUD'
+pod 'SDWebImage'
+pod 'SCLAlertView'
+pod 'NVActivityIndicatorView'
+pod 'IQKeyboardManagerSwift'
+
+
+
+
 
   target 'ChappanBhogTests' do
     inherit! :search_paths

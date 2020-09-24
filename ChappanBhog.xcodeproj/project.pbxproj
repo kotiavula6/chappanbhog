@@ -13,6 +13,7 @@
 		EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */; };
 		EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */; };
 		EE21FDC7251BC5D90075EA5F /* productWeightVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */; };
+		EE21FE0B251C96380075EA5F /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21FE0A251C96380075EA5F /* PinterestLayout.swift */; };
 		EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */; };
 		EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25617B2509FEE3001C54AA /* MyOrderVC.swift */; };
 		EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE318C222510703F00160640 /* ForgotPasswordVC.swift */; };
@@ -63,6 +64,11 @@
 		EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */; };
 		EEC5EA1A25116A8600E5529F /* sideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5EA1825116A8600E5529F /* sideMenu.swift */; };
 		EEC5EA1B25116A8600E5529F /* sideMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEC5EA1925116A8600E5529F /* sideMenu.xib */; };
+		EECC6EF0251CC5BC00A0B2D1 /* AFWrapperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EEF251CC5BC00A0B2D1 /* AFWrapperClass.swift */; };
+		EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EF1251CC94D00A0B2D1 /* checkNetwork.swift */; };
+		EECC6EF4251CD0D500A0B2D1 /* activityLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EF3251CD0D500A0B2D1 /* activityLoader.swift */; };
+		EECC6EF6251CD18100A0B2D1 /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EF5251CD18100A0B2D1 /* HelperMethods.swift */; };
+		EECC6EF8251CD26700A0B2D1 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EF7251CD26700A0B2D1 /* Validation.swift */; };
 		EECDFF17250FE99E000B293C /* CountryCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */; };
 		EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */; };
 		EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF1A250FEB18000B293C /* Extensions.swift */; };
@@ -104,6 +110,7 @@
 		EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordVC.swift; sourceTree = "<group>"; };
 		EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productWeightVC.swift; sourceTree = "<group>"; };
 		EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = productWeightVC.xib; sourceTree = "<group>"; };
+		EE21FE0A251C96380075EA5F /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackYourOrderVC.swift; sourceTree = "<group>"; };
 		EE25617B2509FEE3001C54AA /* MyOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderVC.swift; sourceTree = "<group>"; };
 		EE318C222510703F00160640 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -160,6 +167,11 @@
 		EEA8EFAA2508DC8F00DFD80F /* DashBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DashBoard.storyboard; sourceTree = "<group>"; };
 		EEC5EA1825116A8600E5529F /* sideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideMenu.swift; sourceTree = "<group>"; };
 		EEC5EA1925116A8600E5529F /* sideMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = sideMenu.xib; sourceTree = "<group>"; };
+		EECC6EEF251CC5BC00A0B2D1 /* AFWrapperClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFWrapperClass.swift; sourceTree = "<group>"; };
+		EECC6EF1251CC94D00A0B2D1 /* checkNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkNetwork.swift; sourceTree = "<group>"; };
+		EECC6EF3251CD0D500A0B2D1 /* activityLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activityLoader.swift; sourceTree = "<group>"; };
+		EECC6EF5251CD18100A0B2D1 /* HelperMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
+		EECC6EF7251CD26700A0B2D1 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodesViewController.swift; sourceTree = "<group>"; };
 		EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeCell.swift; sourceTree = "<group>"; };
 		EECDFF1A250FEB18000B293C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -235,6 +247,11 @@
 				EECDFF1C250FEB83000B293C /* CountryCodes */,
 				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
 				EECDFF1A250FEB18000B293C /* Extensions.swift */,
+				EECC6EEF251CC5BC00A0B2D1 /* AFWrapperClass.swift */,
+				EECC6EF3251CD0D500A0B2D1 /* activityLoader.swift */,
+				EECC6EF5251CD18100A0B2D1 /* HelperMethods.swift */,
+				EECC6EF7251CD26700A0B2D1 /* Validation.swift */,
+				EECC6EF1251CC94D00A0B2D1 /* checkNetwork.swift */,
 				EEA13A0C250F5639004E9252 /* CommonMethods.swift */,
 				EE52F4B02509D3F00026BE68 /* UIColor+NewColors.swift */,
 				EE52F4B22509D4440026BE68 /* Uiview+IBinspectable.swift */,
@@ -252,6 +269,14 @@
 				EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */,
 			);
 			path = WeightXIB;
+			sourceTree = "<group>";
+		};
+		EE21FE09251C95FE0075EA5F /* pintrest */ = {
+			isa = PBXGroup;
+			children = (
+				EE21FE0A251C96380075EA5F /* PinterestLayout.swift */,
+			);
+			path = pintrest;
 			sourceTree = "<group>";
 		};
 		EE31C6BE250774DF00E87E98 = {
@@ -332,6 +357,7 @@
 		EE31C7012507760600E87E98 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EE21FE09251C95FE0075EA5F /* pintrest */,
 				EE7740212511D72600E994B8 /* containers */,
 				EE21FDC3251BC5A70075EA5F /* WeightXIB */,
 				EEC5EA1725116A5E00E5529F /* SideMenu */,
@@ -688,9 +714,11 @@
 				EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */,
 				EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */,
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
+				EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
 				EE458EE7250BAB2300BAA7E7 /* NotificationsVC.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
+				EECC6EF8251CD26700A0B2D1 /* Validation.swift in Sources */,
 				EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */,
 				EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
@@ -699,7 +727,9 @@
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,
 				EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */,
+				EE21FE0B251C96380075EA5F /* PinterestLayout.swift in Sources */,
 				EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */,
+				EECC6EF0251CC5BC00A0B2D1 /* AFWrapperClass.swift in Sources */,
 				EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */,
 				EE31C704250777C800E87E98 /* SplashVC.swift in Sources */,
 				EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */,
@@ -709,10 +739,12 @@
 				EE31C70825078B8700E87E98 /* RegisterVC.swift in Sources */,
 				EE31C6D5250774DF00E87E98 /* ChappanBhog.xcdatamodeld in Sources */,
 				EE7740232511D74500E994B8 /* EnquirlyFormVC.swift in Sources */,
+				EECC6EF4251CD0D500A0B2D1 /* activityLoader.swift in Sources */,
 				EE7740252511E74B00E994B8 /* StatesPopUpVC.swift in Sources */,
 				EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */,
 				EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */,
 				EE31C70625078A9200E87E98 /* SignInVC.swift in Sources */,
+				EECC6EF6251CD18100A0B2D1 /* HelperMethods.swift in Sources */,
 				EE52F4B32509D4440026BE68 /* Uiview+IBinspectable.swift in Sources */,
 				EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */,
 				EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */,

@@ -72,6 +72,28 @@ func setGradientBackground(view: UIView) {
         }
     }
     
+//MARK:- BASE URL
+struct ApplicationUrl
+{
+    static let WEB_SERVER = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/"
+}
+//MARK:- API
+struct WebserviceNamme {
+    
+    static let API_GET_LOGIN  = "login"
+    static let API_GET_REGISTER = "register"
+    static let API_GET_DASHBOARD_DATA = "dashboard"
+    static let API_GET_CATEGORIES = "categories"
+    static let API_GET_ITEMS = "items"
+    static let API_GET_SEARCH = "search"
+    static let API_GET_ITEMDETAILS = "item_details"
+    static let API_GET_PLACE_ORDER = "place_order"
+    
+    
+    
+    
+}
+
 
 
 //MARK:- Button
@@ -215,9 +237,9 @@ extension UIViewController {
         self.present(alertController, animated: true, completion:nil)
     }
     
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
+//    @objc func dismissKeyboard() {
+//        view.endEditing(true)
+//    }
 }
 
 func setShadowRadius(view:UIView) {
