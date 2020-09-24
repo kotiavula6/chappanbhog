@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mQx-aq-Zi4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Crc-w4-3dC">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1872,6 +1872,7 @@
                         <segue destination="vVV-P0-LQe" kind="relationship" relationship="viewControllers" id="ILh-CE-sRc"/>
                         <segue destination="Okn-MG-HUZ" kind="relationship" relationship="viewControllers" id="2dI-Iw-4gy"/>
                         <segue destination="L2H-ak-GdJ" kind="relationship" relationship="viewControllers" id="VmR-f9-4wo"/>
+                        <segue destination="NYT-vh-O5z" kind="relationship" relationship="viewControllers" id="2ch-LS-f3n"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iZH-9D-v8B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3077,7 +3078,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhk-va-oCV">
-                                                <rect key="frame" x="150" y="7" width="75" height="26"/>
+                                                <rect key="frame" x="151" y="4.5" width="73" height="31.5"/>
                                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3102,25 +3103,25 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xwh-fn-SEj">
-                                <rect key="frame" x="0.0" y="140" width="375" height="527"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="478"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E0q-vO-qa3">
-                                        <rect key="frame" x="0.0" y="-30" width="375" height="557"/>
+                                        <rect key="frame" x="0.0" y="-30" width="375" height="508"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCP-IB-zAY">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="585.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="603.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQF-9h-yyK">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATHENTICATE INDIAN TASTE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylA-aF-UTa">
-                                                                <rect key="frame" x="60" y="25" width="255" height="22.5"/>
+                                                                <rect key="frame" x="60" y="25" width="255" height="27.5"/>
                                                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="19"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get On The Style Aisle With Our Latest Trendy Collection. Hurry, Shop Now! Premium Brands." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYJ-LL-9la">
-                                                                <rect key="frame" x="60" y="59.5" width="255" height="56"/>
+                                                                <rect key="frame" x="60" y="64.5" width="255" height="69"/>
                                                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Regular" family="Brandon Grotesque" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -3152,7 +3153,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8aR-hZ-8su">
-                                                        <rect key="frame" x="50" y="285.5" width="275" height="290"/>
+                                                        <rect key="frame" x="50" y="303.5" width="275" height="290"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="290" id="u05-qK-N1G"/>
                                                         </constraints>
@@ -3172,7 +3173,7 @@
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_logo" translatesAutoresizingMaskIntoConstraints="NO" id="u0m-Pf-T71">
-                                                <rect key="frame" x="117.5" y="125.5" width="140" height="140"/>
+                                                <rect key="frame" x="117.5" y="143.5" width="140" height="140"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="140" id="1Tn-65-CLg"/>
                                                     <constraint firstAttribute="width" secondItem="u0m-Pf-T71" secondAttribute="height" multiplier="1:1" id="xDd-Pa-BTe"/>
@@ -3213,6 +3214,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fAe-O1-y0k"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="contact_bottom" id="ydl-IZ-LYG"/>
                     <connections>
                         <outlet property="backView" destination="Xwh-fn-SEj" id="kg2-yj-LvG"/>
                         <outlet property="enquiryBTN" destination="mV1-ny-v0O" id="V1l-1y-IpB"/>
@@ -3223,7 +3225,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EYX-bR-oeU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6326" y="292"/>
+            <point key="canvasLocation" x="4862" y="-169"/>
         </scene>
         <!--Track Your OrderVC-->
         <scene sceneID="Dmn-5t-FxS">
@@ -6543,7 +6545,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Oh-CO-HF6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5687" y="247"/>
+            <point key="canvasLocation" x="4942" y="391"/>
         </scene>
         <!--States Pop UpVC-->
         <scene sceneID="kTA-Y7-xa6">
@@ -6664,6 +6666,7 @@
         <image name="cart-1" width="36.5" height="44.5"/>
         <image name="clear" width="8" height="8"/>
         <image name="clock" catalog="system" width="128" height="121"/>
+        <image name="contact_bottom" width="32" height="32"/>
         <image name="delivered" width="20" height="20"/>
         <image name="down_arrow_small" width="5" height="4"/>
         <image name="facebook" width="43" height="43"/>
