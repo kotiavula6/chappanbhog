@@ -73,12 +73,14 @@ func setGradientBackground(view: UIView) {
     }
     
 //MARK:- BASE URL
+
 struct ApplicationUrl
 {
     static let WEB_SERVER = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/"
 }
+
 //MARK:- API
-struct WebserviceNamme {
+struct WebserviceName {
     
     static let API_GET_LOGIN  = "login"
     static let API_GET_REGISTER = "register"
@@ -88,12 +90,56 @@ struct WebserviceNamme {
     static let API_GET_SEARCH = "search"
     static let API_GET_ITEMDETAILS = "item_details"
     static let API_GET_PLACE_ORDER = "place_order"
-    
-    
-    
-    
+  
 }
 
+struct Constants
+{
+    static let APP_NAME = "TEST NAME"
+    static let API_KEY = UserDefaults.standard .value(forKey: "API_KEY");
+    static let UserDetails = "UserDetails"
+    static let RemberMe = "RemberMe"
+    static let UserEmail = "UserEmail"
+    static let UserPassword = "UserPassword"
+    static let CurrencyCode = "CurrencyCode"
+    static let CountryId = "CountryId"
+    static let Currency = "Currency"
+    
+    static let  access_token = "access_token"
+    static let  token_type = "token_type"
+    static let  PackageId = "PackageId"
+    static let  LoginID = "LoginId"
+    static  let UserLoginLogId = "LoginId"
+    static let  EmailID = "EmailId"
+    static let  Name = "Name"
+    static let Phone = "Phone"
+    static let FullName = "FullName"
+    
+    static let EncryptedLoginID = "LoginId"
+    static let EncryptedPackageId = "EncryptedPackageId"
+    
+    static let  ParentRoleName = "ParentRoleName"
+    static let Role = "Role"
+    static let  Points = "Points"
+    static let  RoleName = "RoleName"
+    static let  RoleId = "CompanyRoleId"
+    static let IsLogin = "IsLogin"
+    static let Registerdata = "RegisterData"
+    static let Iphone5 = "Iphone 5"
+    static let Iphone6 = "Iphone 6"
+    static let  ParentRoleId = "DefaultRoleId"
+    static let Company = "Company"
+    static let  CompanyId = "CompanyId"
+    static let EncryptedCompanyId = "CompanyId"
+    static let  Permissions = "Permissions"
+    static let  MainPermissions = "MainPermissions"
+    static let  EncryptedUserId = "LoginId"
+    static let ProfilePicPath = "ProfilePicPath"
+    static let user_device_id = "user_device_id"
+    static let FCMToken = "FCMToken"
+    static let UserId = "UserId"
+    static let CountryCode = "CountryCode"
+}
 
 
 //MARK:- Button

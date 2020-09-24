@@ -31,6 +31,8 @@ class DashBoardVC: UIViewController {
         super.viewDidLoad()
   
         setAppearence()
+ 
+            
     }
     
     override func viewDidDisappear(_ animated: Bool) {

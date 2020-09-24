@@ -32,70 +32,76 @@ class RegisterVC: UIViewController {
         setAppearance()
     }
     
+    //MARK:- ACTIONS
     
-    //MARK:- REGISTER USER
-    
-    func RegisterUser() {
+    @IBAction func selectCountryButtonClicked(_ sender: UIButton) {
+        // Invoke below static method to present country picker without section control
+        // CountryPickerController.presentController(on: self) { ... }
         
-        IJProgressView.shared.showProgressView()
-        let signUpUrl = ApplicationUrl.WEB_SERVER + WebserviceNamme.API_GET_REGISTER
-        
-//        let deviceID = UserDefaults.standard.value(forKey: "deviceToken") as? String ?? ""
-//        let userlatitude = UserDefaults.standard.value(forKey: "Latitude")
-//        let userlongitude = UserDefaults.standard.value(forKey: "Longitude")
-//        let userCity = UserDefaults.standard.value(forKey: "City")
-                
-//        let mobile = mobileTF.text ?? ""
-//        let email = emailTF.text ?? ""
-//        let name = nameTF.text ?? ""
-//        let countryCode = countryCodeTF.text ?? ""
-//        let password = passwordTF.text ?? ""
-        
-        
-        let parms : [String:Any] = ["email": emailTF.text ?? "","mobile":mobileTF.text ?? "","name":nameTF.text ?? "","password":passwordTF.text ?? ""]
-        
-        AFWrapperClass.requestPOSTURL(signUpUrl, params: parms, success: { (dict) in
-            IJProgressView.shared.hideProgressView()
+        let countryController = CountryPickerWithSectionViewController.presentController(on: self) { [weak self] (country: Country) in
             
-            print(dict)
+            guard let self = self else { return }
             
+            self.flagIMG.image = country.flag
+            //             self.countryBTN.setTitle(country.dialingCode, for: .normal)
             
-            let userID = dict.value(forKey: "id") as? Int ?? 0
-            print(userID)
-            
-            UserDefaults.standard.set(userID, forKey: "Uid")
-            
-            if let result = dict as? [String:Any]{
-                print(result)
-                let detail = result["user_detail"] as?  [[String:Any]]
-                print(detail)
-                
-                let data = detail?[0]
-                print(data)
-                
-                let googileID = data?["google_id"] as? String ?? ""
-                UserDefaults.standard.set(googileID, forKey: "googleId")
-  
-                self.message = result["message"] as? String ?? ""
-                let status = result["status"] as? Int ?? 0
-                if status == 0{
-                    
-                    alert("SafeShopper", message: self.message, view: self)
-                }else{
-                    UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
-                          
-                      //        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
-                      //        self.navigationController?.pushViewController(vc, animated: true)
-                    
-                }
-            }
-        }) { (error) in
         }
         
+        // can customize the countryPicker here e.g font and color
+        countryController.detailColor = UIColor.red
     }
     
     
-    //MARK:- FUNCTIONS
+    
+    @IBAction func registerButtonAction(_ sender: UIButton) {
+        
+        if (nameTF.text?.isEmpty)!{
+            
+            ValidateData(strMessage: " Please enter username")
+        }
+        else if (emailTF.text?.isEmpty)!{
+            
+            ValidateData(strMessage: " Please enter email address")
+        }
+        else if (mobileTF.text?.count)! > 10 || (mobileTF.text?.count)! < 10 {
+            
+            ValidateData(strMessage: " Please enter valid mobile")
+        }
+        else if isValidEmail(email: (emailTF.text)!) == false{
+            
+            ValidateData(strMessage: "Enter valid email")
+        }
+        else if (passwordTF.text?.isEmpty)!{
+            
+            ValidateData(strMessage: " Please enter password")
+        }else if (passwordTF.text?.count)! < 4 || (passwordTF.text?.count)! > 15{
+            
+            ValidateData(strMessage: "Please enter minimum 4 digit password")
+            UserDefaults.standard.set(passwordTF.text, forKey: "password")
+            UserDefaults.standard.string(forKey: "password")
+        }
+        else{
+            API_NEW_USER_REGISTER()
+        }
+        
+        
+    }
+    
+    @IBAction func loginButtonClicked(_ sender: UIButton) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func fbButtonAction(_ sender: UIButton) {
+    }
+    @IBAction func twitterAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func googleAction(_ sender: UIButton) {
+    }
+    
+    
+    //MARK:- UI SETUP
     
     func setAppearance() {
         
@@ -124,84 +130,55 @@ class RegisterVC: UIViewController {
     }
     
     
+    //MARK:- REGISTER USER
     
-    //MARK:- ACTIONS
-    
-    @IBAction func selectCountryButtonClicked(_ sender: UIButton) {
-        // Invoke below static method to present country picker without section control
-        // CountryPickerController.presentController(on: self) { ... }
+    func API_NEW_USER_REGISTER() {
         
-        let countryController = CountryPickerWithSectionViewController.presentController(on: self) { [weak self] (country: Country) in
-            
-            guard let self = self else { return }
-            
-            self.flagIMG.image = country.flag
-            //             self.countryBTN.setTitle(country.dialingCode, for: .normal)
-            
+        IJProgressView.shared.showProgressView()
+        let signUpUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_REGISTER
+        let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone":mobileTF.text ?? "","name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0]
+        
+        AFWrapperClass.requestPOSTURL(signUpUrl, params: parms, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
+
+            if let result = dict as? [String:Any]{
+                print(result)
+                
+                //                let googileID = data?["google_id"] as? String ?? ""
+                //                UserDefaults.standard.set(googileID, forKey: "googleId")
+                
+                self.message = result["message"] as? String ?? ""
+                let success = result["success"] as? Int ?? 0
+                
+                if success == 0{
+                    alert("ChappanBhog", message: self.message, view: self)
+                }else{
+                    let data = result["data"] as? [String:Any] ?? [:]
+//                    email = "asdf@gmail.com";
+//                    name = "Agra\U2019s ";
+//                    phone = 1231231231;
+//                    type = 0;
+//                    "user_id" = 45148;
+                    let name = data["name"] as? String ?? ""
+                    let email = data["email"] as? String ?? ""
+                    let phone = data["phone"] as? String ?? ""
+                    let user_id = data["user_id"] as? String ?? ""
+                    
+                    UserDefaults.standard.set(name, forKey: Constants.Name)
+                    UserDefaults.standard.set(email, forKey: Constants.EmailID)
+                    UserDefaults.standard.set(phone, forKey: Constants.Phone)
+                    UserDefaults.standard.set(user_id, forKey: Constants.UserId)
+                    UserDefaults.standard.set(true, forKey: Constants.IsLogin)
+                    UserDefaults.standard.set(data, forKey: Constants.UserDetails)
+    
+                    let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                }
+            }
+        }) { (error) in
         }
         
-        // can customize the countryPicker here e.g font and color
-        countryController.detailColor = UIColor.red
-    }
-    
-    
-    
-    @IBAction func registerButtonAction(_ sender: UIButton) {
-        //
-        //        @IBOutlet weak var countryContainer: UIView!
-        //           @IBOutlet weak var mobileTF: UITextField!
-        //           @IBOutlet weak var emailTF: UITextField!
-        //           @IBOutlet weak var nameTF: UITextField!
-        //           @IBOutlet weak var countryCodeTF: UITextField!
-        
-//        let mobile = mobileTF.text ?? ""
-//        let email = emailTF.text ?? ""
-//        let name = nameTF.text ?? ""
-//        let countryCode = countryCodeTF.text ?? ""
-//        let password = passwordTF.text ?? ""
-        
-        if (nameTF.text?.isEmpty)!{
-            
-            ValidateData(strMessage: " Please enter username")
-        }
-        else if (emailTF.text?.isEmpty)!{
-            
-            ValidateData(strMessage: " Please enter email address")
-        }
-        else if (mobileTF.text?.isEmpty)!{
-            
-            ValidateData(strMessage: " Please enter mobile")
-        }
-        else if isValidEmail(email: (emailTF.text)!) == false{
-            
-            ValidateData(strMessage: "Enter valid email")
-        }
-        else if (passwordTF.text?.isEmpty)!{
-            
-            ValidateData(strMessage: " Please enter password")
-        }else if (passwordTF.text?.count)! < 4 || (passwordTF.text?.count)! > 15{
-            
-            ValidateData(strMessage: "Please enter minimum 4 digit password")
-            UserDefaults.standard.set(passwordTF.text, forKey: "password")
-            UserDefaults.standard.string(forKey: "password")
-        }
-        else{
-            RegisterUser()
-        }
-  
-        
-    }
-    
-    @IBAction func loginButtonClicked(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @IBAction func fbButtonAction(_ sender: UIButton) {
-    }
-    @IBAction func twitterAction(_ sender: UIButton) {
-    }
-    
-    @IBAction func googleAction(_ sender: UIButton) {
     }
 }
