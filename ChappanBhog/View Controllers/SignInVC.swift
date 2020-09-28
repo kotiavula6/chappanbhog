@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
 
-class SignInVC: UIViewController {
+class SignInVC: UIViewController  {
     
     
     var message:String = ""
@@ -43,6 +43,45 @@ class SignInVC: UIViewController {
             
         }
     }
+    
+    
+    
+//    //MARK:- Google Delegate Methods
+//
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//        if let error = error {
+//            print(error.localizedDescription)
+//        }
+//        if error == nil {
+//            guard let email = user.profile.email,
+//                let googleID = user.userID,
+//                let name = user.profile.name
+//                else { return }
+//            guard let token = user.authentication.idToken else {
+//                return
+//            }
+//            print("\(email), \(googleID), \(name), \(token)")
+//            let param: [String: Any] = [
+//                "email": email,
+//                "type": "social"
+//            ]
+//            print(param)
+////            self.defaults.set(true, forKey: "isSocial")
+////            self.defaults.set(email, forKey: "email")
+////            self.defaults.set("1122", forKey: "password")
+////            self.defaults.synchronize()
+////            self.adForest_loginUser(parameters: param as NSDictionary)
+//        }
+//    }
+//    // Google Sign In Delegate
+//    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+//        self.present(viewController, animated: true, completion: nil)
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+//        dismiss(animated: true, completion: nil)
+//    }
+//
     
     
     //MARK:- ACTIONS
@@ -111,6 +150,11 @@ class SignInVC: UIViewController {
     }
     
     @IBAction func googleAction(_ sender: UIButton) {
+
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().delegate=self
+        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         
     }
@@ -167,8 +211,6 @@ class SignInVC: UIViewController {
         
         IJProgressView.shared.showProgressView()
         let loginUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_LOGIN
-        //        let parms : [String:Any] = ["user_email":userNameTF.text ?? "","user_pass":passwordTF.text ?? "","type":0,"social_id":"","name":""]
-        //
         print(params)
         AFWrapperClass.requestPOSTURL(loginUrl, params: params as! [String:Any] , success: { (dict) in
             IJProgressView.shared.hideProgressView()
@@ -236,4 +278,58 @@ extension SignInVC:LoginDelegate {
     }
     
     
+}
+
+extension SignInVC:GIDSignInDelegate{
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+                print("The user has not signed in before or they have since signed out.")
+            } else {
+                print("\(error.localizedDescription)")
+            }
+            return
+        }
+        else{
+            let email = user.profile.email ?? ""
+            let devpassword = "9DfgR0WVWKwgXa-JQIHSpNq3"
+            
+            let userId = user.userID ?? ""
+            let idToken = user.authentication.idToken
+            
+            let fullName = user.profile.name ?? ""
+            let givenName = user.profile.givenName ?? ""
+            let familyName = user.profile.familyName ?? ""
+            UserDefaults.standard.set(devpassword, forKey: "oldPassword")
+            
+            //  let user: GIDGoogleUser =
+            if user.profile.hasImage{
+                let profilePicURL = user.profile.imageURL(withDimension: 200).absoluteString
+                UserDefaults.standard.set(profilePicURL, forKey: "GIMAGE")
+                print(profilePicURL)
+                
+            }
+  
+            let parms : [String:Any] = ["user_email":email,"user_pass":"","type":2,"social_id":"Google Plus","name":fullName]
+            
+            API_LOGIN(params: parms as NSDictionary)
+     
+            print("welcome:,\(userId),\(idToken),\(fullName),\(email),\(devpassword)")
+            
+        }
+    }
+    
+
+    func signInwillDispatch(signIn:GIDSignIn!,error:NSError){
+        print("Will Dispatch")
+    }
+    func signIn(signIn:GIDSignIn!,presentViewController viewController:UIViewController){
+        self.present(viewController, animated: true, completion: nil)
+        print("Sign in presented")
+    }
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        if let a = error{
+            print("error in google login\(a.localizedDescription)")
+        }
+    }
 }
