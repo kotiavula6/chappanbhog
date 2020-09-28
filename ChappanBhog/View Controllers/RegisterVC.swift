@@ -82,6 +82,7 @@ class RegisterVC: UIViewController {
         }
         else{
             API_NEW_USER_REGISTER()
+            view.endEditing(true)
         }
         
         
@@ -98,6 +99,12 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func googleAction(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func appleLoginClicked(_ sender: UIButton) {
+        
+        
     }
     
     
@@ -136,8 +143,9 @@ class RegisterVC: UIViewController {
         
         IJProgressView.shared.showProgressView()
         let signUpUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_REGISTER
-        let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone":mobileTF.text ?? "","name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0]
         
+        let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone":mobileTF.text ?? "","name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0]
+        print(parms)
         AFWrapperClass.requestPOSTURL(signUpUrl, params: parms, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             print(dict)

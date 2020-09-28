@@ -8,6 +8,7 @@
 
 import UIKit
 
+ var Kdefaults = UserDefaults.standard
 
 //MARK:- BACKGROUND GRADIENT COLOR
 

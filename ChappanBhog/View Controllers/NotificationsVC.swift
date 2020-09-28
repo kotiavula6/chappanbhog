@@ -28,7 +28,7 @@ class NotificationsVC: UIViewController {
     //MARK:- FUNCTIONS
     func setAppearance() {
              DispatchQueue.main.async {
-                 setGradientBackground(view: self.gradientView)
+                setGradientBackground(view: self.gradientView)
                  self.notificationsTable.layer.cornerRadius = 30
                  self.notificationsTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         

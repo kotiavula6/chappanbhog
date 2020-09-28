@@ -8,6 +8,11 @@
 
 import UIKit
 import CoreData
+import IQKeyboardManagerSwift
+import GoogleSignIn
+import FBSDKLoginKit
+import FBSDKCoreKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Thread.sleep(forTimeInterval: 0.1)
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
+        GIDSignIn.sharedInstance().clientID = "359698796256-6bdpv0jaab8t1lqhqhqoappkkdc8vfne.apps.googleusercontent.com"
+         
         return true
     }
 

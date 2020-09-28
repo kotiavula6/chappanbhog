@@ -14,9 +14,8 @@ pod 'SDWebImage'
 pod 'SCLAlertView'
 pod 'NVActivityIndicatorView'
 pod 'IQKeyboardManagerSwift'
-
-
-
+pod 'FBSDKLoginKit'
+pod 'GoogleSignIn'
 
 
   target 'ChappanBhogTests' do
