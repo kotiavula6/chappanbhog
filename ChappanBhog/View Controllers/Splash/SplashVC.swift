@@ -15,7 +15,7 @@ class SplashVC: UIViewController {
         super.viewDidLoad()
         
         setAppearance()
-        _ = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(navigateTologinPage), userInfo: nil, repeats: false)
+//        _ = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(navigateTologinPage), userInfo: nil, repeats: false)
  
     }
    //MARK:- FUNCTIONS
@@ -25,10 +25,10 @@ class SplashVC: UIViewController {
              }
     }
     
-    @objc func navigateTologinPage() {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+//    @objc func navigateTologinPage() {
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
 
 
 }

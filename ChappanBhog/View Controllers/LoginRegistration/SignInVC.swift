@@ -34,6 +34,10 @@ class SignInVC: UIViewController  {
         setAppearance()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
+    }
     
     //MARK:- FUNCTIONS
     func setAppearance() {
@@ -44,46 +48,7 @@ class SignInVC: UIViewController  {
         }
     }
     
-    
-    
-//    //MARK:- Google Delegate Methods
-//
-//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//        if let error = error {
-//            print(error.localizedDescription)
-//        }
-//        if error == nil {
-//            guard let email = user.profile.email,
-//                let googleID = user.userID,
-//                let name = user.profile.name
-//                else { return }
-//            guard let token = user.authentication.idToken else {
-//                return
-//            }
-//            print("\(email), \(googleID), \(name), \(token)")
-//            let param: [String: Any] = [
-//                "email": email,
-//                "type": "social"
-//            ]
-//            print(param)
-////            self.defaults.set(true, forKey: "isSocial")
-////            self.defaults.set(email, forKey: "email")
-////            self.defaults.set("1122", forKey: "password")
-////            self.defaults.synchronize()
-////            self.adForest_loginUser(parameters: param as NSDictionary)
-//        }
-//    }
-//    // Google Sign In Delegate
-//    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-//        self.present(viewController, animated: true, completion: nil)
-//    }
-//
-//    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-//        dismiss(animated: true, completion: nil)
-//    }
-//
-    
-    
+ 
     //MARK:- ACTIONS
     
     @IBAction func creatAccountAction(_ sender: UIButton) {
@@ -168,7 +133,7 @@ class SignInVC: UIViewController  {
     }
     
     
-    
+    //MARK:- FACBOOK USERDETAILS
     func userProfileDetails() {
         
         if((AccessToken.current) != nil){
@@ -232,15 +197,19 @@ class SignInVC: UIViewController  {
                     let name = data["name"] as? String ?? ""
                     let email = data["email"] as? String ?? ""
                     let phone = data["phone"] as? String ?? ""
-                    let user_id = data["user_id"] as? String ?? ""
+                    let user_id = data["user_id"] as? Int ?? 0
+                    let token = dict["token"] as? String ?? ""
+                    print(user_id)
+                    UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
                     
-//                    UserDefaults.standard.set(name, forKey: Constants.Name)
-//                    UserDefaults.standard.set(email, forKey: Constants.EmailID)
-//                    UserDefaults.standard.set(phone, forKey: Constants.Phone)
-//                    UserDefaults.standard.set(user_id, forKey: Constants.UserId)
-//                    UserDefaults.standard.set(true, forKey: Constants.IsLogin)
-//                    UserDefaults.standard.set(data, forKey: Constants.UserDetails)
-                    
+                    UserDefaults.standard.set(name, forKey: Constants.Name)
+                    UserDefaults.standard.set(email, forKey: Constants.EmailID)
+                    UserDefaults.standard.set(phone, forKey: Constants.Phone)
+                    UserDefaults.standard.set(user_id, forKey: Constants.UserId)
+                    UserDefaults.standard.set(true, forKey: Constants.IsLogin)
+                    UserDefaults.standard.set(data, forKey: Constants.UserDetails)
+                    UserDefaults.standard.set(token, forKey: Constants.access_token)
+                  
                     let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
                     self.navigationController?.pushViewController(vc, animated: true)
                     
@@ -251,8 +220,8 @@ class SignInVC: UIViewController  {
         
     }
 }
-
-extension SignInVC:LoginDelegate {
+//MARK:- APPLE LOGIN
+extension SignInVC: LoginDelegate {
     func authorizationDidCompleteWith(data: [String : Any?]) {
         
         let email = data["email"] as? String ?? ""
@@ -280,7 +249,9 @@ extension SignInVC:LoginDelegate {
     
 }
 
-extension SignInVC:GIDSignInDelegate{
+
+//MARK:- GOOGLE SIGN IN METHODS
+extension SignInVC: GIDSignInDelegate{
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {

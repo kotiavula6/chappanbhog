@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		26DBFB4ACCAD4F798C7FFFBA /* Pods_ChappanBhog_ChappanBhogUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C75507117C2AE67A47C24BA /* Pods_ChappanBhog_ChappanBhogUITests.framework */; };
 		4D4E2ED5E44F73120AAAE4A1 /* Pods_ChappanBhogTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63AB1724AF6435A3F10ADF0 /* Pods_ChappanBhogTests.framework */; };
+		EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04CAA42523A1B700BADC28 /* DashBoardModel.swift */; };
+		EE04CAA72523A31600BADC28 /* NsObject+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04CAA62523A31600BADC28 /* NsObject+Foundation.swift */; };
 		EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */; };
 		EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */; };
 		EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */; };
@@ -72,7 +74,6 @@
 		EECC6EF4251CD0D500A0B2D1 /* activityLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EF3251CD0D500A0B2D1 /* activityLoader.swift */; };
 		EECC6EF6251CD18100A0B2D1 /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EF5251CD18100A0B2D1 /* HelperMethods.swift */; };
 		EECC6EF8251CD26700A0B2D1 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECC6EF7251CD26700A0B2D1 /* Validation.swift */; };
-		EECDFF17250FE99E000B293C /* CountryCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */; };
 		EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */; };
 		EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDFF1A250FEB18000B293C /* Extensions.swift */; };
 		EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */; };
@@ -109,6 +110,8 @@
 		BB2CD4A479F2D97EF9CAD937 /* Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhog-ChappanBhogUITests/Pods-ChappanBhog-ChappanBhogUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDD274D392B440DB35843C1B /* Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig"; path = "Target Support Files/Pods-ChappanBhog-ChappanBhogUITests/Pods-ChappanBhog-ChappanBhogUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D51D90C04B8F3C70B0121A8C /* Pods-ChappanBhog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog.release.xcconfig"; path = "Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog.release.xcconfig"; sourceTree = "<group>"; };
+		EE04CAA42523A1B700BADC28 /* DashBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardModel.swift; sourceTree = "<group>"; };
+		EE04CAA62523A31600BADC28 /* NsObject+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NsObject+Foundation.swift"; sourceTree = "<group>"; };
 		EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardCategoriesVC.swift; sourceTree = "<group>"; };
 		EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordVC.swift; sourceTree = "<group>"; };
 		EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productWeightVC.swift; sourceTree = "<group>"; };
@@ -179,7 +182,6 @@
 		EECC6EF3251CD0D500A0B2D1 /* activityLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activityLoader.swift; sourceTree = "<group>"; };
 		EECC6EF5251CD18100A0B2D1 /* HelperMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
 		EECC6EF7251CD26700A0B2D1 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodesViewController.swift; sourceTree = "<group>"; };
 		EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeCell.swift; sourceTree = "<group>"; };
 		EECDFF1A250FEB18000B293C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAddressVC.swift; sourceTree = "<group>"; };
@@ -229,6 +231,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EE04CAA32523A1A200BADC28 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EE04CAA42523A1B700BADC28 /* DashBoardModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		EE0887C825089C6F00FC8FDB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +265,7 @@
 				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
 				EECDFF1A250FEB18000B293C /* Extensions.swift */,
 				EEB9C620251DF97000A37490 /* AsHelper.swift */,
+				EE04CAA62523A31600BADC28 /* NsObject+Foundation.swift */,
 				EEB9C622251DFC3C00A37490 /* KeychainItem.swift */,
 				EECC6EEF251CC5BC00A0B2D1 /* AFWrapperClass.swift */,
 				EECC6EF3251CD0D500A0B2D1 /* activityLoader.swift */,
@@ -313,9 +324,9 @@
 		EE31C6C9250774DF00E87E98 /* ChappanBhog */ = {
 			isa = PBXGroup;
 			children = (
+				EE04CAA32523A1A200BADC28 /* Models */,
 				EE6D07B9251E1DE100E2059A /* ChappanBhog.entitlements */,
 				EE0887CA25089C8D00FC8FDB /* Helpers */,
-				EE31C7022507762F00E87E98 /* Models */,
 				EE31C6FD250775B900E87E98 /* Delegates */,
 				EE31C6FE250775CC00E87E98 /* Story Boards */,
 				EE31C7012507760600E87E98 /* View Controllers */,
@@ -368,19 +379,14 @@
 		EE31C7012507760600E87E98 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EE31C70D2507B9ED00E87E98 /* Cells */,
 				EE21FE09251C95FE0075EA5F /* pintrest */,
 				EE7740212511D72600E994B8 /* containers */,
 				EE21FDC3251BC5A70075EA5F /* WeightXIB */,
 				EEC5EA1725116A5E00E5529F /* SideMenu */,
-				EE31C70D2507B9ED00E87E98 /* Cells */,
-				EE31C703250777C800E87E98 /* SplashVC.swift */,
-				EE31C70525078A9200E87E98 /* SignInVC.swift */,
-				EECDFF16250FE99E000B293C /* CountryCodesViewController.swift */,
-				EE31C70725078B8700E87E98 /* RegisterVC.swift */,
-				EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */,
-				EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */,
-				EE318C222510703F00160640 /* ForgotPasswordVC.swift */,
-				EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */,
+				EE80DB902522535600A51FE1 /* Splash */,
+				EE80DB8F2522534200A51FE1 /* LoginRegistration */,
+				EE80DB912522538C00A51FE1 /* DashBoard */,
 				EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */,
 				EEEF99B9250F8CE2001DE12F /* countryContainer.swift */,
 				EE82482625090EDC00C263F1 /* AboutVCcontact.swift */,
@@ -397,13 +403,6 @@
 				EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		EE31C7022507762F00E87E98 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		EE31C70D2507B9ED00E87E98 /* Cells */ = {
@@ -423,6 +422,34 @@
 				EE7740242511E74B00E994B8 /* StatesPopUpVC.swift */,
 			);
 			path = containers;
+			sourceTree = "<group>";
+		};
+		EE80DB8F2522534200A51FE1 /* LoginRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				EE31C70525078A9200E87E98 /* SignInVC.swift */,
+				EE31C70725078B8700E87E98 /* RegisterVC.swift */,
+				EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */,
+				EE318C222510703F00160640 /* ForgotPasswordVC.swift */,
+			);
+			path = LoginRegistration;
+			sourceTree = "<group>";
+		};
+		EE80DB902522535600A51FE1 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				EE31C703250777C800E87E98 /* SplashVC.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		EE80DB912522538C00A51FE1 /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				EE31C70B2507B03B00E87E98 /* DashBoardVC.swift */,
+				EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */,
+			);
+			path = DashBoard;
 			sourceTree = "<group>";
 		};
 		EE82482A2509152700C263F1 /* Assets */ = {
@@ -757,16 +784,17 @@
 				EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */,
 				EE8248302509438800C263F1 /* PaymentVC.swift in Sources */,
 				EE52F4B52509D5250026BE68 /* Inspectable.swift in Sources */,
-				EECDFF17250FE99E000B293C /* CountryCodesViewController.swift in Sources */,
 				EEB9C621251DF97000A37490 /* AsHelper.swift in Sources */,
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
 				EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */,
 				EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */,
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
+				EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */,
 				EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
 				EE458EE7250BAB2300BAA7E7 /* NotificationsVC.swift in Sources */,
 				EEB9C623251DFC3C00A37490 /* KeychainItem.swift in Sources */,
+				EE04CAA72523A31600BADC28 /* NsObject+Foundation.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
 				EECC6EF8251CD26700A0B2D1 /* Validation.swift in Sources */,
 				EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */,

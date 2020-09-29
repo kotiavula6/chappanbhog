@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class DashBoardVC: UIViewController {
     
+   
+    var message:String = ""
     //MARK:- OUTLETS
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var alertHeightConstant: NSLayoutConstraint!
@@ -29,11 +32,12 @@ class DashBoardVC: UIViewController {
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+      
   
         setAppearence()
- 
-            
+        API_GET_DASHBOARD_DATA()
     }
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         self.sidemenu.view.removeFromSuperview()
@@ -79,6 +83,14 @@ class DashBoardVC: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
                 
             }
+            self.sidemenu.logoutAction = {
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+                self.navigationController?.pushViewController(vc, animated: true)
+                UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
+                GIDSignIn.sharedInstance().signOut()
+
+            }
             
         }
         
@@ -87,7 +99,33 @@ class DashBoardVC: UIViewController {
         self.view.addGestureRecognizer(swipeRight)
     }
     
-    
+
+    func API_GET_DASHBOARD_DATA() {
+        
+        IJProgressView.shared.showProgressView()
+        let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_BANNERS
+        AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
+            if let result = dict as? [String:Any]{
+                print(result)
+                self.message = result["message"] as? String ?? ""
+                let success = result["success"] as? Int ?? 0
+                
+                if success == 0{
+                    alert("ChappanBhog", message: self.message, view: self)
+                }else{
+                    let data = result["data"] as? [String:Any] ?? [:]
+                    
+                }
+            }
+        }) { (error) in
+            IJProgressView.shared.hideProgressView()
+        }
+               
+        
+    }
+
     //OPEN SIDE MENU
     @objc func menuClicked() {
         //openMenuPanel(self)
@@ -103,8 +141,13 @@ class DashBoardVC: UIViewController {
     
     
     @IBAction func openMenu(_ sender: UIButton) {
-        
-        self.view.addSubview(sidemenu.view)
+//        UIView.animate(withDuration: 3, animations: {
+//
+                self.view.addSubview(self.sidemenu.view)
+//                self.view.layoutIfNeeded()
+//
+//        }, completion: nil)
+       
         // openMenuPanel(self)
     }
     
@@ -126,6 +169,7 @@ class DashBoardVC: UIViewController {
     }
     
 }
+
 //MARK:- TABLEVIEW METHODS
 extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

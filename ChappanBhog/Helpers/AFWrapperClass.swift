@@ -57,10 +57,15 @@ class AFWrapperClass{
                    }
            }
        }
-    class func requestGETURL(_ strURL: String, params : [String : AnyObject]?, success:@escaping (AnyObject) -> Void, failure:@escaping (NSError) -> Void) {
+    class func requestGETURL(_ strURL: String, success:@escaping (AnyObject) -> Void, failure:@escaping (NSError) -> Void) {
         
+        
+        let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
+        
+        let header:HTTPHeaders = ["Authorization":"Bearer \(token)"]
+
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        AF.request(urlwithPercentEscapes!, method: .get, parameters: params, encoding: JSONEncoding.default)
+        AF.request(urlwithPercentEscapes!, method: .get,encoding: JSONEncoding.default, headers:header)
             .responseJSON { (response) in
                 switch response.result {
                 case .success(let value):

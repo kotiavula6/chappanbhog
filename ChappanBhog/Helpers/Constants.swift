@@ -85,8 +85,9 @@ struct WebserviceName {
     
     static let API_GET_LOGIN  = "login"
     static let API_GET_REGISTER = "register"
-    static let API_GET_DASHBOARD_DATA = "dashboard"
-    static let API_GET_CATEGORIES = "categories"
+    static let API_GET_DASHBOARD_BANNERS = "dashboard/1"
+    static let API_GET_DASHBOARD_CATEGORIES = "dashboard/0"
+//    static let API_GET_CATEGORIES = "categories"
     static let API_GET_ITEMS = "items"
     static let API_GET_SEARCH = "search"
     static let API_GET_ITEMDETAILS = "item_details"

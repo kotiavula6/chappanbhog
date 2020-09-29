@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -18,6 +18,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="sideMenu" customModule="ChappanBhog" customModuleProvider="target">
             <connections>
+                <outlet property="leadingConstraint" destination="Eaa-O8-6PP" id="jJO-tA-Z6M"/>
+                <outlet property="nameLBL" destination="qjv-cB-V9g" id="kDW-Lz-3b8"/>
+                <outlet property="profileIMG" destination="T1J-ty-bPn" id="NaQ-Hm-cwe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,10 +33,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V9i-P8-d4v">
-                            <rect key="frame" x="0.0" y="0.0" width="302" height="896"/>
+                            <rect key="frame" x="-500" y="0.0" width="302" height="896"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi Maanas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjv-cB-V9g">
-                                    <rect key="frame" x="30" y="54" width="98" height="33"/>
+                                    <rect key="frame" x="30" y="54" width="158" height="33"/>
                                     <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="23"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -45,12 +48,6 @@
                                         <constraint firstAttribute="height" constant="59" id="xRc-fH-21L"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqx-PD-OYn">
-                                    <rect key="frame" x="30" y="92" width="0.0" height="0.0"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hx-sP-yfE">
                                     <rect key="frame" x="30" y="87" width="36" height="31"/>
                                     <fontDescription key="fontDescription" name="BrandonGrotesque-Regular" family="Brandon Grotesque" pointSize="13"/>
@@ -134,10 +131,9 @@
                                 <constraint firstItem="T1J-ty-bPn" firstAttribute="top" secondItem="qjv-cB-V9g" secondAttribute="top" id="5U8-hb-jn8"/>
                                 <constraint firstItem="qjv-cB-V9g" firstAttribute="top" secondItem="V9i-P8-d4v" secondAttribute="top" constant="54" id="9xJ-nU-F45"/>
                                 <constraint firstAttribute="trailing" secondItem="T1J-ty-bPn" secondAttribute="trailing" constant="25" id="Hse-oP-rOj"/>
-                                <constraint firstItem="hqx-PD-OYn" firstAttribute="leading" secondItem="qjv-cB-V9g" secondAttribute="leading" id="MYG-BN-sVt"/>
-                                <constraint firstItem="hqx-PD-OYn" firstAttribute="top" secondItem="qjv-cB-V9g" secondAttribute="bottom" constant="5" id="PfC-2w-2iv"/>
                                 <constraint firstAttribute="trailing" secondItem="bEd-In-0It" secondAttribute="trailing" constant="10" id="Qui-I5-pOb"/>
                                 <constraint firstItem="7hx-sP-yfE" firstAttribute="top" secondItem="qjv-cB-V9g" secondAttribute="bottom" id="Tj7-Ab-kZh"/>
+                                <constraint firstItem="T1J-ty-bPn" firstAttribute="leading" secondItem="qjv-cB-V9g" secondAttribute="trailing" constant="30" id="VNC-8Q-1rF"/>
                                 <constraint firstItem="bEd-In-0It" firstAttribute="leading" secondItem="7hx-sP-yfE" secondAttribute="leading" id="dXs-6e-BCy"/>
                                 <constraint firstItem="7hx-sP-yfE" firstAttribute="leading" secondItem="qjv-cB-V9g" secondAttribute="leading" id="m7i-oL-AdO"/>
                                 <constraint firstItem="WOc-UN-OGC" firstAttribute="leading" secondItem="V9i-P8-d4v" secondAttribute="leading" id="nNF-YP-KnO"/>
@@ -146,7 +142,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNy-wK-9um">
-                            <rect key="frame" x="302" y="0.0" width="112" height="896"/>
+                            <rect key="frame" x="-198" y="0.0" width="612" height="896"/>
                             <connections>
                                 <action selector="closeMenuButton:" destination="-1" eventType="touchUpInside" id="nH1-rA-5eH"/>
                             </connections>
@@ -155,7 +151,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="GNy-wK-9um" firstAttribute="top" secondItem="bMf-9c-sOL" secondAttribute="top" id="7qP-7N-NnE"/>
-                        <constraint firstItem="V9i-P8-d4v" firstAttribute="leading" secondItem="bMf-9c-sOL" secondAttribute="leading" id="Eaa-O8-6PP"/>
+                        <constraint firstItem="V9i-P8-d4v" firstAttribute="leading" secondItem="bMf-9c-sOL" secondAttribute="leading" constant="-500" id="Eaa-O8-6PP"/>
                         <constraint firstAttribute="trailing" secondItem="GNy-wK-9um" secondAttribute="trailing" id="PoY-8Y-C78"/>
                         <constraint firstItem="GNy-wK-9um" firstAttribute="leading" secondItem="V9i-P8-d4v" secondAttribute="trailing" id="QjL-KG-2V9"/>
                         <constraint firstItem="V9i-P8-d4v" firstAttribute="top" secondItem="bMf-9c-sOL" secondAttribute="top" id="RVH-70-eMg"/>

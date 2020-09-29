@@ -24,12 +24,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         GIDSignIn.sharedInstance().clientID = "359698796256-6bdpv0jaab8t1lqhqhqoappkkdc8vfne.apps.googleusercontent.com"
-         
+        
+//        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+//        let rootVc = storyBoard.instantiateViewController(withIdentifier: "SplashVC") as! SplashVC
+//        let nav = UINavigationController(rootViewController: rootVc)
+//        nav.isNavigationBarHidden = true
+//        self.window?.rootViewController = nav
+//        self.window?.makeKeyAndVisible()
+        
+        if UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN") == true {
+            
+            _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToDashBoard), userInfo: nil, repeats: false)
+            
+        }
+        else {
+            _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
+        }
+        
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
- @available(iOS 13.0, *)
+    @available(iOS 13.0, *)
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
@@ -86,6 +102,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    @objc func goToDashBoard() {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+          let rootVc = storyBoard.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+          let nav = UINavigationController(rootViewController: rootVc)
+          nav.isNavigationBarHidden = true
+          self.window?.rootViewController = nav
+          self.window?.makeKeyAndVisible()
+          
+    }
+    
+    @objc func goToLoginScreen() {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+          let rootVc = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+          let nav = UINavigationController(rootViewController: rootVc)
+          nav.isNavigationBarHidden = true
+          self.window?.rootViewController = nav
+          self.window?.makeKeyAndVisible()
+        
+    }
+            
 
 }
 

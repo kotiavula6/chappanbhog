@@ -15,9 +15,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+     
+        
+        if UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN") == true {
+                
+                _ = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(goToDashBoard), userInfo: nil, repeats: false)
+                
+            }
+            else {
+                _ = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
+            }
+        
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 
@@ -51,7 +59,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
+    @objc func goToDashBoard() {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let rootVc = storyBoard.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+        let nav = UINavigationController(rootViewController: rootVc)
+        nav.isNavigationBarHidden = true
+        self.window?.rootViewController = nav
+        self.window?.makeKeyAndVisible()
+        
+    }
+       
+    @objc func goToLoginScreen() {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let rootVc = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        let nav = UINavigationController(rootViewController: rootVc)
+        nav.isNavigationBarHidden = true
+        self.window?.rootViewController = nav
+        self.window?.makeKeyAndVisible()
+        
+    }
+             
 }
 
