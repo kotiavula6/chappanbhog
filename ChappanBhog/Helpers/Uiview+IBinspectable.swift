@@ -175,10 +175,10 @@ extension UIImageView
     func loadImageUsingCacheUrlString(urlString: String)
     {
         if self.image == UIImage(named: "pic") {
-            self.image = #imageLiteral(resourceName: "Top_background")
+            //self.image = #imageLiteral(resourceName: "hdfc_logo")
         }
         else {
-            self.image = #imageLiteral(resourceName: "Top_background")
+          //  self.image = #imageLiteral(resourceName: "cashew")
         }
         
                 

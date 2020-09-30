@@ -1787,6 +1787,7 @@
                                                                     <outlet property="increaseBTN" destination="jh6-S4-vmF" id="Lvq-ze-apY"/>
                                                                     <outlet property="priceLBL" destination="KuB-rY-5eV" id="Gi1-9a-ZLq"/>
                                                                     <outlet property="productIMG" destination="trr-EN-pl4" id="N7K-Oh-hEg"/>
+                                                                    <outlet property="productNameLBL" destination="rEE-ys-IeK" id="6Tc-lR-51Z"/>
                                                                     <outlet property="quantityLBL" destination="is5-I1-DUL" id="qJj-vv-3UW"/>
                                                                     <outlet property="shadowView" destination="Fc3-kX-uDI" id="jZw-MP-Ns1"/>
                                                                     <outlet property="totalReviewsLBL" destination="oHq-pC-uO2" id="crx-ww-a6t"/>

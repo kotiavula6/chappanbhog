@@ -8,10 +8,17 @@
 
 import UIKit
 import GoogleSignIn
+import SDWebImage
+
+var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
 
 class DashBoardVC: UIViewController {
     
-   
+    var bannerArr = [BannersdashBoard]()
+    var categoriesArr = [categories]()
+    var toppicsArr = [TopPics]()
+    
+    
     var message:String = ""
     //MARK:- OUTLETS
     @IBOutlet weak var cartLBL: UILabel!
@@ -32,8 +39,8 @@ class DashBoardVC: UIViewController {
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-  
+        
+        print(bannerArr)
         setAppearence()
         API_GET_DASHBOARD_DATA()
     }
@@ -48,6 +55,7 @@ class DashBoardVC: UIViewController {
     func setAppearence() {
         
         DispatchQueue.main.async {
+            
             self.cartLBL.layer.masksToBounds = true
             setGradientBackground(view: self.view)
             self.backView.layer.cornerRadius = 30
@@ -89,7 +97,7 @@ class DashBoardVC: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
                 UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
                 GIDSignIn.sharedInstance().signOut()
-
+                
             }
             
         }
@@ -99,33 +107,9 @@ class DashBoardVC: UIViewController {
         self.view.addGestureRecognizer(swipeRight)
     }
     
-
-    func API_GET_DASHBOARD_DATA() {
-        
-        IJProgressView.shared.showProgressView()
-        let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_BANNERS
-        AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
-            IJProgressView.shared.hideProgressView()
-            print(dict)
-            if let result = dict as? [String:Any]{
-                print(result)
-                self.message = result["message"] as? String ?? ""
-                let success = result["success"] as? Int ?? 0
-                
-                if success == 0{
-                    alert("ChappanBhog", message: self.message, view: self)
-                }else{
-                    let data = result["data"] as? [String:Any] ?? [:]
-                    
-                }
-            }
-        }) { (error) in
-            IJProgressView.shared.hideProgressView()
-        }
-               
-        
-    }
-
+    
+    
+    
     //OPEN SIDE MENU
     @objc func menuClicked() {
         //openMenuPanel(self)
@@ -141,13 +125,13 @@ class DashBoardVC: UIViewController {
     
     
     @IBAction func openMenu(_ sender: UIButton) {
-//        UIView.animate(withDuration: 3, animations: {
-//
-                self.view.addSubview(self.sidemenu.view)
-//                self.view.layoutIfNeeded()
-//
-//        }, completion: nil)
-       
+        //        UIView.animate(withDuration: 3, animations: {
+        //
+        self.view.addSubview(self.sidemenu.view)
+        //                self.view.layoutIfNeeded()
+        //
+        //        }, completion: nil)
+        
         // openMenuPanel(self)
     }
     
@@ -172,42 +156,68 @@ class DashBoardVC: UIViewController {
 
 //MARK:- TABLEVIEW METHODS
 extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return toppicsArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TopPicsTableCell") as! TopPicsTableCell
+        
+        cell.productIMG.sd_setImage(with: URL(string: toppicsArr[indexPath.row].image![1] ), placeholderImage: UIImage(named: "placeholder.png"))
+        cell.productNameLBL.text = toppicsArr[indexPath.row].title
+        cell.priceLBL.text = "\(toppicsArr[indexPath.row].price ?? 0)"
+        cell.totalReviewsLBL.text = "\(toppicsArr[indexPath.row].reviews ?? 0) Reviews"
+       // cell.quantityLBL.text = "\(toppicsArr[indexPath.row].available_quantity ?? 0)"
+        
+    
         DispatchQueue.main.async {
             self.topPicsTableConstants.constant = self.topPicsTable.contentSize.height
         }
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
     
 }
 //MARK:- COLLECTIONVIEW METHODS
 extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == topPageCollection {
+            return bannerArr.count
+        }else {
+            return categoriesArr.count
+        }
         
-        return 10
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == topPageCollection {
             let cell = topPageCollection.dequeueReusableCell(withReuseIdentifier: "DashboardPageCollectionCell", for: indexPath) as! DashboardPageCollectionCell
+            
+            // let bannerImage = bannerArr[indexPath.row].image ?? ""
+            
+            // bannerImage = bannerImage == "" ? "": (bannerImageBaseURL + bannerImage)
+            
+            //  cell.bannerIMG.loadImageUsingCacheUrlString(urlString: bannerImage)
+
+            cell.bannerIMG.sd_setImage(with: URL(string: "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/" + bannerArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
+  
             return cell
         }
         else {
             let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
+            let baseUrl = ""
+//            cell.productIMG.sd_setImage(with: URL(string: baseUrl  + categoriesArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.productNameLBL.text = categoriesArr[indexPath.row].name
             return cell
         }
         
@@ -219,7 +229,59 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             return CGSize(width: productsCatCollection.frame.height/1.3, height: productsCatCollection.frame.height)
         }
     }
+         
+}
+
+//MARK:- API
+extension DashBoardVC {
     
+    func API_GET_DASHBOARD_DATA() {
+        
+        IJProgressView.shared.showProgressView()
+        let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_DATA
+        AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
+            
+            let response = dict["data"] as? NSDictionary ?? NSDictionary()
+            let success = dict["success"] as? Int ?? 0
+            
+            if success == 0 {
+                
+                self.message = dict["message"] as? String ?? ""
+                showAlert(self.message)
+                
+            }else {
+                
+                let banners = response["banners"] as? NSArray ?? NSArray()
+                let topPicks = response["topPicks"] as? NSArray ?? NSArray()
+                let categori = response["categories"] as? NSArray ?? NSArray()
+                print(banners)
+                
+                self.bannerArr.removeAll()
+                self.toppicsArr.removeAll()
+                self.categoriesArr.removeAll()
+                
+                for i in 0..<banners.count {
+                    self.bannerArr.append(BannersdashBoard(dict: banners.object(at: i) as! [String:Any]))
+                }
+                for i in 0..<topPicks.count {
+                    self.toppicsArr.append(TopPics(dict: topPicks.object(at: i) as! [String:Any]))
+                }
+                for i in 0..<categori.count  {
+                    self.categoriesArr.append(categories(dict: categori.object(at: i) as! [String:Any]))
+                }
+            }
+            self.topPageCollection.reloadData()
+            self.topPicsTable.reloadData()
+            self.productsCatCollection.reloadData()
+            
+        }) { (error) in
+            
+            IJProgressView.shared.hideProgressView()
+            
+        }
+    }
     
 }
 
@@ -227,6 +289,7 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 class DashboardPageCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var bannerIMG: UIImageView!
+    
     override func awakeFromNib() {
         // setShadowRadius(view: bannerIMG)
     }
@@ -242,9 +305,10 @@ class DashboardProdutsCatCollectionCell: UICollectionViewCell {
         
         // setShadowRadius(view: backShadowView)
         DispatchQueue.main.async {
-            self.backShadowView.layer.cornerRadius = self.backShadowView.frame.height/2
             
+            self.backShadowView.layer.cornerRadius = self.backShadowView.frame.height/2
             self.productIMG.layer.cornerRadius = self.productIMG.frame.height/2
+            
         }
     }
 }

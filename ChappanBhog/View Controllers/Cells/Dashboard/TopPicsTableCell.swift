@@ -10,6 +10,7 @@ import UIKit
 
 class TopPicsTableCell: UITableViewCell {
 
+    @IBOutlet weak var productNameLBL: UILabel!
     @IBOutlet weak var priceLBL: UILabel!
     @IBOutlet weak var productIMG: UIImageView!
     @IBOutlet weak var addTocartButton: UIButton!

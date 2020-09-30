@@ -239,6 +239,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		EE04CAAE2524F89100BADC28 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
 		EE0887C825089C6F00FC8FDB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,9 +332,9 @@
 		EE31C6C9250774DF00E87E98 /* ChappanBhog */ = {
 			isa = PBXGroup;
 			children = (
-				EE04CAA32523A1A200BADC28 /* Models */,
 				EE6D07B9251E1DE100E2059A /* ChappanBhog.entitlements */,
 				EE0887CA25089C8D00FC8FDB /* Helpers */,
+				EE04CAA32523A1A200BADC28 /* Models */,
 				EE31C6FD250775B900E87E98 /* Delegates */,
 				EE31C6FE250775CC00E87E98 /* Story Boards */,
 				EE31C7012507760600E87E98 /* View Controllers */,
@@ -408,7 +416,7 @@
 		EE31C70D2507B9ED00E87E98 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				EE31C70E2507BA0900E87E98 /* TopPicsTableCell.swift */,
+				EE04CAAE2524F89100BADC28 /* Dashboard */,
 				EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */,
 				EE82482D25093FD500C263F1 /* CartTableCell.swift */,
 			);
