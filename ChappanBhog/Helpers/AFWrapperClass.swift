@@ -27,6 +27,10 @@ class AFWrapperClass{
                 case .failure(let error):
                     let error : NSError = error as NSError
                   //   print("hhhjjh",error)
+                    
+                    let message:String = error.localizedDescription
+                    IJProgressView.shared.hideProgressView()
+              
                     failure(error)
                    // print(failure)
                 
@@ -62,7 +66,7 @@ class AFWrapperClass{
         
         let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
         
-        let header:HTTPHeaders = ["Authorization":"Bearer \(token)"]
+        let header:HTTPHeaders = ["Authorization":"Bearer \(token)","Content-Type": "application/json"]
 
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         AF.request(urlwithPercentEscapes!, method: .get,encoding: JSONEncoding.default, headers:header)

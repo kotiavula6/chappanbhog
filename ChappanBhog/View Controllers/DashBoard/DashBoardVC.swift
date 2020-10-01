@@ -44,6 +44,7 @@ class DashBoardVC: UIViewController {
         print(bannerArr)
         setAppearence()
         API_GET_DASHBOARD_DATA()
+        API_GET_DASHBOARD_IMAGES()
     }
     
     
@@ -221,8 +222,7 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
         else {
             let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
-            let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
-            cell.productIMG.sd_setImage(with: URL(string: baseUrl  + (categoriesArr[indexPath.row].image ?? "") ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.productIMG.sd_setImage(with: URL(string: categoriesArr[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
             cell.productNameLBL.text = categoriesArr[indexPath.row].name
             return cell
         }
@@ -240,7 +240,6 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 
 //MARK:- API
 extension DashBoardVC {
-    
     func API_GET_DASHBOARD_DATA() {
         
         IJProgressView.shared.showProgressView()
@@ -274,13 +273,11 @@ extension DashBoardVC {
                 for i in 0..<topPicks.count {
                     self.toppicsArr.append(TopPics(dict: topPicks.object(at: i) as! [String:Any]))
                 }
-                for i in 0..<categori.count  {
-                    self.categoriesArr.append(categories(dict: categori.object(at: i) as! [String:Any]))
-                }
+             
             }
             self.topPageCollection.reloadData()
             self.topPicsTable.reloadData()
-            self.productsCatCollection.reloadData()
+          
             
         }) { (error) in
             
@@ -289,6 +286,38 @@ extension DashBoardVC {
         }
     }
     
+  //MARK:- GET IMAGES
+    func API_GET_DASHBOARD_IMAGES() {
+        
+        IJProgressView.shared.showProgressView()
+        let bannersUrl = "https://www.chhappanbhog.com/restapi/example/getcategories.php"
+        AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
+            
+            let response = dict["data"] as? NSArray ?? NSArray()
+            let success = dict["success"] as? Int ?? 0
+            
+            if success == 0 {
+                
+                self.message = dict["message"] as? String ?? ""
+                alert("ChappanBhog", message: self.message, view: self)
+                
+            }else {
+                
+                for i in 0..<response.count {
+                    self.categoriesArr.append(categories(dict: response.object(at: i) as! [String:Any]))
+
+                }
+            }
+            self.productsCatCollection.reloadData()
+            
+        }) { (error) in
+            self.message = error.localizedDescription
+            alert("ChappanBhog", message: self.message, view: self)
+            
+        }
+    }
 }
 
 //COLLECTION CELLS

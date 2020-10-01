@@ -215,7 +215,7 @@ class SignInVC: UIViewController  {
             print(dict)
             print(params)
             if let result = dict as? [String:Any]{
-                print(result)
+                 print(result)
                 
                 //                let googileID = data?["google_id"] as? String ?? ""
                 //                UserDefaults.standard.set(googileID, forKey: "googleId")

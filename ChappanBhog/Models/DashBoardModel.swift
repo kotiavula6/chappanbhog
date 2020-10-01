@@ -56,16 +56,25 @@ class TopPics: NSObject {
 
 class categories: NSObject {
     
-     var id:Int?
-     var image:String?
-     var name:String?
+    var count:Int?
+    var desc:String?
+    var display:String?
+    var id:Int?
+    var image:String?
+    var name:String?
+    var parent:Int?
+    var slug:String?
     
     init(dict: [String:Any]) {
         super.init()
         
+        desc = dict["description"] as? String
         id = dict["id"] as? Int
         image = dict["image"] as? String
         name = dict["name"] as? String
+        display = dict["display"] as? String
+        parent = dict["parent"] as? Int
+        slug = dict["slug"] as? String
         
     }
     

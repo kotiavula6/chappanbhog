@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         GIDSignIn.sharedInstance().clientID = "359698796256-6bdpv0jaab8t1lqhqhqoappkkdc8vfne.apps.googleusercontent.com"
         
+        
 //        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
 //        let rootVc = storyBoard.instantiateViewController(withIdentifier: "SplashVC") as! SplashVC
 //        let nav = UINavigationController(rootViewController: rootVc)
