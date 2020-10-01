@@ -12,6 +12,7 @@ import IQKeyboardManagerSwift
 import GoogleSignIn
 import FBSDKLoginKit
 import FBSDKCoreKit
+import TwitterKit
 
 
 @UIApplicationMain
@@ -21,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        TWTRTwitter.sharedInstance().start(withConsumerKey:"4Z8hpvQBOxBbtfXtjmtLWtt9Y", consumerSecret:"RfLtpt7X2RS34CAJICJqsTfV3U7kfgfk3XaHWA5oPa2k2GXE6U")
+
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         GIDSignIn.sharedInstance().clientID = "359698796256-6bdpv0jaab8t1lqhqhqoappkkdc8vfne.apps.googleusercontent.com"
@@ -124,7 +128,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           self.window?.makeKeyAndVisible()
         
     }
-            
-
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
+    }
+    
+  
 }
 

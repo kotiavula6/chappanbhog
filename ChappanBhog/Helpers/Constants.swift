@@ -92,6 +92,7 @@ struct WebserviceName {
     static let API_GET_SEARCH = "search"
     static let API_GET_ITEMDETAILS = "item_details"
     static let API_GET_PLACE_ORDER = "place_order"
+    static let API_GET_ENQUIRY = "enquire"
   
 }
 

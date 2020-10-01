@@ -9,7 +9,7 @@
 import UIKit
 
 class EnquirlyFormVC: UIViewController {
-    
+    var message:String = ""
     
     //MARK:- OUTLETS
     @IBOutlet weak var contactInformationView: UIView!
@@ -25,7 +25,7 @@ class EnquirlyFormVC: UIViewController {
         super.viewDidLoad()
         
         setAppearance()
-        
+        self.view.sendSubviewToBack(self.contactInformationView)
     }
     //MARK:- FUNCTIONS
     func setAppearance() {
@@ -45,18 +45,51 @@ class EnquirlyFormVC: UIViewController {
     
     //MARK:- ACTIONS
     @IBAction func enquiryButtonAction(_ sender: UIButton) {
-        
-        if let action = EnquiryAction {
-            action()
+        API_ENQUIRY()
+//        if let action = EnquiryAction {
+//            action()
+//
+//        }
+//        sender.isSelected = !sender.isSelected
+//        if sender.isSelected {
+//            self.view.sendSubviewToBack(self.contactInformationView)
+//        }else {
+//            self.view.bringSubviewToFront(self.contactInformationView)
+//        }
+//
+    }
+    
+}
+
+//MARK:- API
+extension EnquirlyFormVC {
+    
+        func API_ENQUIRY() {
+            
+            IJProgressView.shared.showProgressView()
+            let signUpUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ENQUIRY
+            
+            let parms : [String:Any] = ["name": NameTF.text ?? "","email":EmailTF.text ?? "","message":messageTextView.text ?? ""]
+            AFWrapperClass.requestPOSTURL(signUpUrl, params: parms, success: { (dict) in
+                IJProgressView.shared.hideProgressView()
+                print(dict)
+
+                if let result = dict as? [String:Any]{
+                    print(result)
+                    
+                    self.message = result["message"] as? String ?? ""
+                    let success = result["success"] as? Int ?? 0
+                    
+                    if success == 0{
+                        alert("ChappanBhog", message: self.message, view: self)
+                    }else{
+                        alert("ChappanBhog", message: self.message, view: self)
+                        
+                    }
+                }
+            }) { (error) in
+            }
             
         }
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            self.view.sendSubviewToBack(self.contactInformationView)
-        }else {
-            self.view.bringSubviewToFront(self.contactInformationView)
-        }
-        
-    }
     
 }

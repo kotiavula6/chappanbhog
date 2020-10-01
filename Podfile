@@ -16,6 +16,9 @@ pod 'NVActivityIndicatorView'
 pod 'IQKeyboardManagerSwift'
 pod 'FBSDKLoginKit'
 pod 'GoogleSignIn'
+pod 'Cosmos', '~> 23.0'
+pod 'TwitterKit'
+
 
 
   target 'ChappanBhogTests' do

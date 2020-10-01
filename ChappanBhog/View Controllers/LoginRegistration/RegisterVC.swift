@@ -11,6 +11,7 @@ import SKCountryPicker
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import TwitterKit
 
 class RegisterVC: UIViewController {
     
@@ -126,6 +127,39 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func twitterAction(_ sender: UIButton) {
+        
+        
+        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
+                if (session != nil) {
+                    print("signed in as \(session?.userName ?? "")")
+                    
+                    let username = session?.userName ?? ""
+                    let userID = session?.userID ?? ""
+                    var Email:String = ""
+                    
+                    let client = TWTRAPIClient.withCurrentUser()
+                    client.requestEmail { email, error in
+                        
+                        if (email != nil) {
+                            Email = email ?? ""
+                            
+                        } else {
+                            print("error: \(error!.localizedDescription)");
+                        }
+                    }
+                    
+                        let parms : [String:Any] = ["user_email":Email,"user_pass":"","type":3,"social_id":"Twitter","name":username]
+                    self.API_NEW_USER_REGISTER(params: parms as NSDictionary)
+                    
+                } else {
+                    
+                    print("error: \(String(describing: error?.localizedDescription))")
+                    self.message = error?.localizedDescription ?? ""
+                    alert("ChappanBhog", message: self.message, view: self)
+                    
+                }
+            })
+        
         
     }
     
@@ -253,7 +287,7 @@ class RegisterVC: UIViewController {
                     UserDefaults.standard.set(email, forKey: Constants.EmailID)
                     UserDefaults.standard.set(phone, forKey: Constants.Phone)
                     UserDefaults.standard.set(user_id, forKey: Constants.UserId)
-                    UserDefaults.standard.set(data, forKey: Constants.UserDetails)
+            
     
                     let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
                     self.navigationController?.pushViewController(vc, animated: true)

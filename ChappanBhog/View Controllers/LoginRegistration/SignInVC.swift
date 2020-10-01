@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import TwitterKit
 
 class SignInVC: UIViewController  {
     
@@ -24,6 +25,8 @@ class SignInVC: UIViewController  {
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         
         //set ASHelper class delegate
         if #available(iOS 13.0, *) {
@@ -111,6 +114,36 @@ class SignInVC: UIViewController  {
     }
     @IBAction func twitterAccount(_ sender: UIButton) {
         
+        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
+            if (session != nil) {
+                print("signed in as \(session?.userName ?? "")")
+                
+                let username = session?.userName ?? ""
+                let userID = session?.userID ?? ""
+                var Email:String = ""
+                
+                let client = TWTRAPIClient.withCurrentUser()
+                client.requestEmail { email, error in
+                    
+                    if (email != nil) {
+                        Email = email ?? ""
+                        
+                    } else {
+                        print("error: \(error!.localizedDescription)");
+                    }
+                }
+                
+                    let parms : [String:Any] = ["user_email":Email,"user_pass":"","type":3,"social_id":"Twitter","name":username]
+                self.API_LOGIN(params: parms as NSDictionary)
+                
+            } else {
+                
+                print("error: \(String(describing: error?.localizedDescription))")
+                self.message = error?.localizedDescription ?? ""
+                alert("ChappanBhog", message: self.message, view: self)
+                
+            }
+        })
         
     }
     
@@ -207,7 +240,6 @@ class SignInVC: UIViewController  {
                     UserDefaults.standard.set(phone, forKey: Constants.Phone)
                     UserDefaults.standard.set(user_id, forKey: Constants.UserId)
                     UserDefaults.standard.set(true, forKey: Constants.IsLogin)
-                    UserDefaults.standard.set(data, forKey: Constants.UserDetails)
                     UserDefaults.standard.set(token, forKey: Constants.access_token)
                   
                     let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
@@ -252,6 +284,7 @@ extension SignInVC: LoginDelegate {
 
 //MARK:- GOOGLE SIGN IN METHODS
 extension SignInVC: GIDSignInDelegate{
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {

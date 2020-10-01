@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import TwitterKit
+
  @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -79,6 +81,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController = nav
         self.window?.makeKeyAndVisible()
         
+    }
+    
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let openURLContext = URLContexts.first {
+            let url = openURLContext.url
+            let options: [AnyHashable : Any] = [
+                UIApplication.OpenURLOptionsKey.annotation : openURLContext.options.annotation as Any,
+                UIApplication.OpenURLOptionsKey.sourceApplication : openURLContext.options.sourceApplication as Any,
+                UIApplication.OpenURLOptionsKey.openInPlace : openURLContext.options.openInPlace
+            ]
+            TWTRTwitter.sharedInstance().application(UIApplication.shared, open: url, options: options)
+        }
     }
              
 }

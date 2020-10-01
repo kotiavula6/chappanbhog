@@ -5,6 +5,7 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
+  - Cosmos (23.0.0)
   - FBSDKCoreKit (7.1.1):
     - FBSDKCoreKit/Basics (= 7.1.1)
     - FBSDKCoreKit/Core (= 7.1.1)
@@ -38,9 +39,13 @@ PODS:
   - SKCountryPicker (1.2.9)
   - SVProgressHUD (2.2.5)
   - SwiftyJSON (5.0.0)
+  - TwitterCore (3.2.0)
+  - TwitterKit (3.4.2):
+    - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
+  - Cosmos (~> 23.0)
   - FBSDKLoginKit
   - GoogleSignIn
   - IQKeyboardManagerSwift
@@ -50,11 +55,13 @@ DEPENDENCIES:
   - SKCountryPicker
   - SVProgressHUD
   - SwiftyJSON
+  - TwitterKit
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - AppAuth
+    - Cosmos
     - FBSDKCoreKit
     - FBSDKLoginKit
     - GoogleSignIn
@@ -67,10 +74,13 @@ SPEC REPOS:
     - SKCountryPicker
     - SVProgressHUD
     - SwiftyJSON
+    - TwitterCore
+    - TwitterKit
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
   FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
@@ -83,7 +93,9 @@ SPEC CHECKSUMS:
   SKCountryPicker: 7ad1e7dfb482cfb26855e33c2d70dbf1eaf218fe
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
+  TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: 4c20e1187062c1733c449a48fba705b0f3768285
+PODFILE CHECKSUM: ce8eced7e20e662e05ad251a9f7ba4305670e7f6
 
 COCOAPODS: 1.9.3

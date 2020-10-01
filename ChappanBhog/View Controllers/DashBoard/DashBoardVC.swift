@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import SDWebImage
+import TwitterKit
 
 var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
 
@@ -97,6 +98,11 @@ class DashBoardVC: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
                 UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
                 GIDSignIn.sharedInstance().signOut()
+                let store = TWTRTwitter.sharedInstance().sessionStore
+
+                if let userID = store.session()?.userID {
+                  store.logOutUserID(userID)
+                }
                 
             }
             
@@ -208,15 +214,15 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             // bannerImage = bannerImage == "" ? "": (bannerImageBaseURL + bannerImage)
             
             //  cell.bannerIMG.loadImageUsingCacheUrlString(urlString: bannerImage)
-
-            cell.bannerIMG.sd_setImage(with: URL(string: "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/" + bannerArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
+           let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
+            cell.bannerIMG.sd_setImage(with: URL(string: baseUrl + bannerArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
   
             return cell
         }
         else {
             let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
-            let baseUrl = ""
-//            cell.productIMG.sd_setImage(with: URL(string: baseUrl  + categoriesArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
+            let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
+            cell.productIMG.sd_setImage(with: URL(string: baseUrl  + (categoriesArr[indexPath.row].image ?? "") ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
             cell.productNameLBL.text = categoriesArr[indexPath.row].name
             return cell
         }
