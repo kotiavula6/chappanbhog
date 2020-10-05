@@ -16,6 +16,7 @@ var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.c
 
 class DashBoardVC: UIViewController {
     
+    
     @IBOutlet weak var ratingView: CosmosView!
     var bannerArr = [BannersdashBoard]()
     var categoriesArr = [categories]()
@@ -75,6 +76,8 @@ class DashBoardVC: UIViewController {
                 self.sidemenu.view.removeFromSuperview()
             }
             self.sidemenu.ShopAction = {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "OurMenuVC") as! OurMenuVC
+                             self.navigationController?.pushViewController(vc, animated: true)
                 
             }
             self.sidemenu.myAccountAction = {
@@ -154,8 +157,14 @@ class DashBoardVC: UIViewController {
     
     @IBAction func searchTFAction(_ sender: UITextField) {
         
+       
+    }
+    
+    @IBAction func searchButtonAction(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        vc.iscomeFrom = "search"
+          self.navigationController?.pushViewController(vc, animated: true)
+       
         
     }
     
@@ -235,7 +244,17 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             return CGSize(width: productsCatCollection.frame.height/1.3, height: productsCatCollection.frame.height)
         }
     }
-         
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == topPageCollection {
+            
+        }else {
+            let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
+            vc.iscomeFrom = "category"
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+    }
+    
 }
 
 //MARK:- API
@@ -254,8 +273,7 @@ extension DashBoardVC {
             if success == 0 {
                 
                 self.message = dict["message"] as? String ?? ""
-                showAlert(self.message)
-                
+                alert("ChappanBhog", message: self.message, view: self)
             }else {
                 
                 let banners = response["banners"] as? NSArray ?? NSArray()

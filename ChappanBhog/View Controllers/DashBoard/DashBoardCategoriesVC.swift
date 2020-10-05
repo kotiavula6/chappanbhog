@@ -42,11 +42,15 @@ class DashBoardCategoriesVC: UIViewController,UICollectionViewDataSource,UIColle
     func setAppearnace() {
         DispatchQueue.main.async {
             
-            setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true
             self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+            DispatchQueue.main.async {
+                    setGradientBackground(view: self.gradientView)
         }
     }
     

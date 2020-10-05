@@ -195,8 +195,7 @@ extension ProductInfoVC {
 
 //collectionview cell top
 class productDetailImageCollection: UICollectionViewCell {
-    
-    
+
     @IBOutlet weak var productIMG: UIImageView!
 }
 

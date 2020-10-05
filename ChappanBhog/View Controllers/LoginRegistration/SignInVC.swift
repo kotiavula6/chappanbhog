@@ -231,8 +231,9 @@ class SignInVC: UIViewController  {
                     let email = data["email"] as? String ?? ""
                     let phone = data["phone"] as? String ?? ""
                     let user_id = data["user_id"] as? Int ?? 0
-                    let token = dict["token"] as? String ?? ""
-                    print(user_id)
+                    let token = data["token"] as? String ?? ""
+                    print(token)
+                    
                     UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
                     
                     UserDefaults.standard.set(name, forKey: Constants.Name)

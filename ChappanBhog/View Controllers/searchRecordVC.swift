@@ -10,12 +10,11 @@ import UIKit
 
 class searchRecordVC: UIViewController {
     
-    
+    var iscomeFrom = ""
+    var message:String = ""
     //MARK:- OUTLETS
-    @IBOutlet weak var recordsCollectionHeight: NSLayoutConstraint!
-    @IBOutlet weak var categoryCollHeight: NSLayoutConstraint!
+
     @IBOutlet weak var totalRecordsLBL: UILabel!
-    @IBOutlet weak var categoryCollection: UICollectionView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var backView: UIView!
@@ -28,7 +27,15 @@ class searchRecordVC: UIViewController {
         super.viewDidLoad()
         
         setAppearance()
-        
+        API_GET_SEARCH_DATA()
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+             
+        DispatchQueue.main.async {
+               self.searchTF.becomeFirstResponder()
+        }
     }
     
     //MARK:- FUNCTIONS
@@ -40,10 +47,17 @@ class searchRecordVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true
             self.cartLBL.cornerRadius = self.cartLBL.frame.height/2
+        
+        
+
         }
     }
     
     //MARK:- ACTIONS
+    
+    @IBAction func textFieldAction(_ sender: UITextField) {
+        API_GET_SEARCH_DATA()
+    }
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {
     }
@@ -69,54 +83,62 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == categoryCollection {
-            let cell = categoryCollection.dequeueReusableCell(withReuseIdentifier: "searchCategoryCollection", for: indexPath) as! searchCategoryCollection
-            
-            DispatchQueue.main.async {
-                self.categoryCollHeight.constant = self.categoryCollection.contentSize.height
-            }
-            return cell
-        }else {
+
             let cell = recordsCollection.dequeueReusableCell(withReuseIdentifier: "SearchRecordCollectionCell", for: indexPath) as! SearchRecordCollectionCell
-            
-            DispatchQueue.main.async {
-                self.recordsCollectionHeight.constant = self.recordsCollection.contentSize.height
-            }
-            
             return cell
-        }
-        
-        
+
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == categoryCollection {
-            return CGSize(width: recordsCollection.frame.width/4, height: recordsCollection.frame.width/4)
-        }else {
-            
+
             let width = (self.recordsCollection.frame.size.width/2)-20
             
             return CGSize(width: width, height: 220)
-        }
-        
-        
+
     }
     
 }
 
 
-//topCategory cell
+extension searchRecordVC {
+func API_GET_SEARCH_DATA() {
+    
+    IJProgressView.shared.showProgressView()
+    
+    let Url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_SEARCH
+    let userId = UserDefaults.standard.value(forKey: Constants.UserId)
+    
+    let params:[String:Any] = ["user_id":userId ?? 0,"keyword":searchTF.text ?? ""]
+    AFWrapperClass.requestPOSTURL(Url, params: params, success: { (dict) in
+        IJProgressView.shared.hideProgressView()
+        print(dict)
+        
+        let response = dict["data"] as? NSDictionary ?? NSDictionary()
+        let success = dict["success"] as? Int ?? 0
+        
+        if success == 0 {
+            
+            self.message = dict["message"] as? String ?? ""
+            alert("ChappanBhog", message: self.message, view: self)
+            
+        }else {
 
-
-class searchCategoryCollection: UICollectionViewCell {
-    //MARK:- OUTLETS
-    @IBOutlet weak var productIMG: UIImageView!
-    @IBOutlet weak var productNameLBL: UILabel!
+        }
+ 
+    }) { (error) in
+    self.message = error.localizedDescription ?? ""
+       alert("ChappanBhog", message: self.message, view: self)
+        IJProgressView.shared.hideProgressView()
+        
+    }
 }
+}
+
 
 //class
 class SearchRecordCollectionCell: UICollectionViewCell {
+    
     //MARK:- OUTLETS
     @IBOutlet weak var favBTN: UIButton!
     @IBOutlet weak var addTocartBTN: UIButton!
