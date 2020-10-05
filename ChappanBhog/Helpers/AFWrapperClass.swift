@@ -62,6 +62,33 @@ class AFWrapperClass{
            }
        }
     
+    class func requestPOSTURLWithHeader(_ strURL : String, params : Parameters, success:@escaping (NSDictionary) -> Void, failure:@escaping (NSError) -> Void){
+        
+        let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
+        let header:HTTPHeaders = ["Authorization":"Bearer \(token)","Content-Type": "application/json"]
+        
+          let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
+          AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: header)
+              .responseJSON { (response) in
+                  switch response.result {
+                  case .success(let value):
+                      if let JSON = value as? [String: Any] {
+                          success(JSON as NSDictionary)
+                      }
+                  case .failure(let error):
+                      let error : NSError = error as NSError
+                    //   print("hhhjjh",error)
+                      
+                      let message:String = error.localizedDescription
+                      IJProgressView.shared.hideProgressView()
+                
+                      failure(error)
+                     // print(failure)
+                  
+                  }
+          }
+      }
+    
     
     
     class func requestGETURLWithParams(_ strURL: String,params:Parameters , success:@escaping (AnyObject) -> Void, failure:@escaping (NSError) -> Void) {
@@ -115,6 +142,44 @@ class AFWrapperClass{
                 }
         }
     }
+    
+    
+   class func uploadPhoto(_ url: String, image: UIImage, params: [String : Any], completion: @escaping (AnyObject) -> (), failure:@escaping (NSError) -> Void) {
+        
+    
+    let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
+    
+    let header:HTTPHeaders = ["Authorization":"Bearer \(token)","Content-Type": "application/json"]
+    
+            
+        AF.upload(multipartFormData: { multiPart in
+            for p in params {
+                multiPart.append("\(p.value)".data(using: String.Encoding.utf8)!, withName: p.key)
+            }
+           multiPart.append(image.jpegData(compressionQuality: 0.6)!, withName: "image", fileName: "file.jpg", mimeType: "image/jpg")
+        }, to: url, method: .post, headers: header) .uploadProgress(queue: .main, closure: { progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+        }).responseJSON(completionHandler: { data in
+            print("upload finished: \(data)")
+        }).response { (response) in
+            switch response.result {
+            case .success(let resut):
+                print("upload success result: \(resut)")
+                if let JSON = resut as? Any {
+                    completion(JSON as AnyObject)
+                    print(JSON)
+                }
+            case .failure(let err):
+                print("upload err: \(err)")
+                let error : NSError = err as NSError
+                print(error)
+                failure(error)
+                print(failure)
+            }
+        }
+    }
+    
+    
     class func svprogressHudShow(title:String,view:UIViewController) -> Void
     {
         SVProgressHUD.show(withStatus: title)

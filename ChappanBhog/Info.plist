@@ -12,6 +12,10 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To select profile image</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To click profile image</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
@@ -38,7 +42,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>twitterkit-4Z8hpvQBOxBbtfXtjmtLWtt9Y</string>
-   
 			</array>
 		</dict>
 	</array>
