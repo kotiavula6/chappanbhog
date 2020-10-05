@@ -16,10 +16,46 @@ PODS:
     - FBSDKLoginKit/Login (= 7.1.1)
   - FBSDKLoginKit/Login (7.1.1):
     - FBSDKCoreKit (~> 7.1.1)
+  - Firebase/Auth (6.33.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 6.9.2)
+  - Firebase/CoreOnly (6.33.0):
+    - FirebaseCore (= 6.10.3)
+  - FirebaseAuth (6.9.2):
+    - FirebaseCore (~> 6.10)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (6.10.3):
+    - FirebaseCoreDiagnostics (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+    - nanopb (~> 1.30906.0)
+  - GoogleDataTransport (7.4.0):
+    - nanopb (~> 1.30906.0)
   - GoogleSignIn (5.0.2):
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.7.2):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.7.2):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Network (6.7.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.7.2)"
+  - GoogleUtilities/Reachability (6.7.2):
+    - GoogleUtilities/Logger
   - GTMAppAuth (1.0.0):
     - AppAuth/Core (~> 1.0)
     - GTMSessionFetcher (~> 1.1)
@@ -29,9 +65,15 @@ PODS:
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
   - IQKeyboardManagerSwift (6.5.6)
+  - nanopb (1.30906.0):
+    - nanopb/decode (= 1.30906.0)
+    - nanopb/encode (= 1.30906.0)
+  - nanopb/decode (1.30906.0)
+  - nanopb/encode (1.30906.0)
   - NVActivityIndicatorView (5.0.1):
     - NVActivityIndicatorView/Base (= 5.0.1)
   - NVActivityIndicatorView/Base (5.0.1)
+  - PromisesObjC (1.2.10)
   - SCLAlertView (0.8)
   - SDWebImage (5.9.0):
     - SDWebImage/Core (= 5.9.0)
@@ -47,6 +89,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.2)
   - Cosmos (~> 23.0)
   - FBSDKLoginKit
+  - Firebase/Auth
   - GoogleSignIn
   - IQKeyboardManagerSwift
   - NVActivityIndicatorView
@@ -64,11 +107,19 @@ SPEC REPOS:
     - Cosmos
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - Firebase
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - GoogleDataTransport
     - GoogleSignIn
+    - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
+    - nanopb
     - NVActivityIndicatorView
+    - PromisesObjC
     - SCLAlertView
     - SDWebImage
     - SKCountryPicker
@@ -83,11 +134,19 @@ SPEC CHECKSUMS:
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
   FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
+  Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
+  FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
+  FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
+  GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   NVActivityIndicatorView: 738e843cb8924e9e4fc3e559d0728031624bf860
+  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
   SKCountryPicker: 7ad1e7dfb482cfb26855e33c2d70dbf1eaf218fe
@@ -96,6 +155,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: ce8eced7e20e662e05ad251a9f7ba4305670e7f6
+PODFILE CHECKSUM: e85c3c1c77bccad29d3b85d92e3eaa6ed29aa30f
 
 COCOAPODS: 1.9.3
