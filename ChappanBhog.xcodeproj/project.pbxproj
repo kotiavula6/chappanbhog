@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		26DBFB4ACCAD4F798C7FFFBA /* Pods_ChappanBhog_ChappanBhogUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C75507117C2AE67A47C24BA /* Pods_ChappanBhog_ChappanBhogUITests.framework */; };
 		4D4E2ED5E44F73120AAAE4A1 /* Pods_ChappanBhogTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63AB1724AF6435A3F10ADF0 /* Pods_ChappanBhogTests.framework */; };
+		612E420D252B36AA0001FA6C /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612E420C252B36AA0001FA6C /* NotificationModel.swift */; };
+		61AAA295252AF74500BD754F /* UpdateAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AAA294252AF74500BD754F /* UpdateAddressModel.swift */; };
 		EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04CAA42523A1B700BADC28 /* DashBoardModel.swift */; };
 		EE04CAA72523A31600BADC28 /* NsObject+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04CAA62523A31600BADC28 /* NsObject+Foundation.swift */; };
 		EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */; };
@@ -103,6 +105,8 @@
 /* Begin PBXFileReference section */
 		0732C66D00AABB24720BF5E2 /* Pods-ChappanBhogTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhogTests.release.xcconfig"; path = "Target Support Files/Pods-ChappanBhogTests/Pods-ChappanBhogTests.release.xcconfig"; sourceTree = "<group>"; };
 		55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChappanBhog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		612E420C252B36AA0001FA6C /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		61AAA294252AF74500BD754F /* UpdateAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAddressModel.swift; sourceTree = "<group>"; };
 		61EB06DD3DCA7AF81BDACA9C /* Pods-ChappanBhogTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhogTests.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhogTests/Pods-ChappanBhogTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80EE80C662FDED952E79BC31 /* Pods-ChappanBhog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog.debug.xcconfig"; sourceTree = "<group>"; };
 		9C75507117C2AE67A47C24BA /* Pods_ChappanBhog_ChappanBhogUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChappanBhog_ChappanBhogUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,10 +235,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		61AAA293252AF72900BD754F /* ManageAddress */ = {
+			isa = PBXGroup;
+			children = (
+				EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */,
+				61AAA294252AF74500BD754F /* UpdateAddressModel.swift */,
+			);
+			path = ManageAddress;
+			sourceTree = "<group>";
+		};
 		EE04CAA32523A1A200BADC28 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				EE04CAA42523A1B700BADC28 /* DashBoardModel.swift */,
+				612E420C252B36AA0001FA6C /* NotificationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -387,6 +401,7 @@
 		EE31C7012507760600E87E98 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				61AAA293252AF72900BD754F /* ManageAddress */,
 				EE31C70D2507B9ED00E87E98 /* Cells */,
 				EE21FE09251C95FE0075EA5F /* pintrest */,
 				EE7740212511D72600E994B8 /* containers */,
@@ -404,7 +419,6 @@
 				EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */,
 				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 				EEDD1B20250B9598000671EA /* MyAccountVC.swift */,
-				EEDD1B1E250B8AC0000671EA /* ManageAddressVC.swift */,
 				EE458EE4250BA63B00BAA7E7 /* OurMenuVC.swift */,
 				EE458EE6250BAB2300BAA7E7 /* NotificationsVC.swift */,
 				EE5E384A250BB82300DCDE18 /* ProductInfoVC.swift */,
@@ -809,6 +823,7 @@
 				EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
 				EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */,
+				61AAA295252AF74500BD754F /* UpdateAddressModel.swift in Sources */,
 				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,
@@ -825,6 +840,7 @@
 				EE31C70825078B8700E87E98 /* RegisterVC.swift in Sources */,
 				EE31C6D5250774DF00E87E98 /* ChappanBhog.xcdatamodeld in Sources */,
 				EE7740232511D74500E994B8 /* EnquirlyFormVC.swift in Sources */,
+				612E420D252B36AA0001FA6C /* NotificationModel.swift in Sources */,
 				EECC6EF4251CD0D500A0B2D1 /* activityLoader.swift in Sources */,
 				EE7740252511E74B00E994B8 /* StatesPopUpVC.swift in Sources */,
 				EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */,
@@ -1014,6 +1030,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = XA7EFY7GK4;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1036,6 +1053,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = XA7EFY7GK4;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

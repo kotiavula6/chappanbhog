@@ -16,14 +16,83 @@ class NotificationsVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var notificationsTable: UITableView!
     
+    var notificationDataArr = [NotificationModel]()
+    
     //MARK:- APPLICAION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setAppearance()
+        getNotifications()
     }
     
+    
+    
+    
+    func getNotifications() {
+        
+        
+        
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
+        let notificationUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_notification + "/\(userID)?page=1"
+        
+        
+        IJProgressView.shared.showProgressView()
+        AFWrapperClass.requestGETURL(notificationUrl, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
+            
+            if let result = dict as? [String:Any]{
+                print(result)
+                
+              //  let message = result["message"] as? String ?? ""
+                let status = result["success"] as? Bool ?? false
+                
+                if status{
+                    if result["data"] != nil{
+                        
+                        let responseData = result["data"] as! [Dictionary<String, Any>]
+                        do {
+                            let jsonData = try JSONSerialization.data(withJSONObject: responseData , options: .prettyPrinted)
+                            do {
+                                let jsonDecoder = JSONDecoder()
+                                let notificationData = try jsonDecoder.decode([NotificationModel].self, from: jsonData)
+                                print(notificationData)
+                                self.notificationDataArr = notificationData
+                                self.notificationsTable.reloadData()
+                            } catch {
+                                print("Unexpected error: \(error).")
+                                alert("ChappanBhog", message: error.localizedDescription, view: self)
+                                
+                            }
+                            
+                        } catch {
+                            print(error.localizedDescription)
+                            
+                            alert("ChappanBhog", message: error.localizedDescription, view: self)
+                        }
+                        
+                        
+                        
+                    }
+                    else{
+                        let msg = result["message"] as? String ?? "Some error Occured"
+                        alert("ChappanBhog", message: msg, view: self)
+                    }
+                } else {
+                    let msg = result["message"] as? String ?? "Some error Occured"
+                    alert("ChappanBhog", message: msg, view: self)
+                    
+                }
+            } else {
+                
+            }
+        }) { (error) in
+            IJProgressView.shared.hideProgressView()
+            alert("ChappanBhog", message: error.description, view: self)
+        }
+    }
     
     //MARK:- FUNCTIONS
     func setAppearance() {
@@ -44,12 +113,12 @@ class NotificationsVC: UIViewController {
 //MARK:- TABLEVIEW METHODS
 extension NotificationsVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listArray.count
+        return self.notificationDataArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = notificationsTable.dequeueReusableCell(withIdentifier: "NotificationListTableCell") as! NotificationListTableCell
-        cell.nameLBL.text = listArray[indexPath.row]
+        cell.nameLBL.text = self.notificationDataArr[indexPath.row].name ?? ""
         if indexPath.row == 0 {
             
         }else {
