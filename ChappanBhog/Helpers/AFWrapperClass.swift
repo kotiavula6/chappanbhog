@@ -61,6 +61,36 @@ class AFWrapperClass{
                    }
            }
        }
+    
+    
+    
+    class func requestGETURLWithParams(_ strURL: String,params:Parameters , success:@escaping (AnyObject) -> Void, failure:@escaping (NSError) -> Void) {
+        
+        
+        let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
+        
+        let header:HTTPHeaders = ["Authorization":"Bearer \(token)","Content-Type": "application/json"]
+
+        let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        AF.request(urlwithPercentEscapes!, method: .get, parameters:params  ,encoding: JSONEncoding.default, headers:header)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success(let value):
+                    if let JSON = value as? Any {
+                        success(JSON as AnyObject)
+                        print(JSON)
+                    }
+                case .failure(let error):
+                    let error : NSError = error as NSError
+                    print(error)
+                    failure(error)
+                    print(failure)
+                }
+        }
+    }
+    
+    
+    
     class func requestGETURL(_ strURL: String, success:@escaping (AnyObject) -> Void, failure:@escaping (NSError) -> Void) {
         
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class TopPicsTableCell: UITableViewCell {
 
@@ -22,6 +23,7 @@ class TopPicsTableCell: UITableViewCell {
     @IBOutlet weak var quantityLBL: UILabel!
     @IBOutlet var starImages: [UIImageView]!
     @IBOutlet weak var weightBTN: UIButton!
+    @IBOutlet weak var starRating: CosmosView!
     
     var quantity:Int = 1
     

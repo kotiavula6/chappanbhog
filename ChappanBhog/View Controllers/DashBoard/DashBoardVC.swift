@@ -10,11 +10,13 @@ import UIKit
 import GoogleSignIn
 import SDWebImage
 import TwitterKit
+import Cosmos
 
 var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
 
 class DashBoardVC: UIViewController {
     
+    @IBOutlet weak var ratingView: CosmosView!
     var bannerArr = [BannersdashBoard]()
     var categoriesArr = [categories]()
     var toppicsArr = [TopPics]()
@@ -142,9 +144,7 @@ class DashBoardVC: UIViewController {
         // openMenuPanel(self)
     }
     
-    @IBAction func cartButtonAction(_ sender: UIButton) {
-        
-    }
+   
     
     @IBAction func menuButtonAction(_ sender: UIButton) {
         
@@ -177,8 +177,7 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         cell.priceLBL.text = "\(toppicsArr[indexPath.row].price ?? 0)"
         cell.totalReviewsLBL.text = "\(toppicsArr[indexPath.row].reviews ?? 0) Reviews"
        // cell.quantityLBL.text = "\(toppicsArr[indexPath.row].available_quantity ?? 0)"
-        
-    
+        cell.starRating.rating = Double(toppicsArr[indexPath.row].ratings ?? 0)
         DispatchQueue.main.async {
             self.topPicsTableConstants.constant = self.topPicsTable.contentSize.height
         }
@@ -188,6 +187,10 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+        let itemId = toppicsArr[indexPath.row].id ?? 0
+        vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+        
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -210,19 +213,16 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         if collectionView == topPageCollection {
             let cell = topPageCollection.dequeueReusableCell(withReuseIdentifier: "DashboardPageCollectionCell", for: indexPath) as! DashboardPageCollectionCell
             
-            // let bannerImage = bannerArr[indexPath.row].image ?? ""
-            
-            // bannerImage = bannerImage == "" ? "": (bannerImageBaseURL + bannerImage)
-            
-            //  cell.bannerIMG.loadImageUsingCacheUrlString(urlString: bannerImage)
-           let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
+            let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
             cell.bannerIMG.sd_setImage(with: URL(string: baseUrl + bannerArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
-  
+            
             return cell
         }
         else {
             let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
+            
             cell.productIMG.sd_setImage(with: URL(string: categoriesArr[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
+            
             cell.productNameLBL.text = categoriesArr[indexPath.row].name
             return cell
         }
@@ -265,7 +265,6 @@ extension DashBoardVC {
                 
                 self.bannerArr.removeAll()
                 self.toppicsArr.removeAll()
-                self.categoriesArr.removeAll()
                 
                 for i in 0..<banners.count {
                     self.bannerArr.append(BannersdashBoard(dict: banners.object(at: i) as! [String:Any]))
@@ -304,7 +303,7 @@ extension DashBoardVC {
                 alert("ChappanBhog", message: self.message, view: self)
                 
             }else {
-                
+                self.categoriesArr.removeAll()
                 for i in 0..<response.count {
                     self.categoriesArr.append(categories(dict: response.object(at: i) as! [String:Any]))
 
