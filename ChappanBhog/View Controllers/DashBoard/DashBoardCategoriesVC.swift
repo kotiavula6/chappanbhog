@@ -10,7 +10,7 @@ import UIKit
 
 class DashBoardCategoriesVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate {
   
-     var seconArra = [0,3,4,7,8,11,12,15,16,19,20,23,24,27,28,31,32,35,36,39,40,43,44,47,48,51,52]
+ 
     
     //MARK:- OUTLETS
     @IBOutlet weak var backView: UIView!
@@ -41,8 +41,8 @@ class DashBoardCategoriesVC: UIViewController,UICollectionViewDataSource,UIColle
     //MARK:- FUNCTIONS
     func setAppearnace() {
         DispatchQueue.main.async {
-            setGradientBackground(view: self.gradientView)
             
+            setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true

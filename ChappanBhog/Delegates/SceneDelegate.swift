@@ -92,6 +92,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 UIApplication.OpenURLOptionsKey.sourceApplication : openURLContext.options.sourceApplication as Any,
                 UIApplication.OpenURLOptionsKey.openInPlace : openURLContext.options.openInPlace
             ]
+            print(options)
             TWTRTwitter.sharedInstance().application(UIApplication.shared, open: url, options: options)
         }
     }

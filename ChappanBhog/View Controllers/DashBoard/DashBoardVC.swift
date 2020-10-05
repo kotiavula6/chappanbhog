@@ -10,11 +10,13 @@ import UIKit
 import GoogleSignIn
 import SDWebImage
 import TwitterKit
+import Cosmos
 
 var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
 
 class DashBoardVC: UIViewController {
     
+    @IBOutlet weak var ratingView: CosmosView!
     var bannerArr = [BannersdashBoard]()
     var categoriesArr = [categories]()
     var toppicsArr = [TopPics]()
@@ -44,6 +46,7 @@ class DashBoardVC: UIViewController {
         print(bannerArr)
         setAppearence()
         API_GET_DASHBOARD_DATA()
+        API_GET_DASHBOARD_IMAGES()
     }
     
     
@@ -141,9 +144,7 @@ class DashBoardVC: UIViewController {
         // openMenuPanel(self)
     }
     
-    @IBAction func cartButtonAction(_ sender: UIButton) {
-        
-    }
+   
     
     @IBAction func menuButtonAction(_ sender: UIButton) {
         
@@ -176,8 +177,7 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         cell.priceLBL.text = "\(toppicsArr[indexPath.row].price ?? 0)"
         cell.totalReviewsLBL.text = "\(toppicsArr[indexPath.row].reviews ?? 0) Reviews"
        // cell.quantityLBL.text = "\(toppicsArr[indexPath.row].available_quantity ?? 0)"
-        
-    
+        cell.starRating.rating = Double(toppicsArr[indexPath.row].ratings ?? 0)
         DispatchQueue.main.async {
             self.topPicsTableConstants.constant = self.topPicsTable.contentSize.height
         }
@@ -187,6 +187,10 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+        let itemId = toppicsArr[indexPath.row].id ?? 0
+        vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+        
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -209,20 +213,16 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         if collectionView == topPageCollection {
             let cell = topPageCollection.dequeueReusableCell(withReuseIdentifier: "DashboardPageCollectionCell", for: indexPath) as! DashboardPageCollectionCell
             
-            // let bannerImage = bannerArr[indexPath.row].image ?? ""
-            
-            // bannerImage = bannerImage == "" ? "": (bannerImageBaseURL + bannerImage)
-            
-            //  cell.bannerIMG.loadImageUsingCacheUrlString(urlString: bannerImage)
-           let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
+            let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
             cell.bannerIMG.sd_setImage(with: URL(string: baseUrl + bannerArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
-  
+            
             return cell
         }
         else {
             let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
-            let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
-            cell.productIMG.sd_setImage(with: URL(string: baseUrl  + (categoriesArr[indexPath.row].image ?? "") ?? "" ), placeholderImage: UIImage(named: "placeholder.png"))
+            
+            cell.productIMG.sd_setImage(with: URL(string: categoriesArr[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
+            
             cell.productNameLBL.text = categoriesArr[indexPath.row].name
             return cell
         }
@@ -240,7 +240,6 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 
 //MARK:- API
 extension DashBoardVC {
-    
     func API_GET_DASHBOARD_DATA() {
         
         IJProgressView.shared.showProgressView()
@@ -266,7 +265,6 @@ extension DashBoardVC {
                 
                 self.bannerArr.removeAll()
                 self.toppicsArr.removeAll()
-                self.categoriesArr.removeAll()
                 
                 for i in 0..<banners.count {
                     self.bannerArr.append(BannersdashBoard(dict: banners.object(at: i) as! [String:Any]))
@@ -274,13 +272,11 @@ extension DashBoardVC {
                 for i in 0..<topPicks.count {
                     self.toppicsArr.append(TopPics(dict: topPicks.object(at: i) as! [String:Any]))
                 }
-                for i in 0..<categori.count  {
-                    self.categoriesArr.append(categories(dict: categori.object(at: i) as! [String:Any]))
-                }
+             
             }
             self.topPageCollection.reloadData()
             self.topPicsTable.reloadData()
-            self.productsCatCollection.reloadData()
+          
             
         }) { (error) in
             
@@ -289,6 +285,38 @@ extension DashBoardVC {
         }
     }
     
+  //MARK:- GET IMAGES
+    func API_GET_DASHBOARD_IMAGES() {
+        
+        IJProgressView.shared.showProgressView()
+        let bannersUrl = "https://www.chhappanbhog.com/restapi/example/getcategories.php"
+        AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
+            
+            let response = dict["data"] as? NSArray ?? NSArray()
+            let success = dict["success"] as? Int ?? 0
+            
+            if success == 0 {
+                
+                self.message = dict["message"] as? String ?? ""
+                alert("ChappanBhog", message: self.message, view: self)
+                
+            }else {
+                self.categoriesArr.removeAll()
+                for i in 0..<response.count {
+                    self.categoriesArr.append(categories(dict: response.object(at: i) as! [String:Any]))
+
+                }
+            }
+            self.productsCatCollection.reloadData()
+            
+        }) { (error) in
+            self.message = error.localizedDescription
+            alert("ChappanBhog", message: self.message, view: self)
+            
+        }
+    }
 }
 
 //COLLECTION CELLS
