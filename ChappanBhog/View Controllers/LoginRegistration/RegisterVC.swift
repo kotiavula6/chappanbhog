@@ -26,6 +26,7 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var countryCodeTF: UITextField!
     @IBOutlet weak var registerBTN: UIButton!
     var message:String = ""
+    var isEmailRegisteration: Bool = false
     
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
@@ -92,14 +93,12 @@ class RegisterVC: UIViewController {
             UserDefaults.standard.set(passwordTF.text, forKey: "password")
             UserDefaults.standard.string(forKey: "password")
         }
-        else{
-            
+        else {
+            isEmailRegisteration = true
             let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone":mobileTF.text ?? "","name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0]
             API_NEW_USER_REGISTER(params: parms as NSDictionary)
             view.endEditing(true)
         }
-        
-        
     }
     
     @IBAction func loginButtonClicked(_ sender: UIButton) {
@@ -108,7 +107,7 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func fbButtonAction(_ sender: UIButton) {
-        
+        isEmailRegisteration = false
         let loginManager = LoginManager()
            loginManager.logIn(permissions: ["email", "public_profile"], from: self) { (result, error) in
                if error != nil {
@@ -127,8 +126,7 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func twitterAction(_ sender: UIButton) {
-        
-        
+        isEmailRegisteration = false
         TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
                 if (session != nil) {
                     print("signed in as \(session?.userName ?? "")")
@@ -164,22 +162,19 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func googleAction(_ sender: UIButton) {
-        
+        isEmailRegisteration = false
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate=self
         GIDSignIn.sharedInstance().signIn()
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        
     }
     
     @IBAction func appleLoginClicked(_ sender: UIButton) {
-        
+        isEmailRegisteration = false
         if #available(iOS 13.0, *) {
-                   
-                   ASHelper.shared.performRequest()
-                   //signIn completion response will come in ASHelper Delegate functions
-               }
-        
+            ASHelper.shared.performRequest()
+            //signIn completion response will come in ASHelper Delegate functions
+        }
     }
     
         func userProfileDetails() {
@@ -281,17 +276,29 @@ class RegisterVC: UIViewController {
                     let email = data["email"] as? String ?? ""
                     let phone = data["phone"] as? String ?? ""
                     let user_id = data["user_id"] as? String ?? ""
+                    let token = data["token"] as? String ?? ""
+                    
                     UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
                     
                     UserDefaults.standard.set(name, forKey: Constants.Name)
                     UserDefaults.standard.set(email, forKey: Constants.EmailID)
                     UserDefaults.standard.set(phone, forKey: Constants.Phone)
                     UserDefaults.standard.set(user_id, forKey: Constants.UserId)
+                    UserDefaults.standard.set(token, forKey: Constants.access_token)
             
     
-                    let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
+                    if self.isEmailRegisteration {
+                        // Show phone verification screen
+                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
+                        vc.phone = phone
+                        vc.code = "91"
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                    else {
+                        // Show home
+                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
             }
         }) { (error) in

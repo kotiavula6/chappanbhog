@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
-        GIDSignIn.sharedInstance().clientID = "359698796256-6bdpv0jaab8t1lqhqhqoappkkdc8vfne.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID = "574908180295-nuhnssptokucg4cr05sr0qihol6fg7v1.apps.googleusercontent.com"
         
         
 //        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)

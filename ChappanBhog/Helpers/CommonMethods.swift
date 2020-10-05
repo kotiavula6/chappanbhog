@@ -9,13 +9,10 @@
 import UIKit
 
 
-struct AppConstant
-{
+struct AppConstant {
     static let APP_DELEGATES = UIApplication.shared.delegate as! AppDelegate
     static let APP_STOREBOARD: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    
     static let LOGIN_STOREBOARD: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
-    
 }
 
 
