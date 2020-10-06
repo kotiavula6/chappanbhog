@@ -34,18 +34,16 @@ class MyAccountVC: UIViewController {
         setAppearance()
         
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        DispatchQueue.main.async {
-            setGradientBackground(view: self.gradientView)
-        }
-    }
+    override func viewWillLayoutSubviews() {
+           setGradientBackground(view: self.gradientView)
+       }
+ 
     
     //MARK:- FUNCTIONS
     func setAppearance() {
         DispatchQueue.main.async {
-            
+            setGradientBackground(view: self.gradientView)
+            self.view.layoutIfNeeded()
           
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]

@@ -10,6 +10,8 @@ import UIKit
 
 class searchRecordVC: UIViewController {
     
+    var searchArr = [SearchRecordModel]()
+    
     var iscomeFrom = ""
     var message:String = ""
     //MARK:- OUTLETS
@@ -25,11 +27,11 @@ class searchRecordVC: UIViewController {
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      //  searchTF.delegate = self
         setAppearance()
-        API_GET_SEARCH_DATA()
+   
     }
-    
+
     
     override func viewDidAppear(_ animated: Bool) {
              
@@ -47,16 +49,35 @@ class searchRecordVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true
             self.cartLBL.cornerRadius = self.cartLBL.frame.height/2
-        
-        
 
         }
     }
     
     //MARK:- ACTIONS
     
-    @IBAction func textFieldAction(_ sender: UITextField) {
+    @IBAction func searchTF(_ sender: UITextField) {
+        
+        let TF = searchTF.text ?? ""
+        
+        if TF.count > 3 {
+            
         API_GET_SEARCH_DATA()
+       // recordsCollection.reloadData()
+            
+        }
+        
+        
+    }
+    
+    
+    @IBAction func textFieldAction(_ sender: UITextField) {
+        let ksearchTF = searchTF.text ?? ""
+        if ksearchTF.count >= 1 {
+            API_GET_SEARCH_DATA()
+            recordsCollection.reloadData()
+            totalRecordsLBL.text = "\(searchArr.count) RECORDS FOUND"
+        }
+        
     }
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {
@@ -79,13 +100,20 @@ class searchRecordVC: UIViewController {
 extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return searchArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
             let cell = recordsCollection.dequeueReusableCell(withReuseIdentifier: "SearchRecordCollectionCell", for: indexPath) as! SearchRecordCollectionCell
-            return cell
+        cell.productIMG.sd_setImage(with: URL(string: searchArr[indexPath.row].image?[0] ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
+        cell.productNameLBL.text = searchArr[indexPath.row].title
+        cell.priceLBL.text = "\(searchArr[indexPath.row].price ?? 0)"
+        cell.weightLBL.text =  ""
+        cell.ratingView.rating = Double((searchArr[indexPath.row].ratings ?? 0))
+        cell.favBTN.backgroundColor = .red
+        
+        return cell
 
     }
     
@@ -102,41 +130,47 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
 
 
 extension searchRecordVC {
-func API_GET_SEARCH_DATA() {
-    
-    IJProgressView.shared.showProgressView()
-    
-    let Url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_SEARCH
-    let userId = UserDefaults.standard.value(forKey: Constants.UserId)
-    
-    let params:[String:Any] = ["user_id":userId ?? 0,"keyword":searchTF.text ?? ""]
-    AFWrapperClass.requestPOSTURL(Url, params: params, success: { (dict) in
-        IJProgressView.shared.hideProgressView()
-        print(dict)
+    func API_GET_SEARCH_DATA() {
         
-        let response = dict["data"] as? NSDictionary ?? NSDictionary()
-        let success = dict["success"] as? Int ?? 0
+        IJProgressView.shared.showProgressView()
         
-        if success == 0 {
+        let Url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_SEARCH
+        let userId = UserDefaults.standard.value(forKey: Constants.UserId)
+        
+        let params:[String:Any] = ["user_id":userId ?? 0,"keyword":searchTF.text ?? ""]
+        AFWrapperClass.requestPOSTURL(Url, params: params, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
             
-            self.message = dict["message"] as? String ?? ""
+            let response = dict["data"] as? NSArray ?? NSArray()
+            let success = dict["success"] as? Int ?? 0
+            
+            if success == 0 {
+                
+                self.message = dict["message"] as? String ?? ""
+                alert("ChappanBhog", message: self.message, view: self)
+                
+            }else {
+                
+                self.searchArr.removeAll()
+                for i in 0..<response.count {
+                    self.searchArr.append(SearchRecordModel(dict: response.object(at: i) as! [String:Any]))
+                }
+                
+            }
+            self.recordsCollection.reloadData()
+        }) { (error) in
+            self.message = error.localizedDescription 
             alert("ChappanBhog", message: self.message, view: self)
+            IJProgressView.shared.hideProgressView()
             
-        }else {
-
         }
- 
-    }) { (error) in
-    self.message = error.localizedDescription ?? ""
-       alert("ChappanBhog", message: self.message, view: self)
-        IJProgressView.shared.hideProgressView()
-        
     }
-}
 }
 
 
 //class
+import Cosmos
 class SearchRecordCollectionCell: UICollectionViewCell {
     
     //MARK:- OUTLETS
@@ -152,6 +186,8 @@ class SearchRecordCollectionCell: UICollectionViewCell {
     @IBOutlet weak var productIMG: UIImageView!
     @IBOutlet weak var shadowView:UIView!
     
+    @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet weak var weightLBL: UILabel!
     override func awakeFromNib() {
         
     }

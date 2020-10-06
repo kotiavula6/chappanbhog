@@ -29,6 +29,7 @@ class AboutVC: UIViewController {
         
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
+            self.view.layoutIfNeeded()
             //            self.nameTF.setLeftPaddingPoints(10)
             //            self.nameTF.layer.masksToBounds = true
             //
@@ -38,6 +39,9 @@ class AboutVC: UIViewController {
         }
         
     }
+    override func viewWillLayoutSubviews() {
+           setGradientBackground(view: self.gradientView)
+       }
     //MARK:- FUCNCTIONS
     func SetAppearance() {
         self.backView.layer.cornerRadius = 30

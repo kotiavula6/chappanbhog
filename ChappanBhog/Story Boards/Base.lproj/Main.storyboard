@@ -1477,7 +1477,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOP PICS FOR YOU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-zA-COV">
-                                                                <rect key="frame" x="78" y="6.5" width="167.5" height="27.5"/>
+                                                                <rect key="frame" x="78" y="9" width="176" height="22.5"/>
                                                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="19"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1541,7 +1541,7 @@
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </view>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="134 Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oHq-pC-uO2">
-                                                                                    <rect key="frame" x="163" y="14" width="58" height="17.5"/>
+                                                                                    <rect key="frame" x="163" y="15.5" width="68.5" height="14"/>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <fontDescription key="fontDescription" name="BrandonGrotesque-Light" family="Brandon Grotesque" pointSize="12"/>
                                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1552,7 +1552,7 @@
                                                                                     <state key="normal" image="grey_heart"/>
                                                                                 </button>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$450" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KuB-rY-5eV">
-                                                                                    <rect key="frame" x="158" y="30.5" width="39" height="24.5"/>
+                                                                                    <rect key="frame" x="158" y="32.5" width="38" height="20"/>
                                                                                     <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="17"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -1629,20 +1629,20 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="p4m-kq-kY1">
-                                                                                    <rect key="frame" x="270" y="14" width="20" height="55"/>
+                                                                                    <rect key="frame" x="270" y="15.5" width="20" height="55"/>
                                                                                     <subviews>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMg-Cw-Y44">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="18.5"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sba-xR-lnS">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="18"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="18.5"/>
                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                                     <nil key="textColor"/>
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
                                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh6-S4-vmF">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="18"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="18.5"/>
                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     <userDefinedRuntimeAttributes>
@@ -1673,7 +1673,7 @@
                                                                                             </userDefinedRuntimeAttributes>
                                                                                         </view>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="is5-I1-DUL">
-                                                                                            <rect key="frame" x="0.0" y="18" width="20" height="18.5"/>
+                                                                                            <rect key="frame" x="0.0" y="18.5" width="20" height="18"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -1846,7 +1846,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHHAPPAN BHOG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6h-3j-lXt">
-                                        <rect key="frame" x="101.5" y="10.5" width="172" height="29"/>
+                                        <rect key="frame" x="101.5" y="13.5" width="172.5" height="23.5"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -5645,6 +5645,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
+                                                            <action selector="searchTF:" destination="dva-aY-5ui" eventType="valueChanged" id="HNt-T2-V7W"/>
                                                             <action selector="textFieldAction:" destination="dva-aY-5ui" eventType="editingChanged" id="b5T-0w-Ogc"/>
                                                         </connections>
                                                     </textField>
@@ -5963,39 +5964,26 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VRe-FI-fCJ">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VRe-FI-fCJ" customClass="CosmosView" customModule="Cosmos">
                                                                     <rect key="frame" x="20" y="144.5" width="45" height="10"/>
-                                                                    <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pEJ-2F-Ef5">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="45" height="10"/>
-                                                                            <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating_active" translatesAutoresizingMaskIntoConstraints="NO" id="Ccu-G9-5VA">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="9" height="10"/>
-                                                                                </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating_active" translatesAutoresizingMaskIntoConstraints="NO" id="R7S-VK-VeG">
-                                                                                    <rect key="frame" x="9" y="0.0" width="9" height="10"/>
-                                                                                </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating_active" translatesAutoresizingMaskIntoConstraints="NO" id="WQb-5I-HNd">
-                                                                                    <rect key="frame" x="18" y="0.0" width="9" height="10"/>
-                                                                                </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating_active" translatesAutoresizingMaskIntoConstraints="NO" id="gyR-8x-R4Z">
-                                                                                    <rect key="frame" x="27" y="0.0" width="9" height="10"/>
-                                                                                </imageView>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating_active" translatesAutoresizingMaskIntoConstraints="NO" id="Yxw-HT-XYG">
-                                                                                    <rect key="frame" x="36" y="0.0" width="9" height="10"/>
-                                                                                </imageView>
-                                                                            </subviews>
-                                                                        </stackView>
-                                                                    </subviews>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="pEJ-2F-Ef5" firstAttribute="top" secondItem="VRe-FI-fCJ" secondAttribute="top" id="6X7-ix-kYG"/>
-                                                                        <constraint firstItem="pEJ-2F-Ef5" firstAttribute="leading" secondItem="VRe-FI-fCJ" secondAttribute="leading" id="Kmh-Ys-s3C"/>
                                                                         <constraint firstAttribute="height" constant="10" id="Vn3-RB-Fmt"/>
                                                                         <constraint firstAttribute="width" constant="45" id="XAf-Jc-0bD"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="pEJ-2F-Ef5" secondAttribute="trailing" id="vWh-Ti-yE6"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="pEJ-2F-Ef5" secondAttribute="bottom" id="w1H-Dr-cSr"/>
                                                                     </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="rating_active"/>
+                                                                        <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="rating"/>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                                                            <integer key="value" value="5"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                                            <real key="value" value="6"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                                            <integer key="value" value="0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CiP-QZ-ks3">
                                                                     <rect key="frame" x="20" y="161.5" width="75" height="20"/>
@@ -6079,13 +6067,10 @@
                                                     <outlet property="productIMG" destination="h3X-Kp-AIz" id="XDY-5S-lM7"/>
                                                     <outlet property="productNameLBL" destination="rDz-v3-Q2v" id="i0s-pm-jBE"/>
                                                     <outlet property="quantityLBL" destination="yOp-aT-i0L" id="Dsc-uL-2qF"/>
+                                                    <outlet property="ratingView" destination="VRe-FI-fCJ" id="3ui-dQ-SFy"/>
                                                     <outlet property="shadowView" destination="iVh-DF-KKV" id="wOc-ZH-BcV"/>
                                                     <outlet property="weightBTN" destination="L6I-D4-haH" id="8Gx-ED-cmN"/>
-                                                    <outletCollection property="starImages" destination="Ccu-G9-5VA" collectionClass="NSMutableArray" id="zgx-pj-xBZ"/>
-                                                    <outletCollection property="starImages" destination="R7S-VK-VeG" collectionClass="NSMutableArray" id="pIo-MW-YuA"/>
-                                                    <outletCollection property="starImages" destination="WQb-5I-HNd" collectionClass="NSMutableArray" id="6yY-sa-EMl"/>
-                                                    <outletCollection property="starImages" destination="gyR-8x-R4Z" collectionClass="NSMutableArray" id="fCB-6N-JzQ"/>
-                                                    <outletCollection property="starImages" destination="Yxw-HT-XYG" collectionClass="NSMutableArray" id="Ovy-FT-ana"/>
+                                                    <outlet property="weightLBL" destination="bGy-Q8-O02" id="Nqu-0h-LWV"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

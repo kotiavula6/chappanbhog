@@ -26,14 +26,12 @@ class NotificationsVC: UIViewController {
         setAppearance()
         getNotifications()
     }
-    
-    
-    
+    override func viewWillLayoutSubviews() {
+           setGradientBackground(view: self.gradientView)
+       }
     
     func getNotifications() {
-        
-        
-        
+ 
         let userID = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
         let notificationUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_notification + "/\(userID)?page=1"
         

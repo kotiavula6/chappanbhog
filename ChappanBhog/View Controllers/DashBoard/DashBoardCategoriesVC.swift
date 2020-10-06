@@ -38,6 +38,11 @@ class DashBoardCategoriesVC: UIViewController,UICollectionViewDataSource,UIColle
         setAppearnace()
 
     }
+    
+    override func viewWillLayoutSubviews() {
+        setGradientBackground(view: self.gradientView)
+    }
+    
     //MARK:- FUNCTIONS
     func setAppearnace() {
         DispatchQueue.main.async {
@@ -46,13 +51,11 @@ class DashBoardCategoriesVC: UIViewController,UICollectionViewDataSource,UIColle
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true
             self.cartLBL.layer.cornerRadius = self.cartLBL.layer.frame.height/2
+            
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-            DispatchQueue.main.async {
-                    setGradientBackground(view: self.gradientView)
-        }
-    }
+    
+    
     
     //MARK:- ACTIONS
     @IBAction func openMenu(_ sender: UIButton) {
