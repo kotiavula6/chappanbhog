@@ -13,6 +13,7 @@ import GoogleSignIn
 import FBSDKLoginKit
 import FBSDKCoreKit
 import TwitterKit
+import Firebase
 
 
 @UIApplicationMain
@@ -28,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         GIDSignIn.sharedInstance().clientID = "574908180295-nuhnssptokucg4cr05sr0qihol6fg7v1.apps.googleusercontent.com"
-        
+        FirebaseApp.configure()
+
         
 //        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
 //        let rootVc = storyBoard.instantiateViewController(withIdentifier: "SplashVC") as! SplashVC
@@ -49,19 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // MARK: UISceneSession Lifecycle
-    @available(iOS 13.0, *)
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
- @available(iOS 13.0, *)
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
+
 
     // MARK: - Core Data stack
 
@@ -133,6 +123,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
     }
+
+//    @available(iOS 13.0, *)
+//    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+//        if let openURLContext = URLContexts.first {
+//            let url = openURLContext.url
+//            let options: [AnyHashable : Any] = [
+//                UIApplication.OpenURLOptionsKey.annotation : openURLContext.options.annotation as Any,
+//                UIApplication.OpenURLOptionsKey.sourceApplication : openURLContext.options.sourceApplication as Any,
+//                UIApplication.OpenURLOptionsKey.openInPlace : openURLContext.options.openInPlace
+//            ]
+//            print(options)
+//            TWTRTwitter.sharedInstance().application(UIApplication.shared, open: url, options: options)
+//        }
+//    }
     
   
 }
