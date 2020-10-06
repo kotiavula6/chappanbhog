@@ -14,6 +14,8 @@ class VerifyPhoneVC: UIViewController {
     
     var message:String = ""
     //MARK:- OUTLETS
+    @IBOutlet weak var TF6: UITextField!
+    @IBOutlet weak var TF5: UITextField!
     @IBOutlet weak var TF4: UITextField!
     @IBOutlet weak var TF3: UITextField!
     @IBOutlet weak var TF2: UITextField!
@@ -27,6 +29,14 @@ class VerifyPhoneVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        TF1.delegate = self
+        TF2.delegate = self
+        TF3.delegate = self
+        TF4.delegate = self
+        TF5.delegate = self
+        TF6.delegate = self
+        
         
         IJProgressView.shared.showProgressView()
         sendVerificationCode {
@@ -107,10 +117,12 @@ extension VerifyPhoneVC {
         let c2 = TF2.text ?? ""
         let c3 = TF3.text ?? ""
         let c4 = TF4.text ?? ""
-        if c1.isEmpty || c2.isEmpty || c3.isEmpty || c4.isEmpty {
+        let c5 = TF5.text ?? ""
+        let c6 = TF6.text ?? ""
+        if c1.isEmpty || c2.isEmpty || c3.isEmpty || c4.isEmpty || c5.isEmpty || c5.isEmpty {
             return (false, "")
         }
-        let code = c1 + c2 + c3 + c4
+        let code = c1 + c2 + c3 + c4 + c5 + c6
         return (true, code)
     }
     
@@ -161,4 +173,76 @@ func API_GET_DASHBOARD_DATA() {
         
     }
 }
+}
+extension VerifyPhoneVC: UITextFieldDelegate {
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if ((textField.text?.count)! < 1 ) && (string.count > 0) {
+            if textField == TF1 {
+              //  tfOtp1.backgroundColor = APP_BLUE_COLOR
+                TF2.becomeFirstResponder()
+            }
+            
+            if textField == TF2 {
+            //    tfOtp2.backgroundColor = APP_BLUE_COLOR
+                TF3.becomeFirstResponder()
+            }
+            
+            if textField == TF3 {
+             //   tfOtp3.backgroundColor = APP_BLUE_COLOR
+                TF4.becomeFirstResponder()
+            }
+            
+            if textField == TF4 {
+            //    tfOtp4.backgroundColor = APP_BLUE_COLOR
+                TF5.becomeFirstResponder()
+            }
+            
+            if textField == TF5 {
+             //   tfOtp5.backgroundColor = APP_BLUE_COLOR
+                TF6.becomeFirstResponder()
+            }
+            if textField == TF6 {
+             //   tfOtp6.backgroundColor = APP_BLUE_COLOR
+                TF6.resignFirstResponder()
+            }
+            
+            textField.text = string
+            return false
+        } else if ((textField.text?.count)! >= 1) && (string.count == 0) {
+            if textField == TF6 {
+             //   tfOtp2.backgroundColor = LIGHT_GRAY_COLOR
+                TF5.becomeFirstResponder()
+            }
+            if textField == TF5 {
+              //  tfOtp3.backgroundColor = LIGHT_GRAY_COLOR
+                TF4.becomeFirstResponder()
+            }
+            if textField == TF4 {
+              //  tfOtp4.backgroundColor = LIGHT_GRAY_COLOR
+                TF3.becomeFirstResponder()
+            }
+            if textField == TF3 {
+             //   tfOtp5.backgroundColor = LIGHT_GRAY_COLOR
+                TF2.becomeFirstResponder()
+            }
+            if textField == TF2 {
+             //   tfOtp6.backgroundColor = LIGHT_GRAY_COLOR
+                TF1.becomeFirstResponder()
+            }
+            if textField == TF1 {
+             //   tfOtp1.backgroundColor = LIGHT_GRAY_COLOR
+                TF1.resignFirstResponder()
+            }
+            
+            textField.text = ""
+            return false
+        } else if (textField.text?.count)! >= 1 {
+            textField.text = string
+            return false
+        }
+        
+        return true
+    }
 }

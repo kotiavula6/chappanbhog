@@ -15,6 +15,7 @@
 		EE04CAA72523A31600BADC28 /* NsObject+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04CAA62523A31600BADC28 /* NsObject+Foundation.swift */; };
 		EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */; };
 		EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */; };
+		EE211E67252C80F800918968 /* CategoryAndItemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE211E66252C80F800918968 /* CategoryAndItemsVC.swift */; };
 		EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */; };
 		EE21FDC7251BC5D90075EA5F /* productWeightVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */; };
 		EE21FE0B251C96380075EA5F /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21FE0A251C96380075EA5F /* PinterestLayout.swift */; };
@@ -49,6 +50,7 @@
 		EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482B25093F0700C263F1 /* CartViewVC.swift */; };
 		EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482D25093FD500C263F1 /* CartTableCell.swift */; };
 		EE8248302509438800C263F1 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82482F2509438800C263F1 /* PaymentVC.swift */; };
+		EE9B30E5252CE867006B6037 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B30E4252CE867006B6037 /* CategoryModel.swift */; };
 		EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA13A0C250F5639004E9252 /* CommonMethods.swift */; };
 		EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */; };
 		EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA8EF8C2508D73100DFD80F /* Constants.swift */; };
@@ -118,6 +120,7 @@
 		EE04CAA62523A31600BADC28 /* NsObject+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NsObject+Foundation.swift"; sourceTree = "<group>"; };
 		EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardCategoriesVC.swift; sourceTree = "<group>"; };
 		EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordVC.swift; sourceTree = "<group>"; };
+		EE211E66252C80F800918968 /* CategoryAndItemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAndItemsVC.swift; sourceTree = "<group>"; };
 		EE21FDC4251BC5D90075EA5F /* productWeightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productWeightVC.swift; sourceTree = "<group>"; };
 		EE21FDC5251BC5D90075EA5F /* productWeightVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = productWeightVC.xib; sourceTree = "<group>"; };
 		EE21FE0A251C96380075EA5F /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
@@ -159,6 +162,7 @@
 		EE82482B25093F0700C263F1 /* CartViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewVC.swift; sourceTree = "<group>"; };
 		EE82482D25093FD500C263F1 /* CartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableCell.swift; sourceTree = "<group>"; };
 		EE82482F2509438800C263F1 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
+		EE9B30E4252CE867006B6037 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		EEA13A0C250F5639004E9252 /* CommonMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
 		EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchRecordVC.swift; sourceTree = "<group>"; };
 		EEA8EF8C2508D73100DFD80F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 				EE04CAA42523A1B700BADC28 /* DashBoardModel.swift */,
 				612E420C252B36AA0001FA6C /* NotificationModel.swift */,
 				EE3382D9252B90250067CAEA /* SearchRecordModel.swift */,
+				EE9B30E4252CE867006B6037 /* CategoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -411,6 +416,7 @@
 				EE80DB8F2522534200A51FE1 /* LoginRegistration */,
 				EE80DB912522538C00A51FE1 /* DashBoard */,
 				EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */,
+				EE211E66252C80F800918968 /* CategoryAndItemsVC.swift */,
 				EEEF99B9250F8CE2001DE12F /* countryContainer.swift */,
 				EE82482F2509438800C263F1 /* PaymentVC.swift */,
 				EE82482625090EDC00C263F1 /* AboutVCcontact.swift */,
@@ -815,6 +821,7 @@
 				EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
 				EE458EE7250BAB2300BAA7E7 /* NotificationsVC.swift in Sources */,
+				EE9B30E5252CE867006B6037 /* CategoryModel.swift in Sources */,
 				EEB9C623251DFC3C00A37490 /* KeychainItem.swift in Sources */,
 				EE04CAA72523A31600BADC28 /* NsObject+Foundation.swift in Sources */,
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
@@ -827,6 +834,7 @@
 				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,
+				EE211E67252C80F800918968 /* CategoryAndItemsVC.swift in Sources */,
 				EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */,
 				EE21FE0B251C96380075EA5F /* PinterestLayout.swift in Sources */,
 				EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */,

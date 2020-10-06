@@ -238,18 +238,36 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         if collectionView == topPageCollection {
             return CGSize(width: topPageCollection.frame.width, height: topPageCollection.frame.height)
         }else {
             return CGSize(width: productsCatCollection.frame.height/1.3, height: productsCatCollection.frame.height)
         }
+        
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == topPageCollection {
             
-        }else {
-            let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
-            vc.iscomeFrom = "category"
+            let type = bannerArr[indexPath.row].type
+            if type == 0 {
+                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
+                let id = bannerArr[indexPath.row].id ?? 0
+                vc.GET_CATEGORY_ITEMS(ItemId: id)
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            } else if type == 1 {
+                
+                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+                let itemId = bannerArr[indexPath.row].id ?? 0
+                vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }
+            
+        } else {
+              
+            let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
             self.navigationController?.pushViewController(vc, animated: true)
             
         }

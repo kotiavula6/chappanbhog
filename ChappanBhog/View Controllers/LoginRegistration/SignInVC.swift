@@ -231,6 +231,7 @@ class SignInVC: UIViewController  {
                     let phone = data["phone"] as? String ?? ""
                     let user_id = data["user_id"] as? Int ?? 0
                     let token = data["token"] as? String ?? ""
+                    print(user_id)
                     print(token)
                     
                     UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")

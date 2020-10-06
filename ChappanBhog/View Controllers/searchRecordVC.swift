@@ -34,9 +34,8 @@ class searchRecordVC: UIViewController {
 
     
     override func viewDidAppear(_ animated: Bool) {
-             
         DispatchQueue.main.async {
-               self.searchTF.becomeFirstResponder()
+            self.searchTF.becomeFirstResponder()
         }
     }
     
@@ -55,30 +54,22 @@ class searchRecordVC: UIViewController {
     
     //MARK:- ACTIONS
     
+    
+    @IBAction func search(_ sender: Any) {
+    }
+    
+    
     @IBAction func searchTF(_ sender: UITextField) {
         
         let TF = searchTF.text ?? ""
-        
         if TF.count > 3 {
-            
-        API_GET_SEARCH_DATA()
-       // recordsCollection.reloadData()
-            
-        }
-        
-        
-    }
-    
-    
-    @IBAction func textFieldAction(_ sender: UITextField) {
-        let ksearchTF = searchTF.text ?? ""
-        if ksearchTF.count >= 1 {
-            API_GET_SEARCH_DATA()
-            recordsCollection.reloadData()
             totalRecordsLBL.text = "\(searchArr.count) RECORDS FOUND"
+            API_GET_SEARCH_DATA()
+            // recordsCollection.reloadData()
+            
         }
-        
     }
+    
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {
     }
@@ -136,9 +127,10 @@ extension searchRecordVC {
         
         let Url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_SEARCH
         let userId = UserDefaults.standard.value(forKey: Constants.UserId)
+        let searchData = searchTF.text ?? ""
         
-        let params:[String:Any] = ["user_id":userId ?? 0,"keyword":searchTF.text ?? ""]
-        AFWrapperClass.requestPOSTURL(Url, params: params, success: { (dict) in
+        let params:[String:Any] = ["user_id":userId ?? 0,"keyword":searchData]
+        AFWrapperClass.requestPOSTURLWithHeader(Url, params: params, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             print(dict)
             
