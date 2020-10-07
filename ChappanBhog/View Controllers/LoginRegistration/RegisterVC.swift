@@ -275,10 +275,10 @@ class RegisterVC: UIViewController {
                     let name = data["name"] as? String ?? ""
                     let email = data["email"] as? String ?? ""
                     let phone = data["phone"] as? String ?? ""
-                    let user_id = data["user_id"] as? String ?? ""
+                    let user_id = data["user_id"] as? Int ?? 0
                     let token = data["token"] as? String ?? ""
                     
-                    UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
+                   
                     
                     UserDefaults.standard.set(name, forKey: Constants.Name)
                     UserDefaults.standard.set(email, forKey: Constants.EmailID)
@@ -292,6 +292,7 @@ class RegisterVC: UIViewController {
                         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
                         vc.phone = phone
                         vc.code = "91"
+                     //   vc.userID = user_id
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {

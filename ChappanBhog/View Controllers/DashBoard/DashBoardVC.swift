@@ -181,7 +181,14 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TopPicsTableCell") as! TopPicsTableCell
         
-        cell.productIMG.sd_setImage(with: URL(string: toppicsArr[indexPath.row].image![1] ), placeholderImage: UIImage(named: "placeholder.png"))
+        if let imgAr = toppicsArr[indexPath.row].image {
+            if imgAr.count > 0 {
+                cell.productIMG.sd_setImage(with: URL(string: imgAr[0] ), placeholderImage: UIImage(named: "placeholder.png"))
+            }
+            
+        }
+        
+        
         cell.productNameLBL.text = toppicsArr[indexPath.row].title
         cell.priceLBL.text = "\(toppicsArr[indexPath.row].price ?? 0)"
         cell.totalReviewsLBL.text = "\(toppicsArr[indexPath.row].reviews ?? 0) Reviews"
