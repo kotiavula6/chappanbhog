@@ -61,7 +61,7 @@ class searchRecordVC: UIViewController {
           if TF.count > 3 {
               totalRecordsLBL.text = "\(searchArr.count) RECORDS FOUND"
               API_GET_SEARCH_DATA()
-              // recordsCollection.reloadData()
+               recordsCollection.reloadData()
               
           }
         

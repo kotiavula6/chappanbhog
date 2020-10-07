@@ -10,6 +10,7 @@ import UIKit
 
 class CategoryAndItemsVC: UIViewController {
     
+    @IBOutlet weak var topCollectionHeight: NSLayoutConstraint!
     var message:String = ""
     
     var categoryArr = [Categores]()
@@ -29,6 +30,7 @@ class CategoryAndItemsVC: UIViewController {
         super.viewDidLoad()
         setAppearance()
         // Do any additional setup after loading the view.
+        topCollectionHeight.constant = 0
     }
     
     override func viewWillLayoutSubviews() {
@@ -67,6 +69,8 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             
         }else {
             let cell = itemsCollection.dequeueReusableCell(withReuseIdentifier: "itemsCollectionCell", for: indexPath) as! itemsCollectionCell
+            
+           
             DispatchQueue.main.async {
                 self.itemsHeightConstraint.constant = self.itemsCollection.contentSize.height
             }
@@ -103,6 +107,7 @@ extension CategoryAndItemsVC {
             print(dict)
             
             let response = dict["data"] as? NSDictionary ?? NSDictionary()
+            
             let options = response["options"] as? NSArray ?? NSArray()
             let status = dict["status"] as? Int ?? 0
             
@@ -115,7 +120,7 @@ extension CategoryAndItemsVC {
                     self.categoryArr.append(Categores(dict: response.object(forKey: i) as! [String:Any]))
   
                 }
-                self.topCategoryCollection.reloadData()
+               // self.topCategoryCollection.reloadData()
                 self.itemsCollection.reloadData()
 
      
