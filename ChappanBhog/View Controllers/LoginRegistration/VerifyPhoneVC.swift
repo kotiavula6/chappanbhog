@@ -24,6 +24,8 @@ class VerifyPhoneVC: UIViewController {
     var phone: String = ""
     var code: String = ""
     var verificationID: String = ""
+    var userID = ""
+    
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -46,6 +48,12 @@ class VerifyPhoneVC: UIViewController {
     //http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/verify_account
     
     // MARK:- ACTIONS
+    
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     @IBAction func ResendAction(_ sender: UIButton) {
         IJProgressView.shared.showProgressView()
         sendVerificationCode {
@@ -84,9 +92,10 @@ class VerifyPhoneVC: UIViewController {
 extension VerifyPhoneVC {
     
     func sendVerificationCode(_ completion: @escaping () -> Void) {
-        PhoneAuthProvider.provider().verifyPhoneNumber(self.phone, uiDelegate: nil) { (verificationID, error) in
+        let updatedPhone = "+91\(self.phone)"
+        PhoneAuthProvider.provider().verifyPhoneNumber(updatedPhone, uiDelegate: nil) { (verificationID, error) in
             if error != nil {
-                self.showAlertWithTitle(title: "", message: "", okButton: "Ok", cancelButton: "", okSelectorName: nil)
+                self.showAlertWithTitle(title: "", message: error?.localizedDescription ?? "", okButton: "Ok", cancelButton: "", okSelectorName: nil)
                 completion()
                 return
             }
@@ -100,8 +109,16 @@ extension VerifyPhoneVC {
             completion(false)
             return
         }
+        let tf1 = self.TF1.text ?? ""
+        let tf2 = self.TF2.text ?? ""
+        let tf3 = self.TF3.text ?? ""
+        let tf4 = self.TF4.text ?? ""
+        let tf5 = self.TF5.text ?? ""
+        let tf6 = self.TF6.text ?? ""
         
-        let credential = PhoneAuthProvider.provider().credential( withVerificationID: verificationID, verificationCode: code)
+        let combinedCode = "\(tf1)\(tf2)\(tf3)\(tf4)\(tf5)\(tf6)"
+        
+        let credential = PhoneAuthProvider.provider().credential( withVerificationID: verificationID, verificationCode: combinedCode)
         Auth.auth().signIn(with: credential) { (result, error) in
             if let error = error {
                 self.showAlertWithTitle(title: "", message: error.localizedDescription, okButton: "Ok", cancelButton: "", okSelectorName: nil)
@@ -132,9 +149,12 @@ extension VerifyPhoneVC {
         let userId = UserDefaults.standard.string(forKey: Constants.UserId) ?? ""
         let header = HTTPHeader(name: "Authorization", value: "Bearer \(token)")
                 
-        _ = AF.request(loginUrl, method: .post, parameters: ["user_id": userId], encoding: JSONEncoding.default, headers: [header], interceptor: nil).responseJSON { (response) in
+        _ = AF.request(loginUrl, method: .post, parameters: ["user_id": userId, "verified": "1"], encoding: JSONEncoding.default, headers: [header], interceptor: nil).responseJSON { (response) in
             switch response.result {
             case .success(let value):
+                // 1 - user verified
+                UserDefaults.standard.set(1, forKey: Constants.verified)
+                 UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
                 print(value)
             case .failure(let error):
                 print(error)
