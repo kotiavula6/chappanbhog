@@ -54,22 +54,18 @@ class searchRecordVC: UIViewController {
     
     //MARK:- ACTIONS
     
-    
-    @IBAction func search(_ sender: Any) {
-    }
-    
-    
-    @IBAction func searchTF(_ sender: UITextField) {
+
+    @IBAction func searchAction(_ sender: UITextField) {
         
         let TF = searchTF.text ?? ""
-        if TF.count > 3 {
-            totalRecordsLBL.text = "\(searchArr.count) RECORDS FOUND"
-            API_GET_SEARCH_DATA()
-            // recordsCollection.reloadData()
-            
-        }
+          if TF.count > 3 {
+              totalRecordsLBL.text = "\(searchArr.count) RECORDS FOUND"
+              API_GET_SEARCH_DATA()
+              // recordsCollection.reloadData()
+              
+          }
+        
     }
-    
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {
     }
@@ -101,7 +97,7 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
         cell.productNameLBL.text = searchArr[indexPath.row].title
         cell.priceLBL.text = "\(searchArr[indexPath.row].price ?? 0)"
         cell.weightLBL.text =  ""
-        cell.ratingView.rating = Double((searchArr[indexPath.row].ratings ?? 0))
+        cell.ratingView.rating = searchArr[indexPath.row].ratings ?? 0
         cell.favBTN.backgroundColor = .red
         
         return cell
@@ -162,14 +158,13 @@ extension searchRecordVC {
 
 
 //class
-import Cosmos
+import STRatingControl
 class SearchRecordCollectionCell: UICollectionViewCell {
     
     //MARK:- OUTLETS
     @IBOutlet weak var favBTN: UIButton!
     @IBOutlet weak var addTocartBTN: UIButton!
     @IBOutlet weak var weightBTN: UIButton!
-    @IBOutlet var starImages: [UIImageView]!
     @IBOutlet weak var priceLBL: UILabel!
     @IBOutlet weak var productNameLBL: UILabel!
     @IBOutlet weak var quantityLBL: UILabel!
@@ -178,8 +173,9 @@ class SearchRecordCollectionCell: UICollectionViewCell {
     @IBOutlet weak var productIMG: UIImageView!
     @IBOutlet weak var shadowView:UIView!
     
-    @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet weak var ratingView: STRatingControl!
     @IBOutlet weak var weightLBL: UILabel!
+    
     override func awakeFromNib() {
         
     }

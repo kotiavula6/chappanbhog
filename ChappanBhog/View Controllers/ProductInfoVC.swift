@@ -8,7 +8,7 @@
 
 import UIKit
 import SDWebImage
-import Cosmos
+import STRatingControl
 
 class ProductInfoVC: UIViewController {
     
@@ -22,7 +22,7 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var totalReviewsLBL: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var productNameLBL: UILabel!
-    @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet weak var ratingView: STRatingControl!
     @IBOutlet weak var productBacView: UIView!
     //MARK:- OUTLETS
     @IBOutlet weak var descriptionLBL: UILabel!
@@ -165,7 +165,7 @@ extension ProductInfoVC {
             self.available_quantity = response["available_quantity"] as? Int ?? 0
          
                 
-            self.ratingView.rating = Double(ratings)
+                self.ratingView.rating = ratings
             self.productNameLBL.text = title
             let rupee = "\u{20B9}"
             self.productPrice.text = "\(rupee) \(price)"

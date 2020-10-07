@@ -5,7 +5,6 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
-  - Cosmos (23.0.0)
   - FBSDKCoreKit (7.1.1):
     - FBSDKCoreKit/Basics (= 7.1.1)
     - FBSDKCoreKit/Core (= 7.1.1)
@@ -79,6 +78,7 @@ PODS:
     - SDWebImage/Core (= 5.9.0)
   - SDWebImage/Core (5.9.0)
   - SKCountryPicker (1.2.9)
+  - STRatingControl (1.1.2)
   - SVProgressHUD (2.2.5)
   - SwiftyJSON (5.0.0)
   - TwitterCore (3.2.0)
@@ -87,7 +87,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
-  - Cosmos (~> 23.0)
   - FBSDKLoginKit
   - Firebase/Auth
   - GoogleSignIn
@@ -96,6 +95,7 @@ DEPENDENCIES:
   - SCLAlertView
   - SDWebImage
   - SKCountryPicker
+  - STRatingControl
   - SVProgressHUD
   - SwiftyJSON
   - TwitterKit
@@ -104,7 +104,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AppAuth
-    - Cosmos
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Firebase
@@ -123,6 +122,7 @@ SPEC REPOS:
     - SCLAlertView
     - SDWebImage
     - SKCountryPicker
+    - STRatingControl
     - SVProgressHUD
     - SwiftyJSON
     - TwitterCore
@@ -131,7 +131,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
-  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
   FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
   Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
@@ -150,11 +149,12 @@ SPEC CHECKSUMS:
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
   SKCountryPicker: 7ad1e7dfb482cfb26855e33c2d70dbf1eaf218fe
+  STRatingControl: 254ee5f6dd174e3fa9d8365a08326291fd0bd950
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: e85c3c1c77bccad29d3b85d92e3eaa6ed29aa30f
+PODFILE CHECKSUM: 97e4ed7b801a2b2ecc199073b947505e7a029d8c
 
 COCOAPODS: 1.9.3

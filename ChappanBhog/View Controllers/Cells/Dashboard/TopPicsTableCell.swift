@@ -7,10 +7,13 @@
 //
 
 import UIKit
-import Cosmos
+import STRatingControl
 
 class TopPicsTableCell: UITableViewCell {
 
+    var increase:(()->())?
+    var decrease:(()->())?
+    
     @IBOutlet weak var productNameLBL: UILabel!
     @IBOutlet weak var priceLBL: UILabel!
     @IBOutlet weak var productIMG: UIImageView!
@@ -21,9 +24,8 @@ class TopPicsTableCell: UITableViewCell {
     @IBOutlet weak var increaseBTN: UIButton!
     @IBOutlet weak var decreaseBTN: UIButton!
     @IBOutlet weak var quantityLBL: UILabel!
-    @IBOutlet var starImages: [UIImageView]!
     @IBOutlet weak var weightBTN: UIButton!
-    @IBOutlet weak var starRating: CosmosView!
+    @IBOutlet weak var starRating: STRatingControl!
     
     var quantity:Int = 1
     
@@ -39,4 +41,16 @@ class TopPicsTableCell: UITableViewCell {
         
     }
     
+    @IBAction func buttonIncreaseClicked(_ sender: UIButton) {
+        
+        if let actio = increase {
+            actio()
+        }
+
+    }
+    @IBAction func buttonDecreaseClicked(_ sender: UIButton) {
+        if let actio = decrease {
+                actio()
+            }
+    }
 }

@@ -10,14 +10,14 @@ import UIKit
 import GoogleSignIn
 import SDWebImage
 import TwitterKit
-import Cosmos
+import STRatingControl
 
 var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
 
 class DashBoardVC: UIViewController {
     
     
-    @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet weak var ratingView: STRatingControl!
     var bannerArr = [BannersdashBoard]()
     var categoriesArr = [categories]()
     var toppicsArr = [TopPics]()
@@ -186,11 +186,16 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         cell.priceLBL.text = "\(toppicsArr[indexPath.row].price ?? 0)"
         cell.totalReviewsLBL.text = "\(toppicsArr[indexPath.row].reviews ?? 0) Reviews"
        // cell.quantityLBL.text = "\(toppicsArr[indexPath.row].available_quantity ?? 0)"
-        cell.starRating.rating = Double(toppicsArr[indexPath.row].ratings ?? 0)
+        cell.starRating.rating = toppicsArr[indexPath.row].ratings ?? 0
         DispatchQueue.main.async {
             self.topPicsTableConstants.constant = self.topPicsTable.contentSize.height
         }
-        
+        cell.increaseBTN.tag = indexPath.row
+        cell.decreaseBTN.tag = indexPath.row
+        cell.increase = {
+           // cell.quantityLBL.text = 
+        }
+      
         return cell
     }
     
@@ -268,6 +273,8 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         } else {
               
             let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
+            let id = categoriesArr[indexPath.row].id ?? 0
+             vc.GET_CATEGORY_ITEMS(ItemId: id)
             self.navigationController?.pushViewController(vc, animated: true)
             
         }
