@@ -27,11 +27,14 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var registerBTN: UIButton!
     var message:String = ""
     var isEmailRegisteration: Bool = false
+    var selectedCountry: Country?
     
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        emailTF.keyboardType = .emailAddress
+        mobileTF.keyboardType = .phonePad
         
         //set ASHelper class delegate
             if #available(iOS 13.0, *) {
@@ -56,6 +59,7 @@ class RegisterVC: UIViewController {
             guard let self = self else { return }
             
             self.flagIMG.image = country.flag
+            self.selectedCountry = country
             //             self.countryBTN.setTitle(country.dialingCode, for: .normal)
             
         }
@@ -95,7 +99,8 @@ class RegisterVC: UIViewController {
         }
         else {
             isEmailRegisteration = true
-            let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone":mobileTF.text ?? "","name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0]
+            let phone = mobileTF.text ?? ""
+            let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone": phone,"name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0]
             API_NEW_USER_REGISTER(params: parms as NSDictionary)
             view.endEditing(true)
         }
@@ -236,6 +241,7 @@ class RegisterVC: UIViewController {
             return
         }
         //        countryBTN.setTitle(country.dialingCode, for: .normal)
+        self.selectedCountry = country
         flagIMG.image = country.flag
         //      countryBTN.clipsToBounds = true
         
@@ -278,8 +284,6 @@ class RegisterVC: UIViewController {
                     let user_id = data["user_id"] as? Int ?? 0
                     let token = data["token"] as? String ?? ""
                     
-                   
-                    
                     UserDefaults.standard.set(name, forKey: Constants.Name)
                     UserDefaults.standard.set(email, forKey: Constants.EmailID)
                     UserDefaults.standard.set(phone, forKey: Constants.Phone)
@@ -291,8 +295,7 @@ class RegisterVC: UIViewController {
                         // Show phone verification screen
                         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
                         vc.phone = phone
-                        vc.code = "91"
-                     //   vc.userID = user_id
+                        vc.code = (self.selectedCountry?.dialingCode ?? "0")
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {

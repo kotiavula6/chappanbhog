@@ -39,6 +39,12 @@ class VerifyPhoneVC: UIViewController {
         TF5.delegate = self
         TF6.delegate = self
         
+        TF1.keyboardType = .numberPad
+        TF2.keyboardType = .numberPad
+        TF3.keyboardType = .numberPad
+        TF4.keyboardType = .numberPad
+        TF5.keyboardType = .numberPad
+        TF6.keyboardType = .numberPad
         
         IJProgressView.shared.showProgressView()
         sendVerificationCode {
@@ -92,13 +98,15 @@ class VerifyPhoneVC: UIViewController {
 extension VerifyPhoneVC {
     
     func sendVerificationCode(_ completion: @escaping () -> Void) {
-        let updatedPhone = "+91\(self.phone)"
+        let updatedPhone = "\(self.code)\(self.phone)"
         PhoneAuthProvider.provider().verifyPhoneNumber(updatedPhone, uiDelegate: nil) { (verificationID, error) in
             if error != nil {
                 self.showAlertWithTitle(title: "", message: error?.localizedDescription ?? "", okButton: "Ok", cancelButton: "", okSelectorName: nil)
                 completion()
                 return
             }
+            
+            self.showAlertWithTitle(title: "", message: "A verification code has been sent to your registered number.", okButton: "Ok", cancelButton: "", okSelectorName: nil)
             self.verificationID = verificationID ?? ""
             completion()
         }

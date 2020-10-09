@@ -15,12 +15,14 @@ struct NotificationModel: Codable {
     var name: String?
     var read: String?
     
+    var isNew: Bool {
+        let r = self.read ?? "0"
+        return (r == "0")
+    }
     
     enum CoadingKeys: String, CodingKey {
-        
         case id
         case name
         case read
-           
     }
 }

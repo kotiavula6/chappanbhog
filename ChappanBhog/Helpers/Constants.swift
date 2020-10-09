@@ -101,8 +101,8 @@ struct WebserviceName {
     static let API_ADD_ADDRESS = "add_address"
     static let API_update_profile = "update_profile"
     static let API_notification = "notification"
+    static let API_notification_read = "notification_read"
     static let API_search = "search"
-    
 }
 
 struct Constants
@@ -276,24 +276,26 @@ extension UIViewController {
     }
     
     func showAlertWithTitle(title:String, message:String, okButton:String, cancelButton:String, okSelectorName:Selector?) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        if okSelectorName != nil {
-            let OKAction = UIAlertAction(title: okButton, style: .default) { (action:UIAlertAction!) in
-                self.perform(okSelectorName)
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            if okSelectorName != nil {
+                let OKAction = UIAlertAction(title: okButton, style: .default) { (action:UIAlertAction!) in
+                    self.perform(okSelectorName)
+                }
+                alertController.addAction(OKAction)
+            } else {
+                let OKAction = UIAlertAction(title: okButton, style: .default, handler: nil)
+                alertController.addAction(OKAction)
             }
-            alertController.addAction(OKAction)
-        } else {
-            let OKAction = UIAlertAction(title: okButton, style: .default, handler: nil)
-            alertController.addAction(OKAction)
-        }
-        
-        if cancelButton != "" {
-            let cancleAction = UIAlertAction(title: cancelButton, style: .destructive) { (action:UIAlertAction!) in
-                print("cancel")
+            
+            if cancelButton != "" {
+                let cancleAction = UIAlertAction(title: cancelButton, style: .destructive) { (action:UIAlertAction!) in
+                    print("cancel")
+                }
+                alertController.addAction(cancleAction)
             }
-            alertController.addAction(cancleAction)
+            self.present(alertController, animated: true, completion:nil)
         }
-        self.present(alertController, animated: true, completion:nil)
     }
 
     
