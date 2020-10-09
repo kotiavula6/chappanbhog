@@ -16,14 +16,20 @@ var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.c
 
 class DashBoardVC: UIViewController {
     
+    var YOUR_DATA_ARRAY = ["one","two","three"]
+
     
+    var quantity:String = ""
     @IBOutlet weak var ratingView: STRatingControl!
     var bannerArr = [BannersdashBoard]()
     var categoriesArr = [categories]()
     var toppicsArr = [TopPics]()
     
-    
+    var totalCartItems:Int = 1
     var message:String = ""
+    var toolBar = UIToolbar()
+    var picker  = UIPickerView()
+    
     //MARK:- OUTLETS
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var alertHeightConstant: NSLayoutConstraint!
@@ -119,7 +125,37 @@ class DashBoardVC: UIViewController {
         self.view.addGestureRecognizer(swipeRight)
     }
     
+    @objc func cartButtonClickedd(sender: UIButton) {
+        
+        if totalCartItems > 1 {
+            
+            cartLBL.text = "\(totalCartItems)"
+        }
+     
+    }
     
+    @objc func openPicker(sender:UIButton) {
+        
+        picker = UIPickerView.init()
+               picker.delegate = self
+               picker.backgroundColor = UIColor.white
+               picker.setValue(UIColor.black, forKey: "textColor")
+               picker.autoresizingMask = .flexibleWidth
+               picker.contentMode = .center
+               picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+               self.view.addSubview(picker)
+
+               toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+               toolBar.barStyle = .blackTranslucent
+               toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+               self.view.addSubview(toolBar)
+     
+    }
+    
+    @objc func onDoneButtonTapped() {
+        toolBar.removeFromSuperview()
+        picker.removeFromSuperview()
+    }
     
     
     //OPEN SIDE MENU
@@ -164,10 +200,28 @@ class DashBoardVC: UIViewController {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
         vc.iscomeFrom = "search"
           self.navigationController?.pushViewController(vc, animated: true)
-       
-        
+  
     }
     
+}
+
+extension DashBoardVC:UIPickerViewDelegate,UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return YOUR_DATA_ARRAY.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+     return YOUR_DATA_ARRAY[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        quantity = YOUR_DATA_ARRAY[row]
+    }
+
 }
 
 //MARK:- TABLEVIEW METHODS
@@ -187,21 +241,36 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
             }
             
         }
-   
+        
         cell.productNameLBL.text = toppicsArr[indexPath.row].title
         cell.priceLBL.text = "\(toppicsArr[indexPath.row].price ?? 0)"
         cell.totalReviewsLBL.text = "\(toppicsArr[indexPath.row].reviews ?? 0) Reviews"
-       // cell.quantityLBL.text = "\(toppicsArr[indexPath.row].available_quantity ?? 0)"
+        // cell.quantityLBL.text = "\(toppicsArr[indexPath.row].available_quantity ?? 0)"
         cell.starRating.rating = toppicsArr[indexPath.row].ratings ?? 0
         DispatchQueue.main.async {
             self.topPicsTableConstants.constant = self.topPicsTable.contentSize.height
         }
         cell.increaseBTN.tag = indexPath.row
         cell.decreaseBTN.tag = indexPath.row
-        cell.increase = {
-           // cell.quantityLBL.text = 
-        }
+        cell.weightBTN.tag = indexPath.row
+        cell.tag = indexPath.row
+        
+        cell.addTocartButton.addTarget(self, action: #selector(cartButtonClickedd(sender:)) , for: .touchUpInside)
+        cell.weightBTN.addTarget(self, action: #selector(openPicker(sender:)), for: .touchUpInside)
       
+
+        cell.increase = {
+            cell.quantity += 1
+            cell.quantityLBL.text = "\(cell.quantity)"
+        }
+        
+        cell.decrease = {
+            if cell.quantity > 1 {
+                cell.quantity -= 1
+                cell.quantityLBL.text = "\(cell.quantity)"
+            }
+        }
+        
         return cell
     }
     
@@ -292,8 +361,9 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 extension DashBoardVC {
     func API_GET_DASHBOARD_DATA() {
         
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         IJProgressView.shared.showProgressView()
-        let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_DATA
+        let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_DATA + "/\(userID ?? 0)"
         AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             print(dict)
@@ -334,7 +404,7 @@ extension DashBoardVC {
         }
     }
     
-  //MARK:- GET IMAGES
+  //MARK:- GET CATEGORIES
     func API_GET_DASHBOARD_IMAGES() {
         
         IJProgressView.shared.showProgressView()

@@ -13,6 +13,7 @@ class TopPicsTableCell: UITableViewCell {
 
     var increase:(()->())?
     var decrease:(()->())?
+    var weigtAction:(()->())?
     
     @IBOutlet weak var productNameLBL: UILabel!
     @IBOutlet weak var priceLBL: UILabel!
@@ -53,4 +54,13 @@ class TopPicsTableCell: UITableViewCell {
                 actio()
             }
     }
+    
+    @IBAction func weightButtonClicked(_ sender: UIButton) {
+        
+        if let actio = weigtAction {
+                      actio()
+                  }
+    }
+    
+    
 }

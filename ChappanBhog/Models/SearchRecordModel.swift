@@ -18,6 +18,7 @@ class SearchRecordModel: NSObject {
     var ratings:Int?
     var reviews:Int?
     var title:String?
+    var options:[optionsModel]?
     
     init(dict:[String:Any]) {
         super.init()
@@ -28,29 +29,28 @@ class SearchRecordModel: NSObject {
         image = dict["image"] as? [String]
         price = dict["price"] as? Int
         ratings = dict["ratings"] as? Int
-        reviews = dict["ratings"] as? Int
-        title = dict["ratings"] as? String
+        reviews = dict["reviews"] as? Int
+        title = dict["title"] as? String
+        options = dict["options"] as? [optionsModel]
     
     }
   
 }
 
+class optionsModel: NSObject {
+    
+    var id:Int?
+    var name:String?
+    var price:Int?
+    
+    
+    init(dict:[String:Any]) {
+        super.init()
+        id = dict["id"] as? Int
+        price = dict["price"] as? Int
+        name = dict["name"] as? String
+    
+    }
+    
+}
 
-//{
-//    "available_quantity" = "";
-//    favorite = 0;
-//    id = 5007;
-//    image =             (
-//    );
-//    options =             (
-//                        {
-//            id = 1;
-//            name = 5pcs;
-//            price = "";
-//        }
-//    );
-//    price = 100;
-//    ratings = 1;
-//    reviews = 188;
-//    title = Rossogulla;
-//}

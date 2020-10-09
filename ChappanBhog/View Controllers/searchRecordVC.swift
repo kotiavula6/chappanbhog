@@ -11,6 +11,7 @@ import UIKit
 class searchRecordVC: UIViewController {
     
     var searchArr = [SearchRecordModel]()
+    var optionsArr = [optionsModel]()
     
     var iscomeFrom = ""
     var message:String = ""
@@ -29,9 +30,7 @@ class searchRecordVC: UIViewController {
         super.viewDidLoad()
       //  searchTF.delegate = self
         setAppearance()
-   
     }
-
     
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -58,12 +57,12 @@ class searchRecordVC: UIViewController {
     @IBAction func searchAction(_ sender: UITextField) {
         
         let TF = searchTF.text ?? ""
-          if TF.count > 3 {
-              totalRecordsLBL.text = "\(searchArr.count) RECORDS FOUND"
-              API_GET_SEARCH_DATA()
-               recordsCollection.reloadData()
-              
-          }
+        if TF.count > 3 {
+            totalRecordsLBL.text = "\(searchArr.count) RECORDS FOUND"
+            API_GET_SEARCH_DATA()
+            recordsCollection.reloadData()
+            
+        }
         
     }
     
@@ -72,6 +71,8 @@ class searchRecordVC: UIViewController {
     
     @IBAction func ClearButtonClicked(_ sender: UIButton) {
         
+        searchArr.removeAll()
+          recordsCollection.reloadData()
     }
     
     @IBAction func clearBTN(_ sender: UIButton) {
@@ -98,8 +99,22 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
         cell.priceLBL.text = "\(searchArr[indexPath.row].price ?? 0)"
         cell.weightLBL.text =  ""
         cell.ratingView.rating = searchArr[indexPath.row].ratings ?? 0
-        cell.favBTN.backgroundColor = .red
         
+        
+        cell.increase = {
+                 cell.quantity += 1
+                 cell.quantityLBL.text = "\(cell.quantity)"
+             }
+             
+             cell.decrease = {
+                 
+                 if cell.quantity > 1 {
+                     cell.quantity -= 1
+                     cell.quantityLBL.text = "\(cell.quantity)"
+                 }
+             }
+        
+
         return cell
 
     }
@@ -131,19 +146,28 @@ extension searchRecordVC {
             print(dict)
             
             let response = dict["data"] as? NSArray ?? NSArray()
-            let success = dict["success"] as? Int ?? 0
+            let status = dict["status"] as? Int ?? 0
+            let options = dict["options"] as? NSArray ?? NSArray()
             
-            if success == 0 {
+            if status == 200 {
+                
+                self.searchArr.removeAll()
+                self.optionsArr.removeAll()
+                
+                for i in 0..<response.count {
+                    self.searchArr.append(SearchRecordModel(dict: response.object(at: i) as! [String:Any]))
+                    
+                    for j in 0..<options.count {
+                        self.optionsArr.append(optionsModel(dict: response.object(at: j) as! [String:Any]))
+                        
+                    }
+                }
+                print(self.optionsArr)
+
+            }else {
                 
                 self.message = dict["message"] as? String ?? ""
                 alert("ChappanBhog", message: self.message, view: self)
-                
-            }else {
-                
-                self.searchArr.removeAll()
-                for i in 0..<response.count {
-                    self.searchArr.append(SearchRecordModel(dict: response.object(at: i) as! [String:Any]))
-                }
                 
             }
             self.recordsCollection.reloadData()
@@ -172,12 +196,39 @@ class SearchRecordCollectionCell: UICollectionViewCell {
     @IBOutlet weak var increaseBTN: UIButton!
     @IBOutlet weak var productIMG: UIImageView!
     @IBOutlet weak var shadowView:UIView!
-    
     @IBOutlet weak var ratingView: STRatingControl!
     @IBOutlet weak var weightLBL: UILabel!
+    var quantity:Int = 1
+    
+    var increase:(()->())?
+     var decrease:(()->())?
+     var weigtAction:(()->())?
+    
     
     override func awakeFromNib() {
         
     }
+    
+    @IBAction func buttonIncreaseClicked(_ sender: UIButton) {
+           
+           if let actio = increase {
+               actio()
+           }
+
+       }
+       @IBAction func buttonDecreaseClicked(_ sender: UIButton) {
+           if let actio = decrease {
+                   actio()
+               }
+       }
+       
+       @IBAction func weightButtonClicked(_ sender: UIButton) {
+           
+           if let actio = weigtAction {
+                         actio()
+                     }
+       }
+       
+    
     
 }

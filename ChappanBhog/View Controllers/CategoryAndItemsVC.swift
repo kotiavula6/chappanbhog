@@ -101,6 +101,7 @@ extension CategoryAndItemsVC {
         IJProgressView.shared.showProgressView()
         
         let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEMS + "/\(userID ?? 0)" + "/\(ItemId)"
+    
 //        let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEMS + "/\(userID ?? 0)"
         AFWrapperClass.requestGETURL(getCat ,success: { (dict) in
             IJProgressView.shared.hideProgressView()

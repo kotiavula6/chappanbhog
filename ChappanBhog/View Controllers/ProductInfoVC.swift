@@ -136,6 +136,7 @@ extension ProductInfoVC {
         IJProgressView.shared.showProgressView()
         
         let productDetailAPI = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEM_DETAILS + "/\(userID ?? 0)" + "/\(ItemId)"
+        print(productDetailAPI)
         AFWrapperClass.requestGETURL(productDetailAPI ,success: { (dict) in
             IJProgressView.shared.hideProgressView()
             print(dict)
