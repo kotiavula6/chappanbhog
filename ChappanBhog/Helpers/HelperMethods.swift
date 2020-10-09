@@ -24,12 +24,14 @@ func validateBirthDate(_ date:String)->Bool
 }
 
 
- func alert(_ title : String, message : String, view:UIViewController)
-{
-    let alert = UIAlertController(title:title, message:  message, preferredStyle: UIAlertController.Style.alert)
-    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-    view.present(alert, animated: true, completion: nil)
+ func alert(_ title : String, message : String, view:UIViewController) {
+    DispatchQueue.main.async {
+        let alert = UIAlertController(title:title, message:  message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        view.present(alert, animated: true, completion: nil)
+    }
 }
+
 func showMessage(title: String, message: String, okButton: String, cancelButton: String, controller: UIViewController, okHandler: (() -> Void)?, cancelHandler: @escaping (() -> Void)) {
     let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
     

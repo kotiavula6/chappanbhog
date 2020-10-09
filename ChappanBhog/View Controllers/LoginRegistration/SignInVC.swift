@@ -231,6 +231,7 @@ class SignInVC: UIViewController  {
                     let phone = data["phone"] as? String ?? ""
                     let user_id = data["user_id"] as? Int ?? 0
                     let token = data["token"] as? String ?? ""
+                    let verified = data["verified"] as? Int ?? 0
                     print(user_id)
                     print(token)
                     
@@ -242,6 +243,7 @@ class SignInVC: UIViewController  {
                     UserDefaults.standard.set(user_id, forKey: Constants.UserId)
                     UserDefaults.standard.set(true, forKey: Constants.IsLogin)
                     UserDefaults.standard.set(token, forKey: Constants.access_token)
+                    UserDefaults.standard.set(verified, forKey: Constants.verified)
                   
                     let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
                     self.navigationController?.pushViewController(vc, animated: true)

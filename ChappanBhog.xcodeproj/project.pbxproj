@@ -84,6 +84,8 @@
 		EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B20250B9598000671EA /* MyAccountVC.swift */; };
 		EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99B9250F8CE2001DE12F /* countryContainer.swift */; };
 		EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99BB250F909E001DE12F /* CountryCodes.swift */; };
+		EF32FBD6253052DF00BF25FC /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */; };
+		EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */; };
 		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +198,8 @@
 		EEDD1B20250B9598000671EA /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 		EEEF99B9250F8CE2001DE12F /* countryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countryContainer.swift; sourceTree = "<group>"; };
 		EEEF99BB250F909E001DE12F /* CountryCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodes.swift; sourceTree = "<group>"; };
+		EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
+		EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -439,6 +443,8 @@
 				EE04CAAE2524F89100BADC28 /* Dashboard */,
 				EECDFF18250FE9FF000B293C /* CountryCodeCell.swift */,
 				EE82482D25093FD500C263F1 /* CartTableCell.swift */,
+				EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */,
+				EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -646,6 +652,7 @@
 				EE31C6D2250774DF00E87E98 /* Main.storyboard in Resources */,
 				EEA8EFA32508DC5C00DFD80F /* Brandon_med.otf in Resources */,
 				EEA8EF9F2508DC5C00DFD80F /* Brandon_thin_it.otf in Resources */,
+				EF32FBD6253052DF00BF25FC /* LoadMoreCell.xib in Resources */,
 				EE80DB4F252202E400A51FE1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,6 +838,7 @@
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
 				EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */,
 				61AAA295252AF74500BD754F /* UpdateAddressModel.swift in Sources */,
+				EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */,
 				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,
