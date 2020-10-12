@@ -90,7 +90,7 @@ struct WebserviceName {
     static let API_GET_VERIFY_ACCOUNT = "verify_account"
     
    
-//    static let API_GET_CATEGORIES = "categories"
+    static let API_GET_CATEGORIES = "categories"
     static let API_GET_ITEMS = "items"
     static let API_GET_SEARCH = "search"
     static let API_GET_ITEMDETAILS = "item_details"
@@ -154,6 +154,9 @@ struct Constants
     static let CountryCode = "CountryCode"
 }
 
+struct PlaceholderImage {
+    static let Category = UIImage(named: "placeholder.png")
+}
 
 //MARK:- Button
 extension UIButton {

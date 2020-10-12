@@ -16,7 +16,7 @@ import NVActivityIndicatorView
 class AFWrapperClass{
     
     class func requestPOSTURL(_ strURL : String, params : Parameters, success:@escaping ([String: Any]) -> Void, failure:@escaping (NSError) -> Void){
-         let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
+        let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(token)","Content-Type":"application/json"])
             .responseJSON { (response) in

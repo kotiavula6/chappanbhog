@@ -14,7 +14,7 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 import TwitterKit
 import Firebase
-
+import SDWebImage
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -146,3 +146,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
 }
 
+extension AppDelegate {
+    func sd_indicator() -> SDWebImageActivityIndicator {
+        return SDWebImageActivityIndicator.gray
+    }
+}

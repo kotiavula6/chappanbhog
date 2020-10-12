@@ -53,3 +53,42 @@ class options:NSObject {
     
 }
 
+class ShopCategory: NSObject {
+    var id: String = ""
+    var name: String = ""
+    var slug: String = ""
+    var parent: String = ""
+    var desc: String = ""
+    var display: String = ""
+    var image: String = ""
+    var count: String = ""
+    
+    init(dict: [String: Any]) {
+        // Id will be either number or string as it is in numeric form
+        if let value = dict["id"] as? Int { id = "\(value)" }
+        else if let value = dict["id"] as? String { id = value }
+        
+        // Name
+        if let value = dict["name"] as? String { name = value }
+        
+        // Slug
+        if let value = dict["slug"] as? String { slug = value }
+        
+        // Can be number or string
+        if let value = dict["parent"] as? Int { parent = "\(value)" }
+        else if let value = dict["parent"] as? String { parent = value }
+        
+        // Description
+        if let value = dict["description"] as? String { desc = value }
+        
+        // Display
+        if let value = dict["display"] as? String { display = value }
+        
+        // Image
+        if let value = dict["image"] as? String { image = value }
+        
+        // Can be number or string
+        if let value = dict["count"] as? Int { count = "\(value)" }
+        else if let value = dict["count"] as? String { count = value }
+    }
+}

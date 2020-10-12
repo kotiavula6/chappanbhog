@@ -84,6 +84,8 @@
 		EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1B20250B9598000671EA /* MyAccountVC.swift */; };
 		EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99B9250F8CE2001DE12F /* countryContainer.swift */; };
 		EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99BB250F909E001DE12F /* CountryCodes.swift */; };
+		EF1742A7253431A60067E646 /* OurMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1742A5253431A60067E646 /* OurMenuTableCell.swift */; };
+		EF1742A8253431A60067E646 /* OurMenuTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF1742A6253431A60067E646 /* OurMenuTableCell.xib */; };
 		EF32FBD6253052DF00BF25FC /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */; };
 		EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */; };
 		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
@@ -198,6 +200,8 @@
 		EEDD1B20250B9598000671EA /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 		EEEF99B9250F8CE2001DE12F /* countryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countryContainer.swift; sourceTree = "<group>"; };
 		EEEF99BB250F909E001DE12F /* CountryCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodes.swift; sourceTree = "<group>"; };
+		EF1742A5253431A60067E646 /* OurMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurMenuTableCell.swift; sourceTree = "<group>"; };
+		EF1742A6253431A60067E646 /* OurMenuTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OurMenuTableCell.xib; sourceTree = "<group>"; };
 		EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
 		EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -445,6 +449,8 @@
 				EE82482D25093FD500C263F1 /* CartTableCell.swift */,
 				EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */,
 				EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */,
+				EF1742A5253431A60067E646 /* OurMenuTableCell.swift */,
+				EF1742A6253431A60067E646 /* OurMenuTableCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -636,6 +642,7 @@
 				EE31C6DA250774E300E87E98 /* LaunchScreen.storyboard in Resources */,
 				EE21FDC7251BC5D90075EA5F /* productWeightVC.xib in Resources */,
 				EEA8EFA72508DC5C00DFD80F /* Brandon_med_it.otf in Resources */,
+				EF1742A8253431A60067E646 /* OurMenuTableCell.xib in Resources */,
 				EEC5EA1B25116A8600E5529F /* sideMenu.xib in Resources */,
 				EEA8EFA52508DC5C00DFD80F /* Brandon_blk.otf in Resources */,
 				EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */,
@@ -823,6 +830,7 @@
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
 				EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */,
 				EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */,
+				EF1742A7253431A60067E646 /* OurMenuTableCell.swift in Sources */,
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
 				EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */,
 				EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */,
