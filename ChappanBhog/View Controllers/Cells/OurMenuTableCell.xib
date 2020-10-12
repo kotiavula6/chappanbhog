@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Brandon_bld_it.otf">
+            <string>BrandonGrotesque-BoldItalic</string>
+        </array>
+        <array key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OurMenuTableCell" rowHeight="147" id="KGk-i7-Jjw" customClass="OurMenuTableCell" customModule="ChappanBhog" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVZ-lA-5cB">
+                        <rect key="frame" x="0.0" y="0.0" width="128" height="142"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="seasonal_sweets" translatesAutoresizingMaskIntoConstraints="NO" id="Vbo-nT-Ax1">
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="142"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Vbo-nT-Ax1" firstAttribute="top" secondItem="EVZ-lA-5cB" secondAttribute="top" id="8co-Av-RdV"/>
+                            <constraint firstItem="Vbo-nT-Ax1" firstAttribute="leading" secondItem="EVZ-lA-5cB" secondAttribute="leading" id="LuA-13-uyZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Vbo-nT-Ax1" secondAttribute="trailing" id="fFX-P2-ftD"/>
+                            <constraint firstAttribute="bottom" secondItem="Vbo-nT-Ax1" secondAttribute="bottom" id="qyM-cI-Ww3"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsX-Qu-wrC">
+                        <rect key="frame" x="128" y="0.0" width="192" height="142"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BITES &amp; BERRIES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPx-6W-1l2">
+                                <rect key="frame" x="10" y="45.5" width="162" height="31.5"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-BoldItalic" family="Brandon Grotesque" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A RANGE OF EXCLUSIVE SWEETS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7r0-Qh-aS1">
+                                <rect key="frame" x="10" y="77" width="162" height="14.5"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KPx-6W-1l2" firstAttribute="centerY" secondItem="BsX-Qu-wrC" secondAttribute="centerY" constant="-10" id="9I4-Ey-3Rv"/>
+                            <constraint firstItem="KPx-6W-1l2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BsX-Qu-wrC" secondAttribute="top" constant="10" id="9t8-CO-ZNs"/>
+                            <constraint firstItem="KPx-6W-1l2" firstAttribute="leading" secondItem="BsX-Qu-wrC" secondAttribute="leading" constant="10" id="Ax4-eG-rej"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7r0-Qh-aS1" secondAttribute="bottom" constant="10" id="Gfy-RS-m9q"/>
+                            <constraint firstItem="7r0-Qh-aS1" firstAttribute="leading" secondItem="BsX-Qu-wrC" secondAttribute="leading" constant="10" id="a6x-Cf-NtC"/>
+                            <constraint firstAttribute="trailing" secondItem="7r0-Qh-aS1" secondAttribute="trailing" constant="20" id="bT8-mM-SZR"/>
+                            <constraint firstAttribute="trailing" secondItem="KPx-6W-1l2" secondAttribute="trailing" constant="20" id="cDn-7m-0tf"/>
+                            <constraint firstItem="7r0-Qh-aS1" firstAttribute="top" secondItem="KPx-6W-1l2" secondAttribute="bottom" id="xbu-X9-g1U"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZ2-fj-i23">
+                        <rect key="frame" x="0.0" y="142" width="320" height="5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="5" id="5Wr-a5-4hb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hZ2-fj-i23" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0Cq-QW-F01"/>
+                    <constraint firstAttribute="trailing" secondItem="hZ2-fj-i23" secondAttribute="trailing" id="9xB-XD-2Rb"/>
+                    <constraint firstItem="EVZ-lA-5cB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Cdt-2w-G8Q"/>
+                    <constraint firstItem="hZ2-fj-i23" firstAttribute="top" secondItem="EVZ-lA-5cB" secondAttribute="bottom" id="MfX-bf-xll"/>
+                    <constraint firstAttribute="trailing" secondItem="BsX-Qu-wrC" secondAttribute="trailing" id="N0b-SV-TEw"/>
+                    <constraint firstItem="BsX-Qu-wrC" firstAttribute="leading" secondItem="EVZ-lA-5cB" secondAttribute="trailing" id="cLc-3E-jHv"/>
+                    <constraint firstItem="hZ2-fj-i23" firstAttribute="top" secondItem="BsX-Qu-wrC" secondAttribute="bottom" id="kKx-wv-lVh"/>
+                    <constraint firstAttribute="bottom" secondItem="hZ2-fj-i23" secondAttribute="bottom" id="kXy-Yq-ROn"/>
+                    <constraint firstItem="EVZ-lA-5cB" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="l06-Ow-vGw"/>
+                    <constraint firstItem="BsX-Qu-wrC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="os7-v3-WCm"/>
+                    <constraint firstItem="EVZ-lA-5cB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="z1v-gO-l3h"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="iVIcon" destination="Vbo-nT-Ax1" id="Bjq-xU-mnr"/>
+                <outlet property="lblDesc" destination="7r0-Qh-aS1" id="erP-cO-GJf"/>
+                <outlet property="lblTitle" destination="KPx-6W-1l2" id="Q28-Tu-vIo"/>
+            </connections>
+            <point key="canvasLocation" x="-146.37681159420291" y="65.290178571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="seasonal_sweets" width="110" height="86.5"/>
+    </resources>
+</document>

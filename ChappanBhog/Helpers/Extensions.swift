@@ -65,3 +65,16 @@ extension String {
 
     
 }
+
+
+extension UIColor {
+    open class var  random: UIColor {
+        return .init(hue: .random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
+    }
+}
+
+extension CGFloat {
+    static func random() -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
