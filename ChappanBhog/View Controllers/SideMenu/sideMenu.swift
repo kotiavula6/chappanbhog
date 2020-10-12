@@ -79,12 +79,10 @@ class sideMenu: UIViewController {
             actio()
         }
     }
+    
     @IBAction func logoutButtonClicked(_ sender: UIButton) {
         if let actio = logoutAction {
-                   actio()
-               }
-        
+            actio()
+        }
     }
-    
-    
 }

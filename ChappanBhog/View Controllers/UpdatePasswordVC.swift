@@ -89,6 +89,12 @@ class UpdatePasswordVC: UIViewController {
             IJProgressView.shared.showProgressView()
             AFWrapperClass.requestPOSTURLWithHeader(addAddressUrl, params: params , success: { (dict) in
                 IJProgressView.shared.hideProgressView()
+                
+                let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
+                if isTokenExpired {
+                    return
+                }
+                
                 print(dict)
                 print(params)
                 if let result = dict as? [String:Any]{

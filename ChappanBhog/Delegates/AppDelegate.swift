@@ -19,7 +19,8 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
- var window: UIWindow?
+    var window: UIWindow?
+    static let shared: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -40,9 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.window?.makeKeyAndVisible()
         
         if UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN") == true {
-            
             _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToDashBoard), userInfo: nil, repeats: false)
-            
         }
         else {
             _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
@@ -99,25 +98,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc func goToDashBoard() {
-        
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-          let rootVc = storyBoard.instantiateViewController(withIdentifier: "Home") as! UITabBarController
-          let nav = UINavigationController(rootViewController: rootVc)
-          nav.isNavigationBarHidden = true
-          self.window?.rootViewController = nav
-          self.window?.makeKeyAndVisible()
-          
+        let rootVc = storyBoard.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+        let nav = UINavigationController(rootViewController: rootVc)
+        nav.isNavigationBarHidden = true
+        self.window?.rootViewController = nav
+        self.window?.makeKeyAndVisible()
     }
     
     @objc func goToLoginScreen() {
-        
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-          let rootVc = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-          let nav = UINavigationController(rootViewController: rootVc)
-          nav.isNavigationBarHidden = true
-          self.window?.rootViewController = nav
-          self.window?.makeKeyAndVisible()
-        
+        let rootVc = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        let nav = UINavigationController(rootViewController: rootVc)
+        nav.isNavigationBarHidden = true
+        self.window?.rootViewController = nav
+        self.window?.makeKeyAndVisible()
+    }
+    
+    @objc func logout() {
+        AppDelegate.shared.goToLoginScreen()
+        UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
+        GIDSignIn.sharedInstance().signOut()
+        let store = TWTRTwitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+          store.logOutUserID(userID)
+        }
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

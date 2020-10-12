@@ -4929,6 +4929,9 @@
                                                     <constraint firstAttribute="height" constant="35" id="mPv-vN-frn"/>
                                                 </constraints>
                                                 <state key="normal" image="back_button"/>
+                                                <connections>
+                                                    <action selector="backButtonAction:" destination="DqB-nm-rrV" eventType="touchUpInside" id="PyI-bd-VJ3"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OUR MENU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnf-ou-HY1">
                                                 <rect key="frame" x="128.5" y="4.5" width="118" height="31.5"/>

@@ -20,13 +20,12 @@ class OurMenuVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
-        
     }
+    
     //MARK:- FUNCTIONS
     func setAppearance() {
         
         DispatchQueue.main.async {
-            
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -34,13 +33,15 @@ class OurMenuVC: UIViewController {
             self.menuTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
             self.cartLBL.layer.masksToBounds = true
-            
-            
         }
     }
-    
-    
+        
+    // MARK:- Actions
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
+
 //MARK:- TABLEVIEW METHODS
 extension OurMenuVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -179,6 +179,12 @@ func API_GET_DASHBOARD_DATA() {
     
     AFWrapperClass.requestPOSTURL(bannersUrl, params: params, success: { (dict) in
         IJProgressView.shared.hideProgressView()
+        
+        let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
+        if isTokenExpired {
+            return
+        }
+        
         print(dict)
         
         let response = dict["data"] as? NSDictionary ?? NSDictionary()

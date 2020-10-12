@@ -71,7 +71,6 @@ class AboutVC: UIViewController {
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-       // self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
-    
 }

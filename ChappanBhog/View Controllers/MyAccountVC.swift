@@ -125,7 +125,13 @@ class MyAccountVC: UIViewController {
         IJProgressView.shared.showProgressView()
         AFWrapperClass.uploadPhoto(updateProfileUrl, image: selectedImage, params: params, completion: { (dict) in
             IJProgressView.shared.hideProgressView()
-              if let result = dict as? [String:Any]{
+              if let result = dict as? [String:Any] {
+                
+                let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
+                if isTokenExpired {
+                    return
+                }
+                
                           print(result)
                           
                         //  let message = result["message"] as? String ?? ""

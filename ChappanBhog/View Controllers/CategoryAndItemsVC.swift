@@ -105,9 +105,16 @@ extension CategoryAndItemsVC {
 //        let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEMS + "/\(userID ?? 0)"
         AFWrapperClass.requestGETURL(getCat ,success: { (dict) in
             IJProgressView.shared.hideProgressView()
+            
             print(dict)
             
             let response = dict["data"] as? NSDictionary ?? NSDictionary()
+            
+            let isTokenExpired = AFWrapperClass.handle401Error(dict: response as! [String: Any], self)
+            if isTokenExpired {
+                return
+            }
+            
             
             let options = response["options"] as? NSArray ?? NSArray()
             let status = dict["status"] as? Int ?? 0

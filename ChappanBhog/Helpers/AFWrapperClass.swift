@@ -15,7 +15,7 @@ import NVActivityIndicatorView
 
 class AFWrapperClass{
     
-    class func requestPOSTURL(_ strURL : String, params : Parameters, success:@escaping (NSDictionary) -> Void, failure:@escaping (NSError) -> Void){
+    class func requestPOSTURL(_ strURL : String, params : Parameters, success:@escaping ([String: Any]) -> Void, failure:@escaping (NSError) -> Void){
          let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(token)","Content-Type":"application/json"])
@@ -23,7 +23,7 @@ class AFWrapperClass{
                 switch response.result {
                 case .success(let value):
                     if let JSON = value as? [String: Any] {
-                        success(JSON as NSDictionary)
+                        success(JSON)
                     }
                 case .failure(let error):
                     let error : NSError = error as NSError
@@ -38,7 +38,7 @@ class AFWrapperClass{
                 }
         }
     }
-    class func requestUrlEncodedPOSTURL(_ strURL : String, params : Parameters, success:@escaping (NSDictionary) -> Void, failure:@escaping (NSError) -> Void){
+    class func requestUrlEncodedPOSTURL(_ strURL : String, params : Parameters, success:@escaping ([String: Any]) -> Void, failure:@escaping (NSError) -> Void){
            let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: URLEncoding.default, headers: ["Content-Type":"application/x-www-form-urlencoded"])
                .responseJSON { (response) in
@@ -46,7 +46,7 @@ class AFWrapperClass{
                    case .success(let value):
                        if let JSON = value as? [String: Any] {
                         if response.response?.statusCode == 200{
-                           success(JSON as NSDictionary)
+                           success(JSON)
                         }else if response.response?.statusCode == 400{
 
                             let error : NSError = NSError(domain: "invalid user details", code: 400, userInfo: [:])
@@ -63,7 +63,7 @@ class AFWrapperClass{
            }
        }
     
-    class func requestPOSTURLWithHeader(_ strURL : String, params : Parameters, success:@escaping (NSDictionary) -> Void, failure:@escaping (NSError) -> Void){
+    class func requestPOSTURLWithHeader(_ strURL : String, params : Parameters, success:@escaping ([String: Any]) -> Void, failure:@escaping (NSError) -> Void){
         
         let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
         let header:HTTPHeaders = ["Authorization":"Bearer \(token)","Content-Type": "application/json"]
@@ -74,7 +74,7 @@ class AFWrapperClass{
                   switch response.result {
                   case .success(let value):
                       if let JSON = value as? [String: Any] {
-                          success(JSON as NSDictionary)
+                          success(JSON)
                       }
                   case .failure(let error):
                       let error : NSError = error as NSError
@@ -180,9 +180,22 @@ class AFWrapperClass{
         }
     }
     
-    
-    class func svprogressHudShow(title:String,view:UIViewController) -> Void
-    {
+    class func handle401Error(dict: [String: Any], _ controller: UIViewController) -> Bool {
+        if let status = dict["status"] as? Int, status == 401 {
+            let message = dict["message"] as? String ?? "Your sessions has been expired. Please login again."
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
+                    AppDelegate.shared.logout()
+                }))
+                controller.present(alert, animated: true, completion: nil)
+            }
+            return true
+        }
+        return false
+    }
+        
+    class func svprogressHudShow(title:String,view:UIViewController) -> Void {
         SVProgressHUD.show(withStatus: title)
         SVProgressHUD.setDefaultAnimationType(SVProgressHUDAnimationType.flat)
         //SVProgressHUD.setForegroundColor(#colorLiteral(red: 0.7164155841, green: 0.08018933982, blue: 0.427012682, alpha: 1))
@@ -192,8 +205,8 @@ class AFWrapperClass{
             view.view.isUserInteractionEnabled = false;
         }
     }
-    class func svprogressHudDismiss(view:UIViewController) -> Void
-    {
+    
+    class func svprogressHudDismiss(view:UIViewController) -> Void {
         SVProgressHUD.dismiss();
         view.view.isUserInteractionEnabled = true;
     }

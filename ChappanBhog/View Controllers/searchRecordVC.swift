@@ -143,6 +143,12 @@ extension searchRecordVC {
         let params:[String:Any] = ["user_id":userId ?? 0,"keyword":searchData]
         AFWrapperClass.requestPOSTURLWithHeader(Url, params: params, success: { (dict) in
             IJProgressView.shared.hideProgressView()
+            
+            let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
+            if isTokenExpired {
+                return
+            }
+            
             print(dict)
             
             let response = dict["data"] as? NSArray ?? NSArray()

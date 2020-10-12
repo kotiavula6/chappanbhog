@@ -142,6 +142,12 @@ extension ProductInfoVC {
             print(dict)
             
             let response = dict["data"] as? NSDictionary ?? NSDictionary()
+            
+            let isTokenExpired = AFWrapperClass.handle401Error(dict: response as! [String: Any], self)
+            if isTokenExpired {
+                return
+            }
+            
             let status = dict["status"] as? Int ?? 0
             
             if status == 200 {

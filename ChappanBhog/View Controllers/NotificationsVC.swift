@@ -149,6 +149,13 @@ extension NotificationsVC {
                 completion()
                 return
             }
+            
+            let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
+            if isTokenExpired {
+                completion()
+                return
+            }
+            
             let success = result["success"] as? Bool ?? false
             if success {
                 
@@ -217,11 +224,13 @@ extension NotificationsVC {
         let userID = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
         let notificationUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_notification_read
         AFWrapperClass.requestPOSTURL(notificationUrl, params: ["user_id": userID, "notification_id": notificationId], success: { (dict) in
-            guard let result = dict as? [String: Any] else {
-                completion()
+            
+            let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
+            if isTokenExpired {
                 return
             }
-            let success = result["success"] as? Bool ?? false
+        
+            let success = dict["success"] as? Bool ?? false
             if success {
                 self.notificationDataArr[indexPath.row].read = "1"
                 self.reloadData()

@@ -83,8 +83,7 @@ class DashBoardVC: UIViewController {
             }
             self.sidemenu.ShopAction = {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "OurMenuVC") as! OurMenuVC
-                             self.navigationController?.pushViewController(vc, animated: true)
-                
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             self.sidemenu.myAccountAction = {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
@@ -99,14 +98,12 @@ class DashBoardVC: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             self.sidemenu.aboutAction = {
-                
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AboutVC") as! AboutVC
                 self.navigationController?.pushViewController(vc, animated: true)
-                
             }
             self.sidemenu.logoutAction = {
                 
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+                /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
                 self.navigationController?.pushViewController(vc, animated: true)
                 UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
                 GIDSignIn.sharedInstance().signOut()
@@ -114,8 +111,8 @@ class DashBoardVC: UIViewController {
 
                 if let userID = store.session()?.userID {
                   store.logOutUserID(userID)
-                }
-                
+                }*/
+                AppDelegate.shared.logout()
             }
             
         }
@@ -366,6 +363,14 @@ extension DashBoardVC {
         let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_DATA + "/\(userID ?? 0)"
         AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
+            
+            if let result = dict as? [String : Any] {
+                let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
+                if isTokenExpired {
+                    return
+                }
+            }
+            
             print(dict)
             
             let response = dict["data"] as? NSDictionary ?? NSDictionary()
@@ -412,6 +417,13 @@ extension DashBoardVC {
         AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             print(dict)
+            
+            if let result = dict as? [String : Any] {
+                let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
+                if isTokenExpired {
+                    return
+                }
+            }
             
             let response = dict["data"] as? NSArray ?? NSArray()
             let success = dict["success"] as? Int ?? 0
