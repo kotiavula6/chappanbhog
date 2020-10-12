@@ -23,10 +23,29 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var phoneNoTF: UITextField!
     @IBOutlet weak var addressTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
+    
+    @IBOutlet weak var zipCodeTFShipping: UITextField!
+    @IBOutlet weak var cityTFShipping: UITextField!
+    @IBOutlet weak var stateTFShipping: UITextField!
+    @IBOutlet weak var phoneNoTFShipping: UITextField!
+    @IBOutlet weak var addressTFShipping: UITextField!
+    @IBOutlet weak var nameTFShipping: UITextField!
+    
+    @IBOutlet weak var imgSelected: UIImageView!
+    @IBOutlet weak var btnAddShippingAddress: UIButton!
+    @IBOutlet weak var shippingAddressContentView: UIView!
+    @IBOutlet weak var pickerContainerView: UIView!
+    @IBOutlet weak var stateCityPicker: UIPickerView!
+    
     var statsView:StatesPopUpVC?
     var gradePicker: UIPickerView!
     
-    let States = ["Telangana", "Punjab", "NewDelhi","Gujarath","HimachalPradesh"]
+   // let States = ["Telangana", "Punjab", "NewDelhi","Gujarath","HimachalPradesh"]
+    var stateSelected = true
+    
+    var countryStateArr = [CountryStateModel]()
+    var selectedCountry: CountryStateModel?
+    var selectedStateArr = [States]()
     
     
     
@@ -34,7 +53,12 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.imgSelected.image = UIImage(named: "uncheck_box")
+        self.updateAddressBTN.setTitle("UPDATE ADDRESS", for: .normal)
+        self.shippingAddressContentView.isHidden = true
+        self.pickerContainerView.isHidden = true
+        self.stateCityPicker.delegate = self
+        self.getCountryState()
         //        gradePicker = UIPickerView()
         //
         //        gradePicker.dataSource = self
@@ -62,6 +86,12 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             self.addressTF.setLeftPaddingPoints(10)
             self.nameTF.setLeftPaddingPoints(10)
             
+            self.zipCodeTFShipping.setLeftPaddingPoints(10)
+            self.cityTFShipping.setLeftPaddingPoints(10)
+            self.stateTFShipping.setLeftPaddingPoints(10)
+            self.phoneNoTFShipping.setLeftPaddingPoints(10)
+            self.addressTFShipping.setLeftPaddingPoints(10)
+            self.nameTFShipping.setLeftPaddingPoints(10)
             
         }
         
@@ -94,15 +124,37 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return States.count
+        if stateSelected {
+            return countryStateArr.count
+        } else {
+            return selectedStateArr.count
+        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return States[row]
+        if stateSelected {
+            return countryStateArr[row].name ?? ""
+        } else {
+            return selectedStateArr[row].name ?? ""
+        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        stateTF.text = States[row]
+        if stateSelected {
+            if countryStateArr.count > 0 {
+                self.selectedCountry = countryStateArr[row]
+                stateTF.text = countryStateArr[row].name ?? ""
+            }
+            
+        } else {
+            if selectedStateArr.count > 0 {
+                cityTF.text = selectedStateArr[row].name ?? ""
+            }
+            
+        }
+        
         self.view.endEditing(true)
     }
     
@@ -113,8 +165,26 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     //MARK:- ACTIONS
     @IBAction func stateTFAction(_ sender: UIButton) {
-        self.view.bringSubviewToFront(statesContainer)
+       // self.view.bringSubviewToFront(statesContainer)
+        if self.countryStateArr.count < 1 {
+            return
+        }
+        self.self.stateCityPicker.reloadAllComponents()
+        self.stateSelected = true
+        self.pickerContainerView.isHidden = false
     }
+    
+    @IBAction func cityTFAction(_ sender: UIButton) {
+        guard let countryAvailabel = self.selectedCountry else {
+            // show alert
+            return
+            
+        }
+        self.selectedStateArr = countryAvailabel.states ?? []
+        self.stateSelected = false
+        self.self.stateCityPicker.reloadAllComponents()
+        self.pickerContainerView.isHidden = false
+      }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -122,12 +192,28 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBAction func addShippingAdressButtonClicked(_ sender: UIButton) {
-        
-      
-        
-        
-        
+        self.updateAddressBTN.setTitle("ADD SHIPPING ADDRESS", for: .normal)
+        self.shippingAddressContentView.isHidden = false
     }
+    
+    @IBAction func btnSameShipping(_ sender: UIButton) {
+        self.updateAddressBTN.setTitle("UPDATE ADDRESS", for: .normal)
+        if self.imgSelected.image == UIImage(named: "uncheck_box") {
+            self.imgSelected.image = UIImage(named: "check_box")
+            self.btnAddShippingAddress.isHidden = true
+            self.shippingAddressContentView.isHidden = true
+        } else {
+            self.btnAddShippingAddress.isHidden = false
+            self.imgSelected.image = UIImage(named: "uncheck_box")
+        }
+    }
+    
+    @IBAction func btnDonePickingStateCity(_ sender: UIBarButtonItem) {
+        self.pickerContainerView.isHidden = true
+    }
+    
+    
+    
     
     
     @IBAction func updateAddressButtonClicked(_ sender: UIButton) {
@@ -250,4 +336,54 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         
         
     }
+    
+    
+    func getCountryState() {
+        
+        
+        
+          let countryUrl = "https://www.chhappanbhog.com/wp-json/wc/v3/data/countries?consumer_key=ck_f8fb349b9f8885516ac6cddfb8b26426315d0469&consumer_secret=cs_abf949b0f1a187b60829ee1e78c905c5397e95ff"
+          
+         // IJProgressView.shared.showProgressView()
+        AFWrapperClass.requestGETURLWithoutToken(countryUrl, success: { (dict) in
+          //  IJProgressView.shared.hideProgressView()
+                        
+                       
+                        
+                        print(dict)
+              
+                        if let result = dict as? [Dictionary<String, Any>]{
+                            print(result)
+                          do {
+                              let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
+                              do {
+                                  let jsonDecoder = JSONDecoder()
+                                  let countryStateObj = try jsonDecoder.decode([CountryStateModel].self, from: jsonData)
+                                self.countryStateArr = countryStateObj
+                                self.stateCityPicker.reloadAllComponents()
+                                  print(countryStateObj)
+                              }  catch {
+                                  print("Unexpected error: \(error).")
+                                  alert("ChappanBhog", message: error.localizedDescription, view: self)
+                                  
+                              }
+                              
+                          } catch {
+                              print("Unexpected error: \(error).")
+                              
+                          }
+                          
+                          
+                        } else {
+                            
+                        }
+        }) { (error) in
+           // IJProgressView.shared.hideProgressView()
+             print("Unexpected error: \(error).")
+        }
+             
+          
+          
+    }
 }
+
