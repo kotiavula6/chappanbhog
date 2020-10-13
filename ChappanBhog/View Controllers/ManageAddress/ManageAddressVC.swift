@@ -46,6 +46,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     var countryStateArr = [CountryStateModel]()
     var selectedCountry: CountryStateModel?
     var selectedStateArr = [States]()
+    var shippingAddressSelected = false
     
     
     
@@ -145,12 +146,22 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         if stateSelected {
             if countryStateArr.count > 0 {
                 self.selectedCountry = countryStateArr[row]
-                stateTF.text = countryStateArr[row].name ?? ""
+                if self.shippingAddressSelected {
+                    stateTFShipping.text = countryStateArr[row].name ?? ""
+                } else {
+                    stateTF.text = countryStateArr[row].name ?? ""
+                }
+                
             }
             
         } else {
             if selectedStateArr.count > 0 {
-                cityTF.text = selectedStateArr[row].name ?? ""
+                if self.shippingAddressSelected {
+                    cityTFShipping.text = selectedStateArr[row].name ?? ""
+                } else{
+                    cityTF.text = selectedStateArr[row].name ?? ""
+                }
+                
             }
             
         }
@@ -169,6 +180,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         if self.countryStateArr.count < 1 {
             return
         }
+        self.shippingAddressSelected = false
         self.self.stateCityPicker.reloadAllComponents()
         self.stateSelected = true
         self.pickerContainerView.isHidden = false
@@ -180,11 +192,37 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             return
             
         }
+        self.shippingAddressSelected = false
         self.selectedStateArr = countryAvailabel.states ?? []
         self.stateSelected = false
         self.self.stateCityPicker.reloadAllComponents()
         self.pickerContainerView.isHidden = false
       }
+    
+    
+    @IBAction func shippingstateTFAction(_ sender: UIButton) {
+         // self.view.bringSubviewToFront(statesContainer)
+          if self.countryStateArr.count < 1 {
+              return
+          }
+        self.shippingAddressSelected = true
+          self.self.stateCityPicker.reloadAllComponents()
+          self.stateSelected = true
+          self.pickerContainerView.isHidden = false
+      }
+      
+      @IBAction func shippingcityTFAction(_ sender: UIButton) {
+          guard let countryAvailabel = self.selectedCountry else {
+              // show alert
+              return
+              
+          }
+        self.shippingAddressSelected = true
+          self.selectedStateArr = countryAvailabel.states ?? []
+          self.stateSelected = false
+          self.self.stateCityPicker.reloadAllComponents()
+          self.pickerContainerView.isHidden = false
+        }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -192,7 +230,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBAction func addShippingAdressButtonClicked(_ sender: UIButton) {
-        self.updateAddressBTN.setTitle("ADD SHIPPING ADDRESS", for: .normal)
+       // self.updateAddressBTN.setTitle("ADD SHIPPING ADDRESS", for: .normal)
         self.shippingAddressContentView.isHidden = false
     }
     
@@ -224,6 +262,46 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         let kPhone = phoneNoTF.text ?? ""
         let kAddress = addressTF.text ?? ""
         let kName = nameTF.text ?? ""
+        
+        let kZipCodeShipping = zipCodeTFShipping.text ?? ""
+        let kCityShipping = cityTFShipping.text ?? ""
+        let kStateShipping = stateTFShipping.text ?? ""
+        let kPhoneShipping = phoneNoTFShipping.text ?? ""
+        let kAddressShipping = addressTFShipping.text ?? ""
+        let kNameShipping = nameTFShipping.text ?? ""
+        
+        
+        if self.imgSelected.image == UIImage(named: "uncheck_box") {
+            // Need to add shipping address data as well
+            
+             if kNameShipping.count < 1 {
+                     alert("ChappanBhog", message: "Shipping Name can't be empty.", view: self)
+                     return
+                 }
+                 if kAddressShipping.count < 1 {
+                     alert("ChappanBhog", message: "Shipping Address can't be empty.", view: self)
+                     return
+                 }
+                 if kPhoneShipping.count < 1 {
+                     alert("ChappanBhog", message: "Shipping Phone can't be empty.", view: self)
+                     return
+                 }
+                 if kCityShipping.count < 1 {
+                     alert("ChappanBhog", message: "Shipping City can't be empty.", view: self)
+                     return
+                 }
+                 if kStateShipping.count < 1 {
+                     alert("ChappanBhog", message: "Shipping State can't be empty.", view: self)
+                     return
+                 }
+                 if kZipCodeShipping.count < 1 {
+                     alert("ChappanBhog", message: "Shipping Zip code can't be empty.", view: self)
+                     return
+                 }
+            
+            
+            
+        }
         
         if kName.count < 1 {
             alert("ChhappanBhog", message: "Name can't be empty.", view: self)
@@ -264,7 +342,20 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         params["state"] = kState as Any
         params["zip"] = kZipCode as Any
         params["type"] = (0) as Any
-        params["same_as_shipping"] = (false) as Any
+        
+        if self.imgSelected.image == UIImage(named: "uncheck_box") {
+            // add shipping params
+            params["same_as_shipping"] = (false) as Any
+            params["shipping_name"] = kName as Any
+            params["shipping_address"] = kAddress as Any
+            params["shipping_phone_number"] = kPhone as Any
+            params["shipping_city"] = kCity as Any
+            params["shipping_state"] = kState as Any
+            params["shipping_zip"] = kZipCode as Any
+        } else {
+            params["same_as_shipping"] = (true) as Any
+        }
+        
         
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestPOSTURLWithHeader(addAddressUrl, params: params , success: { (dict) in
