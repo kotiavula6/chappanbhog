@@ -50,6 +50,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     var selectedStateArr = [States]()
     var shippingAddressSelected = false
     
+    var manageAddress: ManageAddress = ManageAddress(dict: [:])
     
     
     //MARK:- APPLICATION LIFE CYCLE
@@ -82,6 +83,13 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         addressTFShipping.autocapitalizationType = .words
         phoneNoTF.keyboardType = .phonePad
         phoneNoTFShipping.keyboardType = .phonePad
+        
+        IJProgressView.shared.showProgressView()
+        getAddress {
+            IJProgressView.shared.hideProgressView()
+            // Bind data
+            self.bindData()
+        }
     }
     
     // MARK:- FUCNTIONS
@@ -110,6 +118,28 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             
         }
         
+    }
+    
+    func bindData() {
+        DispatchQueue.main.async {
+            self.zipCodeTF.text = self.manageAddress.zip
+            self.cityTF.text = self.manageAddress.city
+            self.stateTF.text = self.manageAddress.state
+            self.countryTF.text = self.manageAddress.country
+            self.phoneNoTF.text = self.manageAddress.phone
+            self.addressTF.text = self.manageAddress.address
+            self.nameTF.text = self.manageAddress.name
+            
+            self.zipCodeTFShipping.text = self.manageAddress.shipping_zip
+            self.cityTFShipping.text = self.manageAddress.shipping_city
+            self.stateTFShipping.text = self.manageAddress.shipping_state
+            self.countryTFShipping.text = self.manageAddress.shipping_country
+            self.phoneNoTFShipping.text = self.manageAddress.shipping_phone_number
+            self.addressTFShipping.text = self.manageAddress.shipping_address
+            self.nameTFShipping.text = self.manageAddress.shipping_name
+            
+            self.showShippingAddress(self.manageAddress.same_as_shipping)
+        }
     }
     
     //MARK:- SEGUE
@@ -370,7 +400,6 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         }
         
         
-        let addAddressUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_ADD_ADDRESS
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         
         var params : [String: Any] = [:]
@@ -398,16 +427,83 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             params["same_as_shipping"] = true
         }
         
-        
         IJProgressView.shared.showProgressView()
-        AFWrapperClass.requestPOSTURLWithHeader(addAddressUrl, params: params , success: { (dict) in
+        saveAddress(params: params) {
             IJProgressView.shared.hideProgressView()
+        }
+    }
+}
+
+
+// MARK:- APIs
+extension ManageAddressVC {
+    
+    func getCountryState() {
+        
+        let countryUrl = "https://www.chhappanbhog.com/wp-json/wc/v3/data/countries?consumer_key=ck_f8fb349b9f8885516ac6cddfb8b26426315d0469&consumer_secret=cs_abf949b0f1a187b60829ee1e78c905c5397e95ff"
+        AFWrapperClass.requestGETURLWithoutToken(countryUrl, success: { (dict) in
+            if let result = dict as? [Dictionary<String, Any>]{
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
+                    do {
+                        let jsonDecoder = JSONDecoder()
+                        let countryStateObj = try jsonDecoder.decode([CountryStateModel].self, from: jsonData)
+                        self.countryStateArr = countryStateObj
+                        self.stateCityPicker.reloadAllComponents()
+                        print(countryStateObj)
+                    }  catch {
+                        print("Unexpected error: \(error).")
+                        alert("ChhappanBhog", message: error.localizedDescription, view: self)
+                        
+                    }
+                    
+                } catch {
+                    print("Unexpected error: \(error).")
+                    
+                }
+                
+                
+            } else {
+                
+            }
+        }) { (error) in
+            // IJProgressView.shared.hideProgressView()
+            print("Unexpected error: \(error).")
+        }
+    }
+    
+    
+    func getAddress(completion: @escaping () -> Void) {
+        let url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ADDRESS
+        AFWrapperClass.requestGETURL(url, success: { (response) in
+            if let dict = response as? [String: Any] {
+                let success = dict["success"] as? Bool ?? false
+                if success {
+                    let data = dict["data"] as? [String: Any] ?? [:]
+                    self.manageAddress.setDict(data)
+                }
+                else {
+                    let message = dict["message"] as? String ?? "Some error occured"
+                    alert("ChhappanBhog", message: message, view: self)
+                }
+            }
+            completion()
+        }) { (error) in
+            alert("ChhappanBhog", message: error.description, view: self)
+            completion()
+        }
+    }
+    
+    func saveAddress(params: [String: Any], completion: @escaping () -> Void) {
+        let addAddressUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_ADD_ADDRESS
+        AFWrapperClass.requestPOSTURLWithHeader(addAddressUrl, params: params , success: { (dict) in
             
             let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
             if isTokenExpired {
+                completion()
                 return
             }
-            print(dict)
+        
             let status = dict["success"] as? Bool ?? false
             if status {
                 
@@ -444,59 +540,71 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
                 let msg = dict["message"] as? String ?? "Some error Occured"
                 alert("ChhappanBhog", message: msg, view: self)
             }
+            completion()
         }) { (error) in
-            IJProgressView.shared.hideProgressView()
             alert("ChhappanBhog", message: error.description, view: self)
+            completion()
         }
-    }
-    
-    
-    func getCountryState() {
-        
-        
-        
-          let countryUrl = "https://www.chhappanbhog.com/wp-json/wc/v3/data/countries?consumer_key=ck_f8fb349b9f8885516ac6cddfb8b26426315d0469&consumer_secret=cs_abf949b0f1a187b60829ee1e78c905c5397e95ff"
-          
-         // IJProgressView.shared.showProgressView()
-        AFWrapperClass.requestGETURLWithoutToken(countryUrl, success: { (dict) in
-          //  IJProgressView.shared.hideProgressView()
-                        
-                       
-                        
-                        print(dict)
-              
-                        if let result = dict as? [Dictionary<String, Any>]{
-                            print(result)
-                          do {
-                              let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
-                              do {
-                                  let jsonDecoder = JSONDecoder()
-                                  let countryStateObj = try jsonDecoder.decode([CountryStateModel].self, from: jsonData)
-                                self.countryStateArr = countryStateObj
-                                self.stateCityPicker.reloadAllComponents()
-                                  print(countryStateObj)
-                              }  catch {
-                                  print("Unexpected error: \(error).")
-                                  alert("ChhappanBhog", message: error.localizedDescription, view: self)
-                                  
-                              }
-                              
-                          } catch {
-                              print("Unexpected error: \(error).")
-                              
-                          }
-                          
-                          
-                        } else {
-                            
-                        }
-        }) { (error) in
-           // IJProgressView.shared.hideProgressView()
-             print("Unexpected error: \(error).")
-        }
-             
-          
-          
     }
 }
 
+// MARK:- Address  Model
+class ManageAddress: NSObject {
+    var user_id = ""
+    var name = ""
+    var email = ""
+    var phone = ""
+    var type = ""
+    var image = ""
+    var city = ""
+    var state = ""
+    var zip = ""
+    var address = ""
+    var phone_number = ""
+    var country = ""
+    var shipping_phone_number = ""
+    var shipping_city = ""
+    var shipping_state = ""
+    var shipping_zip = ""
+    var shipping_address = ""
+    var shipping_country = ""
+    var shipping_name = ""
+    var same_as_shipping: Bool = true
+    
+    init(dict: [String: Any]) {
+        super.init()
+        setDict(dict)
+    }
+    
+    func setDict(_ dict: [String: Any]) {
+        if let value = dict["user_id"] as? Int { user_id = "\(value)"}
+        else if let value = dict["user_id"] as? String { user_id = value}
+        
+        if let value = dict["name"] as? String  { name  = value}
+        if let value = dict["email"] as? String { email = value}
+        if let value = dict["phone"] as? String { phone = value}
+        if let value = dict["type"] as? String  { type  = value}
+        if let value = dict["image"] as? String { image = value}
+        if let value = dict["city"] as? String  { city  = value}
+        if let value = dict["state"] as? String { state = value}
+        
+        if let value = dict["zip"] as? Int { zip = "\(value)"}
+        else if let value = dict["zip"] as? String { zip = value}
+        
+        if let value = dict["address"] as? String                { address               = value}
+        if let value = dict["phone_number"] as? String           { phone_number          = value}
+        if let value = dict["country"] as? String                { country               = value}
+        if let value = dict["shipping_phone_number"] as? String  { shipping_phone_number = value}
+        if let value = dict["shipping_city"] as? String          { shipping_city         = value}
+        if let value = dict["shipping_state"] as? String         { shipping_state        = value}
+        
+        if let value = dict["shipping_zip"] as? Int { shipping_zip = "\(value)"}
+        else if let value = dict["shipping_zip"] as? String { shipping_zip = value}
+        
+        if let value = dict["shipping_address"] as? String  { shipping_address = value}
+        if let value = dict["shipping_country"] as? String  { shipping_country = value}
+        if let value = dict["shipping_name"] as? String     { shipping_name    = value}
+        
+        self.same_as_shipping = dict["same_as_shipping"] as? Bool ?? true
+    }
+}

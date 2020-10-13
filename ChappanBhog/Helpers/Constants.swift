@@ -99,6 +99,7 @@ struct WebserviceName {
     static let API_UPDATE_PHONE_VERIFIED = "verify_account"
     static let API_GET_ITEM_DETAILS = "item_details"
     static let API_ADD_ADDRESS = "add_address"
+    static let API_GET_ADDRESS = "get_address"
     static let API_update_profile = "update_profile"
     static let API_notification = "notification"
     static let API_notification_read = "notification_read"
