@@ -87,15 +87,15 @@ extension EnquirlyFormVC {
                 let success = result["success"] as? Int ?? 0
                 
                 if success == 0{
-                    alert("ChappanBhog", message: self.message, view: self)
+                    alert("ChhappanBhog", message: self.message, view: self)
                 }else{
-                    alert("ChappanBhog", message: self.message, view: self)
+                    alert("ChhappanBhog", message: self.message, view: self)
                     
                 }
             }
         }) { (error) in
             self.message = error.localizedDescription
-            alert("ChappanBhog", message: self.message, view: self)
+            alert("ChhappanBhog", message: self.message, view: self)
         }
         
     }

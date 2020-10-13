@@ -122,7 +122,7 @@ extension UIViewController {
     
     func ValidateData(strMessage: String)
     {
-        let alert = UIAlertController(title: "ChappanBhog", message: strMessage, preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "ChhappanBhog", message: strMessage, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }

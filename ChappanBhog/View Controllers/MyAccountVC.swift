@@ -103,12 +103,12 @@ class MyAccountVC: UIViewController {
         
         let kUserName = self.userNameTF.text ?? ""
         if kUserName.count < 1 {
-            alert("ChappanBhog", message: "User name can't be empty.", view: self)
+            alert("ChhappanBhog", message: "User name can't be empty.", view: self)
             return
         }
         
         guard let selectedImage = self.profileImage.image else {
-            alert("ChappanBhog", message: "Please select profile image.", view: self)
+            alert("ChhappanBhog", message: "Please select profile image.", view: self)
             return
         }
         
@@ -142,7 +142,7 @@ class MyAccountVC: UIViewController {
                             
                           } else {
                               let msg = result["message"] as? String ?? "Some error Occured"
-                              alert("ChappanBhog", message: msg, view: self)
+                              alert("ChhappanBhog", message: msg, view: self)
                               
                           }
                       } else {
@@ -150,7 +150,7 @@ class MyAccountVC: UIViewController {
                       }
         }) { (error) in
             IJProgressView.shared.hideProgressView()
-            alert("ChappanBhog", message: error.description, view: self)
+            alert("ChhappanBhog", message: error.description, view: self)
         }
         
     }

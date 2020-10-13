@@ -379,7 +379,7 @@ extension DashBoardVC {
             if success == 0 {
                 
                 self.message = dict["message"] as? String ?? ""
-                alert("ChappanBhog", message: self.message, view: self)
+                alert("ChhappanBhog", message: self.message, view: self)
             }else {
                 
                 let banners = response["banners"] as? NSArray ?? NSArray()
@@ -431,7 +431,7 @@ extension DashBoardVC {
             if success == 0 {
                 
                 self.message = dict["message"] as? String ?? ""
-                alert("ChappanBhog", message: self.message, view: self)
+                alert("ChhappanBhog", message: self.message, view: self)
                 
             }else {
                 self.categoriesArr.removeAll()
@@ -444,7 +444,7 @@ extension DashBoardVC {
             
         }) { (error) in
             self.message = error.localizedDescription
-            alert("ChappanBhog", message: self.message, view: self)
+            alert("ChhappanBhog", message: self.message, view: self)
             
         }
     }

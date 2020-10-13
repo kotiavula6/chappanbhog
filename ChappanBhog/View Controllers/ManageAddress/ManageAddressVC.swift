@@ -226,27 +226,27 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         let kName = nameTF.text ?? ""
         
         if kName.count < 1 {
-            alert("ChappanBhog", message: "Name can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Name can't be empty.", view: self)
             return
         }
         if kAddress.count < 1 {
-            alert("ChappanBhog", message: "Address can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Address can't be empty.", view: self)
             return
         }
         if kPhone.count < 1 {
-            alert("ChappanBhog", message: "Phone can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Phone can't be empty.", view: self)
             return
         }
         if kCity.count < 1 {
-            alert("ChappanBhog", message: "City can't be empty.", view: self)
+            alert("ChhappanBhog", message: "City can't be empty.", view: self)
             return
         }
         if kState.count < 1 {
-            alert("ChappanBhog", message: "State can't be empty.", view: self)
+            alert("ChhappanBhog", message: "State can't be empty.", view: self)
             return
         }
         if kZipCode.count < 1 {
-            alert("ChappanBhog", message: "Zip code can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Zip code can't be empty.", view: self)
             return
         }
         
@@ -294,21 +294,21 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
                                 let updatedData = try jsonDecoder.decode(UpdateAddressModel.self, from: jsonData)
                                 print(updatedData)
                                 let msg = result["message"] as? String ?? ""
-                                //alert("ChappanBhog", message: msg, view: self)
-                                showAlertMessage(title: "ChappanBhog", message: msg, okButton: "Ok", controller: self) {
+                                //alert("ChhappanBhog", message: msg, view: self)
+                                showAlertMessage(title: "ChhappanBhog", message: msg, okButton: "Ok", controller: self) {
                                     self.navigationController?.popViewController(animated: true)
                                 }
                                 
                             } catch {
                                 print("Unexpected error: \(error).")
-                                alert("ChappanBhog", message: error.localizedDescription, view: self)
+                                alert("ChhappanBhog", message: error.localizedDescription, view: self)
                                 
                             }
                             
                         } catch {
                             print(error.localizedDescription)
                             
-                            alert("ChappanBhog", message: error.localizedDescription, view: self)
+                            alert("ChhappanBhog", message: error.localizedDescription, view: self)
                         }
                         
                         
@@ -316,11 +316,11 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
                     }
                     else{
                         let msg = result["message"] as? String ?? "Some error Occured"
-                        alert("ChappanBhog", message: msg, view: self)
+                        alert("ChhappanBhog", message: msg, view: self)
                     }
                 } else {
                     let msg = result["message"] as? String ?? "Some error Occured"
-                    alert("ChappanBhog", message: msg, view: self)
+                    alert("ChhappanBhog", message: msg, view: self)
                     
                 }
             } else {
@@ -328,7 +328,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             }
         }) { (error) in
             IJProgressView.shared.hideProgressView()
-            alert("ChappanBhog", message: error.description, view: self)
+            alert("ChhappanBhog", message: error.description, view: self)
         }
         
         
@@ -364,7 +364,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
                                   print(countryStateObj)
                               }  catch {
                                   print("Unexpected error: \(error).")
-                                  alert("ChappanBhog", message: error.localizedDescription, view: self)
+                                  alert("ChhappanBhog", message: error.localizedDescription, view: self)
                                   
                               }
                               
