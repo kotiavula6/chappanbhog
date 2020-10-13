@@ -33,7 +33,7 @@ class TopPics: NSObject {
     var favorite:Int?
     var id:Int?
     var image:[String]?
-  //  var options:[]
+    var options = [optionss]()
     var price:Int?
     var ratings:Int?
     var reviews:Int?
@@ -50,8 +50,32 @@ class TopPics: NSObject {
         ratings = dict["ratings"] as? Int
         reviews = dict["reviews"] as? Int
         title = dict["title"] as? String
+//        let optio = dict["options"] as? NSArray ?? NSArray()
+//   
+//  
+//        for i in 0..<optio.count {
+//            self.options.append(optionss(dict: optio.object(at: i) as! [String : Any]))
+//        }
+      
     
     }
+}
+
+class optionss:NSObject {
+    
+    var id:Int?
+    var name:String?
+    var price:Int?
+    
+    init(dict:[String:Any]) {
+        super.init()
+        
+        id = dict["id"] as? Int
+        name = dict["name"] as? String
+        price = dict["options"] as? Int
+        
+    }
+    
 }
 
 class categories: NSObject {
@@ -79,3 +103,4 @@ class categories: NSObject {
     }
     
 }
+
