@@ -182,10 +182,10 @@ extension NotificationsVC {
                             }
                             
                         } catch {
-                            alert("ChappanBhog", message: error.localizedDescription, view: self)
+                            alert("ChhappanBhog", message: error.localizedDescription, view: self)
                         }
                     } catch {
-                        alert("ChappanBhog", message: error.localizedDescription, view: self)
+                        alert("ChhappanBhog", message: error.localizedDescription, view: self)
                     }
                 }
                 else {
@@ -195,13 +195,13 @@ extension NotificationsVC {
             }
             else {
                 let message = result["message"] as? String ?? "Some error Occured"
-                alert("ChappanBhog", message: message, view: self)
+                alert("ChhappanBhog", message: message, view: self)
             }
             
             completion()
             
         }) { (error) in
-            alert("ChappanBhog", message: error.description, view: self)
+            alert("ChhappanBhog", message: error.description, view: self)
             completion()
         }
     }
@@ -237,7 +237,7 @@ extension NotificationsVC {
             }
             completion()
         }) { (error) in
-            alert("ChappanBhog", message: error.description, view: self)
+            alert("ChhappanBhog", message: error.description, view: self)
             completion()
         }
     }

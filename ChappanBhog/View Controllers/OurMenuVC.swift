@@ -109,13 +109,13 @@ extension OurMenuVC {
                 }
                 else {
                     let message = dict["message"] as? String ?? "Some error Occured"
-                    alert("ChappanBhog", message: message, view: self)
+                    alert("ChhappanBhog", message: message, view: self)
                 }
             }
             completion()
             
         }) { (error) in
-            alert("ChappanBhog", message: error.description, view: self)
+            alert("ChhappanBhog", message: error.description, view: self)
             completion()
         }
     }

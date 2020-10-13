@@ -137,13 +137,13 @@ extension CategoryAndItemsVC {
             }else {
                 
                 self.message = dict["message"] as? String ?? ""
-                alert("ChappanBhog", message: self.message, view: self)
+                alert("ChhappanBhog", message: self.message, view: self)
                 
             }
             
         }) { (error) in
             self.message = error.localizedDescription
-            alert("ChappanBhog", message: self.message, view: self)
+            alert("ChhappanBhog", message: self.message, view: self)
             
         }
         

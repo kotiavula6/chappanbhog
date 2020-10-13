@@ -170,13 +170,13 @@ extension searchRecordVC {
             }else {
                 
                 self.message = dict["message"] as? String ?? ""
-                alert("ChappanBhog", message: self.message, view: self)
+                alert("ChhappanBhog", message: self.message, view: self)
                 
             }
             self.recordsCollection.reloadData()
         }) { (error) in
             self.message = error.localizedDescription 
-            alert("ChappanBhog", message: self.message, view: self)
+            alert("ChhappanBhog", message: self.message, view: self)
             IJProgressView.shared.hideProgressView()
             
         }

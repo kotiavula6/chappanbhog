@@ -18,15 +18,17 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var gradientView: UIView!
     
     @IBOutlet weak var zipCodeTF: UITextField!
-    @IBOutlet weak var cityTF: UITextField!
-    @IBOutlet weak var stateTF: UITextField!
+    @IBOutlet weak var cityTF:    UITextField!
+    @IBOutlet weak var stateTF:   UITextField!
+    @IBOutlet weak var countryTF: UITextField!
     @IBOutlet weak var phoneNoTF: UITextField!
     @IBOutlet weak var addressTF: UITextField!
-    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var nameTF:    UITextField!
     
     @IBOutlet weak var zipCodeTFShipping: UITextField!
     @IBOutlet weak var cityTFShipping: UITextField!
     @IBOutlet weak var stateTFShipping: UITextField!
+    @IBOutlet weak var countryTFShipping: UITextField!
     @IBOutlet weak var phoneNoTFShipping: UITextField!
     @IBOutlet weak var addressTFShipping: UITextField!
     @IBOutlet weak var nameTFShipping: UITextField!
@@ -46,6 +48,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     var countryStateArr = [CountryStateModel]()
     var selectedCountry: CountryStateModel?
     var selectedStateArr = [States]()
+    var shippingAddressSelected = false
     
     
     
@@ -69,9 +72,19 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         
         
         setAppearance()
+        showShippingAddress(true)
         
+        cityTF.autocapitalizationType = .words
+        cityTFShipping.autocapitalizationType = .words
+        nameTF.autocapitalizationType = .words
+        nameTFShipping.autocapitalizationType = .words
+        addressTF.autocapitalizationType = .words
+        addressTFShipping.autocapitalizationType = .words
+        phoneNoTF.keyboardType = .phonePad
+        phoneNoTFShipping.keyboardType = .phonePad
     }
-    //MARK:- FUCNTIONS
+    
+    // MARK:- FUCNTIONS
     func setAppearance() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
@@ -81,6 +94,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             
             self.zipCodeTF.setLeftPaddingPoints(10)
             self.cityTF.setLeftPaddingPoints(10)
+            self.countryTF.setLeftPaddingPoints(10)
             self.stateTF.setLeftPaddingPoints(10)
             self.phoneNoTF.setLeftPaddingPoints(10)
             self.addressTF.setLeftPaddingPoints(10)
@@ -89,6 +103,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             self.zipCodeTFShipping.setLeftPaddingPoints(10)
             self.cityTFShipping.setLeftPaddingPoints(10)
             self.stateTFShipping.setLeftPaddingPoints(10)
+            self.countryTFShipping.setLeftPaddingPoints(10)
             self.phoneNoTFShipping.setLeftPaddingPoints(10)
             self.addressTFShipping.setLeftPaddingPoints(10)
             self.nameTFShipping.setLeftPaddingPoints(10)
@@ -112,13 +127,10 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
                 self.view.sendSubviewToBack(self.statesContainer)
                 
             }
-            
-            
         }
     }
     
   //MARKK:- PICKERVIEW METHODS
-    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -145,14 +157,20 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         if stateSelected {
             if countryStateArr.count > 0 {
                 self.selectedCountry = countryStateArr[row]
-                stateTF.text = countryStateArr[row].name ?? ""
+                if self.shippingAddressSelected {
+                    countryTFShipping.text = countryStateArr[row].name ?? ""
+                } else {
+                    countryTF.text = countryStateArr[row].name ?? ""
+                }
             }
-            
         } else {
             if selectedStateArr.count > 0 {
-                cityTF.text = selectedStateArr[row].name ?? ""
+                if self.shippingAddressSelected {
+                    stateTFShipping.text = selectedStateArr[row].name ?? ""
+                } else{
+                    stateTF.text = selectedStateArr[row].name ?? ""
+                }
             }
-            
         }
         
         self.view.endEditing(true)
@@ -163,28 +181,84 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     //
     //        }
     
+    func showShippingAddress(_ show: Bool) {
+        if show {
+            self.imgSelected.image = UIImage(named: "uncheck_box")
+            self.btnAddShippingAddress.isHidden = true
+            self.shippingAddressContentView.isHidden = false
+        }
+        else {
+            self.imgSelected.image = UIImage(named: "check_box")
+            self.btnAddShippingAddress.isHidden = false
+            self.shippingAddressContentView.isHidden = true
+        }
+    }
+    
+    func resignAll() {
+        zipCodeTF.resignFirstResponder()
+        cityTF.resignFirstResponder()
+        phoneNoTF.resignFirstResponder()
+        addressTF.resignFirstResponder()
+        nameTF.resignFirstResponder()
+        
+        zipCodeTFShipping.resignFirstResponder()
+        cityTFShipping.resignFirstResponder()
+        phoneNoTFShipping.resignFirstResponder()
+        addressTFShipping.resignFirstResponder()
+        nameTFShipping.resignFirstResponder()
+    }
+    
     //MARK:- ACTIONS
-    @IBAction func stateTFAction(_ sender: UIButton) {
+    @IBAction func countryTFAction(_ sender: UIButton) {
        // self.view.bringSubviewToFront(statesContainer)
         if self.countryStateArr.count < 1 {
             return
         }
-        self.self.stateCityPicker.reloadAllComponents()
+        self.shippingAddressSelected = false
         self.stateSelected = true
+        self.stateCityPicker.reloadAllComponents()
         self.pickerContainerView.isHidden = false
+        resignAll()
     }
     
-    @IBAction func cityTFAction(_ sender: UIButton) {
+    @IBAction func stateTFAction(_ sender: UIButton) {
         guard let countryAvailabel = self.selectedCountry else {
             // show alert
             return
-            
         }
+        self.shippingAddressSelected = false
         self.selectedStateArr = countryAvailabel.states ?? []
         self.stateSelected = false
-        self.self.stateCityPicker.reloadAllComponents()
+        self.stateCityPicker.reloadAllComponents()
         self.pickerContainerView.isHidden = false
-      }
+        resignAll()
+    }
+    
+    
+    @IBAction func shippingCountryTFAction(_ sender: UIButton) {
+        // self.view.bringSubviewToFront(statesContainer)
+        if self.countryStateArr.count < 1 {
+            return
+        }
+        self.shippingAddressSelected = true
+        self.stateSelected = true
+        self.stateCityPicker.reloadAllComponents()
+        self.pickerContainerView.isHidden = false
+        resignAll()
+    }
+      
+    @IBAction func shippingStateTFAction(_ sender: UIButton) {
+        guard let countryAvailabel = self.selectedCountry else {
+            // show alert
+            return
+        }
+        self.shippingAddressSelected = true
+        self.selectedStateArr = countryAvailabel.states ?? []
+        self.stateSelected = false
+        self.stateCityPicker.reloadAllComponents()
+        self.pickerContainerView.isHidden = false
+        resignAll()
+    }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -192,33 +266,30 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBAction func addShippingAdressButtonClicked(_ sender: UIButton) {
-        self.updateAddressBTN.setTitle("ADD SHIPPING ADDRESS", for: .normal)
-        self.shippingAddressContentView.isHidden = false
+       // self.updateAddressBTN.setTitle("ADD SHIPPING ADDRESS", for: .normal)
+       // self.shippingAddressContentView.isHidden = false
+        showShippingAddress(true)
     }
     
     @IBAction func btnSameShipping(_ sender: UIButton) {
-        self.updateAddressBTN.setTitle("UPDATE ADDRESS", for: .normal)
+        //self.updateAddressBTN.setTitle("UPDATE ADDRESS", for: .normal)
         if self.imgSelected.image == UIImage(named: "uncheck_box") {
-            self.imgSelected.image = UIImage(named: "check_box")
-            self.btnAddShippingAddress.isHidden = true
-            self.shippingAddressContentView.isHidden = true
+            showShippingAddress(false)
         } else {
-            self.btnAddShippingAddress.isHidden = false
-            self.imgSelected.image = UIImage(named: "uncheck_box")
+            showShippingAddress(true)
         }
     }
     
     @IBAction func btnDonePickingStateCity(_ sender: UIBarButtonItem) {
         self.pickerContainerView.isHidden = true
+        pickerView(stateCityPicker, didSelectRow: stateCityPicker.selectedRow(inComponent: 0), inComponent: 0)
     }
     
-    
-    
-    
-    
+
     @IBAction func updateAddressButtonClicked(_ sender: UIButton) {
         
         let kZipCode = zipCodeTF.text ?? ""
+        let kCountry = countryTF.text ?? ""
         let kCity = cityTF.text ?? ""
         let kState = stateTF.text ?? ""
         let kPhone = phoneNoTF.text ?? ""
@@ -226,45 +297,107 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         let kName = nameTF.text ?? ""
         
         if kName.count < 1 {
-            alert("ChappanBhog", message: "Name can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Name can't be empty.", view: self)
             return
         }
         if kAddress.count < 1 {
-            alert("ChappanBhog", message: "Address can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Address can't be empty.", view: self)
             return
         }
         if kPhone.count < 1 {
-            alert("ChappanBhog", message: "Phone can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Phone can't be empty.", view: self)
             return
         }
-        if kCity.count < 1 {
-            alert("ChappanBhog", message: "City can't be empty.", view: self)
+        if kCountry.count < 1 {
+            alert("ChhappanBhog", message: "Country can't be empty.", view: self)
             return
         }
         if kState.count < 1 {
-            alert("ChappanBhog", message: "State can't be empty.", view: self)
+            alert("ChhappanBhog", message: "State can't be empty.", view: self)
+            return
+        }
+        if kCity.count < 1 {
+            alert("ChhappanBhog", message: "City can't be empty.", view: self)
             return
         }
         if kZipCode.count < 1 {
-            alert("ChappanBhog", message: "Zip code can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Zip code can't be empty.", view: self)
             return
         }
         
+        
+        let kZipCodeShipping = zipCodeTFShipping.text ?? ""
+        let kCountryShipping = countryTFShipping.text ?? ""
+        let kCityShipping = cityTFShipping.text ?? ""
+        let kStateShipping = stateTFShipping.text ?? ""
+        let kPhoneShipping = phoneNoTFShipping.text ?? ""
+        let kAddressShipping = addressTFShipping.text ?? ""
+        let kNameShipping = nameTFShipping.text ?? ""
+        
+        let sameAsBilling = self.imgSelected.image == UIImage(named: "check_box")
+        
+        if !sameAsBilling {
+            // Need to add shipping address data as well
+            
+            if kNameShipping.count < 1 {
+                alert("ChappanBhog", message: "Shipping name can't be empty.", view: self)
+                return
+            }
+            if kAddressShipping.count < 1 {
+                alert("ChappanBhog", message: "Shipping address can't be empty.", view: self)
+                return
+            }
+            if kPhoneShipping.count < 1 {
+                alert("ChappanBhog", message: "Shipping phone can't be empty.", view: self)
+                return
+            }
+            if kCountryShipping.count < 1 {
+                alert("ChappanBhog", message: "Shipping country can't be empty.", view: self)
+                return
+            }
+            if kStateShipping.count < 1 {
+                alert("ChappanBhog", message: "Shipping state can't be empty.", view: self)
+                return
+            }
+            if kCityShipping.count < 1 {
+                alert("ChappanBhog", message: "Shipping city can't be empty.", view: self)
+                return
+            }
+            if kZipCodeShipping.count < 1 {
+                alert("ChappanBhog", message: "Shipping zip code can't be empty.", view: self)
+                return
+            }
+        }
         
         
         let addAddressUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_ADD_ADDRESS
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         
         var params : [String: Any] = [:]
-        params["user_id"] =  userID as Any
-        params["name"] = kName as Any
-        params["address"] = kAddress as Any
-        params["phone_number"] = kPhone as Any
-        params["city"] = kCity as Any
-        params["state"] = kState as Any
-        params["zip"] = kZipCode as Any
-        params["type"] = (0) as Any
-        params["same_as_shipping"] = (false) as Any
+        params["user_id"] =  userID
+        params["name"] = kName
+        params["address"] = kAddress
+        params["phone_number"] = kPhone
+        params["country"] = kCountry
+        params["city"] = kCity
+        params["state"] = kState
+        params["zip"] = kZipCode
+        // params["type"] = (0) as Any
+        
+        if sameAsBilling {
+            // add shipping params
+            params["same_as_shipping"] = false
+            params["shipping_name"] = kName
+            params["shipping_address"] = kAddress
+            params["shipping_phone_number"] = kPhone
+            params["shipping_country"] = kState
+            params["shipping_city"] = kCity
+            params["shipping_state"] = kState
+            params["shipping_zip"] = kZipCode
+        } else {
+            params["same_as_shipping"] = true
+        }
+        
         
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestPOSTURLWithHeader(addAddressUrl, params: params , success: { (dict) in
@@ -274,67 +407,47 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             if isTokenExpired {
                 return
             }
-            
             print(dict)
-            print(params)
-            if let result = dict as? [String:Any]{
-                print(result)
+            let status = dict["success"] as? Bool ?? false
+            if status {
                 
-              //  let message = result["message"] as? String ?? ""
-                let status = result["success"] as? Bool ?? false
+                let msg = dict["message"] as? String ?? "Successfully updated!"
+                showAlertMessage(title: "ChhappanBhog", message: msg, okButton: "Ok", controller: self) {
+                    self.navigationController?.popViewController(animated: true)
+                }
                 
-                if status{
-                    if result["data"] != nil{
-                        
-                        let responseData = result["data"] as! Dictionary<String, Any>
+                /*if dict["data"] != nil {
+                    
+                    let responseData = dict["data"] as! Dictionary<String, Any>
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: responseData , options: .prettyPrinted)
                         do {
-                            let jsonData = try JSONSerialization.data(withJSONObject: responseData , options: .prettyPrinted)
-                            do {
-                                let jsonDecoder = JSONDecoder()
-                                let updatedData = try jsonDecoder.decode(UpdateAddressModel.self, from: jsonData)
-                                print(updatedData)
-                                let msg = result["message"] as? String ?? ""
-                                //alert("ChappanBhog", message: msg, view: self)
-                                showAlertMessage(title: "ChappanBhog", message: msg, okButton: "Ok", controller: self) {
-                                    self.navigationController?.popViewController(animated: true)
-                                }
-                                
-                            } catch {
-                                print("Unexpected error: \(error).")
-                                alert("ChappanBhog", message: error.localizedDescription, view: self)
-                                
+                            let jsonDecoder = JSONDecoder()
+                            let updatedData = try jsonDecoder.decode(UpdateAddressModel.self, from: jsonData)
+                            let msg = dict["message"] as? String ?? ""
+                            showAlertMessage(title: "ChhappanBhog", message: msg, okButton: "Ok", controller: self) {
+                                self.navigationController?.popViewController(animated: true)
                             }
                             
                         } catch {
-                            print(error.localizedDescription)
-                            
-                            alert("ChappanBhog", message: error.localizedDescription, view: self)
+                            alert("ChhappanBhog", message: error.localizedDescription, view: self)
                         }
-                        
-                        
-                        
+                    } catch {
+                        alert("ChhappanBhog", message: error.localizedDescription, view: self)
                     }
-                    else{
-                        let msg = result["message"] as? String ?? "Some error Occured"
-                        alert("ChappanBhog", message: msg, view: self)
-                    }
-                } else {
-                    let msg = result["message"] as? String ?? "Some error Occured"
-                    alert("ChappanBhog", message: msg, view: self)
-                    
                 }
+                else{
+                    let msg = dict["message"] as? String ?? "Some error Occured"
+                    alert("ChhappanBhog", message: msg, view: self)
+                }*/
             } else {
-                
+                let msg = dict["message"] as? String ?? "Some error Occured"
+                alert("ChhappanBhog", message: msg, view: self)
             }
         }) { (error) in
             IJProgressView.shared.hideProgressView()
-            alert("ChappanBhog", message: error.description, view: self)
+            alert("ChhappanBhog", message: error.description, view: self)
         }
-        
-        
-        
-        
-        
     }
     
     
@@ -364,7 +477,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
                                   print(countryStateObj)
                               }  catch {
                                   print("Unexpected error: \(error).")
-                                  alert("ChappanBhog", message: error.localizedDescription, view: self)
+                                  alert("ChhappanBhog", message: error.localizedDescription, view: self)
                                   
                               }
                               

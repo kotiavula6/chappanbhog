@@ -25,9 +25,7 @@ class SignInVC: UIViewController  {
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        
+                
         //set ASHelper class delegate
         if #available(iOS 13.0, *) {
             ASHelper.shared.delegate = self
@@ -140,7 +138,7 @@ class SignInVC: UIViewController  {
                 
                 print("error: \(String(describing: error?.localizedDescription))")
                 self.message = error?.localizedDescription ?? ""
-                alert("ChappanBhog", message: self.message, view: self)
+                alert("ChhappanBhog", message: self.message, view: self)
                 
             }
         })
@@ -223,7 +221,7 @@ class SignInVC: UIViewController  {
                 let success = result["success"] as? Int ?? 0
                 
                 if success == 0{
-                    alert("ChappanBhog", message: self.message, view: self)
+                    alert("ChhappanBhog", message: self.message, view: self)
                 }else{
                     let data = result["data"] as? [String:Any] ?? [:]
                     let name = data["name"] as? String ?? ""

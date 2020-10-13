@@ -68,7 +68,7 @@ class ProductInfoVC: UIViewController {
         if quantity > available_quantity {
             print(available_quantity)
             message = "MaxQuantity is \(available_quantity)"
-            alert("ChappanBhog", message: self.message, view: self)
+            alert("ChhappanBhog", message: self.message, view: self)
         }else {
             quantity += 1
             quantityLBL.text = "\(quantity)"
@@ -185,14 +185,14 @@ extension ProductInfoVC {
             }else {
                 
                 self.message = dict["message"] as? String ?? ""
-                alert("ChappanBhog", message: self.message, view: self)
+                alert("ChhappanBhog", message: self.message, view: self)
                 
             }
             self.productImageCollection.reloadData()
             
         }) { (error) in
             self.message = error.localizedDescription
-            alert("ChappanBhog", message: self.message, view: self)
+            alert("ChhappanBhog", message: self.message, view: self)
             
         }
 
