@@ -17,13 +17,14 @@ var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.c
 class DashBoardVC: UIViewController {
     
     var YOUR_DATA_ARRAY = ["one","two","three"]
-
     
+    var senderTag = Int()
     var quantity:String = ""
     @IBOutlet weak var ratingView: STRatingControl!
     var bannerArr = [BannersdashBoard]()
     var categoriesArr = [categories]()
     var toppicsArr = [TopPics]()
+    var options = [optionss]()
     
     var totalCartItems:Int = 1
     var message:String = ""
@@ -104,14 +105,14 @@ class DashBoardVC: UIViewController {
             self.sidemenu.logoutAction = {
                 
                 /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-                self.navigationController?.pushViewController(vc, animated: true)
-                UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
-                GIDSignIn.sharedInstance().signOut()
-                let store = TWTRTwitter.sharedInstance().sessionStore
-
-                if let userID = store.session()?.userID {
-                  store.logOutUserID(userID)
-                }*/
+                 self.navigationController?.pushViewController(vc, animated: true)
+                 UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
+                 GIDSignIn.sharedInstance().signOut()
+                 let store = TWTRTwitter.sharedInstance().sessionStore
+                 
+                 if let userID = store.session()?.userID {
+                 store.logOutUserID(userID)
+                 }*/
                 AppDelegate.shared.logout()
             }
             
@@ -128,25 +129,26 @@ class DashBoardVC: UIViewController {
             
             cartLBL.text = "\(totalCartItems)"
         }
-     
+        
     }
     
     @objc func openPicker(sender:UIButton) {
-        
+        print(sender.tag)
+        senderTag = sender.tag
         picker = UIPickerView.init()
-               picker.delegate = self
-               picker.backgroundColor = UIColor.white
-               picker.setValue(UIColor.black, forKey: "textColor")
-               picker.autoresizingMask = .flexibleWidth
-               picker.contentMode = .center
-               picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
-               self.view.addSubview(picker)
-
-               toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
-               toolBar.barStyle = .blackTranslucent
-               toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
-               self.view.addSubview(toolBar)
-     
+        picker.delegate = self
+        picker.backgroundColor = UIColor.white
+        picker.setValue(UIColor.black, forKey: "textColor")
+        picker.autoresizingMask = .flexibleWidth
+        picker.contentMode = .center
+        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+        self.view.addSubview(picker)
+        
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar.barStyle = .blackTranslucent
+        toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+        self.view.addSubview(toolBar)
+        
     }
     
     @objc func onDoneButtonTapped() {
@@ -180,7 +182,7 @@ class DashBoardVC: UIViewController {
         // openMenuPanel(self)
     }
     
-   
+    
     
     @IBAction func menuButtonAction(_ sender: UIButton) {
         
@@ -190,14 +192,14 @@ class DashBoardVC: UIViewController {
     
     @IBAction func searchTFAction(_ sender: UITextField) {
         
-       
+        
     }
     
     @IBAction func searchButtonAction(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
         vc.iscomeFrom = "search"
-          self.navigationController?.pushViewController(vc, animated: true)
-  
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 }
@@ -206,19 +208,19 @@ extension DashBoardVC:UIPickerViewDelegate,UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return YOUR_DATA_ARRAY.count
+        return options.count
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-     return YOUR_DATA_ARRAY[row]
+        return options[row].name
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         quantity = YOUR_DATA_ARRAY[row]
     }
-
+    
 }
 
 //MARK:- TABLEVIEW METHODS
@@ -254,8 +256,8 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         
         cell.addTocartButton.addTarget(self, action: #selector(cartButtonClickedd(sender:)) , for: .touchUpInside)
         cell.weightBTN.addTarget(self, action: #selector(openPicker(sender:)), for: .touchUpInside)
-      
-
+        
+        
         cell.increase = {
             cell.quantity += 1
             cell.quantityLBL.text = "\(cell.quantity)"
@@ -343,10 +345,10 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             }
             
         } else {
-              
+            
             let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
             let id = categoriesArr[indexPath.row].id ?? 0
-             vc.GET_CATEGORY_ITEMS(ItemId: id)
+            vc.GET_CATEGORY_ITEMS(ItemId: id)
             self.navigationController?.pushViewController(vc, animated: true)
             
         }
@@ -384,23 +386,34 @@ extension DashBoardVC {
                 
                 let banners = response["banners"] as? NSArray ?? NSArray()
                 let topPicks = response["topPicks"] as? NSArray ?? NSArray()
-                let categori = response["categories"] as? NSArray ?? NSArray()
-                print(banners)
                 
                 self.bannerArr.removeAll()
                 self.toppicsArr.removeAll()
+                self.options.removeAll()
                 
                 for i in 0..<banners.count {
                     self.bannerArr.append(BannersdashBoard(dict: banners.object(at: i) as! [String:Any]))
+                    
+                    
                 }
                 for i in 0..<topPicks.count {
                     self.toppicsArr.append(TopPics(dict: topPicks.object(at: i) as! [String:Any]))
+                         let topPicks = response["topPicks"] as? NSDictionary ?? NSDictionary()
+                        let optio = topPicks["options"] as? NSArray ?? NSArray()
+                    print(optio)
+                     
+                    
+                          for j in 0..<optio.count {
+                              self.options.append(optionss(dict: optio.object(at: j) as! [String : Any]))
+                          }
+                    print(optio.count)
                 }
-             
+
+                
             }
             self.topPageCollection.reloadData()
             self.topPicsTable.reloadData()
-          
+            
             
         }) { (error) in
             
@@ -409,7 +422,7 @@ extension DashBoardVC {
         }
     }
     
-  //MARK:- GET CATEGORIES
+    //MARK:- GET CATEGORIES
     func API_GET_DASHBOARD_IMAGES() {
         
         IJProgressView.shared.showProgressView()
@@ -437,7 +450,7 @@ extension DashBoardVC {
                 self.categoriesArr.removeAll()
                 for i in 0..<response.count {
                     self.categoriesArr.append(categories(dict: response.object(at: i) as! [String:Any]))
-
+                    
                 }
             }
             self.productsCatCollection.reloadData()

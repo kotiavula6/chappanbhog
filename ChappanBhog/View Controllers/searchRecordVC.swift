@@ -11,7 +11,7 @@ import UIKit
 class searchRecordVC: UIViewController {
     
     var searchArr = [SearchRecordModel]()
-    var optionsArr = [optionsModel]()
+//    var optionsArr = [optionsModel]()
     
     var iscomeFrom = ""
     var message:String = ""
@@ -158,17 +158,14 @@ extension searchRecordVC {
             if status == 200 {
                 
                 self.searchArr.removeAll()
-                self.optionsArr.removeAll()
+   //             self.optionsArr.removeAll()
                 
                 for i in 0..<response.count {
                     self.searchArr.append(SearchRecordModel(dict: response.object(at: i) as! [String:Any]))
                     
-                    for j in 0..<options.count {
-                        self.optionsArr.append(optionsModel(dict: response.object(at: j) as! [String:Any]))
-                        
-                    }
+
                 }
-                print(self.optionsArr)
+//                print(self.optionsArr)
 
             }else {
                 
