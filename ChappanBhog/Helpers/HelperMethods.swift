@@ -51,6 +51,7 @@ func showMessage(title: String, message: String, okButton: String, cancelButton:
   //  UIApplication.shared.windows[0].rootViewController?.present(alertController, animated: true, completion: nil)
             controller.present(alertController, animated: true, completion: nil)
 }
+
 func showAlertMessage(title: String, message: String, okButton: String, controller: UIViewController, okHandler: (() -> Void)?){
     let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
     let dismissAction = UIAlertAction(title: okButton, style: UIAlertAction.Style.default) { (action) -> Void in

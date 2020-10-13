@@ -165,7 +165,7 @@ extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = listTable.dequeueReusableCell(withIdentifier: "MyAccountListTableCell") as! MyAccountListTableCell
         cell.nameLBL.text = listArray[indexPath.row]
-        
+        cell.selectionStyle = .none
         DispatchQueue.main.async {
             self.listTableHeight.constant = self.listTable.contentSize.height
         }
