@@ -83,6 +83,16 @@ extension OurMenuVC:UITableViewDelegate,UITableViewDataSource {
         let height = iconWidth * 86 / 100
         return height
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let shopCategory = shopCategories[indexPath.row]
+        let id = Int(shopCategory.id) ?? 0
+        if id == 0 { return }
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
+        vc.GET_CATEGORY_ITEMS(ItemId: id)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 

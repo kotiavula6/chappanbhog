@@ -93,6 +93,19 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == topCategoryCollection { return }
+        if indexPath.row < categoryArr.count {
+            let data = categoryArr[indexPath.row]
+            let itemId = data.id ?? 0
+            if itemId == 0 { return }
+            
+            let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+            vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 
@@ -113,13 +126,16 @@ extension CategoryAndItemsVC {
             
             print(dict)
             
-            let response = dict["data"] as? NSArray ?? NSArray()
             
-            let isTokenExpired = AFWrapperClass.handle401Error(dict: response as! [String: Any], self)
-            if isTokenExpired {
-                return
+            
+            if let result = dict as? [String: Any] {
+                let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
+                if isTokenExpired {
+                    return
+                }
             }
             
+            let response = dict["data"] as? NSArray ?? NSArray()
             let status = dict["status"] as? Int ?? 0
             
             if status == 200 {
