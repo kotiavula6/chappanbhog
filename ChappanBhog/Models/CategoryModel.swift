@@ -28,6 +28,7 @@ class Categores: NSObject {
         image = dict["image"] as? [String]
         
         options?.removeAll()
+        options = []
         if let values = dict["options"] as? [[String: Any]] {
             for value in values {
                 let option = Options(dict: value)
