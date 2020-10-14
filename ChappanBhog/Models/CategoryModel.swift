@@ -10,47 +10,100 @@ import UIKit
 
 class Categores: NSObject {
     
-var available_quantity:String?
-var favorite:Int?
-var id:Int?
-var image:[String]?
-var options:[options]?
-var price:Int?
-var ratings:Int?
-var reviews:Int?
-var title:String?
+    var available_quantity:String?
+    var favorite:Int?
+    var id:Int?
+    var image:[String]?
+    var options:[Options]?
+    var price:Double?
+    var ratings:Int?
+    var reviews:Int?
+    var title:String?
     
     init(dict:[String:Any]) {
         super.init()
-       available_quantity = dict["available_quantity"] as? String
+        available_quantity = dict["available_quantity"] as? String
         favorite = dict["favorite"] as? Int
         id = dict["id"] as? Int
         image = dict["image"] as? [String]
-        options = dict["options"] as? [options]
-        price = dict["options"] as? Int
+        
+        options?.removeAll()
+        if let values = dict["options"] as? [[String: Any]] {
+            for value in values {
+                let option = Options(dict: value)
+                options?.append(option)
+            }
+        }
+                
+        price = dict["price"] as? Double
         ratings = dict["ratings"] as? Int
         reviews = dict["reviews"] as? Int
         title = dict["title"] as? String
-        
-        
     }
     
+    func getDict() -> [String: Any] {
+        var dict: [String: Any] = [:]
+        if let value = self.available_quantity {
+            dict["available_quantity"] = value
+        }
+        if let value = self.favorite {
+            dict["favorite"] = value
+        }
+        if let value = self.id {
+            dict["id"] = value
+        }
+        if let value = self.image {
+            dict["image"] = value
+        }
+        if let value = self.price {
+            dict["price"] = value
+        }
+        if let value = self.ratings {
+            dict["ratings"] = value
+        }
+        if let value = self.reviews {
+            dict["reviews"] = value
+        }
+        if let value = self.title {
+            dict["title"] = value
+        }
+        if let values = self.options {
+            var i: [[String: Any]] = []
+            for value in values {
+                i.append(value.getDict())
+            }
+            dict["options"] = i
+        }
+        
+        return dict
+    }
 }
-class options:NSObject {
-    
+
+class Options: NSObject {
     var id:Int?
     var name:String?
-    var price:Int?
+    var price:Double?
     
     init(dict:[String:Any]) {
         super.init()
-        
         id = dict["id"] as? Int
         name = dict["name"] as? String
-        price = dict["options"] as? Int
-        
+        price = dict["price"] as? Double
     }
     
+    func getDict() -> [String: Any] {
+        var dict: [String: Any] = [:]
+        if let value = self.id {
+            dict["id"] = value
+        }
+        if let value = self.name {
+            dict["name"] = value
+        }
+        if let value = self.price {
+            dict["price"] = value
+        }
+        return dict
+    }
 }
 
 class ShopCategory: NSObject {

@@ -238,7 +238,7 @@ class SignInVC: UIViewController  {
                     let phone = data["phone"] as? String ?? ""
                     let user_id = data["user_id"] as? Int ?? 0
                     let token = data["token"] as? String ?? ""
-                    let verified = data["verified"] as? Int ?? 0
+                    let verified = Int(data["verified"] as? String ?? "0") ?? 0
                     let type = data["type"] as? Int ?? 0
                     
                     print(user_id)

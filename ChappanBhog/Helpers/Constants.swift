@@ -10,6 +10,8 @@ import UIKit
 
  var Kdefaults = UserDefaults.standard
 
+typealias SimpleBlock = () -> Void
+
 //MARK:- BACKGROUND GRADIENT COLOR
 
 let SCREEN_WIDTH =  UIScreen.main.bounds.size.width
@@ -75,8 +77,7 @@ func setGradientBackground(view: UIView) {
     
 //MARK:- BASE URL
 
-struct ApplicationUrl
-{
+struct ApplicationUrl {
     static let WEB_SERVER = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/"
 }
 
@@ -174,8 +175,6 @@ extension UITextField {
         self.attributedPlaceholder = NSAttributedString(string: strPH, attributes: [NSAttributedString.Key.foregroundColor : color])
     }
     
-
-    
     func setLeftIcon(_ icon: UIImage, padding: CGFloat, widthSize: CGFloat, heightSize: CGFloat) {
         let outerView = UIView(frame: CGRect(x: 0, y: 0, width: widthSize+padding, height: heightSize) )
         let iconView  = UIImageView(frame: CGRect(x: padding/2, y: 0, width: widthSize, height: heightSize))
@@ -208,7 +207,7 @@ extension UITextField {
 //MARK:- ImageView
 extension UIImageView {
     func downloadImageFromURL(urlString: String, placeHolder: UIImage) {
-        let url = URL(string: urlString)
+       // let url = URL(string: urlString)
 //        self.kf.indicatorType = .activity
 //        self.kf.setImage(with: url, placeholder: placeHolder)
     }
@@ -244,8 +243,6 @@ extension UIImageView {
 
 //MARK: //////    UIViewcontroller  ////////
 extension UIViewController {
-    
- 
    
     func dismissViewController(){
         self.dismiss(animated: true, completion: nil)
@@ -254,8 +251,6 @@ extension UIViewController {
     func popViewController(animate:Bool=true){
         self.navigationController?.popViewController(animated: animate)
     }
-    
-
     
     func hideNavigationBar(){
         // Hide the navigation bar on the this view controller

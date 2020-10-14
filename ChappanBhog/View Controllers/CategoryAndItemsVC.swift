@@ -14,7 +14,7 @@ class CategoryAndItemsVC: UIViewController {
     var message:String = ""
     
     var categoryArr = [Categores]()
-    var optionArr = [options]()
+    var optionArr = [Options]()
     
     //MARK:- OUTLETS
     @IBOutlet weak var scrollView: UIScrollView!
@@ -78,6 +78,12 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             cell.nameLBL.text = data.title
             DispatchQueue.main.async {
                 self.itemsHeightConstraint.constant = self.itemsCollection.contentSize.height
+            }
+            
+            cell.cartBlock = {
+                let data = self.categoryArr[indexPath.row]
+                let dict = data.getDict()
+                CartHelper.shared.addToCart(itemInfo: dict)
             }
             
             return cell
@@ -190,4 +196,16 @@ class itemsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var productIMG: UIImageView!
     @IBOutlet weak var nameLBL: UILabel!
     
+    var cartBlock: SimpleBlock?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addToCartBTN.addTarget(self, action: #selector(cartAction(_:)), for: UIControl.Event.touchUpInside)
+    }
+    
+    @objc func cartAction(_ sender: UIButton) {
+        if let block = cartBlock {
+            block()
+        }
+    }
 }

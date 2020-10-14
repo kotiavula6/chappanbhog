@@ -162,7 +162,7 @@ extension VerifyPhoneVC {
             case .success(let value):
                 // 1 - user verified
                 UserDefaults.standard.set(1, forKey: Constants.verified)
-                 UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
+                UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
                 print(value)
             case .failure(let error):
                 print(error)

@@ -281,8 +281,6 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
         let itemId = toppicsArr[indexPath.row].id ?? 0
         vc.GET_PRODUCT_DETAILS(ItemId: itemId)
-        
-        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -383,10 +381,9 @@ extension DashBoardVC {
             let success = dict["success"] as? Int ?? 0
             
             if success == 0 {
-                
                 self.message = dict["message"] as? String ?? ""
                 alert("ChhappanBhog", message: self.message, view: self)
-            }else {
+            } else {
                 
                 let banners = response["banners"] as? NSArray ?? NSArray()
                 let topPicks = response["topPicks"] as? NSArray ?? NSArray()
@@ -397,19 +394,16 @@ extension DashBoardVC {
                 
                 for i in 0..<banners.count {
                     self.bannerArr.append(BannersdashBoard(dict: banners.object(at: i) as! [String:Any]))
-                    
-                    
                 }
                 for i in 0..<topPicks.count {
                     self.toppicsArr.append(TopPics(dict: topPicks.object(at: i) as! [String:Any]))
-                         let topPicks = response["topPicks"] as? NSDictionary ?? NSDictionary()
-                        let optio = topPicks["options"] as? NSArray ?? NSArray()
+                    let topPicks = response["topPicks"] as? NSDictionary ?? NSDictionary()
+                    let optio = topPicks["options"] as? NSArray ?? NSArray()
                     print(optio)
-                     
                     
-                          for j in 0..<optio.count {
-                              self.options.append(optionss(dict: optio.object(at: j) as! [String : Any]))
-                          }
+                    for j in 0..<optio.count {
+                        self.options.append(optionss(dict: optio.object(at: j) as! [String : Any]))
+                    }
                     print(optio.count)
                 }
 
