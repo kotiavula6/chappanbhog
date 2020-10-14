@@ -33,8 +33,18 @@ class SignInVC: UIViewController  {
             // Fallback on earlier versions
         }
         setAppearance()
+        userNameTF.keyboardType = .emailAddress
         
+        let loggedIn = UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN")
+        if loggedIn {
+            let phone = UserDefaults.standard.string(forKey: Constants.Phone) ?? ""
+            let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
+            vc.phone = phone
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
@@ -152,7 +162,6 @@ class SignInVC: UIViewController  {
         GIDSignIn.sharedInstance().signIn()
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
-        
     }
     
     @IBAction func appleLoginClicked(_ sender: UIButton) {
@@ -230,11 +239,12 @@ class SignInVC: UIViewController  {
                     let user_id = data["user_id"] as? Int ?? 0
                     let token = data["token"] as? String ?? ""
                     let verified = data["verified"] as? Int ?? 0
+                    let type = data["type"] as? Int ?? 0
+                    
                     print(user_id)
                     print(token)
                     
                     UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
-                    
                     UserDefaults.standard.set(name, forKey: Constants.Name)
                     UserDefaults.standard.set(email, forKey: Constants.EmailID)
                     UserDefaults.standard.set(phone, forKey: Constants.Phone)
@@ -242,10 +252,18 @@ class SignInVC: UIViewController  {
                     UserDefaults.standard.set(true, forKey: Constants.IsLogin)
                     UserDefaults.standard.set(token, forKey: Constants.access_token)
                     UserDefaults.standard.set(verified, forKey: Constants.verified)
-                  
-                    let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    UserDefaults.standard.set(type, forKey: Constants.type)
                     
+                    if verified == 0 && type == 0 {
+                        // Ask for phone verification again
+                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
+                        vc.phone = phone
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                    else {
+                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
             }
         }) { (error) in

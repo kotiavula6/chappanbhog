@@ -35,6 +35,7 @@ class RegisterVC: UIViewController {
         
         emailTF.keyboardType = .emailAddress
         mobileTF.keyboardType = .phonePad
+        nameTF.autocapitalizationType = .words
         
         //set ASHelper class delegate
             if #available(iOS 13.0, *) {
@@ -293,9 +294,10 @@ class RegisterVC: UIViewController {
     
                     if self.isEmailRegisteration {
                         // Show phone verification screen
+                        let code = (self.selectedCountry?.dialingCode ?? "0")
                         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
-                        vc.phone = phone
-                        vc.code = (self.selectedCountry?.dialingCode ?? "0")
+                        vc.phone = code + phone
+                        // vc.code = (self.selectedCountry?.dialingCode ?? "0")
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {

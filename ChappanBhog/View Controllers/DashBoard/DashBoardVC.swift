@@ -102,6 +102,8 @@ class DashBoardVC: UIViewController {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AboutVC") as! AboutVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
+            
+            
             self.sidemenu.logoutAction = {
                 
                 /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
@@ -113,7 +115,8 @@ class DashBoardVC: UIViewController {
                  if let userID = store.session()?.userID {
                  store.logOutUserID(userID)
                  }*/
-                AppDelegate.shared.logout()
+                
+                self.showAlertWithTitle(title: "", message: "Are you sure you want to logout?", okButton: "Yes", cancelButton: "No", okSelectorName: #selector(self.logout))
             }
             
         }
@@ -123,13 +126,14 @@ class DashBoardVC: UIViewController {
         self.view.addGestureRecognizer(swipeRight)
     }
     
+    @objc func logout() {
+        AppDelegate.shared.logout()
+    }
+    
     @objc func cartButtonClickedd(sender: UIButton) {
-        
         if totalCartItems > 1 {
-            
             cartLBL.text = "\(totalCartItems)"
         }
-        
     }
     
     @objc func openPicker(sender:UIButton) {

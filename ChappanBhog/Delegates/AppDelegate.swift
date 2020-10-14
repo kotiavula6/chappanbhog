@@ -40,8 +40,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.window?.rootViewController = nav
 //        self.window?.makeKeyAndVisible()
         
-        if UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN") == true {
-            _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToDashBoard), userInfo: nil, repeats: false)
+        let loggedIn = UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN")
+        let type = UserDefaults.standard.integer(forKey: "type")
+        let verified = UserDefaults.standard.integer(forKey: Constants.verified)
+        
+        if loggedIn {
+            if type == 0 && verified == 0 {
+                // Type = Email and Phone number is not verified
+                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
+            }
+            else {
+                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToDashBoard), userInfo: nil, repeats: false)
+            }
         }
         else {
             _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)

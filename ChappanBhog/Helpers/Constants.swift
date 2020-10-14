@@ -128,6 +128,7 @@ struct Constants
     static let Phone = "Phone"
     static let FullName = "FullName"
     static let verified = "verified"
+    static let type = "type"
     
     static let EncryptedLoginID = "LoginId"
     static let EncryptedPackageId = "EncryptedPackageId"

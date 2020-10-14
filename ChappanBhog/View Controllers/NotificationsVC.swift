@@ -15,6 +15,7 @@ class NotificationsVC: UIViewController {
     //MARK:- OUTLETS
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var notificationsTable: UITableView!
+    @IBOutlet weak var lblNoNotifications: UILabel!
     
     var notificationDataArr = [NotificationModel]()
     var currentPage: Int = 1
@@ -30,6 +31,7 @@ class NotificationsVC: UIViewController {
         notificationsTable.dataSource = self
         notificationsTable.register(UINib(nibName: "LoadMoreCell", bundle: nil), forCellReuseIdentifier: "LoadMoreCell")
         setAppearance()
+        self.lblNoNotifications.isHidden = true
     }
     
     override func viewWillLayoutSubviews() {
@@ -60,6 +62,14 @@ class NotificationsVC: UIViewController {
     func reloadData() {
         DispatchQueue.main.async {
             self.notificationsTable.reloadData()
+            if self.notificationDataArr.count == 0 {
+                self.lblNoNotifications.isHidden = false
+                self.notificationsTable.isHidden = true
+            }
+            else {
+                self.lblNoNotifications.isHidden = true
+                self.notificationsTable.isHidden = false
+            }
         }
     }
     

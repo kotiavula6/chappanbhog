@@ -106,7 +106,7 @@ extension VerifyPhoneVC {
                 return
             }
             
-            self.showAlertWithTitle(title: "", message: "A verification code has been sent to your registered number.", okButton: "Ok", cancelButton: "", okSelectorName: nil)
+            self.showAlertWithTitle(title: "", message: "We have resent the verification code on your registered mobile number.", okButton: "Ok", cancelButton: "", okSelectorName: nil)
             self.verificationID = verificationID ?? ""
             completion()
         }
