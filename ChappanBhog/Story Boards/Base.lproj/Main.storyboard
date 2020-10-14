@@ -6865,28 +6865,28 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="huA-bh-ucn">
-                                <rect key="frame" x="0.0" y="0.0" width="275" height="236"/>
+                                <rect key="frame" x="0.0" y="0.0" width="275" height="175"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTACT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9V-8x-DDT">
-                                        <rect key="frame" x="98.5" y="10" width="78" height="24.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTACT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9V-8x-DDT">
+                                        <rect key="frame" x="10" y="10" width="255" height="24.5"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info@chappanbhog.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9b-Vc-nyk">
-                                        <rect key="frame" x="0.0" y="71.5" width="275" height="24.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info@chappanbhog.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9b-Vc-nyk">
+                                        <rect key="frame" x="10" y="71.5" width="255" height="24.5"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Light" family="Brandon Grotesque" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apna Bazaar Sadar Lucknow, Uttar Pradesh (226 002), India" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRX-4A-lzd">
-                                        <rect key="frame" x="0.0" y="116" width="275" height="49"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apna Bazaar Sadar Lucknow, Uttar Pradesh (226 002), India" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRX-4A-lzd">
+                                        <rect key="frame" x="10" y="116" width="255" height="49"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Light" family="Brandon Grotesque" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+(91) - 9415115656" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ro-Fn-wPV">
-                                        <rect key="frame" x="0.0" y="42" width="275" height="24.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+(91) - 9415115656" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ro-Fn-wPV">
+                                        <rect key="frame" x="10" y="42" width="255" height="24.5"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Light" family="Brandon Grotesque" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -6894,21 +6894,23 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="5Ro-Fn-wPV" secondAttribute="trailing" id="1S5-E5-Jna"/>
-                                    <constraint firstAttribute="trailing" secondItem="KRX-4A-lzd" secondAttribute="trailing" id="8Zj-4X-f8W"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Ro-Fn-wPV" secondAttribute="trailing" constant="10" id="1AC-d7-Ne1"/>
+                                    <constraint firstItem="L9V-8x-DDT" firstAttribute="leading" secondItem="huA-bh-ucn" secondAttribute="leading" constant="10" id="20F-KK-sGk"/>
+                                    <constraint firstItem="5Ro-Fn-wPV" firstAttribute="leading" secondItem="huA-bh-ucn" secondAttribute="leading" constant="10" id="2Gy-pN-X2M"/>
+                                    <constraint firstAttribute="trailing" secondItem="L9V-8x-DDT" secondAttribute="trailing" constant="10" id="3uQ-nv-8UX"/>
+                                    <constraint firstAttribute="trailing" secondItem="KRX-4A-lzd" secondAttribute="trailing" constant="10" id="8Zj-4X-f8W"/>
                                     <constraint firstItem="5Ro-Fn-wPV" firstAttribute="top" secondItem="L9V-8x-DDT" secondAttribute="bottom" constant="7.5" id="A07-kO-uV9"/>
                                     <constraint firstItem="Z9b-Vc-nyk" firstAttribute="trailing" secondItem="5Ro-Fn-wPV" secondAttribute="trailing" id="OBu-ww-hc1"/>
                                     <constraint firstItem="KRX-4A-lzd" firstAttribute="top" secondItem="Z9b-Vc-nyk" secondAttribute="bottom" constant="20" id="WXz-iG-UVf"/>
-                                    <constraint firstItem="L9V-8x-DDT" firstAttribute="centerX" secondItem="huA-bh-ucn" secondAttribute="centerX" id="XR1-7Z-TOc"/>
                                     <constraint firstItem="Z9b-Vc-nyk" firstAttribute="top" secondItem="5Ro-Fn-wPV" secondAttribute="bottom" constant="5" id="fmx-VX-D6y"/>
-                                    <constraint firstItem="5Ro-Fn-wPV" firstAttribute="leading" secondItem="huA-bh-ucn" secondAttribute="leading" id="gmd-fl-JcK"/>
-                                    <constraint firstItem="KRX-4A-lzd" firstAttribute="leading" secondItem="huA-bh-ucn" secondAttribute="leading" id="khU-JM-lCE"/>
+                                    <constraint firstItem="KRX-4A-lzd" firstAttribute="leading" secondItem="huA-bh-ucn" secondAttribute="leading" constant="10" id="khU-JM-lCE"/>
+                                    <constraint firstAttribute="bottom" secondItem="KRX-4A-lzd" secondAttribute="bottom" constant="10" id="lyU-26-y6a"/>
                                     <constraint firstItem="Z9b-Vc-nyk" firstAttribute="leading" secondItem="5Ro-Fn-wPV" secondAttribute="leading" id="r7Z-WS-J6F"/>
                                     <constraint firstItem="L9V-8x-DDT" firstAttribute="top" secondItem="huA-bh-ucn" secondAttribute="top" constant="10" id="rAH-D8-7Fs"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mV1-ny-v0O">
-                                <rect key="frame" x="0.0" y="238" width="275" height="50"/>
+                                <rect key="frame" x="0.0" y="236" width="275" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="nxm-d8-Rbd"/>
@@ -6940,9 +6942,8 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="mV1-ny-v0O" firstAttribute="top" secondItem="2Ws-d3-lPf" secondAttribute="bottom" constant="2" id="0JH-GK-wTk"/>
+                            <constraint firstItem="mV1-ny-v0O" firstAttribute="top" secondItem="2Ws-d3-lPf" secondAttribute="bottom" id="0JH-GK-wTk"/>
                             <constraint firstItem="2Ws-d3-lPf" firstAttribute="top" secondItem="CNR-3Z-o0x" secondAttribute="top" id="B2T-Kt-R3g"/>
-                            <constraint firstItem="mV1-ny-v0O" firstAttribute="top" secondItem="huA-bh-ucn" secondAttribute="bottom" constant="2" id="MWi-d8-2mX"/>
                             <constraint firstItem="huA-bh-ucn" firstAttribute="leading" secondItem="CNR-3Z-o0x" secondAttribute="leading" id="X1p-wQ-ueG"/>
                             <constraint firstItem="mV1-ny-v0O" firstAttribute="leading" secondItem="yC5-hV-gRe" secondAttribute="leading" id="j6U-C0-LCZ"/>
                             <constraint firstItem="huA-bh-ucn" firstAttribute="trailing" secondItem="CNR-3Z-o0x" secondAttribute="trailing" id="qEf-DG-PVB"/>
@@ -6958,6 +6959,8 @@
                         <outlet property="EnquireBTN" destination="mV1-ny-v0O" id="I9d-n6-veR"/>
                         <outlet property="NameTF" destination="Vmh-X2-zg9" id="xx0-Ig-6k9"/>
                         <outlet property="contactInformationView" destination="huA-bh-ucn" id="Bpl-RJ-L7g"/>
+                        <outlet property="fieldsView" destination="2Ws-d3-lPf" id="fjG-BS-Rd8"/>
+                        <outlet property="layoutConstaintButtonTop" destination="0JH-GK-wTk" id="RTC-XZ-oAK"/>
                         <outlet property="messageTextView" destination="tio-bz-Knd" id="auh-Yh-EoR"/>
                     </connections>
                 </viewController>

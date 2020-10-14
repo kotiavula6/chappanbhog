@@ -37,11 +37,12 @@ class AboutVC: UIViewController {
             //            self.emailTF.layer.masksToBounds = true
             
         }
-        
     }
+    
     override func viewWillLayoutSubviews() {
-           setGradientBackground(view: self.gradientView)
-       }
+        setGradientBackground(view: self.gradientView)
+    }
+    
     //MARK:- FUCNCTIONS
     func SetAppearance() {
         self.backView.layer.cornerRadius = 30
@@ -53,14 +54,11 @@ class AboutVC: UIViewController {
     
     //MARK:- SEGUE
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EnquirlyFormVC"{
-            
+        if segue.identifier == "EnquirlyFormVC" {
             enquiryView = segue.destination as? EnquirlyFormVC
-            
             enquiryView?.EnquiryAction = {
                 
             }
-            
         }
     }
     
