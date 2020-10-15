@@ -9,7 +9,7 @@
 import UIKit
 
 class CartTableCell: UITableViewCell {
-
+    
     @IBOutlet weak var PriceLBL: UILabel!
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productIMG: UIImageView!
@@ -22,7 +22,14 @@ class CartTableCell: UITableViewCell {
     @IBOutlet weak var quantityDecreaseBTN: UIButton!
     @IBOutlet weak var shadowView: UIView!
     
-    
+    var increase:(()->())?
+    var decrease:(()->())?
+    var fav:(()->())?
+    var delete:(()->())?
+    var weigtAction:(()->())?
+    var quantity:Int = 1
+
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -33,5 +40,35 @@ class CartTableCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func increaseAction(_ sender: UIButton) {
+  
+        if let actio = increase {
+            actio()
+        }
+    
+    }
+    @IBAction func decreaseAction(_ sender: UIButton) {
+    if let actio = decrease {
+               actio()
+           }
+    
+    }
+ 
+    @IBAction func weightAction(_ sender: UIButton) {
+        if let actio = weigtAction {
+            actio()
+        }
+    }
+    
+    @IBAction func favAction(_ sender: UIButton) {
+        if let actio = fav {
+                     actio()
+                 }
+    }
+    @IBAction func deleteAction(_ sender: UIButton) {
+        if let actio = delete {
+                     actio()
+                 }
+    }
 }

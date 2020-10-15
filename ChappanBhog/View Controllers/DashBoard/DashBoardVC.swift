@@ -57,7 +57,13 @@ class DashBoardVC: UIViewController {
         API_GET_DASHBOARD_IMAGES()
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let data = CartHelper.shared.carts()
+        cartLBL.text = "\(data.count)"
+        
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         self.sidemenu.view.removeFromSuperview()
     }

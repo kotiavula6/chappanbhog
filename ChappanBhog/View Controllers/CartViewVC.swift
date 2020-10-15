@@ -17,15 +17,19 @@ class CartViewVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var itemsLeftLBL: UILabel!
+    var dataArry = [[String:Any]]()
     
-    var carts = CartHelper.shared.carts()
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
-        
+        let data = CartHelper.shared.carts()
+        dataArry.append(contentsOf: data)
+        print(data)
+   
     }
+    
     //MARK:- FUNCTIONS
     func setAppearance() {
         DispatchQueue.main.async {
@@ -62,12 +66,63 @@ class CartViewVC: UIViewController {
 extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return carts.count
+        
+        let arr = CartHelper.shared.carts()
+        return arr.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableCell") as! CartTableCell
+
+        if let image = dataArry[indexPath.row]["image"] as? [String]{
+            if image.count > 0 {
+                let image = image[0]
+                print("userdefaultsIMG",image)
+                cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: UIImage(named: "placeholder.png"))
+                
+            }
+        }
+        cell.productName.text = dataArry[indexPath.row]["title"] as? String ?? ""
+ 
+            cell.increase = {
+                cell.quantity += 1
+                cell.quantityLBL.text = "\(cell.quantity)"
+            }
+            
+            cell.decrease = {
+                if cell.quantity > 1 {
+                    cell.quantity -= 1
+                    cell.quantityLBL.text = "\(cell.quantity)"
+                }
+            }
+        cell.deleteBTN.tag = indexPath.row
+        cell.favBTN.tag = indexPath.row
+        cell.tag = indexPath.row
+        
+        cell.delete = {
+            
+           // CartHelper.shared.deleteCart(itemInfo: [indexPath.row][""])
+            self.dataArry.remove(at: cell.tag)
+            self.listTable.reloadData()
+            
+            
+        }
+        cell.fav = {
+            
+        }
+        cell.weigtAction = {
+            
+        }
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+        let id = dataArry[indexPath.row]["id"] as? Int ?? 0
+        vc.GET_PRODUCT_DETAILS(ItemId: id)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
