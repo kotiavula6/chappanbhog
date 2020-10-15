@@ -212,7 +212,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     //        }
     
     func showShippingAddress(_ show: Bool) {
-        if show {
+        if !show {
             self.imgSelected.image = UIImage(named: "uncheck_box")
             self.btnAddShippingAddress.isHidden = true
             self.shippingAddressContentView.isHidden = false
@@ -298,15 +298,15 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func addShippingAdressButtonClicked(_ sender: UIButton) {
        // self.updateAddressBTN.setTitle("ADD SHIPPING ADDRESS", for: .normal)
        // self.shippingAddressContentView.isHidden = false
-        showShippingAddress(true)
+        showShippingAddress(false)
     }
     
     @IBAction func btnSameShipping(_ sender: UIButton) {
         //self.updateAddressBTN.setTitle("UPDATE ADDRESS", for: .normal)
         if self.imgSelected.image == UIImage(named: "uncheck_box") {
-            showShippingAddress(false)
-        } else {
             showShippingAddress(true)
+        } else {
+            showShippingAddress(false)
         }
     }
     
@@ -413,9 +413,9 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         params["zip"] = kZipCode
         // params["type"] = (0) as Any
         
-        if sameAsBilling {
+        if !sameAsBilling {
             // add shipping params
-            params["same_as_shipping"] = false
+            params["same_as_shipping"] = "0"
             params["shipping_name"] = kName
             params["shipping_address"] = kAddress
             params["shipping_phone_number"] = kPhone
@@ -424,7 +424,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             params["shipping_state"] = kState
             params["shipping_zip"] = kZipCode
         } else {
-            params["same_as_shipping"] = true
+            params["same_as_shipping"] = "1"
         }
         
         IJProgressView.shared.showProgressView()
@@ -450,7 +450,7 @@ extension ManageAddressVC {
                         let countryStateObj = try jsonDecoder.decode([CountryStateModel].self, from: jsonData)
                         self.countryStateArr = countryStateObj
                         self.stateCityPicker.reloadAllComponents()
-                        print(countryStateObj)
+                       // print(countryStateObj)
                     }  catch {
                         print("Unexpected error: \(error).")
                         alert("ChhappanBhog", message: error.localizedDescription, view: self)
@@ -495,6 +495,7 @@ extension ManageAddressVC {
     }
     
     func saveAddress(params: [String: Any], completion: @escaping () -> Void) {
+        print(params)
         let addAddressUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_ADD_ADDRESS
         AFWrapperClass.requestPOSTURLWithHeader(addAddressUrl, params: params , success: { (dict) in
             
@@ -605,6 +606,7 @@ class ManageAddress: NSObject {
         if let value = dict["shipping_country"] as? String  { shipping_country = value}
         if let value = dict["shipping_name"] as? String     { shipping_name    = value}
         
-        self.same_as_shipping = dict["same_as_shipping"] as? Bool ?? true
+        let shipping = dict["same_as_shipping"] as? String ?? "0"
+        self.same_as_shipping = shipping == "0" ? false : true
     }
 }
