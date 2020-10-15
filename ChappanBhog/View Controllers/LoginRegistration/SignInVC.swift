@@ -42,14 +42,16 @@ class SignInVC: UIViewController  {
         if loggedIn {
             let phone = UserDefaults.standard.string(forKey: Constants.Phone) ?? ""
             let code = UserDefaults.standard.string(forKey: Constants.DialingCode) ?? ""
-            
-            let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
-            vc.phone = phone
-            vc.code = code
-            self.navigationController?.pushViewController(vc, animated: true)
+            let verified = UserDefaults.standard.integer(forKey: Constants.verified)
+            let type = UserDefaults.standard.integer(forKey: Constants.type)
+            if verified == 0 && type == 0 {
+                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
+                vc.phone = phone
+                vc.code = code
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
