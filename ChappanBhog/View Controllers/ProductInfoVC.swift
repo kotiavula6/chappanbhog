@@ -14,7 +14,10 @@ class ProductInfoVC: UIViewController {
     
     var quantity:Int = 1
     var imageArry:[String] = []
+    var optionsArr = [[String:Any]]()
     var message:String = ""
+    var toolBar = UIToolbar()
+    var picker  = UIPickerView()
     var available_quantity:Int = 0
     
     @IBOutlet weak var favroteBTN: UIButton!
@@ -73,7 +76,7 @@ class ProductInfoVC: UIViewController {
             quantity += 1
             quantityLBL.text = "\(quantity)"
         }
-       
+        
     }
     
     @IBAction func decreaseBTN(_ sender: UIButton) {
@@ -105,6 +108,31 @@ class ProductInfoVC: UIViewController {
         
     }
     
+    
+    @objc func openPicker() {
+        picker = UIPickerView.init()
+        picker.delegate = self
+        picker.backgroundColor = UIColor.white
+        picker.setValue(UIColor.black, forKey: "textColor")
+        picker.autoresizingMask = .flexibleWidth
+        picker.contentMode = .center
+        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+        self.view.addSubview(picker)
+
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar.barStyle = .blackTranslucent
+        toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+        self.view.addSubview(toolBar)
+
+    }
+    
+    @objc func onDoneButtonTapped() {
+        toolBar.removeFromSuperview()
+        picker.removeFromSuperview()
+    }
+    
+
+    
 }
 
 //MARK:- COLLECTION VIEW METHODS
@@ -116,7 +144,7 @@ extension ProductInfoVC: UICollectionViewDelegate, UICollectionViewDataSource,UI
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productImageCollection.dequeueReusableCell(withReuseIdentifier: "productDetailImageCollection", for: indexPath) as! productDetailImageCollection
-         cell.productIMG.sd_setImage(with: URL(string: imageArry[indexPath.row] ), placeholderImage: UIImage(named: "placeholder.png"))
+        cell.productIMG.sd_setImage(with: URL(string: imageArry[indexPath.row] ), placeholderImage: UIImage(named: "placeholder.png"))
         return cell
     }
     
@@ -151,36 +179,30 @@ extension ProductInfoVC {
             let status = dict["status"] as? Int ?? 0
             
             if status == 200 {
-
-            let id = response["id"] as? Int ?? 0
                 
-            let title = response["title"] as? String ?? ""
-                
+                let title = response["title"] as? String ?? ""
+                let description = response["description"] as? String ?? ""
+                if let options = response["options"] as? [[String:Any]] {
+                    self.optionsArr.append(contentsOf: options)
+                }
+                print(self.optionsArr)
                 self.imageArry = response["image"] as? [String] ?? []
                 
-            let ratings = response["ratings"] as? Int ?? 0
-                
-            let reviews = response["reviews"] as? Int ?? 0
-                
-            let favorite = response["favorite"] as? Int ?? 0
-                
-            let price = response["price"] as? String ?? ""
-                print(price)
-                
-            let options = response["options"] as? NSArray ?? NSArray()
-                
-            self.available_quantity = response["available_quantity"] as? Int ?? 0
-         
-                
-                self.ratingView.rating = ratings
-            self.productNameLBL.text = title
-            let rupee = "\u{20B9}"
-            self.productPrice.text = "\(rupee) \(price)"
-            self.descriptionLBL.text = "description"
-             //r   self.quantityLBL.text = "\(self.quantity)"
+                let ratings = response["ratings"] as? Double ?? 0
+                let reviews = response["reviews"] as? Int ?? 0
+                let favorite = response["favorite"] as? Int ?? 0
+                let price = response["price"] as? String ?? ""
+                self.available_quantity = response["available_quantity"] as? Int ?? 0
+                self.ratingView.rating = Int(ratings)
+                self.productNameLBL.text = title
+                let rupee = "\u{20B9}"
+                self.productPrice.text = "\(rupee) \(price)"
+                self.descriptionLBL.text = description
+                //r   self.quantityLBL.text = "\(self.quantity)"
                 self.weightLBL.text = "250GM"
-           //     self.deliveryTimeLBL.text = t
-                self.totalReviewsLBL.text = "\(reviews) Reviews"
+                //     self.deliveryTimeLBL.text = t
+                self.totalReviewsLBL.text = "rupee\(reviews) Reviews"
+                self.productPrice.text = "\(self.optionsArr[0]["price"] as? Int ?? 0)"
                 
             }else {
                 
@@ -195,14 +217,34 @@ extension ProductInfoVC {
             alert("ChhappanBhog", message: self.message, view: self)
             
         }
-
+        
     }
     
 }
 
+extension ProductInfoVC : UIPickerViewDelegate,UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return optionsArr.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return optionsArr[row]["name"] as? String
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        quantity = YOUR_DATA_ARRAY[row]
+    }
+    
+}
+
+
 //collectionview cell top
 class productDetailImageCollection: UICollectionViewCell {
-
+    
     @IBOutlet weak var productIMG: UIImageView!
 }
 

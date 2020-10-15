@@ -27,7 +27,7 @@ class CartViewVC: UIViewController {
         let data = CartHelper.shared.carts()
         dataArry.append(contentsOf: data)
         print(data)
-   
+        self.itemsLeftLBL.text = "You have \(data.count) items in your cart"
     }
     
     //MARK:- FUNCTIONS
