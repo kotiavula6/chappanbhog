@@ -37,3 +37,33 @@ class CartHelper: NSObject {
         updateCarts(values: oldCarts)
     }
 }
+
+
+class CartItem: NSObject {
+    var item: Categores = Categores(dict: [:])
+    var selectedOptionId: Int = 0
+    var quantity: Int = 1
+
+    init(item: Categores, selectedOptionId: Int, quantity: Int) {
+        super.init()
+        self.item = item
+        self.selectedOptionId = selectedOptionId
+        self.quantity = quantity
+    }
+    
+    func setDict(_ dict: [String: Any]) {
+        if let value = dict["item"] as? [String: Any] {
+            item = Categores(dict: value)
+        }
+        self.selectedOptionId = dict["selectedOptionId"] as? Int ?? 0
+        self.quantity = dict["quantity"] as? Int ?? 1
+    }
+    
+    func getDict() -> [String: Any] {
+        var dict: [String: Any] = [:]
+        dict["selectedOptionId"] = self.selectedOptionId
+        dict["quantity"] = self.quantity
+        dict["item"] = item.getDict()
+        return dict
+    }
+}
