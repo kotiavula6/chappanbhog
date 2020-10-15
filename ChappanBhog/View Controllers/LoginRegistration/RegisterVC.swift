@@ -294,10 +294,11 @@ class RegisterVC: UIViewController {
     
                     if self.isEmailRegisteration {
                         // Show phone verification screen
-                        let code = (self.selectedCountry?.dialingCode ?? "0")
+                        let code = (self.selectedCountry?.dialingCode ?? "+91")
+                        UserDefaults.standard.set(code, forKey: Constants.DialingCode)
                         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
-                        vc.phone = code + phone
-                        // vc.code = (self.selectedCountry?.dialingCode ?? "0")
+                        vc.phone = phone
+                        vc.code = code
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {

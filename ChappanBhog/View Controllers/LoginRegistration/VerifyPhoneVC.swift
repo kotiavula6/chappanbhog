@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Alamofire
+import SKCountryPicker
 
 class VerifyPhoneVC: UIViewController {
     
@@ -21,11 +22,18 @@ class VerifyPhoneVC: UIViewController {
     @IBOutlet weak var TF2: UITextField!
     @IBOutlet weak var TF1: UITextField!
     
+    @IBOutlet weak var mobileTF: UITextField!
+    @IBOutlet weak var countryCodeTF: UITextField!
+    @IBOutlet weak var flagIMG: UIImageView!
+    @IBOutlet weak var iVDropdown: UIImageView!
+    @IBOutlet weak var editButtonContainer: UIView!
+    var selectedCountry: Country?
+    
     var phone: String = ""
     var code: String = ""
     var verificationID: String = ""
     var userID = ""
-    
+    var editMode: Bool = false
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -46,10 +54,27 @@ class VerifyPhoneVC: UIViewController {
         TF5.keyboardType = .numberPad
         TF6.keyboardType = .numberPad
         
+                
+        mobileTF.isUserInteractionEnabled = false
+        if !code.isEmpty { selectedCountry = CountryManager.shared.country(withDigitCode: code) }
+        if selectedCountry == nil {
+            code = "+91"
+            if let country = CountryManager.shared.currentCountry {
+                selectedCountry = country
+                code = country.dialingCode ?? "+91"
+            }
+        }
+        flagIMG.layer.cornerRadius = self.flagIMG.frame.height/2
+        flagIMG.layer.masksToBounds = true
+        flagIMG.image = selectedCountry?.flag
+        mobileTF.text = phone
+        
         IJProgressView.shared.showProgressView()
         sendVerificationCode {
             IJProgressView.shared.hideProgressView()
         }
+        
+        mobileTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
     //http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/verify_account
     
@@ -93,6 +118,52 @@ class VerifyPhoneVC: UIViewController {
         }
     }
     
+    @IBAction func selectCountryButtonClicked(_ sender: UIButton) {
+        
+        if !editMode { return }
+        
+        // Invoke below static method to present country picker without section control
+        // CountryPickerController.presentController(on: self) { ... }
+        let countryController = CountryPickerWithSectionViewController.presentController(on: self) { [weak self] (country: Country) in
+            
+            guard let self = self else { return }
+            self.flagIMG.image = country.flag
+            self.selectedCountry = country
+            self.code = country.dialingCode ?? "0"
+            
+            IJProgressView.shared.showProgressView()
+            self.sendVerificationCode {
+                IJProgressView.shared.hideProgressView()
+            }
+        }
+        
+        // can customize the countryPicker here e.g font and color
+        countryController.detailColor = UIColor.red
+    }
+    
+    @IBAction func editPhoneField(_ sender: UIButton) {
+        editMode = true
+        mobileTF.becomeFirstResponder()
+        updateEditMode()
+    }
+    
+    // MARK:- Methods
+    func updateEditMode() {
+        if editMode {
+            iVDropdown.isHidden = false
+            editButtonContainer.isHidden = true
+            mobileTF.isUserInteractionEnabled = true
+        }
+        else {
+            iVDropdown.isHidden = true
+            editButtonContainer.isHidden = false
+            mobileTF.isUserInteractionEnabled = false
+        }
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        phone = textField.text ?? ""
+    }
 }
 
 extension VerifyPhoneVC {
@@ -156,12 +227,14 @@ extension VerifyPhoneVC {
         let token = UserDefaults.standard.string(forKey: Constants.access_token) ?? ""
         let userId = UserDefaults.standard.string(forKey: Constants.UserId) ?? ""
         let header = HTTPHeader(name: "Authorization", value: "Bearer \(token)")
-                
-        _ = AF.request(loginUrl, method: .post, parameters: ["user_id": userId, "verified": "1"], encoding: JSONEncoding.default, headers: [header], interceptor: nil).responseJSON { (response) in
+        let params = ["user_id": userId, "verified": "1", "phone": phone, "country_code": code]
+        _ = AF.request(loginUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [header], interceptor: nil).responseJSON { (response) in
             switch response.result {
             case .success(let value):
                 // 1 - user verified
                 UserDefaults.standard.set(1, forKey: Constants.verified)
+                UserDefaults.standard.set(self.phone, forKey: Constants.Phone)
+                UserDefaults.standard.set(self.code, forKey: Constants.DialingCode)
                 UserDefaults.standard.set(true, forKey: "ISUSERLOGGEDIN")
                 print(value)
             case .failure(let error):
@@ -278,5 +351,14 @@ extension VerifyPhoneVC: UITextFieldDelegate {
         }
         
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == mobileTF {
+            IJProgressView.shared.showProgressView()
+            sendVerificationCode {
+                IJProgressView.shared.hideProgressView()
+            }
+        }
     }
 }

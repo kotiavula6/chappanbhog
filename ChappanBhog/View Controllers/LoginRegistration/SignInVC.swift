@@ -25,6 +25,9 @@ class SignInVC: UIViewController  {
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userNameTF.placeholder = "Email"
+        passwordTF.placeholder = "Password"
                 
         //set ASHelper class delegate
         if #available(iOS 13.0, *) {
@@ -38,8 +41,11 @@ class SignInVC: UIViewController  {
         let loggedIn = UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN")
         if loggedIn {
             let phone = UserDefaults.standard.string(forKey: Constants.Phone) ?? ""
+            let code = UserDefaults.standard.string(forKey: Constants.DialingCode) ?? ""
+            
             let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
             vc.phone = phone
+            vc.code = code
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -218,8 +224,6 @@ class SignInVC: UIViewController  {
         print(params)
         AFWrapperClass.requestPOSTURL(loginUrl, params: params as! [String:Any] , success: { (dict) in
             IJProgressView.shared.hideProgressView()
-            print(dict)
-            print(params)
             if let result = dict as? [String:Any]{
                  print(result)
                 
@@ -236,10 +240,12 @@ class SignInVC: UIViewController  {
                     let name = data["name"] as? String ?? ""
                     let email = data["email"] as? String ?? ""
                     let phone = data["phone"] as? String ?? ""
+                    let code = data["country_code"] as? String ?? "+91"
                     let user_id = data["user_id"] as? Int ?? 0
                     let token = data["token"] as? String ?? ""
                     let verified = Int(data["verified"] as? String ?? "0") ?? 0
                     let type = data["type"] as? Int ?? 0
+                    
                     
                     print(user_id)
                     print(token)
@@ -248,6 +254,7 @@ class SignInVC: UIViewController  {
                     UserDefaults.standard.set(name, forKey: Constants.Name)
                     UserDefaults.standard.set(email, forKey: Constants.EmailID)
                     UserDefaults.standard.set(phone, forKey: Constants.Phone)
+                    UserDefaults.standard.set(code, forKey: Constants.DialingCode)
                     UserDefaults.standard.set(user_id, forKey: Constants.UserId)
                     UserDefaults.standard.set(true, forKey: Constants.IsLogin)
                     UserDefaults.standard.set(token, forKey: Constants.access_token)
@@ -258,6 +265,7 @@ class SignInVC: UIViewController  {
                         // Ask for phone verification again
                         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
                         vc.phone = phone
+                        vc.code = code
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {
@@ -295,9 +303,7 @@ extension SignInVC: LoginDelegate {
     
     func didCompleteWithError(error: Error?) {
         print("Errrrr")
-    }
-    
-    
+    }    
 }
 
 

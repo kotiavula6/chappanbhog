@@ -127,6 +127,7 @@ struct Constants
     static let  EmailID = "EmailId"
     static let  Name = "Name"
     static let Phone = "Phone"
+    static let DialingCode = "DialingCode"
     static let FullName = "FullName"
     static let verified = "verified"
     static let type = "type"
