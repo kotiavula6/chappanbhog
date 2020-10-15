@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MyAccountVC: UIViewController {
     
@@ -21,22 +22,34 @@ class MyAccountVC: UIViewController {
     @IBOutlet weak var listTableHeight: NSLayoutConstraint!
     @IBOutlet weak var shadowViewBottom: UIView!
     @IBOutlet weak var userNameTF: UITextField!
+    @IBOutlet weak var btnEdit: UIButton!
+    
     let listArray = ["ADDRESS","PASSWORD","MY ORDERS","TRACK YOUR ORDER","PAYMENTS"]
     
     var imagePicker = UIImagePickerController()
+    var selectedImage: UIImage?
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        userNameTF.text = UserDefaults.standard.string(forKey: Constants.Name) ?? ""
+        userNameTF.isUserInteractionEnabled = false
         setAppearance()
         
+        profileImage.contentMode = .scaleAspectFill
+        let imageStr = UserDefaults.standard.string(forKey: Constants.Image) ?? ""
+        if !imageStr.isEmpty {
+            let urlString = ApplicationUrl.IMAGE_BASE_URL + imageStr
+            profileImage.sd_setImage(with: URL(string: urlString), completed: nil)
+        }
     }
+    
     override func viewWillLayoutSubviews() {
-           setGradientBackground(view: self.gradientView)
-       }
+        super.viewWillLayoutSubviews()
+        setGradientBackground(view: self.gradientView)
+    }
  
     
     //MARK:- FUNCTIONS
@@ -101,51 +114,70 @@ class MyAccountVC: UIViewController {
     
     @IBAction func btnUpdateProfile(_ sender: UIButton) {
         
+        if btnEdit.title(for: .normal) == "Edit" {
+            btnEdit.setTitle("Save", for: .normal)
+            userNameTF.isUserInteractionEnabled = true
+            userNameTF.becomeFirstResponder()
+            return
+        }
+        
         let kUserName = self.userNameTF.text ?? ""
         if kUserName.count < 1 {
-            alert("ChhappanBhog", message: "User name can't be empty.", view: self)
+            alert("ChhappanBhog", message: "Name can't be empty.", view: self)
             return
         }
         
-        guard let selectedImage = self.profileImage.image else {
+       /* guard let selectedImage = self.profileImage.image else {
             alert("ChhappanBhog", message: "Please select profile image.", view: self)
             return
-        }
-        
+        } */
         
         
         let updateProfileUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_update_profile
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         
         var params : [String: Any] = [:]
-        params["user_id"] =  userID as Any
-        params["name"] = kUserName as Any
-        
+        params["user_id"] =  userID
+        params["name"] = kUserName
         
         IJProgressView.shared.showProgressView()
         AFWrapperClass.uploadPhoto(updateProfileUrl, image: selectedImage, params: params, completion: { (dict) in
             IJProgressView.shared.hideProgressView()
-              if let result = dict as? [String:Any] {
+            if let result = dict as? [String:Any] {
                 
                 let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
                 if isTokenExpired {
                     return
                 }
-                
-                          print(result)
-                          
-                        //  let message = result["message"] as? String ?? ""
-                          let status = result["success"] as? Bool ?? false
-                          
-                          if status{
-                              
-                            
-                          } else {
-                              let msg = result["message"] as? String ?? "Some error Occured"
-                              alert("ChhappanBhog", message: msg, view: self)
-                              
-                          }
-                      } else {
+                                
+                //  let message = result["message"] as? String ?? ""
+                let status = result["success"] as? Bool ?? false
+                if status {
+                    DispatchQueue.main.async {
+                        self.userNameTF.isUserInteractionEnabled = false
+                        self.btnEdit.setTitle("Edit", for: .normal)
+                    }
+                    
+                    if let data = result["data"] as? [String: Any] {
+                        let msg = result["message"] as? String ?? "Successfully Updated"
+                        let name = data["name"] as? String ?? ""
+                        UserDefaults.standard.set(name, forKey: Constants.Name)
+                        
+                        // Save image locally to avoid downloading for uploaded image
+                        if let image = self.selectedImage {
+                            let imageStr = data["image"] as? String ?? ""
+                             UserDefaults.standard.set(imageStr, forKey: Constants.Image)
+                            SDImageCache.shared.store(image, forKey: ApplicationUrl.IMAGE_BASE_URL + imageStr, completion: nil)
+                        }
+                        
+                        alert("ChhappanBhog", message: msg, view: self)
+                    }
+                    
+                } else {
+                    let msg = result["message"] as? String ?? "Some error Occured"
+                    alert("ChhappanBhog", message: msg, view: self)
+                }
+            } else {
                           
                       }
         }) { (error) in
@@ -212,18 +244,15 @@ extension MyAccountVC: UINavigationControllerDelegate, UIImagePickerControllerDe
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-       
+        selectedImage = chosenImage
         self.profileImage.image = chosenImage
         dismiss(animated:true, completion: nil)
     }
     
-    
-    
      func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
          print("imagePickerController cancel")
+        dismiss(animated:true, completion: nil)
      }
-    
-    
 }
 
 //TABLE CLASS

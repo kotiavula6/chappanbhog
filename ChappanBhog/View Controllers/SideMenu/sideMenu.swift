@@ -40,6 +40,14 @@ class sideMenu: UIViewController {
             print(name)
         nameLBL.text = name
         
+        profileIMG.contentMode = .scaleAspectFill
+        profileIMG.layer.cornerRadius = profileIMG.frame.size.width/2
+        profileIMG.clipsToBounds = true
+        let imageStr = UserDefaults.standard.string(forKey: Constants.Image) ?? ""
+        if !imageStr.isEmpty {
+            let urlString = ApplicationUrl.IMAGE_BASE_URL + imageStr
+            profileIMG.sd_setImage(with: URL(string: urlString), completed: nil)
+        }
     }
     
     

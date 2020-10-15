@@ -141,7 +141,7 @@ class AFWrapperClass{
     }
     
     
-   class func uploadPhoto(_ url: String, image: UIImage, params: [String : Any], completion: @escaping (AnyObject) -> (), failure:@escaping (NSError) -> Void) {
+   class func uploadPhoto(_ url: String, image: UIImage?, params: [String : Any], completion: @escaping (AnyObject) -> (), failure:@escaping (NSError) -> Void) {
         
     
     let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
@@ -153,25 +153,27 @@ class AFWrapperClass{
             for p in params {
                 multiPart.append("\(p.value)".data(using: String.Encoding.utf8)!, withName: p.key)
             }
-           multiPart.append(image.jpegData(compressionQuality: 0.6)!, withName: "image", fileName: "file.jpg", mimeType: "image/jpg")
+            if let selectedImage = image {
+                multiPart.append(selectedImage.jpegData(compressionQuality: 0.6)!, withName: "image", fileName: "file.jpg", mimeType: "image/jpg")
+            }
         }, to: url, method: .post, headers: header) .uploadProgress(queue: .main, closure: { progress in
-            print("Upload Progress: \(progress.fractionCompleted)")
+           // print("Upload Progress: \(progress.fractionCompleted)")
         }).responseJSON(completionHandler: { data in
             print("upload finished: \(data)")
         }).response { (response) in
             switch response.result {
             case .success(let resut):
-                print("upload success result: \(resut)")
-                if let JSON = resut as? Any {
-                    completion(JSON as AnyObject)
-                    print(JSON)
+                if let data = resut {
+                    do {
+                        let obj = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        completion(obj as AnyObject)
+                    } catch let error {
+                        failure(error as NSError)
+                    }
                 }
             case .failure(let err):
-                print("upload err: \(err)")
                 let error : NSError = err as NSError
-                print(error)
                 failure(error)
-                print(failure)
             }
         }
     }

@@ -381,7 +381,8 @@ extension DashBoardVC {
                 }
             }
             
-            print(dict)
+            //print(bannersUrl)
+            //print(dict)
             
             let response = dict["data"] as? NSDictionary ?? NSDictionary()
             let success = dict["success"] as? Int ?? 0
@@ -433,7 +434,9 @@ extension DashBoardVC {
         let bannersUrl = "https://www.chhappanbhog.com/restapi/example/getcategories.php"
         AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
-            print(dict)
+            
+            //print(bannersUrl)
+            //print(dict)
             
             if let result = dict as? [String : Any] {
                 let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)

@@ -78,7 +78,9 @@ func setGradientBackground(view: UIView) {
 //MARK:- BASE URL
 
 struct ApplicationUrl {
-    static let WEB_SERVER = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/"
+    static let SERVER = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
+    static let WEB_SERVER = SERVER + "api/"
+    static let IMAGE_BASE_URL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
 }
 
 //MARK:- API
@@ -105,6 +107,7 @@ struct WebserviceName {
     static let API_notification = "notification"
     static let API_notification_read = "notification_read"
     static let API_search = "search"
+    static let API_FORGOT_PASSWORD = "forget_password"
 }
 
 struct Constants
@@ -131,6 +134,7 @@ struct Constants
     static let FullName = "FullName"
     static let verified = "verified"
     static let type = "type"
+    static let Image = "image"
     
     static let EncryptedLoginID = "LoginId"
     static let EncryptedPackageId = "EncryptedPackageId"
