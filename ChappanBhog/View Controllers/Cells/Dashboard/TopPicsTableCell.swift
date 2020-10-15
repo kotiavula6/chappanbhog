@@ -30,13 +30,18 @@ class TopPicsTableCell: UITableViewCell {
     
     var quantity:Int = 1
     
-    
-    override func awakeFromNib() {
-//        setShadowRadius(view: shadowView)
-//        DispatchQueue.main.async {
-//            setShadow(view: self.shadowView, cornerRadius: 20, shadowRadius: 5, shadowOpacity: 2)
- //       }
-    }
+    var cartBlock: SimpleBlock?
+     
+     override func awakeFromNib() {
+         super.awakeFromNib()
+         addTocartButton.addTarget(self, action: #selector(cartAction(_:)), for: UIControl.Event.touchUpInside)
+     }
+     
+     @objc func cartAction(_ sender: UIButton) {
+         if let block = cartBlock {
+             block()
+         }
+     }
     
     @IBAction func addToCartButtonAction(_ sender: UIButton) {
         
