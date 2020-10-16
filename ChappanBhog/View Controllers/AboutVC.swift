@@ -69,6 +69,7 @@ class AboutVC: UIViewController {
     }
     
     @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        AppDelegate.shared.showHomeScreen()
+       // self.navigationController?.popViewController(animated: true)
     }
 }

@@ -126,7 +126,7 @@ class DashBoardVC: UIViewController {
                  store.logOutUserID(userID)
                  }*/
                 
-                self.showAlertWithTitle(title: "", message: "Are you sure you want to logout?", okButton: "Yes", cancelButton: "No", okSelectorName: #selector(self.logout))
+               // self.showAlertWithTitle(title: "", message: "Are you sure you want to logout?", okButton: "Yes", cancelButton: "No", okSelectorName: #selector(self.logout))
             }
             
         }
@@ -136,9 +136,7 @@ class DashBoardVC: UIViewController {
         self.view.addGestureRecognizer(swipeRight)
     }
     
-    @objc func logout() {
-        AppDelegate.shared.logout()
-    }
+    
     
     @objc func cartButtonClickedd(sender: UIButton) {
         if totalCartItems > 1 {
@@ -188,7 +186,7 @@ class DashBoardVC: UIViewController {
          AppDelegate.shared.sideMenuViewController.toggleLeft()
         //        UIView.animate(withDuration: 3, animations: {
         //
-      //  self.view.addSubview(self.sidemenu.view)
+       // self.view.addSubview(self.sidemenu.view)
         //                self.view.layoutIfNeeded()
         //
         //        }, completion: nil)
