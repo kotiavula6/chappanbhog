@@ -554,10 +554,8 @@ class DashboardProdutsCatCollectionCell: UICollectionViewCell {
         
         // setShadowRadius(view: backShadowView)
         DispatchQueue.main.async {
-            
             self.backShadowView.layer.cornerRadius = self.backShadowView.frame.height/2
-            self.productIMG.layer.cornerRadius = self.productIMG.frame.height/2
-            
+            self.productIMG.layer.cornerRadius = self.productIMG.frame.height/2            
         }
     }
 }
