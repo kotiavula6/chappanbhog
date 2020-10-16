@@ -38,8 +38,10 @@ class MyOrderVC: UIViewController {
     
     func getMyOrders() {
         let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
-        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=\(44918)"
+        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=\(userID)"
+        IJProgressView.shared.showProgressView()
         AFWrapperClass.requestGETURLWithoutToken(ordersUrl, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
             if let result = dict as? Dictionary<String, Any>{
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
