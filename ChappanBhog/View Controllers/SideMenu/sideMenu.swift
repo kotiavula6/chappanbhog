@@ -27,6 +27,7 @@ class sideMenu: UIViewController {
     
      
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         UIView.animate(withDuration: 1, animations: {
@@ -35,13 +36,15 @@ class sideMenu: UIViewController {
             
         }, completion: nil)
    
-    
+
         let name = UserDefaults.standard.value(forKey: Constants.Name) as? String ?? ""
             print(name)
         nameLBL.text = name
         
         profileIMG.contentMode = .scaleAspectFill
         profileIMG.layer.cornerRadius = profileIMG.frame.size.width/2
+        profileIMG.layer.borderColor = UIColor.black.cgColor
+        profileIMG.layer.borderWidth = 1
         profileIMG.clipsToBounds = true
         let imageStr = UserDefaults.standard.string(forKey: Constants.Image) ?? ""
         if !imageStr.isEmpty {

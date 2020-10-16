@@ -185,7 +185,7 @@ extension ProductInfoVC {
                 if let options = response["options"] as? [[String:Any]] {
                     self.optionsArr.append(contentsOf: options)
                 }
-                print(self.optionsArr)
+                // print(self.optionsArr)
                 self.imageArry = response["image"] as? [String] ?? []
                 
                 let ratings = response["ratings"] as? Double ?? 0
@@ -202,9 +202,12 @@ extension ProductInfoVC {
                 self.weightLBL.text = "250GM"
                 //     self.deliveryTimeLBL.text = t
                 self.totalReviewsLBL.text = "rupee\(reviews) Reviews"
-                self.productPrice.text = "\(self.optionsArr[0]["price"] as? Int ?? 0)"
                 
-            }else {
+                if let option = self.optionsArr.first {
+                    self.productPrice.text = "\(option["price"] as? Int ?? 0)"
+                }
+                
+            } else {
                 
                 self.message = dict["message"] as? String ?? ""
                 alert("ChhappanBhog", message: self.message, view: self)

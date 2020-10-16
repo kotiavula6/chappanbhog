@@ -366,3 +366,10 @@ extension UITextField {
 //MARK:- Array For Pintrest
 let seconArra = [0,3,4,7,8,11,12,15,16,19,20,23,24,27,28,31,32,35,36,39,40,43,44,47,48,51,52,55,56,59,60,63,64,67,68,71,72,75,76,79,80,83,84,87,88,91,92,95,96,99,100]
 
+
+extension String {
+    var prefixINR: String {
+        return "₹" + self
+    }
+}
+

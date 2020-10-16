@@ -57,12 +57,13 @@ class DashBoardVC: UIViewController {
         setAppearence()
         API_GET_DASHBOARD_DATA()
         API_GET_DASHBOARD_IMAGES()
+        
+        CartHelper.shared.syncCarts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-    //
-        let data = CartHelper.shared.carts()
+        let data = CartHelper.shared.cartItems
         cartLBL.text = "\(data.count)"
         
     }
@@ -161,7 +162,6 @@ class DashBoardVC: UIViewController {
         toolBar.barStyle = .blackTranslucent
         toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
         self.view.addSubview(toolBar)
-        
     }
     
     @objc func onDoneButtonTapped() {
@@ -234,7 +234,6 @@ extension DashBoardVC:UIPickerViewDelegate,UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         quantity = YOUR_DATA_ARRAY[row]
     }
-    
 }
 
 //MARK:- TABLEVIEW METHODS
@@ -270,7 +269,6 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         
         cell.addTocartButton.addTarget(self, action: #selector(cartButtonClickedd(sender:)) , for: .touchUpInside)
         cell.weightBTN.addTarget(self, action: #selector(openPicker(sender:)), for: .touchUpInside)
-        
         
         cell.increase = {
             cell.quantity += 1
