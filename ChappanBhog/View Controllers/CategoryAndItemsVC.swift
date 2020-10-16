@@ -24,12 +24,15 @@ class CategoryAndItemsVC: UIViewController {
     @IBOutlet weak var topCategoryCollection: UICollectionView!
     @IBOutlet weak var itemsCollection: UICollectionView!
     @IBOutlet weak var layoutConstaintItemtTop: NSLayoutConstraint!
+    @IBOutlet weak var tFSearch: UITextField!
     
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
         // Do any additional setup after loading the view.
+        tFSearch.returnKeyType = .search
+        tFSearch.delegate = self
         topCollectionHeight.constant = 0
         itemsCollection.contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         //layoutConstaintItemtTop.constant = 0
@@ -66,6 +69,23 @@ class CategoryAndItemsVC: UIViewController {
     //MARK:- ACTIONS
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension CategoryAndItemsVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        let text = textField.text ?? ""
+        if text.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 { return true }
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
+        vc.iscomeFrom = "search"
+        vc.searchedText = text
+        self.navigationController?.pushViewController(vc, animated: true)
+        textField.text = ""
+        return true
     }
 }
 

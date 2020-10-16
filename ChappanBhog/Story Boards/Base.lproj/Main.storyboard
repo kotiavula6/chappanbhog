@@ -7848,6 +7848,7 @@
                         <outlet property="itemsCollection" destination="RSc-rf-dso" id="voA-Su-leY"/>
                         <outlet property="layoutConstaintItemtTop" destination="W1s-9s-wQU" id="rCw-2v-vhG"/>
                         <outlet property="searchView" destination="xpn-oG-e1O" id="qak-U2-KM0"/>
+                        <outlet property="tFSearch" destination="kMA-uI-7sc" id="wuM-sP-eXk"/>
                         <outlet property="topCategoryCollection" destination="Rm5-4B-9uZ" id="wQP-Pm-1ni"/>
                         <outlet property="topCollectionHeight" destination="8kc-Qg-6ln" id="1II-ku-pt8"/>
                     </connections>
