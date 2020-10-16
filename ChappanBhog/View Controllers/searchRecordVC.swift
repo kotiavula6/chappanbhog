@@ -15,6 +15,7 @@ class searchRecordVC: UIViewController {
     
     var iscomeFrom = ""
     var message:String = ""
+    var searchedText = ""
     //MARK:- OUTLETS
 
     @IBOutlet weak var totalRecordsLBL: UILabel!

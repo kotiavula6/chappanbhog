@@ -19,6 +19,7 @@ class CartViewVC: UIViewController {
     @IBOutlet weak var itemsLeftLBL: UILabel!
     
     var currentIndexPath: IndexPath?
+    var isFromProduct = false
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -45,7 +46,14 @@ class CartViewVC: UIViewController {
     
     // MARK:- ACTIONS
     @IBAction func backButton(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if isFromProduct {
+          self.navigationController?.popViewController(animated: true)
+        } else {
+            AppDelegate.shared.showHomeScreen()
+        }
+        
+       //
     }
 }
 

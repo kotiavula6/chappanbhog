@@ -12,6 +12,9 @@
 		612E420D252B36AA0001FA6C /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612E420C252B36AA0001FA6C /* NotificationModel.swift */; };
 		61672A4E25347B1000112EE1 /* CountryStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61672A4D25347B1000112EE1 /* CountryStateModel.swift */; };
 		61AAA295252AF74500BD754F /* UpdateAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AAA294252AF74500BD754F /* UpdateAddressModel.swift */; };
+		61CB3AFF2539732800F0A39E /* SidemenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CB3AFE2539732800F0A39E /* SidemenuController.swift */; };
+		61CB3B01253976B200F0A39E /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CB3B00253976B200F0A39E /* SlideMenuController.swift */; };
+		61CB3B042539892F00F0A39E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CB3B032539892E00F0A39E /* GradientView.swift */; };
 		EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04CAA42523A1B700BADC28 /* DashBoardModel.swift */; };
 		EE04CAA72523A31600BADC28 /* NsObject+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04CAA62523A31600BADC28 /* NsObject+Foundation.swift */; };
 		EE0887C72508998300FC8FDB /* DashBoardCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0887C62508998300FC8FDB /* DashBoardCategoriesVC.swift */; };
@@ -121,6 +124,9 @@
 		612E420C252B36AA0001FA6C /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		61672A4D25347B1000112EE1 /* CountryStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryStateModel.swift; sourceTree = "<group>"; };
 		61AAA294252AF74500BD754F /* UpdateAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAddressModel.swift; sourceTree = "<group>"; };
+		61CB3AFE2539732800F0A39E /* SidemenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidemenuController.swift; sourceTree = "<group>"; };
+		61CB3B00253976B200F0A39E /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
+		61CB3B032539892E00F0A39E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		61EB06DD3DCA7AF81BDACA9C /* Pods-ChappanBhogTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhogTests.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhogTests/Pods-ChappanBhogTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80EE80C662FDED952E79BC31 /* Pods-ChappanBhog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChappanBhog.debug.xcconfig"; path = "Target Support Files/Pods-ChappanBhog/Pods-ChappanBhog.debug.xcconfig"; sourceTree = "<group>"; };
 		9C75507117C2AE67A47C24BA /* Pods_ChappanBhog_ChappanBhogUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChappanBhog_ChappanBhogUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,6 +276,14 @@
 			path = ManageAddress;
 			sourceTree = "<group>";
 		};
+		61CB3B022539891600F0A39E /* Designables */ = {
+			isa = PBXGroup;
+			children = (
+				61CB3B032539892E00F0A39E /* GradientView.swift */,
+			);
+			path = Designables;
+			sourceTree = "<group>";
+		};
 		EE04CAA32523A1A200BADC28 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +391,7 @@
 		EE31C6C9250774DF00E87E98 /* ChappanBhog */ = {
 			isa = PBXGroup;
 			children = (
+				61CB3B022539891600F0A39E /* Designables */,
 				EE6D07B9251E1DE100E2059A /* ChappanBhog.entitlements */,
 				EE0887CA25089C8D00FC8FDB /* Helpers */,
 				EE04CAA32523A1A200BADC28 /* Models */,
@@ -447,6 +462,8 @@
 				EE82482625090EDC00C263F1 /* AboutVCcontact.swift */,
 				EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */,
 				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
+				61CB3AFE2539732800F0A39E /* SidemenuController.swift */,
+				61CB3B00253976B200F0A39E /* SlideMenuController.swift */,
 				EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */,
 				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 				EEDD1B20250B9598000671EA /* MyAccountVC.swift */,
@@ -882,6 +899,7 @@
 				EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */,
 				EF32D4482539617A00D27C50 /* PickerView.swift in Sources */,
 				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
+				61CB3B042539892F00F0A39E /* GradientView.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,
 				EE211E67252C80F800918968 /* CategoryAndItemsVC.swift in Sources */,
@@ -900,6 +918,7 @@
 				EE7740232511D74500E994B8 /* EnquirlyFormVC.swift in Sources */,
 				EE3382DA252B90250067CAEA /* SearchRecordModel.swift in Sources */,
 				612E420D252B36AA0001FA6C /* NotificationModel.swift in Sources */,
+				61CB3B01253976B200F0A39E /* SlideMenuController.swift in Sources */,
 				EECC6EF4251CD0D500A0B2D1 /* activityLoader.swift in Sources */,
 				EE7740252511E74B00E994B8 /* StatesPopUpVC.swift in Sources */,
 				EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */,
@@ -909,6 +928,7 @@
 				EE52F4B32509D4440026BE68 /* Uiview+IBinspectable.swift in Sources */,
 				EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */,
 				61672A4E25347B1000112EE1 /* CountryStateModel.swift in Sources */,
+				61CB3AFF2539732800F0A39E /* SidemenuController.swift in Sources */,
 				EE25617A2509EFD2001C54AA /* TrackYourOrderVC.swift in Sources */,
 				EE31C70A2507931600E87E98 /* VerifyPhoneVC.swift in Sources */,
 				EE5E384B250BB82300DCDE18 /* ProductInfoVC.swift in Sources */,
