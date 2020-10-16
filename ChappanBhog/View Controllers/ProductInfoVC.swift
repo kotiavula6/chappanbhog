@@ -12,14 +12,6 @@ import STRatingControl
 
 class ProductInfoVC: UIViewController {
     
-    var quantity:Int = 1
-    var imageArry:[String] = []
-    var optionsArr = [[String:Any]]()
-    var message:String = ""
-    var toolBar = UIToolbar()
-    var picker  = UIPickerView()
-    var available_quantity:Int = 0
-    
     @IBOutlet weak var favroteBTN: UIButton!
     @IBOutlet weak var deliveryTimeLBL: UILabel!
     @IBOutlet weak var totalReviewsLBL: UILabel!
@@ -27,7 +19,8 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var productNameLBL: UILabel!
     @IBOutlet weak var ratingView: STRatingControl!
     @IBOutlet weak var productBacView: UIView!
-    //MARK:- OUTLETS
+    
+    // MARK:- OUTLETS
     @IBOutlet weak var descriptionLBL: UILabel!
     @IBOutlet weak var weightLBL: UILabel!
     @IBOutlet weak var productImageCollection: UICollectionView!
@@ -39,12 +32,14 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var weightBTN: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    var item: Categores = Categores()
     
-    //MARK:- APPLICATION LIFE CYCLE
+    // MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
-        
+        fillData()
+        weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
     }
     
     //MARK:- FUNCTIONS
@@ -61,6 +56,48 @@ class ProductInfoVC: UIViewController {
         }
     }
     
+    func fillData() {
+        
+        DispatchQueue.main.async {
+            self.ratingView.rating = self.item.ratings
+            self.productNameLBL.text = self.item.title
+            
+            let option = self.item.selectedOption()
+            if  option.id > 0 {
+                self.weightLBL.text = option.name
+                self.productPrice.text = String(format: "%.0f", option.price).prefixINR
+            }
+            else {
+                self.weightLBL.text = " "
+                self.productPrice.text = "0".prefixINR
+            }
+            
+            self.descriptionLBL.text = self.item.desc
+            self.quantityLBL.text = "\(self.item.quantity)"
+            self.totalReviewsLBL.text = "\(self.item.reviews) \(self.item.reviews == 1 ? "review" : "reviews")"
+            self.updatePayButtonTitle()
+        }
+    }
+    
+    func reloadImages() {
+        DispatchQueue.main.async {
+            self.productImageCollection.reloadData()
+        }
+    }
+    
+    func updatePayButtonTitle() {
+        let option = self.item.selectedOption()
+        if  option.id > 0 {
+            let price = option.price * Double(self.item.quantity)
+            let priceText = "PAY " + String(format: "%.0f", price).prefixINR
+            payBTN.setTitle(priceText, for: .normal)
+        }
+        else {
+            let priceText = "0".prefixINR
+            payBTN.setTitle(priceText, for: .normal)
+        }
+    }
+    
     //MARK:- ACTIONS
     @IBAction func weightButtonAction(_ sender: UIButton) {
         
@@ -68,27 +105,24 @@ class ProductInfoVC: UIViewController {
     }
     
     @IBAction func increseBTN(_ sender: UIButton) {
-        if quantity > available_quantity {
-            print(available_quantity)
-            message = "MaxQuantity is \(available_quantity)"
-            alert("ChhappanBhog", message: self.message, view: self)
-        }else {
-            quantity += 1
-            quantityLBL.text = "\(quantity)"
-        }
-        
+        //if self.item.quantity >= self.item.available_quantity {
+          //  return
+        //}
+        self.item.quantity += 1
+        self.quantityLBL.text = "\(self.item.quantity)"
+        self.updatePayButtonTitle()
     }
     
     @IBAction func decreaseBTN(_ sender: UIButton) {
-        if quantity >= 2 {
-            quantity -= 1
-            quantityLBL.text = "\(quantity)"
+        self.item.quantity -= 1
+        if self.item.quantity <= 0 {
+            self.item.quantity = 1
         }
-        
+        self.quantityLBL.text = "\(self.item.quantity)"
+        self.updatePayButtonTitle()
     }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
-        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -102,57 +136,31 @@ class ProductInfoVC: UIViewController {
     }
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {
-        
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         vc.isFromProduct = true
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
-    
-    @objc func openPicker() {
-        picker = UIPickerView.init()
-        picker.delegate = self
-        picker.backgroundColor = UIColor.white
-        picker.setValue(UIColor.black, forKey: "textColor")
-        picker.autoresizingMask = .flexibleWidth
-        picker.contentMode = .center
-        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
-        self.view.addSubview(picker)
-
-        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
-        toolBar.barStyle = .blackTranslucent
-        toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
-        self.view.addSubview(toolBar)
-
+    @objc func optionAction(_ sender: UIButton) {
+        self.showOptions()
     }
-    
-    @objc func onDoneButtonTapped() {
-        toolBar.removeFromSuperview()
-        picker.removeFromSuperview()
-    }
-    
-
-    
 }
 
 //MARK:- COLLECTION VIEW METHODS
 extension ProductInfoVC: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArry.count
+        return item.image.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productImageCollection.dequeueReusableCell(withReuseIdentifier: "productDetailImageCollection", for: indexPath) as! productDetailImageCollection
-        cell.productIMG.sd_setImage(with: URL(string: imageArry[indexPath.row] ), placeholderImage: UIImage(named: "placeholder.png"))
+        cell.productIMG.sd_setImage(with: URL(string: item.image[indexPath.row]), placeholderImage: UIImage(named: "placeholder.png"))
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: productImageCollection.frame.width, height: productImageCollection.frame.height)
     }
-    
 }
 
 
@@ -168,87 +176,69 @@ extension ProductInfoVC {
         print(productDetailAPI)
         AFWrapperClass.requestGETURL(productDetailAPI ,success: { (dict) in
             IJProgressView.shared.hideProgressView()
-            print(dict)
             
             let response = dict["data"] as? NSDictionary ?? NSDictionary()
-            
             let isTokenExpired = AFWrapperClass.handle401Error(dict: response as! [String: Any], self)
             if isTokenExpired {
                 return
             }
             
-            let status = dict["status"] as? Int ?? 0
-            
-            if status == 200 {
-                
-                let title = response["title"] as? String ?? ""
-                let description = response["description"] as? String ?? ""
-                if let options = response["options"] as? [[String:Any]] {
-                    self.optionsArr.append(contentsOf: options)
+            let success = dict["success"] as? Bool ?? false
+            if success {
+                if let data = dict["data"] as? [String: Any] {
+                    self.item.setDict(data)
+                    self.fillData()
+                    self.reloadImages()
                 }
-                // print(self.optionsArr)
-                self.imageArry = response["image"] as? [String] ?? []
-                
-                let ratings = response["ratings"] as? Double ?? 0
-                let reviews = response["reviews"] as? Int ?? 0
-                let favorite = response["favorite"] as? Int ?? 0
-                let price = response["price"] as? String ?? ""
-                self.available_quantity = response["available_quantity"] as? Int ?? 0
-                self.ratingView.rating = Int(ratings)
-                self.productNameLBL.text = title
-                let rupee = "\u{20B9}"
-                self.productPrice.text = "\(rupee) \(price)"
-                self.descriptionLBL.text = description
-                //r   self.quantityLBL.text = "\(self.quantity)"
-                self.weightLBL.text = "250GM"
-                //     self.deliveryTimeLBL.text = t
-                self.totalReviewsLBL.text = "rupee\(reviews) Reviews"
-                
-                if let option = self.optionsArr.first {
-                    self.productPrice.text = "\(option["price"] as? Int ?? 0)"
-                }
-                
             } else {
-                
-                self.message = dict["message"] as? String ?? ""
-                alert("ChhappanBhog", message: self.message, view: self)
-                
+                let msg = dict["message"] as? String ?? ""
+                alert("ChhappanBhog", message: msg, view: self)
             }
-            self.productImageCollection.reloadData()
             
         }) { (error) in
-            self.message = error.localizedDescription
-            alert("ChhappanBhog", message: self.message, view: self)
-            
+            let msg = error.localizedDescription
+            alert("ChhappanBhog", message: msg, view: self)
         }
+    }
+}
+
+// MARK:- PickerView
+extension ProductInfoVC: PickerViewDelegate {
+    
+    func showOptions() {
+        
+        PickerView.shared.delegate = self
+        PickerView.shared.type = .Picker
+        
+        let data = self.item.options.map {$0.name}
+        PickerView.shared.options = data
+        PickerView.shared.tag = 1
+
+        let option = item.selectedOption()
+        if let index = PickerView.shared.options.firstIndex(where: {$0 == option.name}) {
+            PickerView.shared.picker.selectRow(index, inComponent: 0, animated: false)
+        }
+        else {
+            PickerView.shared.picker.selectRow(0, inComponent: 0, animated: false)
+        }
+        PickerView.shared.showIn(view: self.view)
+    }
+    
+    func pickerDidSelectOption(_ option: String, picker: PickerView) {
+        let result = self.item.options.filter{$0.name == option}
+        if let option = result.first {
+            item.selectedOptionId = option.id
+            self.fillData()
+        }
+    }
+    
+    func pickerDidSelectDate(_ date: Date, picker: PickerView) {
         
     }
-    
 }
-
-extension ProductInfoVC : UIPickerViewDelegate,UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return optionsArr.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return optionsArr[row]["name"] as? String
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        quantity = YOUR_DATA_ARRAY[row]
-    }
-    
-}
-
 
 //collectionview cell top
 class productDetailImageCollection: UICollectionViewCell {
-    
     @IBOutlet weak var productIMG: UIImageView!
 }
 

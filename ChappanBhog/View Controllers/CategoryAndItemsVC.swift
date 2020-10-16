@@ -71,10 +71,8 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
         } else {
             let cell = itemsCollection.dequeueReusableCell(withReuseIdentifier: "itemsCollectionCell", for: indexPath) as! itemsCollectionCell
             let data = categoryArr[indexPath.row]
-            if let imgAr = categoryArr[indexPath.row].image {
-                if imgAr.count > 0 {
-                    cell.productIMG.sd_setImage(with: URL(string: imgAr[0] ), placeholderImage: UIImage(named: "placeholder.png"))
-                }
+            if let image = categoryArr[indexPath.row].image.first {
+                cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: UIImage(named: "placeholder.png"))
             }
             
             cell.nameLBL.text = data.title

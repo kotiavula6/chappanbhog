@@ -102,13 +102,13 @@ class AFWrapperClass{
                      case .success(let value):
                          if let JSON = value as? Any {
                              success(JSON as AnyObject)
-                             print(JSON)
+                            // print(JSON)
                          }
                      case .failure(let error):
                          let error : NSError = error as NSError
-                         print(error)
+                         //print(error)
                          failure(error)
-                         print(failure)
+                         //print(failure)
                      }
              }
     }

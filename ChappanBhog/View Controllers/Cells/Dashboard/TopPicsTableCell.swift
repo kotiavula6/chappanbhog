@@ -10,12 +10,9 @@ import UIKit
 import STRatingControl
 
 class TopPicsTableCell: UITableViewCell {
-
-    var increase:(()->())?
-    var decrease:(()->())?
-    var weigtAction:(()->())?
     
     @IBOutlet weak var productNameLBL: UILabel!
+    @IBOutlet weak var weightLBL: UILabel!
     @IBOutlet weak var priceLBL: UILabel!
     @IBOutlet weak var productIMG: UIImageView!
     @IBOutlet weak var addTocartButton: UIButton!
@@ -28,13 +25,17 @@ class TopPicsTableCell: UITableViewCell {
     @IBOutlet weak var weightBTN: UIButton!
     @IBOutlet weak var starRating: STRatingControl!
     
-    var quantity:Int = 1
-    
-    var cartBlock: SimpleBlock?
+     var cartBlock: SimpleBlock?
+     var quantityIncBlock: SimpleBlock?
+     var quantityDecBlock: SimpleBlock?
+     var chooseOptioncBlock: SimpleBlock?
      
      override func awakeFromNib() {
          super.awakeFromNib()
          addTocartButton.addTarget(self, action: #selector(cartAction(_:)), for: UIControl.Event.touchUpInside)
+         increaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
+         decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
+         weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
      }
      
      @objc func cartAction(_ sender: UIButton) {
@@ -42,30 +43,22 @@ class TopPicsTableCell: UITableViewCell {
              block()
          }
      }
-    
-    @IBAction func addToCartButtonAction(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func buttonIncreaseClicked(_ sender: UIButton) {
-        
-        if let actio = increase {
-            actio()
-        }
-
-    }
-    @IBAction func buttonDecreaseClicked(_ sender: UIButton) {
-        if let actio = decrease {
-                actio()
-            }
-    }
-    
-    @IBAction func weightButtonClicked(_ sender: UIButton) {
-        
-        if let actio = weigtAction {
-                      actio()
-                  }
-    }
-    
-    
+     
+     @objc func qtyIncAction(_ sender: UIButton) {
+         if let block = quantityIncBlock {
+             block()
+         }
+     }
+     
+     @objc func qtyDecAction(_ sender: UIButton) {
+         if let block = quantityDecBlock {
+             block()
+         }
+     }
+     
+     @objc func optionAction(_ sender: UIButton) {
+         if let block = chooseOptioncBlock {
+             block()
+         }
+     }
 }

@@ -10,7 +10,6 @@ import Foundation
 
 
 class BannersdashBoard:NSObject {
-
     var id:Int?
     var image:String?
     var title:String?
@@ -18,12 +17,10 @@ class BannersdashBoard:NSObject {
 
     init(dict: [String:Any]) {
     super.init()
-
         id = dict["id"] as? Int
         image = dict["image"] as? String
         title = dict["title"] as? String
         type = dict["type"] as? Int
-
     }
 }
 

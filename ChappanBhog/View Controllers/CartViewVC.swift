@@ -69,11 +69,11 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableCell") as! CartTableCell
         let cartItem = CartHelper.shared.cartItems[indexPath.row]
         
-        if let image = cartItem.item.image?.first {
+        if let image = cartItem.item.image.first {
             cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: UIImage(named: "placeholder.png"))
         }
         
-        let name = cartItem.item.title ?? ""
+        let name = cartItem.item.title
         cell.productName.text = name
         
         let option = cartItem.item.selectedOption()
