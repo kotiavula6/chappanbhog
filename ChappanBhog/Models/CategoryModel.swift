@@ -10,16 +10,16 @@ import UIKit
 
 class Categores: NSObject {
     
-    var available_quantity:String?
-    var favorite:Int?
-    var id:Int?
-    var image:[String]?
+    var available_quantity:Int = 0
+    var favorite:Int = 0
+    var id:Int = 0
+    var image:[String] = []
     var options:[Options] = []
-    var price:Double?
-    var ratings:Int?
-    var reviews:Int?
-    var title:String?
-    
+    var price:Double = 0
+    var ratings:Int = 1
+    var reviews:Int = 0
+    var title:String = ""
+    var desc: String = ""
     
     // Only for local use - Start
     var selectedOptionId: Int = 0
@@ -27,12 +27,19 @@ class Categores: NSObject {
     // Only for local use - End
     
     
-    init(dict:[String:Any]) {
-        super.init()
-        available_quantity = dict["available_quantity"] as? String
-        favorite = dict["favorite"] as? Int
-        id = dict["id"] as? Int
-        image = dict["image"] as? [String]
+    convenience init(dict:[String:Any]) {
+        self.init()
+        setDict(dict)
+    }
+    
+    func setDict(_ dict: [String: Any]) {
+        if let value = dict["available_quantity"] as? String { available_quantity = Int(value) ?? 0 }
+        if let value = dict["available_quantity"] as? Int { available_quantity = value }
+        
+        favorite = dict["favorite"] as? Int ?? 0
+        id = dict["id"] as? Int ?? 0
+        image = dict["image"] as? [String] ?? []
+        desc = dict["description"] as? String ?? ""
         
         options.removeAll()
         options = []
@@ -47,10 +54,10 @@ class Categores: NSObject {
             }
         }
                 
-        price = dict["price"] as? Double
-        ratings = dict["ratings"] as? Int
-        reviews = dict["reviews"] as? Int
-        title = dict["title"] as? String
+        price = dict["price"] as? Double ?? 0
+        ratings = dict["ratings"] as? Int ?? 1
+        reviews = dict["reviews"] as? Int ?? 0
+        title = dict["title"] as? String ?? ""
         
         if let value = dict["selectedOptionId"] as? Int {
             selectedOptionId = value
@@ -62,30 +69,15 @@ class Categores: NSObject {
     
     func getDict() -> [String: Any] {
         var dict: [String: Any] = [:]
-        if let value = self.available_quantity {
-            dict["available_quantity"] = value
-        }
-        if let value = self.favorite {
-            dict["favorite"] = value
-        }
-        if let value = self.id {
-            dict["id"] = value
-        }
-        if let value = self.image {
-            dict["image"] = value
-        }
-        if let value = self.price {
-            dict["price"] = value
-        }
-        if let value = self.ratings {
-            dict["ratings"] = value
-        }
-        if let value = self.reviews {
-            dict["reviews"] = value
-        }
-        if let value = self.title {
-            dict["title"] = value
-        }
+        dict["available_quantity"] = available_quantity
+        dict["favorite"] = favorite
+        dict["id"] = id
+        dict["image"] = image
+        dict["price"] = price
+        dict["ratings"] = ratings
+        dict["reviews"] = reviews
+        dict["title"] = title
+        dict["description"] = desc
         
         var i: [[String: Any]] = []
         for option in options {

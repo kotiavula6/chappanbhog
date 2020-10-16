@@ -23,7 +23,7 @@ class DashBoardVC: UIViewController {
     @IBOutlet weak var ratingView: STRatingControl!
     var bannerArr = [BannersdashBoard]()
     var categoriesArr = [categories]()
-    var toppicsArr = [TopPics]()
+    var toppicsArr = [Categores]()
     var options = [optionss]()
     
     var totalCartItems:Int = 1
@@ -46,6 +46,7 @@ class DashBoardVC: UIViewController {
     @IBOutlet weak var backView: UIView!
     
     var sidemenu:sideMenu!
+    var currentIndexPath: IndexPath?
     
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
@@ -243,49 +244,56 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TopPicsTableCell") as! TopPicsTableCell
-        
-        if let imgAr = toppicsArr[indexPath.row].image {
-            if imgAr.count > 0 {
-                cell.productIMG.sd_setImage(with: URL(string: imgAr[0] ), placeholderImage: UIImage(named: "placeholder.png"))
-            }
-            
+    
+        let data = toppicsArr[indexPath.row]
+        if let image = toppicsArr[indexPath.row].image.first {
+            cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: UIImage(named: "placeholder.png"))
         }
         
-        cell.productNameLBL.text = toppicsArr[indexPath.row].title
-        cell.priceLBL.text = "\(toppicsArr[indexPath.row].price ?? 0)"
-        cell.totalReviewsLBL.text = "\(toppicsArr[indexPath.row].reviews ?? 0) Reviews"
-        // cell.quantityLBL.text = "\(toppicsArr[indexPath.row].available_quantity ?? 0)"
-        cell.starRating.rating = toppicsArr[indexPath.row].ratings ?? 0
-        DispatchQueue.main.async {
-            self.topPicsTableConstants.constant = self.topPicsTable.contentSize.height
+        cell.productNameLBL.text = data.title
+        cell.totalReviewsLBL.text = "\(data.reviews) \(data.reviews == 1 ? "review" : "reviews")"
+        cell.starRating.rating = data.ratings
+        
+        let option = data.selectedOption()
+        if  option.id > 0 {
+            cell.weightLBL.text = option.name
+            cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
         }
-        cell.increaseBTN.tag = indexPath.row
-        cell.decreaseBTN.tag = indexPath.row
-        cell.weightBTN.tag = indexPath.row
-        cell.tag = indexPath.row
-        
-        cell.addTocartButton.addTarget(self, action: #selector(cartButtonClickedd(sender:)) , for: .touchUpInside)
-        cell.weightBTN.addTarget(self, action: #selector(openPicker(sender:)), for: .touchUpInside)
-        
-        cell.increase = {
-            cell.quantity += 1
-            cell.quantityLBL.text = "\(cell.quantity)"
+        else {
+            cell.weightLBL.text = " "
+            cell.priceLBL.text = "0".prefixINR
         }
         
-        cell.decrease = {
-            if cell.quantity > 1 {
-                cell.quantity -= 1
-                cell.quantityLBL.text = "\(cell.quantity)"
-            }
+        cell.cartBlock = {
+            let item = self.toppicsArr[indexPath.row]
+            let cartItem = CartItem(item: item)
+            CartHelper.shared.addToCart(cartItem: cartItem)
         }
         
+        cell.quantityIncBlock = {
+            let item = self.toppicsArr[indexPath.row]
+            item.quantity += 1
+            cell.quantityLBL.text = "\(item.quantity)"
+        }
+        
+        cell.quantityDecBlock = {
+            let item = self.toppicsArr[indexPath.row]
+            item.quantity -= 1
+            if item.quantity < 1 { item.quantity = 1}
+            cell.quantityLBL.text = "\(item.quantity)"
+        }
+        
+        cell.chooseOptioncBlock = {
+            self.currentIndexPath = indexPath
+            self.showOptions(indexPath: indexPath)
+        }
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
-        let itemId = toppicsArr[indexPath.row].id ?? 0
-        vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+        vc.item = self.toppicsArr[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -392,7 +400,7 @@ extension DashBoardVC {
             } else {
                 
                 let banners = response["banners"] as? NSArray ?? NSArray()
-                let topPicks = response["topPicks"] as? NSArray ?? NSArray()
+                let topPicks = response["topPicks"] as? [[String: Any]] ?? []
                 
                 self.bannerArr.removeAll()
                 self.toppicsArr.removeAll()
@@ -401,19 +409,11 @@ extension DashBoardVC {
                 for i in 0..<banners.count {
                     self.bannerArr.append(BannersdashBoard(dict: banners.object(at: i) as! [String:Any]))
                 }
-                for i in 0..<topPicks.count {
-                    self.toppicsArr.append(TopPics(dict: topPicks.object(at: i) as! [String:Any]))
-                    let topPicks = response["topPicks"] as? NSDictionary ?? NSDictionary()
-                    let optio = topPicks["options"] as? NSArray ?? NSArray()
-                    print(optio)
-                    
-                    for j in 0..<optio.count {
-                        self.options.append(optionss(dict: optio.object(at: j) as! [String : Any]))
-                    }
-                    print(optio.count)
-                }
-
                 
+                for value in topPicks {
+                    let item = Categores(dict: value)
+                    self.toppicsArr.append(item)
+                }
             }
             self.topPageCollection.reloadData()
             self.topPicsTable.reloadData()
@@ -468,6 +468,48 @@ extension DashBoardVC {
         }
     }
 }
+
+
+// MARK:- PickerView
+extension DashBoardVC: PickerViewDelegate {
+    
+    func showOptions(indexPath: IndexPath) {
+        
+        PickerView.shared.delegate = self
+        PickerView.shared.type = .Picker
+        
+        let item = self.toppicsArr[indexPath.row]
+        let data = item.options.map {$0.name}
+        PickerView.shared.options = data
+        PickerView.shared.tag = 1
+
+        let option = item.selectedOption()
+        if let index = PickerView.shared.options.firstIndex(where: {$0 == option.name}) {
+            PickerView.shared.picker.selectRow(index, inComponent: 0, animated: false)
+        }
+        else {
+            PickerView.shared.picker.selectRow(0, inComponent: 0, animated: false)
+        }
+        PickerView.shared.showIn(view: self.view)
+    }
+    
+    func pickerDidSelectOption(_ option: String, picker: PickerView) {
+        if let indexPath = currentIndexPath {
+            let item = toppicsArr[indexPath.row]
+            let result = item.options.filter{$0.name == option}
+            if let option = result.first {
+                item.selectedOptionId = option.id
+                topPicsTable.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
+    
+    func pickerDidSelectDate(_ date: Date, picker: PickerView) {
+        
+    }
+}
+
+
 
 //COLLECTION CELLS
 class DashboardPageCollectionCell: UICollectionViewCell {
