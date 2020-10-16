@@ -37,6 +37,14 @@ class searchRecordVC: UIViewController {
         DispatchQueue.main.async {
             self.searchTF.becomeFirstResponder()
         }
+        
+        if CartHelper.shared.cartItems.count < 1 {
+            self.cartLBL.text = ""
+        } else {
+            self.cartLBL.text = "\(CartHelper.shared.cartItems.count)"
+        }
+        self.searchTF.text = self.searchedText
+        API_GET_SEARCH_DATA()
     }
     
     //MARK:- FUNCTIONS
@@ -48,7 +56,7 @@ class searchRecordVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.masksToBounds = true
             self.cartLBL.cornerRadius = self.cartLBL.frame.height/2
-
+            
         }
     }
     

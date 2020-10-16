@@ -28,6 +28,11 @@ class CartViewVC: UIViewController {
         
         let itemStr = (CartHelper.shared.cartItems.count == 1) ? "item" : "items"
         self.itemsLeftLBL.text = "You have \(CartHelper.shared.cartItems.count) \(itemStr) in your cart"
+        if CartHelper.shared.cartItems.count < 1 {
+            self.cartLBL.text = ""
+        } else {
+            self.cartLBL.text = "\(CartHelper.shared.cartItems.count)"
+        }
     }
     
     //MARK:- FUNCTIONS

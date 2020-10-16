@@ -65,7 +65,12 @@ class DashBoardVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         let data = CartHelper.shared.cartItems
-        cartLBL.text = "\(data.count)"
+        if data.count < 1 {
+            cartLBL.text = ""
+        } else {
+            cartLBL.text = "\(data.count)"
+        }
+        
         
     }
 

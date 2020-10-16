@@ -1965,7 +1965,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOP PICKS FOR YOU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-zA-COV">
-                                                                <rect key="frame" x="78" y="6.5" width="180" height="27.5"/>
+                                                                <rect key="frame" x="78" y="11.5" width="180" height="27.5"/>
                                                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="19"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1974,7 +1974,7 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstItem="QX4-zA-COV" firstAttribute="leading" secondItem="gPh-0O-GQd" secondAttribute="trailing" constant="15" id="GvF-rA-Ag7"/>
-                                                            <constraint firstItem="QX4-zA-COV" firstAttribute="centerY" secondItem="gPh-0O-GQd" secondAttribute="centerY" id="TC0-D6-E3r"/>
+                                                            <constraint firstItem="QX4-zA-COV" firstAttribute="centerY" secondItem="gPh-0O-GQd" secondAttribute="centerY" constant="5" id="TC0-D6-E3r"/>
                                                             <constraint firstItem="gPh-0O-GQd" firstAttribute="centerY" secondItem="SZP-ma-lX6" secondAttribute="centerY" id="TDJ-Ad-qLA"/>
                                                             <constraint firstItem="gPh-0O-GQd" firstAttribute="leading" secondItem="SZP-ma-lX6" secondAttribute="leading" constant="35" id="caS-53-uIr"/>
                                                             <constraint firstAttribute="height" constant="40" id="fbh-hJ-6kj"/>
@@ -3959,8 +3959,8 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$450" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k89-Bi-OPE">
-                                                                    <rect key="frame" x="65" y="49" width="45" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <rect key="frame" x="65" y="50.5" width="40" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -4005,6 +4005,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="q3b-aj-KHI" secondAttribute="trailing" constant="20" id="MlE-G8-sPG"/>
                                                                 <constraint firstItem="VZc-tx-OzO" firstAttribute="top" secondItem="oQy-uz-OQv" secondAttribute="top" constant="20" id="PRM-TN-U39"/>
                                                                 <constraint firstItem="CoO-Sm-g9L" firstAttribute="leading" secondItem="xdO-wK-Vuy" secondAttribute="trailing" constant="6" id="PnZ-u2-30b"/>
+                                                                <constraint firstItem="xdO-wK-Vuy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k89-Bi-OPE" secondAttribute="trailing" constant="6" id="Qsy-hA-DEo"/>
                                                                 <constraint firstItem="Ops-K0-XVy" firstAttribute="top" secondItem="oQy-uz-OQv" secondAttribute="top" constant="20" id="RMG-JB-D8w"/>
                                                                 <constraint firstItem="ISE-fB-KPe" firstAttribute="leading" secondItem="PLP-Gr-1Ir" secondAttribute="leading" id="S3L-Be-DWq"/>
                                                                 <constraint firstItem="VZc-tx-OzO" firstAttribute="leading" secondItem="oQy-uz-OQv" secondAttribute="leading" constant="20" id="ZPn-u1-HKo"/>
@@ -4032,6 +4033,9 @@
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
+                                                    <outlet property="lblCurrentDate" destination="PLP-Gr-1Ir" id="Gd4-8k-rID"/>
+                                                    <outlet property="lblItemStatus" destination="Ops-K0-XVy" id="UqT-IX-pnO"/>
+                                                    <outlet property="lblPrice" destination="k89-Bi-OPE" id="s3u-WD-li2"/>
                                                     <outlet property="productNameLBL" destination="VZc-tx-OzO" id="nKl-6H-T7x"/>
                                                     <outlet property="shadowView" destination="oQy-uz-OQv" id="idd-GD-xS8"/>
                                                 </connections>
