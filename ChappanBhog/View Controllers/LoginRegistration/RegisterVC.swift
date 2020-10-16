@@ -304,8 +304,9 @@ class RegisterVC: UIViewController {
                     }
                     else {
                         // Show home
-                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        AppDelegate.shared.showHomeScreen()
+//                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+//                        self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
             }

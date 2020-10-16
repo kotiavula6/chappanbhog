@@ -111,10 +111,11 @@ class VerifyPhoneVC: UIViewController {
             self.updateVerifiedStatusOnServer(verified: true)
             
             // Move to home
-            DispatchQueue.main.async {
-                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            AppDelegate.shared.showHomeScreen()
+//            DispatchQueue.main.async {
+//                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }
         }
     }
     

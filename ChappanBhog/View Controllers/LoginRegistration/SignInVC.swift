@@ -273,8 +273,9 @@ class SignInVC: UIViewController  {
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {
-                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        AppDelegate.shared.showHomeScreen()
+//                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
+//                        self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
             }
