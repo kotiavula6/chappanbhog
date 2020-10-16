@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     static let shared: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var tabbarController: UITabBarController?
+    var sideMenuViewController: SlideMenuController!
+    
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -50,7 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
             }
             else {
-                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToDashBoard), userInfo: nil, repeats: false)
+                
+                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(showHomeScreen), userInfo: nil, repeats: false)
             }
         }
         else {
@@ -105,6 +111,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    @objc func showHomeScreen() {
+        let Storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let customTabbarViewController = Storyboard.instantiateViewController(withIdentifier: "Home") as? UITabBarController,
+            let leftVC = Storyboard.instantiateViewController(withIdentifier: "SidemenuController") as? SidemenuController else {
+            return
+        }
+        
+        self.tabbarController = customTabbarViewController
+        let navigationViewController: UINavigationController = UINavigationController(rootViewController: customTabbarViewController)
+        navigationViewController.navigationBar.isHidden = true
+        self.sideMenuViewController = SlideMenuController(mainViewController: navigationViewController, leftMenuViewController: leftVC)
+        window?.rootViewController = sideMenuViewController
     }
     
     @objc func goToDashBoard() {

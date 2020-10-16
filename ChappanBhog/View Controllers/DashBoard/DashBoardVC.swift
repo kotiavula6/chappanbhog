@@ -44,13 +44,15 @@ class DashBoardVC: UIViewController {
     @IBOutlet weak var searchTF: UITextField!
     @IBOutlet weak var alertIMG: UIImageView!
     @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var categorySearchBar: UISearchBar!
     
     var sidemenu:sideMenu!
     
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.categorySearchBar.setTextField(color: UIColor.white.withAlphaComponent(1.0))
+        self.categorySearchBar.delegate = self
         print(bannerArr)
         setAppearence()
         API_GET_DASHBOARD_DATA()
@@ -59,6 +61,7 @@ class DashBoardVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+    //
         let data = CartHelper.shared.carts()
         cartLBL.text = "\(data.count)"
         
@@ -182,9 +185,10 @@ class DashBoardVC: UIViewController {
     
     
     @IBAction func openMenu(_ sender: UIButton) {
+         AppDelegate.shared.sideMenuViewController.toggleLeft()
         //        UIView.animate(withDuration: 3, animations: {
         //
-        self.view.addSubview(self.sidemenu.view)
+      //  self.view.addSubview(self.sidemenu.view)
         //                self.view.layoutIfNeeded()
         //
         //        }, completion: nil)
@@ -206,9 +210,9 @@ class DashBoardVC: UIViewController {
     }
     
     @IBAction func searchButtonAction(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
-        vc.iscomeFrom = "search"
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
+//        vc.iscomeFrom = "search"
+//        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -364,6 +368,17 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     
 }
 
+extension DashBoardVC: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+                searchBar.resignFirstResponder()
+                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
+                vc.iscomeFrom = "search"
+                vc.searchedText = searchBar.text ?? ""
+                self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
 //MARK:- API
 extension DashBoardVC {
     func API_GET_DASHBOARD_DATA() {
@@ -497,3 +512,5 @@ class DashboardProdutsCatCollectionCell: UICollectionViewCell {
         }
     }
 }
+
+
