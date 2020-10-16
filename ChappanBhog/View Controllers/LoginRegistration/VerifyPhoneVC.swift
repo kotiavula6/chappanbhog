@@ -13,6 +13,9 @@ import SKCountryPicker
 
 class VerifyPhoneVC: UIViewController {
     
+    let tickImage = #imageLiteral(resourceName: "tick")
+    let editImage = #imageLiteral(resourceName: "edit")
+    
     var message:String = ""
     //MARK:- OUTLETS
     @IBOutlet weak var TF6: UITextField!
@@ -28,6 +31,9 @@ class VerifyPhoneVC: UIViewController {
     @IBOutlet weak var iVDropdown: UIImageView!
     @IBOutlet weak var editButtonContainer: UIView!
     @IBOutlet weak var btnEdit: UIButton!
+    @IBOutlet weak var layoutConstraintButtonEditWith: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstraintButtonEditHeight: NSLayoutConstraint!
+    
     var selectedCountry: Country?
     
     var phone: String = ""
@@ -56,7 +62,8 @@ class VerifyPhoneVC: UIViewController {
         TF6.keyboardType = .numberPad
         
                 
-        mobileTF.isUserInteractionEnabled = false
+        mobileTF.keyboardType = .phonePad
+        
         if !code.isEmpty { selectedCountry = CountryManager.shared.country(withDigitCode: code) }
         if selectedCountry == nil {
             code = "+91"
@@ -76,6 +83,7 @@ class VerifyPhoneVC: UIViewController {
         }
         
         mobileTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+        updateEditMode()
     }
     //http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/verify_account
     
@@ -144,8 +152,20 @@ class VerifyPhoneVC: UIViewController {
     }
     
     @IBAction func editPhoneField(_ sender: UIButton) {
-        editMode = true
-        mobileTF.becomeFirstResponder()
+        if !editMode {
+            editMode = true
+            mobileTF.isUserInteractionEnabled = true
+            mobileTF.becomeFirstResponder()
+        }
+        else {
+            // Tick click
+            // Send the verification code
+            editMode = false
+            IJProgressView.shared.showProgressView()
+            sendVerificationCode {
+                IJProgressView.shared.hideProgressView()
+            }
+        }
         updateEditMode()
     }
     
@@ -153,14 +173,23 @@ class VerifyPhoneVC: UIViewController {
     func updateEditMode() {
         if editMode {
             iVDropdown.isHidden = false
-            editButtonContainer.isHidden = true
+            btnEdit.setImage(tickImage, for: .normal)
+            btnEdit.tintColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
             mobileTF.isUserInteractionEnabled = true
+            mobileTF.textColor = .black
+            layoutConstraintButtonEditWith.constant = 24
+            layoutConstraintButtonEditHeight.constant = 24
         }
         else {
             iVDropdown.isHidden = true
-            editButtonContainer.isHidden = false
+            btnEdit.setImage(editImage, for: .normal)
+            btnEdit.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             mobileTF.isUserInteractionEnabled = false
+            mobileTF.textColor = .lightGray
+            layoutConstraintButtonEditWith.constant = 18
+            layoutConstraintButtonEditHeight.constant = 18
         }
+        self.view.layoutIfNeeded()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -356,11 +385,11 @@ extension VerifyPhoneVC: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == mobileTF {
+        /*if textField == mobileTF {
             IJProgressView.shared.showProgressView()
             sendVerificationCode {
                 IJProgressView.shared.hideProgressView()
             }
-        }
+        }*/
     }
 }

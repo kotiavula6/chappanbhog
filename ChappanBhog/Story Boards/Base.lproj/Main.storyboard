@@ -618,7 +618,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TsN-ba-RTY">
-                                                                        <rect key="frame" x="45" y="0.0" width="230" height="54"/>
+                                                                        <rect key="frame" x="55" y="0.0" width="220" height="54"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
@@ -632,7 +632,7 @@
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="bottom" secondItem="TsN-ba-RTY" secondAttribute="bottom" id="38f-AN-s3g"/>
-                                                                    <constraint firstItem="TsN-ba-RTY" firstAttribute="leading" secondItem="Oav-HJ-Wnl" secondAttribute="trailing" id="5eA-lh-vkw"/>
+                                                                    <constraint firstItem="TsN-ba-RTY" firstAttribute="leading" secondItem="Oav-HJ-Wnl" secondAttribute="trailing" constant="10" id="5eA-lh-vkw"/>
                                                                     <constraint firstItem="Oav-HJ-Wnl" firstAttribute="leading" secondItem="6P6-Yy-xgD" secondAttribute="trailing" constant="5" id="5eL-lD-QmO"/>
                                                                     <constraint firstItem="lW5-MZ-4d2" firstAttribute="top" secondItem="Irx-hu-9zw" secondAttribute="top" id="6od-qG-8Aj"/>
                                                                     <constraint firstItem="6P6-Yy-xgD" firstAttribute="centerY" secondItem="Irx-hu-9zw" secondAttribute="centerY" id="ALs-Am-6eg"/>
@@ -640,7 +640,7 @@
                                                                     <constraint firstAttribute="trailing" secondItem="TsN-ba-RTY" secondAttribute="trailing" id="JQr-zo-5ib"/>
                                                                     <constraint firstItem="TsN-ba-RTY" firstAttribute="top" secondItem="Irx-hu-9zw" secondAttribute="top" id="NPq-gY-ynz"/>
                                                                     <constraint firstItem="6P6-Yy-xgD" firstAttribute="leading" secondItem="Irx-hu-9zw" secondAttribute="leading" constant="5" id="T8C-Ji-dfs"/>
-                                                                    <constraint firstItem="TsN-ba-RTY" firstAttribute="leading" secondItem="lW5-MZ-4d2" secondAttribute="trailing" id="fcL-Mm-wY0"/>
+                                                                    <constraint firstItem="TsN-ba-RTY" firstAttribute="leading" secondItem="lW5-MZ-4d2" secondAttribute="trailing" constant="10" id="fcL-Mm-wY0"/>
                                                                     <constraint firstItem="lW5-MZ-4d2" firstAttribute="leading" secondItem="Irx-hu-9zw" secondAttribute="leading" id="ngp-NS-U3W"/>
                                                                     <constraint firstAttribute="bottom" secondItem="lW5-MZ-4d2" secondAttribute="bottom" id="oXY-IN-r6L"/>
                                                                 </constraints>
@@ -1013,7 +1013,7 @@
                                                 </constraints>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FYa-6B-eJx">
-                                                <rect key="frame" x="45" y="0.0" width="230" height="54"/>
+                                                <rect key="frame" x="55" y="0.0" width="220" height="54"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -1031,11 +1031,11 @@
                                             <constraint firstItem="eoO-rb-hPO" firstAttribute="leading" secondItem="cH4-Il-UCO" secondAttribute="leading" id="EM1-ks-t6j"/>
                                             <constraint firstItem="ZJl-Rf-xUz" firstAttribute="leading" secondItem="96f-Kd-m1h" secondAttribute="trailing" constant="5" id="EUg-pA-YYW"/>
                                             <constraint firstItem="96f-Kd-m1h" firstAttribute="leading" secondItem="cH4-Il-UCO" secondAttribute="leading" constant="5" id="Haj-4Z-eDt"/>
-                                            <constraint firstItem="FYa-6B-eJx" firstAttribute="leading" secondItem="eoO-rb-hPO" secondAttribute="trailing" id="Ove-Uh-WD2"/>
+                                            <constraint firstItem="FYa-6B-eJx" firstAttribute="leading" secondItem="eoO-rb-hPO" secondAttribute="trailing" constant="10" id="Ove-Uh-WD2"/>
                                             <constraint firstItem="FYa-6B-eJx" firstAttribute="top" secondItem="cH4-Il-UCO" secondAttribute="top" id="VNA-Se-qn8"/>
                                             <constraint firstItem="96f-Kd-m1h" firstAttribute="centerY" secondItem="cH4-Il-UCO" secondAttribute="centerY" id="VcH-qY-Z0G"/>
                                             <constraint firstItem="ZJl-Rf-xUz" firstAttribute="centerY" secondItem="96f-Kd-m1h" secondAttribute="centerY" id="duj-KG-WHx"/>
-                                            <constraint firstItem="FYa-6B-eJx" firstAttribute="leading" secondItem="ZJl-Rf-xUz" secondAttribute="trailing" id="eXK-QJ-1KH"/>
+                                            <constraint firstItem="FYa-6B-eJx" firstAttribute="leading" secondItem="ZJl-Rf-xUz" secondAttribute="trailing" constant="10" id="eXK-QJ-1KH"/>
                                             <constraint firstAttribute="trailing" secondItem="FYa-6B-eJx" secondAttribute="trailing" id="uax-oZ-XMx"/>
                                             <constraint firstAttribute="bottom" secondItem="eoO-rb-hPO" secondAttribute="bottom" id="z6W-vZ-JXB"/>
                                             <constraint firstItem="eoO-rb-hPO" firstAttribute="top" secondItem="cH4-Il-UCO" secondAttribute="top" id="zJ8-xB-vew"/>
@@ -1066,10 +1066,10 @@
                                 <rect key="frame" x="327" y="274.5" width="32" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plG-k8-2fv">
-                                        <rect key="frame" x="8" y="8" width="16" height="16"/>
+                                        <rect key="frame" x="6" y="6" width="20" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="MKE-PU-KjY"/>
-                                            <constraint firstAttribute="height" constant="16" id="t5f-mv-fHn"/>
+                                            <constraint firstAttribute="width" constant="20" id="MKE-PU-KjY"/>
+                                            <constraint firstAttribute="height" constant="20" id="t5f-mv-fHn"/>
                                         </constraints>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="edit"/>
@@ -1375,6 +1375,8 @@
                         <outlet property="editButtonContainer" destination="kIX-af-fpv" id="aC3-M0-3i9"/>
                         <outlet property="flagIMG" destination="96f-Kd-m1h" id="fiC-DP-czk"/>
                         <outlet property="iVDropdown" destination="ZJl-Rf-xUz" id="K7r-6G-62J"/>
+                        <outlet property="layoutConstraintButtonEditHeight" destination="t5f-mv-fHn" id="hxD-rI-W9T"/>
+                        <outlet property="layoutConstraintButtonEditWith" destination="MKE-PU-KjY" id="aFD-Oj-9xL"/>
                         <outlet property="mobileTF" destination="FYa-6B-eJx" id="KYX-zB-r40"/>
                         <segue destination="WIe-oW-pJi" kind="custom" id="XS4-nw-xPB"/>
                     </connections>
