@@ -11,58 +11,85 @@ import UIKit
 class CartHelper: NSObject {
 
     static let shared = CartHelper()
+    var cartItems: [CartItem] = []
     
-    fileprivate func updateCarts(values: [[String: Any]]) {
-        UserDefaults.standard.set(values, forKey: "kCarts")
+    fileprivate func save() {
+        var all: [[String: Any]] = []
+        for item in cartItems {
+            all.append(item.getDict())
+        }
+        UserDefaults.standard.set(all, forKey: "kCarts")
     }
     
-    func carts() -> [[String: Any]] {
+    func syncCarts() {
+        cartItems.removeAll()
         let values = UserDefaults.standard.array(forKey: "kCarts") as? [[String: Any]] ?? []
-        return values
+        for value in values {
+            let item = CartItem()
+            item.setDict(value)
+            cartItems.append(item)
+        }
     }
     
-    func addToCart(itemInfo: [String: Any]) {
-        var oldCarts = carts()
-        oldCarts.append(itemInfo)
-        updateCarts(values: oldCarts)
+    func addToCart(cartItem: CartItem) {
+        // Refresh
+        // Check if the sameoption item is already added in the cart
+        let result = cartItems.filter { (currentItem) -> Bool in
+            let id = currentItem.item.id ?? -1
+            let ciid = cartItem.item.id ?? 0
+            if id == ciid {
+                // Check if both have same options
+                let oid = currentItem.item.selectedOption().id
+                let ociid = cartItem.item.selectedOption().id
+                if oid > 0 && ociid > 0 && oid == ociid {
+                    // Same option added
+                    // Increase its quntity only
+                    currentItem.item.quantity += cartItem.item.quantity
+                    return true
+                }
+            }
+            return false
+        }
+        
+        if result.first == nil {
+            // Add as new item
+            cartItems.append(cartItem)
+        }
+
+        save()
     }
     
-    func deleteCart(itemInfo: [String: Any]) {
-        let id = itemInfo["id"] as? Int ?? -1
-        var oldCarts = carts()
-        oldCarts.removeAll { (obj) -> Bool in
-            let objId = obj["id"] as? Int ?? 0
+    func deleteFromCart(cartItem: CartItem) {
+        let id = cartItem.item.id ?? -1
+        cartItems.removeAll { (obj) -> Bool in
+            let objId = obj.item.id ?? 0
             return objId == id
         }
-        updateCarts(values: oldCarts)
+        save()
+    }
+    
+    func clearCart() {
+        cartItems.removeAll()
+        save()
     }
 }
 
 
 class CartItem: NSObject {
     var item: Categores = Categores(dict: [:])
-    var selectedOptionId: Int = 0
-    var quantity: Int = 1
-
-    init(item: Categores, selectedOptionId: Int, quantity: Int) {
-        super.init()
+    convenience init(item: Categores) {
+        self.init()
         self.item = item
-        self.selectedOptionId = selectedOptionId
-        self.quantity = quantity
     }
     
     func setDict(_ dict: [String: Any]) {
         if let value = dict["item"] as? [String: Any] {
             item = Categores(dict: value)
         }
-        self.selectedOptionId = dict["selectedOptionId"] as? Int ?? 0
-        self.quantity = dict["quantity"] as? Int ?? 1
     }
     
     func getDict() -> [String: Any] {
         var dict: [String: Any] = [:]
-        dict["selectedOptionId"] = self.selectedOptionId
-        dict["quantity"] = self.quantity
         dict["item"] = item.getDict()
         return dict
     }

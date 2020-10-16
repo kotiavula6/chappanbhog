@@ -51,6 +51,8 @@ class SignInVC: UIViewController  {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
+        
+        CartHelper.shared.clearCart()
     }
     
     override func viewWillAppear(_ animated: Bool) {

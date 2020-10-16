@@ -87,6 +87,11 @@
 		EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEF99BB250F909E001DE12F /* CountryCodes.swift */; };
 		EF1742A7253431A60067E646 /* OurMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1742A5253431A60067E646 /* OurMenuTableCell.swift */; };
 		EF1742A8253431A60067E646 /* OurMenuTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF1742A6253431A60067E646 /* OurMenuTableCell.xib */; };
+		EF32D4472539617A00D27C50 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32D4422539617A00D27C50 /* DropdownView.swift */; };
+		EF32D4482539617A00D27C50 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32D4432539617A00D27C50 /* PickerView.swift */; };
+		EF32D4492539617A00D27C50 /* DropdownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32D4442539617A00D27C50 /* DropdownCell.xib */; };
+		EF32D44A2539617A00D27C50 /* DropdownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32D4452539617A00D27C50 /* DropdownView.xib */; };
+		EF32D44B2539617A00D27C50 /* PickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32D4462539617A00D27C50 /* PickerView.xib */; };
 		EF32FBD6253052DF00BF25FC /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */; };
 		EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */; };
 		EF83B6642536C24300E1F3CD /* CartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF83B6632536C24300E1F3CD /* CartHelper.swift */; };
@@ -205,6 +210,11 @@
 		EEEF99BB250F909E001DE12F /* CountryCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodes.swift; sourceTree = "<group>"; };
 		EF1742A5253431A60067E646 /* OurMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurMenuTableCell.swift; sourceTree = "<group>"; };
 		EF1742A6253431A60067E646 /* OurMenuTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OurMenuTableCell.xib; sourceTree = "<group>"; };
+		EF32D4422539617A00D27C50 /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
+		EF32D4432539617A00D27C50 /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		EF32D4442539617A00D27C50 /* DropdownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropdownCell.xib; sourceTree = "<group>"; };
+		EF32D4452539617A00D27C50 /* DropdownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropdownView.xib; sourceTree = "<group>"; };
+		EF32D4462539617A00D27C50 /* PickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerView.xib; sourceTree = "<group>"; };
 		EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
 		EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		EF83B6632536C24300E1F3CD /* CartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHelper.swift; sourceTree = "<group>"; };
@@ -303,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				EECDFF1C250FEB83000B293C /* CountryCodes */,
+				EF32D4412539617A00D27C50 /* Dropdown */,
 				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
 				EECDFF1A250FEB18000B293C /* Extensions.swift */,
 				EEB9C620251DF97000A37490 /* AsHelper.swift */,
@@ -523,6 +534,18 @@
 			path = CountryCodes;
 			sourceTree = "<group>";
 		};
+		EF32D4412539617A00D27C50 /* Dropdown */ = {
+			isa = PBXGroup;
+			children = (
+				EF32D4422539617A00D27C50 /* DropdownView.swift */,
+				EF32D4432539617A00D27C50 /* PickerView.swift */,
+				EF32D4442539617A00D27C50 /* DropdownCell.xib */,
+				EF32D4452539617A00D27C50 /* DropdownView.xib */,
+				EF32D4462539617A00D27C50 /* PickerView.xib */,
+			);
+			path = Dropdown;
+			sourceTree = "<group>";
+		};
 		FB4A14B890CDCB3711F7B036 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,10 +677,13 @@
 				EEA8EFAB2508DC8F00DFD80F /* DashBoard.storyboard in Resources */,
 				EEA8EF9D2508DC5C00DFD80F /* Brandon_light_it.otf in Resources */,
 				EEA8EFA02508DC5C00DFD80F /* Brandon_bld_it.otf in Resources */,
+				EF32D44B2539617A00D27C50 /* PickerView.xib in Resources */,
 				EE31C6D7250774E300E87E98 /* Assets.xcassets in Resources */,
 				EEA8EF9E2508DC5C00DFD80F /* Brandon_thin.otf in Resources */,
 				EE8248292509152100C263F1 /* Colors.xcassets in Resources */,
+				EF32D44A2539617A00D27C50 /* DropdownView.xib in Resources */,
 				EEA8EF9C2508DC5C00DFD80F /* Brandon_reg_it.otf in Resources */,
+				EF32D4492539617A00D27C50 /* DropdownCell.xib in Resources */,
 				EEA8EFA62508DC5C00DFD80F /* Brandon_reg.otf in Resources */,
 				EEA8EFA12508DC5C00DFD80F /* Brandon_blk_it.otf in Resources */,
 				EEA8EFA42508DC5C00DFD80F /* Brandon_light.otf in Resources */,
@@ -848,11 +874,13 @@
 				EEA8EF8D2508D73100DFD80F /* Constants.swift in Sources */,
 				EECC6EF8251CD26700A0B2D1 /* Validation.swift in Sources */,
 				EEDD1B21250B9598000671EA /* MyAccountVC.swift in Sources */,
+				EF32D4472539617A00D27C50 /* DropdownView.swift in Sources */,
 				EE318C232510703F00160640 /* ForgotPasswordVC.swift in Sources */,
 				EE82482C25093F0700C263F1 /* CartViewVC.swift in Sources */,
 				EE21FDC6251BC5D90075EA5F /* productWeightVC.swift in Sources */,
 				61AAA295252AF74500BD754F /* UpdateAddressModel.swift in Sources */,
 				EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */,
+				EF32D4482539617A00D27C50 /* PickerView.swift in Sources */,
 				EEA13A0D250F563A004E9252 /* CommonMethods.swift in Sources */,
 				EE458EE5250BA63B00BAA7E7 /* OurMenuVC.swift in Sources */,
 				EEEF99BC250F909E001DE12F /* CountryCodes.swift in Sources */,
@@ -1060,7 +1088,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201014;
+				CURRENT_PROJECT_VERSION = 20201015;
 				DEVELOPMENT_TEAM = XA7EFY7GK4;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1085,7 +1113,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201014;
+				CURRENT_PROJECT_VERSION = 20201015;
 				DEVELOPMENT_TEAM = XA7EFY7GK4;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

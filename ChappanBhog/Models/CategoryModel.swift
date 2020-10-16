@@ -14,11 +14,18 @@ class Categores: NSObject {
     var favorite:Int?
     var id:Int?
     var image:[String]?
-    var options:[Options]?
+    var options:[Options] = []
     var price:Double?
     var ratings:Int?
     var reviews:Int?
     var title:String?
+    
+    
+    // Only for local use - Start
+    var selectedOptionId: Int = 0
+    var quantity: Int = 1
+    // Only for local use - End
+    
     
     init(dict:[String:Any]) {
         super.init()
@@ -27,12 +34,16 @@ class Categores: NSObject {
         id = dict["id"] as? Int
         image = dict["image"] as? [String]
         
-        options?.removeAll()
+        options.removeAll()
         options = []
         if let values = dict["options"] as? [[String: Any]] {
             for value in values {
                 let option = Options(dict: value)
-                options?.append(option)
+                options.append(option)
+                
+                if selectedOptionId == 0 {
+                    selectedOptionId = option.id
+                }
             }
         }
                 
@@ -40,6 +51,13 @@ class Categores: NSObject {
         ratings = dict["ratings"] as? Int
         reviews = dict["reviews"] as? Int
         title = dict["title"] as? String
+        
+        if let value = dict["selectedOptionId"] as? Int {
+            selectedOptionId = value
+        }
+        if let value = dict["quantity"] as? Int {
+            quantity = value
+        }
     }
     
     func getDict() -> [String: Any] {
@@ -68,41 +86,44 @@ class Categores: NSObject {
         if let value = self.title {
             dict["title"] = value
         }
-        if let values = self.options {
-            var i: [[String: Any]] = []
-            for value in values {
-                i.append(value.getDict())
-            }
-            dict["options"] = i
+        
+        var i: [[String: Any]] = []
+        for option in options {
+            i.append(option.getDict())
         }
+        dict["options"] = i
+        
+        dict["selectedOptionId"] = selectedOptionId
+        dict["quantity"] = quantity
         
         return dict
+    }
+    
+    func selectedOption() -> Options {
+        let result = self.options.filter({$0.id == selectedOptionId})
+        return result.first ?? Options()
     }
 }
 
 class Options: NSObject {
-    var id:Int?
-    var name:String?
-    var price:Double?
+    var id: Int = 0
+    var name: String = ""
+    var price: Double = 0
     
-    init(dict:[String:Any]) {
-        super.init()
-        id = dict["id"] as? Int
-        name = dict["name"] as? String
-        price = dict["price"] as? Double
+    convenience init(dict:[String:Any]) {
+        self.init()
+        id = dict["id"] as? Int ?? 0
+        name = dict["name"] as? String ?? ""
+        
+        if let value = dict["price"] as? Double { price = value }
+        else if let value = dict["price"] as? String { price = Double(value) ?? 0 }
     }
     
     func getDict() -> [String: Any] {
         var dict: [String: Any] = [:]
-        if let value = self.id {
-            dict["id"] = value
-        }
-        if let value = self.name {
-            dict["name"] = value
-        }
-        if let value = self.price {
-            dict["price"] = value
-        }
+        dict["id"] = self.id
+        dict["name"] = self.name
+        dict["price"] = self.price
         return dict
     }
 }

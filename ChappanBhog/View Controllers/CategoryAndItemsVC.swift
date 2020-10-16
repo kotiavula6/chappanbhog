@@ -15,6 +15,7 @@ class CategoryAndItemsVC: UIViewController {
     
     var categoryArr = [Categores]()
     var optionArr = [Options]()
+    var currentIndexPath: IndexPath!
     
     //MARK:- OUTLETS
     @IBOutlet weak var scrollView: UIScrollView!
@@ -67,7 +68,7 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             let cell = topCategoryCollection.dequeueReusableCell(withReuseIdentifier: "topCatCollectionCell", for: indexPath) as! topCatCollectionCell
             return cell
             
-        }else {
+        } else {
             let cell = itemsCollection.dequeueReusableCell(withReuseIdentifier: "itemsCollectionCell", for: indexPath) as! itemsCollectionCell
             let data = categoryArr[indexPath.row]
             if let imgAr = categoryArr[indexPath.row].image {
@@ -75,21 +76,51 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
                     cell.productIMG.sd_setImage(with: URL(string: imgAr[0] ), placeholderImage: UIImage(named: "placeholder.png"))
                 }
             }
+            
             cell.nameLBL.text = data.title
+            let option = data.selectedOption()
+            if  option.id > 0 {
+                cell.weightLBL.text = option.name
+                cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
+            }
+            else {
+                cell.weightLBL.text = " "
+                cell.priceLBL.text = "0".prefixINR
+            }
+            
             DispatchQueue.main.async {
                 self.itemsHeightConstraint.constant = self.itemsCollection.contentSize.height
             }
             
             cell.cartBlock = {
-                let data = self.categoryArr[indexPath.row]
-                let dict = data.getDict()
-                CartHelper.shared.addToCart(itemInfo: dict)
+                let item = self.categoryArr[indexPath.row]
+                let cartItem = CartItem(item: item)
+                CartHelper.shared.addToCart(cartItem: cartItem)
+            }
+            
+            cell.quantityIncBlock = {
+                let item = self.categoryArr[indexPath.row]
+                item.quantity += 1
+                cell.quantityLBL.text = "\(item.quantity)"
+            }
+            
+            cell.quantityDecBlock = {
+                let item = self.categoryArr[indexPath.row]
+                item.quantity -= 1
+                if item.quantity < 1 { item.quantity = 1}
+                cell.quantityLBL.text = "\(item.quantity)"
+            }
+            
+            cell.chooseOptioncBlock = {
+                self.currentIndexPath = indexPath
+                self.showOptions(indexPath: indexPath)
             }
             
             return cell
         }
         
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == topCategoryCollection {
             return CGSize(width: topCategoryCollection.frame.height/1.5, height: topCategoryCollection.frame.height)
@@ -97,7 +128,6 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             let width = (self.itemsCollection.frame.size.width/2)-20
             return CGSize(width: width, height: 220)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -155,7 +185,7 @@ extension CategoryAndItemsVC {
                 self.itemsCollection.reloadData()
                 
                 
-                let rupee = "\u{20B9}"
+                // let rupee = "\u{20B9}"
             }else {
                 
                 self.message = dict["message"] as? String ?? ""
@@ -170,11 +200,47 @@ extension CategoryAndItemsVC {
         }
         
     }
-    
-    
 }
 
 
+// MARK:- PickerView
+extension CategoryAndItemsVC: PickerViewDelegate {
+    
+    func showOptions(indexPath: IndexPath) {
+        
+        PickerView.shared.delegate = self
+        PickerView.shared.type = .Picker
+        
+        let item = self.categoryArr[indexPath.row]
+        let data = item.options.map {$0.name}
+        PickerView.shared.options = data
+        PickerView.shared.tag = 1
+
+        let option = item.selectedOption()
+        if let index = PickerView.shared.options.firstIndex(where: {$0 == option.name}) {
+            PickerView.shared.picker.selectRow(index, inComponent: 0, animated: false)
+        }
+        else {
+            PickerView.shared.picker.selectRow(0, inComponent: 0, animated: false)
+        }
+        PickerView.shared.showIn(view: self.view)
+    }
+    
+    func pickerDidSelectOption(_ option: String, picker: PickerView) {
+        if let indexPath = currentIndexPath {
+            let item = categoryArr[indexPath.row]
+            let result = item.options.filter{$0.name == option}
+            if let option = result.first {
+                item.selectedOptionId = option.id
+                itemsCollection.reloadItems(at: [indexPath])
+            }
+        }
+    }
+    
+    func pickerDidSelectDate(_ date: Date, picker: PickerView) {
+        
+    }
+}
 
 
 class topCatCollectionCell: UICollectionViewCell {
@@ -197,14 +263,38 @@ class itemsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var nameLBL: UILabel!
     
     var cartBlock: SimpleBlock?
+    var quantityIncBlock: SimpleBlock?
+    var quantityDecBlock: SimpleBlock?
+    var chooseOptioncBlock: SimpleBlock?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         addToCartBTN.addTarget(self, action: #selector(cartAction(_:)), for: UIControl.Event.touchUpInside)
+        increaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
+        decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
+        weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
     }
     
     @objc func cartAction(_ sender: UIButton) {
         if let block = cartBlock {
+            block()
+        }
+    }
+    
+    @objc func qtyIncAction(_ sender: UIButton) {
+        if let block = quantityIncBlock {
+            block()
+        }
+    }
+    
+    @objc func qtyDecAction(_ sender: UIButton) {
+        if let block = quantityDecBlock {
+            block()
+        }
+    }
+    
+    @objc func optionAction(_ sender: UIButton) {
+        if let block = chooseOptioncBlock {
             block()
         }
     }

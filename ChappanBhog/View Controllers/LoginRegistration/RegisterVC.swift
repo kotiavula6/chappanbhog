@@ -101,7 +101,8 @@ class RegisterVC: UIViewController {
         else {
             isEmailRegisteration = true
             let phone = mobileTF.text ?? ""
-            let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone": phone,"name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0]
+            let code = (self.selectedCountry?.dialingCode ?? "+91")
+            let parms : [String:Any] = ["user_email": emailTF.text ?? "","phone": phone,"name":nameTF.text ?? "","password":passwordTF.text ?? "","type":0, "country_code": code]
             API_NEW_USER_REGISTER(params: parms as NSDictionary)
             view.endEditing(true)
         }

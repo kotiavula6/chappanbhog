@@ -22,53 +22,37 @@ class CartTableCell: UITableViewCell {
     @IBOutlet weak var quantityDecreaseBTN: UIButton!
     @IBOutlet weak var shadowView: UIView!
     
-    var increase:(()->())?
-    var decrease:(()->())?
-    var fav:(()->())?
-    var delete:(()->())?
-    var weigtAction:(()->())?
-    var quantity:Int = 1
-
-
+    var quantityIncBlock: SimpleBlock?
+    var quantityDecBlock: SimpleBlock?
+    var chooseOptioncBlock: SimpleBlock?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        quantityIncreaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
+        quantityDecreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
+        weightSelectBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
-    @IBAction func increaseAction(_ sender: UIButton) {
-  
-        if let actio = increase {
-            actio()
-        }
-    
-    }
-    @IBAction func decreaseAction(_ sender: UIButton) {
-    if let actio = decrease {
-               actio()
-           }
-    
-    }
- 
-    @IBAction func weightAction(_ sender: UIButton) {
-        if let actio = weigtAction {
-            actio()
+    @objc func qtyIncAction(_ sender: UIButton) {
+        if let block = quantityIncBlock {
+            block()
         }
     }
     
-    @IBAction func favAction(_ sender: UIButton) {
-        if let actio = fav {
-                     actio()
-                 }
+    @objc func qtyDecAction(_ sender: UIButton) {
+        if let block = quantityDecBlock {
+            block()
+        }
     }
-    @IBAction func deleteAction(_ sender: UIButton) {
-        if let actio = delete {
-                     actio()
-                 }
+    
+    @objc func optionAction(_ sender: UIButton) {
+        if let block = chooseOptioncBlock {
+            block()
+        }
     }
 }
