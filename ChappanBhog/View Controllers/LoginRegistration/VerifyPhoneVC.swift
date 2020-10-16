@@ -27,6 +27,7 @@ class VerifyPhoneVC: UIViewController {
     @IBOutlet weak var flagIMG: UIImageView!
     @IBOutlet weak var iVDropdown: UIImageView!
     @IBOutlet weak var editButtonContainer: UIView!
+    @IBOutlet weak var btnEdit: UIButton!
     var selectedCountry: Country?
     
     var phone: String = ""
