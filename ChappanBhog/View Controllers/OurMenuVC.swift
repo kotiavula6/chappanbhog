@@ -33,6 +33,17 @@ class OurMenuVC: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateCartCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //MARK:- FUNCTIONS
     func setAppearance() {
         DispatchQueue.main.async {
@@ -49,6 +60,16 @@ class OurMenuVC: UIViewController {
     func reload() {
         DispatchQueue.main.async {
             self.menuTable.reloadData()
+        }
+    }
+    
+    @objc func updateCartCount() {
+        let data = CartHelper.shared.cartItems
+        if data.count == 0 {
+            cartLBL.text = ""
+        }
+        else {
+            cartLBL.text = "\(data.count)"
         }
     }
         

@@ -155,6 +155,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    @objc func notifyCartUpdate() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
     }

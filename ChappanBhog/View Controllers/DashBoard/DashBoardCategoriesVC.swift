@@ -36,11 +36,21 @@ class DashBoardCategoriesVC: UIViewController,UICollectionViewDataSource,UIColle
         catCollection.dataSource = self
         
         setAppearnace()
-
     }
     
     override func viewWillLayoutSubviews() {
         setGradientBackground(view: self.gradientView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateCartCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK:- FUNCTIONS
@@ -55,6 +65,15 @@ class DashBoardCategoriesVC: UIViewController,UICollectionViewDataSource,UIColle
         }
     }
     
+    @objc func updateCartCount() {
+        let data = CartHelper.shared.cartItems
+        if data.count == 0 {
+            cartLBL.text = ""
+        }
+        else {
+            cartLBL.text = "\(data.count)"
+        }
+    }
     
     
     //MARK:- ACTIONS

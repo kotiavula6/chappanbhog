@@ -30,6 +30,17 @@ class CartViewVC: UIViewController {
         self.itemsLeftLBL.text = "You have \(CartHelper.shared.cartItems.count) \(itemStr) in your cart"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateCartCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //MARK:- FUNCTIONS
     func setAppearance() {
         DispatchQueue.main.async {
@@ -41,6 +52,16 @@ class CartViewVC: UIViewController {
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
             self.cartLBL.layer.masksToBounds = true
+        }
+    }
+    
+    @objc func updateCartCount() {
+        let data = CartHelper.shared.cartItems
+        if data.count == 0 {
+            cartLBL.text = ""
+        }
+        else {
+            cartLBL.text = "\(data.count)"
         }
     }
     
@@ -69,9 +90,8 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableCell") as! CartTableCell
         let cartItem = CartHelper.shared.cartItems[indexPath.row]
         
-        if let image = cartItem.item.image.first {
-            cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: UIImage(named: "placeholder.png"))
-        }
+        let image = cartItem.item.image.first ?? ""
+        cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
         
         let name = cartItem.item.title
         cell.productName.text = name
@@ -110,7 +130,7 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cartItem = CartHelper.shared.cartItems[indexPath.row]
-        let id = cartItem.item.id ?? 0
+        let id = cartItem.item.id
         if id == 0 { return }
         
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC

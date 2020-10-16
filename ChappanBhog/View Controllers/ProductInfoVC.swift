@@ -45,6 +45,17 @@ class ProductInfoVC: UIViewController {
         weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateCartCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //MARK:- FUNCTIONS
     func setAppearance() {
         DispatchQueue.main.async {
@@ -107,6 +118,16 @@ class ProductInfoVC: UIViewController {
         }
     }
     
+    @objc func updateCartCount() {
+        let data = CartHelper.shared.cartItems
+        if data.count == 0 {
+            cartLBL.text = ""
+        }
+        else {
+            cartLBL.text = "\(data.count)"
+        }
+    }
+    
     //MARK:- ACTIONS
     @IBAction func weightButtonAction(_ sender: UIButton) {
         
@@ -161,12 +182,17 @@ class ProductInfoVC: UIViewController {
 //MARK:- COLLECTION VIEW METHODS
 extension ProductInfoVC: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if item.image.count == 0 { return 1}
         return item.image.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productImageCollection.dequeueReusableCell(withReuseIdentifier: "productDetailImageCollection", for: indexPath) as! productDetailImageCollection
-        cell.productIMG.sd_setImage(with: URL(string: item.image[indexPath.row]), placeholderImage: UIImage(named: "placeholder.png"))
+        var image = ""
+        if indexPath.row < item.image.count {
+            image = item.image[indexPath.row]
+        }
+        cell.productIMG.sd_setImage(with: URL(string: image), placeholderImage: PlaceholderImage.Category)
         return cell
     }
     

@@ -163,7 +163,7 @@ struct Constants
 }
 
 struct PlaceholderImage {
-    static let Category = UIImage(named: "placeholder.png")
+    static let Category = #imageLiteral(resourceName: "dummy")
 }
 
 //MARK:- Button

@@ -63,16 +63,29 @@ class DashBoardVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        let data = CartHelper.shared.cartItems
-        cartLBL.text = "\(data.count)"
-        
+        super.viewWillAppear(animated)
+        updateCartCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         self.sidemenu.view.removeFromSuperview()
     }
     
+    @objc func updateCartCount() {
+        let data = CartHelper.shared.cartItems
+        if data.count == 0 {
+            cartLBL.text = ""
+        }
+        else {
+            cartLBL.text = "\(data.count)"
+        }
+    }
     
     //MARK:- UI APPEARENCE
     func setAppearence() {
@@ -248,7 +261,7 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
     
         let data = toppicsArr[indexPath.row]
         if let image = toppicsArr[indexPath.row].image.first {
-            cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
         }
         
         cell.productNameLBL.text = data.title
@@ -274,6 +287,7 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
             let item = self.toppicsArr[indexPath.row]
             let cartItem = CartItem(item: item)
             CartHelper.shared.addToCart(cartItem: cartItem)
+            AppDelegate.shared.notifyCartUpdate()
         }
         
         cell.quantityIncBlock = {
@@ -329,14 +343,14 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             let cell = topPageCollection.dequeueReusableCell(withReuseIdentifier: "DashboardPageCollectionCell", for: indexPath) as! DashboardPageCollectionCell
             
             let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
-            cell.bannerIMG.sd_setImage(with: URL(string: baseUrl + bannerArr[indexPath.row].image!), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.bannerIMG.sd_setImage(with: URL(string: baseUrl + bannerArr[indexPath.row].image!), placeholderImage: PlaceholderImage.Category)
             
             return cell
         }
         else {
             let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
             
-            cell.productIMG.sd_setImage(with: URL(string: categoriesArr[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.productIMG.sd_setImage(with: URL(string: categoriesArr[indexPath.row].image ?? ""), placeholderImage: PlaceholderImage.Category)
             
             cell.productNameLBL.text = categoriesArr[indexPath.row].name
             return cell
@@ -386,11 +400,11 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 extension DashBoardVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-                searchBar.resignFirstResponder()
-                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
-                vc.iscomeFrom = "search"
-                vc.searchedText = searchBar.text ?? ""
-                self.navigationController?.pushViewController(vc, animated: true)
+        searchBar.resignFirstResponder()
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
+        vc.iscomeFrom = "search"
+        vc.searchedText = searchBar.text ?? ""
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -555,7 +569,7 @@ class DashboardProdutsCatCollectionCell: UICollectionViewCell {
         // setShadowRadius(view: backShadowView)
         DispatchQueue.main.async {
             self.backShadowView.layer.cornerRadius = self.backShadowView.frame.height/2
-            self.productIMG.layer.cornerRadius = self.productIMG.frame.height/2            
+            self.productIMG.layer.cornerRadius = self.productIMG.frame.height/2
         }
     }
 }
