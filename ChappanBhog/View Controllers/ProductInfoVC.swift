@@ -32,6 +32,9 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var weightBTN: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var viewWeightContainer: UIView!
+    @IBOutlet weak var layoutConstraintWeightTraling: NSLayoutConstraint!
+    
     var item: Categores = Categores()
     
     // MARK:- APPLICATION LIFE CYCLE
@@ -66,16 +69,21 @@ class ProductInfoVC: UIViewController {
             if  option.id > 0 {
                 self.weightLBL.text = option.name
                 self.productPrice.text = String(format: "%.0f", option.price).prefixINR
+                self.viewWeightContainer.isHidden = false
+                self.layoutConstraintWeightTraling.constant = 15
             }
             else {
                 self.weightLBL.text = " "
-                self.productPrice.text = "0".prefixINR
+                self.productPrice.text = String(format: "%.0f", self.item.price).prefixINR
+                self.viewWeightContainer.isHidden = true
+                self.layoutConstraintWeightTraling.constant = -30
             }
             
             self.descriptionLBL.text = self.item.desc
             self.quantityLBL.text = "\(self.item.quantity)"
             self.totalReviewsLBL.text = "\(self.item.reviews) \(self.item.reviews == 1 ? "review" : "reviews")"
             self.updatePayButtonTitle()
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -93,7 +101,8 @@ class ProductInfoVC: UIViewController {
             payBTN.setTitle(priceText, for: .normal)
         }
         else {
-            let priceText = "0".prefixINR
+            let price = self.item.price * Double(self.item.quantity)
+            let priceText = "PAY " + String(format: "%.0f", price).prefixINR
             payBTN.setTitle(priceText, for: .normal)
         }
     }
@@ -142,7 +151,10 @@ class ProductInfoVC: UIViewController {
     }
     
     @objc func optionAction(_ sender: UIButton) {
-        self.showOptions()
+        if self.item.options.count == 0 {
+            return
+        }
+        showOptions()
     }
 }
 

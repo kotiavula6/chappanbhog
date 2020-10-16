@@ -24,6 +24,8 @@ class TopPicsTableCell: UITableViewCell {
     @IBOutlet weak var quantityLBL: UILabel!
     @IBOutlet weak var weightBTN: UIButton!
     @IBOutlet weak var starRating: STRatingControl!
+    @IBOutlet weak var layoutConstraintWeightWidth: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstraintWeightTrailing: NSLayoutConstraint!
     
      var cartBlock: SimpleBlock?
      var quantityIncBlock: SimpleBlock?

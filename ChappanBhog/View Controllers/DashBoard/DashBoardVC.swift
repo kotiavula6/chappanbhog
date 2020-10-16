@@ -259,11 +259,16 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         if  option.id > 0 {
             cell.weightLBL.text = option.name
             cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
+            cell.layoutConstraintWeightWidth.constant = 60
+            cell.layoutConstraintWeightTrailing.constant = 10
         }
         else {
             cell.weightLBL.text = " "
-            cell.priceLBL.text = "0".prefixINR
+            cell.priceLBL.text = String(format: "%.0f", data.price).prefixINR
+            cell.layoutConstraintWeightWidth.constant = 0
+            cell.layoutConstraintWeightTrailing.constant = 0
         }
+        cell.layoutIfNeeded()
         
         cell.cartBlock = {
             let item = self.toppicsArr[indexPath.row]
@@ -285,6 +290,12 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         }
         
         cell.chooseOptioncBlock = {
+            
+            let item = self.toppicsArr[indexPath.row]
+            if item.options.count == 0 {
+                return
+            }
+            
             self.currentIndexPath = indexPath
             self.showOptions(indexPath: indexPath)
         }

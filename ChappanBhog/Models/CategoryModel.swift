@@ -54,7 +54,9 @@ class Categores: NSObject {
             }
         }
                 
-        price = dict["price"] as? Double ?? 0
+        if let value = dict["price"] as? Double { price = value }
+        else if let value = dict["price"] as? String { price = Double(value) ?? 0 }
+        
         ratings = dict["ratings"] as? Int ?? 1
         reviews = dict["reviews"] as? Int ?? 0
         title = dict["title"] as? String ?? ""

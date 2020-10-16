@@ -80,11 +80,16 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             if  option.id > 0 {
                 cell.weightLBL.text = option.name
                 cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
+                cell.layoutConstraintWeightWidth.constant = 40
+                cell.layoutConstraintWeightTrailing.constant = 5
             }
             else {
                 cell.weightLBL.text = " "
-                cell.priceLBL.text = "0".prefixINR
+                cell.priceLBL.text = String(format: "%.0f", data.price).prefixINR
+                cell.layoutConstraintWeightWidth.constant = 0
+                cell.layoutConstraintWeightTrailing.constant = 0
             }
+            cell.layoutIfNeeded()
             
             DispatchQueue.main.async {
                 self.itemsHeightConstraint.constant = self.itemsCollection.contentSize.height
@@ -110,6 +115,10 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             }
             
             cell.chooseOptioncBlock = {
+                let item = self.categoryArr[indexPath.row]
+                if item.options.count == 0 {
+                    return
+                }
                 self.currentIndexPath = indexPath
                 self.showOptions(indexPath: indexPath)
             }
@@ -132,7 +141,7 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == topCategoryCollection { return }
         if indexPath.row < categoryArr.count {
             let data = categoryArr[indexPath.row]
-            let itemId = data.id ?? 0
+            let itemId = data.id
             if itemId == 0 { return }
             
             let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
@@ -259,6 +268,9 @@ class itemsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var favBTN: UIButton!
     @IBOutlet weak var productIMG: UIImageView!
     @IBOutlet weak var nameLBL: UILabel!
+    
+    @IBOutlet weak var layoutConstraintWeightWidth: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstraintWeightTrailing: NSLayoutConstraint!
     
     var cartBlock: SimpleBlock?
     var quantityIncBlock: SimpleBlock?
