@@ -11,7 +11,7 @@ import SKCountryPicker
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
-import TwitterKit
+//import TwitterKit
 
 class RegisterVC: UIViewController {
     
@@ -134,7 +134,7 @@ class RegisterVC: UIViewController {
     
     @IBAction func twitterAction(_ sender: UIButton) {
         isEmailRegisteration = false
-        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
+        /*TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
                 if (session != nil) {
                     print("signed in as \(session?.userName ?? "")")
                     
@@ -163,7 +163,7 @@ class RegisterVC: UIViewController {
                     alert("ChhappanBhog", message: self.message, view: self)
                     
                 }
-            })
+            })*/
         
         
     }

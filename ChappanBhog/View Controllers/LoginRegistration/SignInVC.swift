@@ -10,7 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
-import TwitterKit
+//import TwitterKit
 
 class SignInVC: UIViewController  {
     
@@ -132,7 +132,7 @@ class SignInVC: UIViewController  {
     }
     @IBAction func twitterAccount(_ sender: UIButton) {
         
-        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
+        /*TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
             if (session != nil) {
                 print("signed in as \(session?.userName ?? "")")
                 
@@ -161,17 +161,15 @@ class SignInVC: UIViewController  {
                 alert("ChhappanBhog", message: self.message, view: self)
                 
             }
-        })
+        })*/
         
     }
     
     @IBAction func googleAction(_ sender: UIButton) {
-
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate=self
         GIDSignIn.sharedInstance().signIn()
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        
     }
     
     @IBAction func appleLoginClicked(_ sender: UIButton) {

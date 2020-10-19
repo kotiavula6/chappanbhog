@@ -31,14 +31,13 @@ class MyOrderVC: UIViewController {
             setGradientBackground(view: self.gradientView)
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            
         }
     }
     
     
     func getMyOrders() {
         let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
-        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=\(userID)"
+        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=44918"
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestGETURLWithoutToken(ordersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()

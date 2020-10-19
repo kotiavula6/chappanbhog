@@ -9,7 +9,7 @@
 import UIKit
 import GoogleSignIn
 import SDWebImage
-import TwitterKit
+//import TwitterKit
 import STRatingControl
 
 var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"

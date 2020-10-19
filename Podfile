@@ -17,7 +17,7 @@ pod 'IQKeyboardManagerSwift'
 pod 'FBSDKLoginKit'
 pod 'GoogleSignIn'
 pod 'STRatingControl'
-pod 'TwitterKit'
+#pod 'TwitterKit'
 pod 'Firebase/Auth'
 
 

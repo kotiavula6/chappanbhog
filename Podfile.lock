@@ -81,9 +81,6 @@ PODS:
   - STRatingControl (1.1.2)
   - SVProgressHUD (2.2.5)
   - SwiftyJSON (5.0.0)
-  - TwitterCore (3.2.0)
-  - TwitterKit (3.4.2):
-    - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
@@ -98,7 +95,6 @@ DEPENDENCIES:
   - STRatingControl
   - SVProgressHUD
   - SwiftyJSON
-  - TwitterKit
 
 SPEC REPOS:
   trunk:
@@ -125,8 +121,6 @@ SPEC REPOS:
     - STRatingControl
     - SVProgressHUD
     - SwiftyJSON
-    - TwitterCore
-    - TwitterKit
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
@@ -152,9 +146,7 @@ SPEC CHECKSUMS:
   STRatingControl: 254ee5f6dd174e3fa9d8365a08326291fd0bd950
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
-  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
-  TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: 97e4ed7b801a2b2ecc199073b947505e7a029d8c
+PODFILE CHECKSUM: 58aed6a867d47d0ffd5d22edd004a658f5c4ee30
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

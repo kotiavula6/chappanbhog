@@ -12,7 +12,7 @@ import IQKeyboardManagerSwift
 import GoogleSignIn
 import FBSDKLoginKit
 import FBSDKCoreKit
-import TwitterKit
+//import TwitterKit
 import Firebase
 import SDWebImage
 
@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        TWTRTwitter.sharedInstance().start(withConsumerKey:"4Z8hpvQBOxBbtfXtjmtLWtt9Y", consumerSecret:"RfLtpt7X2RS34CAJICJqsTfV3U7kfgfk3XaHWA5oPa2k2GXE6U")
+        //TWTRTwitter.sharedInstance().start(withConsumerKey:"4Z8hpvQBOxBbtfXtjmtLWtt9Y", consumerSecret:"RfLtpt7X2RS34CAJICJqsTfV3U7kfgfk3XaHWA5oPa2k2GXE6U")
 
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
@@ -149,19 +149,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.shared.goToLoginScreen()
         UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
         GIDSignIn.sharedInstance().signOut()
-        let store = TWTRTwitter.sharedInstance().sessionStore
-        if let userID = store.session()?.userID {
-          store.logOutUserID(userID)
-        }
+        clearDefaults()
+       // let store = TWTRTwitter.sharedInstance().sessionStore
+        //if let userID = store.session()?.userID {
+          //store.logOutUserID(userID)
+        //}
+    }
+    
+    @objc func clearDefaults() {
+        UserDefaults.standard.removeObject(forKey: "ISUSERLOGGEDIN")
+        UserDefaults.standard.removeObject(forKey: Constants.Name)
+        UserDefaults.standard.removeObject(forKey: Constants.EmailID)
+        UserDefaults.standard.removeObject(forKey: Constants.Phone)
+        UserDefaults.standard.removeObject(forKey: Constants.DialingCode)
+        UserDefaults.standard.removeObject(forKey: Constants.UserId)
+        UserDefaults.standard.removeObject(forKey: Constants.IsLogin)
+        UserDefaults.standard.removeObject(forKey: Constants.access_token)
+        UserDefaults.standard.removeObject(forKey: Constants.verified)
+        UserDefaults.standard.removeObject(forKey: Constants.type)
+        UserDefaults.standard.removeObject(forKey: Constants.Image)
     }
     
     @objc func notifyCartUpdate() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    /*func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
-    }
+    }*/
 
 //    @available(iOS 13.0, *)
 //    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
