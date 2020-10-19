@@ -60,6 +60,13 @@ class DashBoardVC: UIViewController {
         API_GET_DASHBOARD_IMAGES()
         
         CartHelper.shared.syncCarts()
+        
+        /*let phone = "7017777239"
+        let code = "+91"
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "VerifyPhoneVC") as! VerifyPhoneVC
+        vc.phone = phone
+        vc.code = code
+        self.navigationController?.pushViewController(vc, animated: true)*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
