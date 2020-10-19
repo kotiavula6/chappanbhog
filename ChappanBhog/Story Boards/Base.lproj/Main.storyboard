@@ -33,7 +33,7 @@
         <!--SplashVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="SplashVC" id="BYZ-38-t0r" customClass="SplashVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SplashVC" id="BYZ-38-t0r" customClass="SplashVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,7 +113,7 @@
         <!--Sign InVC-->
         <scene sceneID="HME-S7-fh0">
             <objects>
-                <viewController storyboardIdentifier="SignInVC" id="piG-qv-4Lz" customClass="SignInVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInVC" id="piG-qv-4Lz" customClass="SignInVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FvB-I7-cfX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -508,7 +508,7 @@
         <!--RegisterVC-->
         <scene sceneID="Tqk-je-8Uw">
             <objects>
-                <viewController storyboardIdentifier="RegisterVC" id="WJX-Fr-d0V" customClass="RegisterVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterVC" id="WJX-Fr-d0V" customClass="RegisterVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ee3-Wc-Uwh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -971,7 +971,7 @@
         <!--Verify PhoneVC-->
         <scene sceneID="K9q-o5-O8m">
             <objects>
-                <viewController storyboardIdentifier="VerifyPhoneVC" id="eyl-4e-ob2" customClass="VerifyPhoneVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerifyPhoneVC" id="eyl-4e-ob2" customClass="VerifyPhoneVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e9b-kL-WIE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1388,7 +1388,7 @@
         <!--Dash BoardVC-->
         <scene sceneID="N4T-bk-w6c">
             <objects>
-                <viewController storyboardIdentifier="DashBoardVC" id="vVV-P0-LQe" customClass="DashBoardVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DashBoardVC" id="vVV-P0-LQe" customClass="DashBoardVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xix-IC-39e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1510,7 +1510,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashboardPageCollectionCell" id="gHS-ps-U2h" customClass="DashboardPageCollectionCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashboardPageCollectionCell" id="gHS-ps-U2h" customClass="DashboardPageCollectionCell" customModule="ChappanBhog" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="18" width="256" height="134"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rXQ-pc-yRC">
@@ -1571,7 +1571,7 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashboardProdutsCatCollectionCell" id="6FP-CZ-pO0" customClass="DashboardProdutsCatCollectionCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashboardProdutsCatCollectionCell" id="6FP-CZ-pO0" customClass="DashboardProdutsCatCollectionCell" customModule="ChappanBhog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="104" height="128"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EqU-0H-rTa">
@@ -1651,7 +1651,7 @@
                                                             <constraint firstAttribute="height" constant="160" id="4Dz-hk-OdQ"/>
                                                         </constraints>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TopPicsTableCell" rowHeight="143" id="SFW-3F-cbJ" customClass="TopPicsTableCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TopPicsTableCell" rowHeight="143" id="SFW-3F-cbJ" customClass="TopPicsTableCell" customModule="ChappanBhog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="143"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SFW-3F-cbJ" id="DxE-jE-SK1">
@@ -2168,7 +2168,7 @@
         <!--PaymentVC-->
         <scene sceneID="4td-QF-ySD">
             <objects>
-                <viewController storyboardIdentifier="PaymentVC" id="gDG-xg-Wr4" customClass="PaymentVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PaymentVC" id="gDG-xg-Wr4" customClass="PaymentVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hPb-Pe-Lre">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2243,7 +2243,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BanksCollectionCell" id="lCZ-4N-hIY" customClass="BanksCollectionCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BanksCollectionCell" id="lCZ-4N-hIY" customClass="BanksCollectionCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="4.5" width="349" height="167"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="l7U-LD-eKz">
@@ -2955,7 +2955,7 @@
         <!--Cart ViewVC-->
         <scene sceneID="GdS-mZ-evT">
             <objects>
-                <viewController storyboardIdentifier="CartViewVC" id="hP0-gy-2Vf" customClass="CartViewVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CartViewVC" id="hP0-gy-2Vf" customClass="CartViewVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="goQ-dW-zr2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3053,7 +3053,7 @@
                                         <rect key="frame" x="0.0" y="55" width="375" height="502"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableCell" rowHeight="279" id="SFf-DG-fje" customClass="CartTableCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableCell" rowHeight="279" id="SFf-DG-fje" customClass="CartTableCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="279"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SFf-DG-fje" id="N2H-jO-Es3">
@@ -3337,7 +3337,7 @@
         <!--AboutVC-->
         <scene sceneID="bJD-iK-1vr">
             <objects>
-                <viewController storyboardIdentifier="AboutVC" id="NYT-vh-O5z" customClass="AboutVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutVC" id="NYT-vh-O5z" customClass="AboutVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CuD-E1-LgO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3512,7 +3512,7 @@
         <!--Track Your OrderVC-->
         <scene sceneID="Dmn-5t-FxS">
             <objects>
-                <viewController storyboardIdentifier="TrackYourOrderVC" id="OlI-hR-e4h" customClass="TrackYourOrderVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TrackYourOrderVC" id="OlI-hR-e4h" customClass="TrackYourOrderVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aHL-9c-CfK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3829,7 +3829,7 @@
         <!--My OrderVC-->
         <scene sceneID="2JA-gC-7uA">
             <objects>
-                <viewController storyboardIdentifier="MyOrderVC" id="GbL-Yy-IVy" customClass="MyOrderVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyOrderVC" id="GbL-Yy-IVy" customClass="MyOrderVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OwA-1W-FtL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3883,39 +3883,39 @@
                                         <rect key="frame" x="0.0" y="25" width="375" height="532"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyordreTableCell" rowHeight="200" id="7ar-1O-5S8" customClass="MyordreTableCell" customModule="ChhappanBhog" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="200"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyordreTableCell" rowHeight="177" id="7ar-1O-5S8" customClass="MyordreTableCell" customModule="ChappanBhog" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="177"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7ar-1O-5S8" id="lHn-Pd-ENW">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQy-uz-OQv">
-                                                            <rect key="frame" x="40" y="21" width="295" height="158"/>
+                                                            <rect key="frame" x="40" y="21" width="295" height="135"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANJEER 250GM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZc-tx-OzO">
-                                                                    <rect key="frame" x="20" y="20" width="154" height="13.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <rect key="frame" x="20" y="15" width="108" height="21.5"/>
+                                                                    <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05 SEP, 2020 8:30 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLP-Gr-1Ir">
-                                                                    <rect key="frame" x="20" y="36.5" width="68.5" height="7.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="6"/>
+                                                                    <rect key="frame" x="20" y="36.5" width="78" height="11.5"/>
+                                                                    <fontDescription key="fontDescription" name="BrandonGrotesque-Regular" family="Brandon Grotesque" pointSize="8"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="250gm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISE-fB-KPe">
-                                                                    <rect key="frame" x="20" y="52" width="40" height="14.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                    <rect key="frame" x="20" y="56" width="35" height="17.5"/>
+                                                                    <fontDescription key="fontDescription" name="BrandonGrotesque-Regular" family="Brandon Grotesque" pointSize="12"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="delivered" translatesAutoresizingMaskIntoConstraints="NO" id="zae-fu-qcq">
                                                                     <rect key="frame" x="198.5" y="13" width="25" height="25"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="25" id="uf3-en-Q28"/>
-                                                                        <constraint firstAttribute="width" secondItem="zae-fu-qcq" secondAttribute="height" multiplier="1:1" id="yjE-ux-Z3A"/>
+                                                                        <constraint firstAttribute="height" constant="25" id="lL9-As-vVM"/>
+                                                                        <constraint firstAttribute="width" constant="25" id="xge-4v-sKd"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivered" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ops-K0-XVy">
@@ -3925,7 +3925,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CoO-Sm-g9L" customClass="STRatingControl" customModule="STRatingControl">
-                                                                    <rect key="frame" x="215" y="56" width="60" height="20"/>
+                                                                    <rect key="frame" x="215" y="55" width="60" height="20"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="AM5-Ex-RDf"/>
@@ -3943,31 +3943,31 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdO-wK-Vuy">
-                                                                    <rect key="frame" x="148.5" y="59.5" width="60.5" height="13.5"/>
+                                                                    <rect key="frame" x="148.5" y="58" width="60.5" height="13.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$450" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k89-Bi-OPE">
-                                                                    <rect key="frame" x="65" y="49" width="45" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <rect key="frame" x="60" y="54" width="34.5" height="21.5"/>
+                                                                    <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3b-aj-KHI">
-                                                                    <rect key="frame" x="20" y="86.5" width="255" height="1"/>
+                                                                    <rect key="frame" x="20" y="83.5" width="255" height="0.5"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="1" id="AXm-nr-Lfi"/>
+                                                                        <constraint firstAttribute="height" constant="0.5" id="AXm-nr-Lfi"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YvP-g8-jrn">
-                                                                    <rect key="frame" x="20" y="97.5" width="75" height="26"/>
+                                                                    <rect key="frame" x="20" y="94" width="75" height="26"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="75" id="HWY-SB-3zs"/>
                                                                         <constraint firstAttribute="height" constant="26" id="jNJ-vp-1oV"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                    <fontDescription key="fontDescription" name="BrandonGrotesque-Regular" family="Brandon Grotesque" pointSize="10"/>
                                                                     <state key="normal" title="REORDER">
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
@@ -3986,25 +3986,25 @@
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                             <constraints>
-                                                                <constraint firstItem="CoO-Sm-g9L" firstAttribute="top" secondItem="zae-fu-qcq" secondAttribute="bottom" constant="18" id="ADC-Sl-ZN4"/>
-                                                                <constraint firstItem="q3b-aj-KHI" firstAttribute="top" secondItem="ISE-fB-KPe" secondAttribute="bottom" constant="20" id="BPR-O8-dA4"/>
+                                                                <constraint firstItem="zae-fu-qcq" firstAttribute="centerY" secondItem="Ops-K0-XVy" secondAttribute="centerY" id="3ON-9w-LsN"/>
+                                                                <constraint firstItem="Ops-K0-XVy" firstAttribute="leading" secondItem="zae-fu-qcq" secondAttribute="trailing" constant="10" id="58i-U6-H9U"/>
+                                                                <constraint firstItem="CoO-Sm-g9L" firstAttribute="centerY" secondItem="ISE-fB-KPe" secondAttribute="centerY" id="76K-2J-Vqf"/>
+                                                                <constraint firstItem="q3b-aj-KHI" firstAttribute="top" secondItem="ISE-fB-KPe" secondAttribute="bottom" constant="10" id="BPR-O8-dA4"/>
                                                                 <constraint firstItem="q3b-aj-KHI" firstAttribute="leading" secondItem="oQy-uz-OQv" secondAttribute="leading" constant="20" id="C5v-KZ-g49"/>
                                                                 <constraint firstItem="xdO-wK-Vuy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k89-Bi-OPE" secondAttribute="trailing" constant="6" id="HAX-WE-xeu"/>
-                                                                <constraint firstItem="VZc-tx-OzO" firstAttribute="width" secondItem="oQy-uz-OQv" secondAttribute="width" multiplier="0.522034" id="HOt-xh-rMw"/>
                                                                 <constraint firstItem="k89-Bi-OPE" firstAttribute="leading" secondItem="ISE-fB-KPe" secondAttribute="trailing" constant="5" id="Hty-Gg-3E0"/>
-                                                                <constraint firstItem="PLP-Gr-1Ir" firstAttribute="top" secondItem="VZc-tx-OzO" secondAttribute="bottom" constant="3" id="KZ6-fM-evD"/>
+                                                                <constraint firstItem="PLP-Gr-1Ir" firstAttribute="top" secondItem="VZc-tx-OzO" secondAttribute="bottom" id="KZ6-fM-evD"/>
                                                                 <constraint firstAttribute="trailing" secondItem="q3b-aj-KHI" secondAttribute="trailing" constant="20" id="MlE-G8-sPG"/>
-                                                                <constraint firstItem="VZc-tx-OzO" firstAttribute="top" secondItem="oQy-uz-OQv" secondAttribute="top" constant="20" id="PRM-TN-U39"/>
+                                                                <constraint firstItem="VZc-tx-OzO" firstAttribute="top" secondItem="oQy-uz-OQv" secondAttribute="top" constant="15" id="PRM-TN-U39"/>
                                                                 <constraint firstItem="CoO-Sm-g9L" firstAttribute="leading" secondItem="xdO-wK-Vuy" secondAttribute="trailing" constant="6" id="PnZ-u2-30b"/>
                                                                 <constraint firstItem="Ops-K0-XVy" firstAttribute="top" secondItem="oQy-uz-OQv" secondAttribute="top" constant="20" id="RMG-JB-D8w"/>
                                                                 <constraint firstItem="ISE-fB-KPe" firstAttribute="leading" secondItem="PLP-Gr-1Ir" secondAttribute="leading" id="S3L-Be-DWq"/>
                                                                 <constraint firstItem="VZc-tx-OzO" firstAttribute="leading" secondItem="oQy-uz-OQv" secondAttribute="leading" constant="20" id="ZPn-u1-HKo"/>
                                                                 <constraint firstItem="YvP-g8-jrn" firstAttribute="top" secondItem="q3b-aj-KHI" secondAttribute="bottom" constant="10" id="ZZo-DQ-lmL"/>
+                                                                <constraint firstAttribute="bottom" secondItem="YvP-g8-jrn" secondAttribute="bottom" constant="15" id="bCm-aJ-54D"/>
                                                                 <constraint firstItem="CoO-Sm-g9L" firstAttribute="trailing" secondItem="Ops-K0-XVy" secondAttribute="trailing" id="dRh-ZZ-I6Y"/>
-                                                                <constraint firstItem="zae-fu-qcq" firstAttribute="centerY" secondItem="Ops-K0-XVy" secondAttribute="centerY" id="ddW-8V-ks5"/>
-                                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YvP-g8-jrn" secondAttribute="bottom" constant="16" id="fFH-ms-LXe"/>
+                                                                <constraint firstItem="zae-fu-qcq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VZc-tx-OzO" secondAttribute="trailing" constant="10" id="hdk-Nd-Njc"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Ops-K0-XVy" secondAttribute="trailing" constant="20" id="hm7-GY-Itv"/>
-                                                                <constraint firstItem="Ops-K0-XVy" firstAttribute="leading" secondItem="zae-fu-qcq" secondAttribute="trailing" constant="10" id="hoC-hh-i7e"/>
                                                                 <constraint firstItem="xdO-wK-Vuy" firstAttribute="centerY" secondItem="CoO-Sm-g9L" secondAttribute="centerY" id="oRU-gs-n1I"/>
                                                                 <constraint firstItem="PLP-Gr-1Ir" firstAttribute="leading" secondItem="VZc-tx-OzO" secondAttribute="leading" id="rwS-X2-ZTt"/>
                                                                 <constraint firstItem="ISE-fB-KPe" firstAttribute="top" secondItem="PLP-Gr-1Ir" secondAttribute="bottom" constant="8" id="sia-6I-Xwm"/>
@@ -4023,7 +4023,8 @@
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
-                                                    <outlet property="lblCurrentDate" destination="VZc-tx-OzO" id="Olf-jo-QQB"/>
+                                                    <outlet property="iVStatus" destination="zae-fu-qcq" id="E1Z-cx-UoV"/>
+                                                    <outlet property="lblCurrentDate" destination="PLP-Gr-1Ir" id="QVi-vR-36q"/>
                                                     <outlet property="lblItemStatus" destination="Ops-K0-XVy" id="zwb-Ho-dcz"/>
                                                     <outlet property="lblPrice" destination="k89-Bi-OPE" id="Y6d-Cy-Ftq"/>
                                                     <outlet property="productNameLBL" destination="VZc-tx-OzO" id="nKl-6H-T7x"/>
@@ -4071,7 +4072,7 @@
         <!--Update PasswordVC-->
         <scene sceneID="xFm-eM-Dfj">
             <objects>
-                <viewController storyboardIdentifier="UpdatePasswordVC" id="3R8-2h-P1h" customClass="UpdatePasswordVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpdatePasswordVC" id="3R8-2h-P1h" customClass="UpdatePasswordVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JAb-gv-Jqy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4323,7 +4324,7 @@
         <!--Manage AddressVC-->
         <scene sceneID="mfP-Gg-2xc">
             <objects>
-                <viewController storyboardIdentifier="ManageAddressVC" id="TiP-8D-sIi" customClass="ManageAddressVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ManageAddressVC" id="TiP-8D-sIi" customClass="ManageAddressVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3ED-Q8-Hmg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5099,7 +5100,7 @@
         <!--My AccountVC-->
         <scene sceneID="ci7-VD-Gi5">
             <objects>
-                <viewController storyboardIdentifier="MyAccountVC" id="L2H-ak-GdJ" customClass="MyAccountVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyAccountVC" id="L2H-ak-GdJ" customClass="MyAccountVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="47K-Pw-jtn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5162,7 +5163,7 @@
                                                             <constraint firstAttribute="height" constant="200" id="cjb-Gi-ckg"/>
                                                         </constraints>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyAccountListTableCell" rowHeight="160" id="fr1-vo-iDz" customClass="MyAccountListTableCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyAccountListTableCell" rowHeight="160" id="fr1-vo-iDz" customClass="MyAccountListTableCell" customModule="ChappanBhog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="160"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fr1-vo-iDz" id="DF6-TF-Qwu">
@@ -5392,7 +5393,7 @@
         <!--Our MenuVC-->
         <scene sceneID="KE6-47-Bof">
             <objects>
-                <viewController storyboardIdentifier="OurMenuVC" id="DqB-nm-rrV" customClass="OurMenuVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OurMenuVC" id="DqB-nm-rrV" customClass="OurMenuVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bfZ-5j-yTb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5470,7 +5471,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="508"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OurMenuTableCellOld" rowHeight="180" id="pKc-7n-RIt" customClass="OurMenuTableCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OurMenuTableCellOld" rowHeight="180" id="pKc-7n-RIt" customClass="OurMenuTableCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="180"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pKc-7n-RIt" id="7f0-8b-RA7">
@@ -5537,7 +5538,7 @@
         <!--NotificationsVC-->
         <scene sceneID="6NV-Ln-2Zf">
             <objects>
-                <viewController storyboardIdentifier="NotificationsVC" id="Okn-MG-HUZ" customClass="NotificationsVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationsVC" id="Okn-MG-HUZ" customClass="NotificationsVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qKm-st-w8z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5591,7 +5592,7 @@
                                         <rect key="frame" x="0.0" y="5" width="375" height="503"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationListTableCell" rowHeight="74" id="yoE-bR-s3C" customClass="NotificationListTableCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationListTableCell" rowHeight="74" id="yoE-bR-s3C" customClass="NotificationListTableCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="74"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yoE-bR-s3C" id="BaX-Gq-H2r">
@@ -5709,7 +5710,7 @@
         <!--Product InfoVC-->
         <scene sceneID="pJD-1z-gKf">
             <objects>
-                <viewController storyboardIdentifier="ProductInfoVC" id="o3t-eO-pmf" customClass="ProductInfoVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductInfoVC" id="o3t-eO-pmf" customClass="ProductInfoVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vGp-HI-CsX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5850,7 +5851,7 @@
                                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 </collectionViewFlowLayout>
                                                                 <cells>
-                                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="productDetailImageCollection" id="E2Y-Ve-rH1" customClass="productDetailImageCollection" customModule="ChhappanBhog" customModuleProvider="target">
+                                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="productDetailImageCollection" id="E2Y-Ve-rH1" customClass="productDetailImageCollection" customModule="ChappanBhog" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="23.5" width="128" height="128"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q2J-6s-JUc">
@@ -6181,7 +6182,7 @@
         <!--Search RecordVC-->
         <scene sceneID="Qav-ap-EXd">
             <objects>
-                <viewController storyboardIdentifier="searchRecordVC" id="dva-aY-5ui" customClass="searchRecordVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchRecordVC" id="dva-aY-5ui" customClass="searchRecordVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9h5-nC-XIL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6358,7 +6359,7 @@
                                             <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemsCollectionCell" id="JZQ-pC-EsY" customClass="itemsCollectionCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemsCollectionCell" id="JZQ-pC-EsY" customClass="itemsCollectionCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="75.5" y="0.0" width="224" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yuT-zB-RRd">
@@ -6682,7 +6683,7 @@
         <!--Dash Board CategoriesVC-->
         <scene sceneID="GXE-wQ-4sW">
             <objects>
-                <viewController storyboardIdentifier="DashBoardCategoriesVC" id="mQx-aq-Zi4" customClass="DashBoardCategoriesVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DashBoardCategoriesVC" id="mQx-aq-Zi4" customClass="DashBoardCategoriesVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xdt-O9-xtb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6772,9 +6773,9 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0ck-yk-zXf">
                                         <rect key="frame" x="0.0" y="65" width="375" height="492"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <collectionViewLayout key="collectionViewLayout" id="XzI-3E-DHV" customClass="PinterestLayout" customModule="ChhappanBhog" customModuleProvider="target"/>
+                                        <collectionViewLayout key="collectionViewLayout" id="XzI-3E-DHV" customClass="PinterestLayout" customModule="ChappanBhog" customModuleProvider="target"/>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashboardCategCollCell" id="4yj-OW-w1O" customClass="DashboardCategCollCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashboardCategCollCell" id="4yj-OW-w1O" customClass="DashboardCategCollCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="0.0" width="215" height="310"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dY0-qW-6LV">
@@ -6899,7 +6900,7 @@
         <!--Forgot PasswordVC-->
         <scene sceneID="zIY-f1-6L7">
             <objects>
-                <viewController storyboardIdentifier="ForgotPasswordVC" id="wSs-RP-J5f" customClass="ForgotPasswordVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ForgotPasswordVC" id="wSs-RP-J5f" customClass="ForgotPasswordVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C4G-93-I3Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7083,7 +7084,7 @@
         <!--Enquirly FormVC-->
         <scene sceneID="Jbn-ta-WZs">
             <objects>
-                <viewController storyboardIdentifier="EnquirlyFormVC" id="QtH-Ci-uNS" customClass="EnquirlyFormVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnquirlyFormVC" id="QtH-Ci-uNS" customClass="EnquirlyFormVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yC5-hV-gRe">
                         <rect key="frame" x="0.0" y="0.0" width="275" height="290"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7278,7 +7279,7 @@
         <!--States Pop UpVC-->
         <scene sceneID="kTA-Y7-xa6">
             <objects>
-                <viewController storyboardIdentifier="StatesPopUpVC" id="pCl-ha-VpH" customClass="StatesPopUpVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StatesPopUpVC" id="pCl-ha-VpH" customClass="StatesPopUpVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fHb-7X-a7N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7383,7 +7384,7 @@
         <!--Category And ItemsVC-->
         <scene sceneID="euv-Yg-6aP">
             <objects>
-                <viewController storyboardIdentifier="CategoryAndItemsVC" id="1AU-Gt-NgF" customClass="CategoryAndItemsVC" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CategoryAndItemsVC" id="1AU-Gt-NgF" customClass="CategoryAndItemsVC" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ING-Ld-tnl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7492,7 +7493,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="topCatCollectionCell" id="61g-4s-syV" customClass="topCatCollectionCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="topCatCollectionCell" id="61g-4s-syV" customClass="topCatCollectionCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="12" width="99" height="126"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NeO-8g-TYU">
@@ -7544,7 +7545,7 @@
                                             <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemsCollectionCell" id="3me-bX-eQd" customClass="itemsCollectionCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemsCollectionCell" id="3me-bX-eQd" customClass="itemsCollectionCell" customModule="ChappanBhog" customModuleProvider="target">
                                                 <rect key="frame" x="75.5" y="0.0" width="224" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2OK-tF-ehx">
@@ -7870,8 +7871,8 @@
         <!--Sidemenu Controller-->
         <scene sceneID="hFV-Ve-km1">
             <objects>
-                <viewController storyboardIdentifier="SidemenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xsr-es-XqL" customClass="SidemenuController" customModule="ChhappanBhog" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="kMv-la-DCR" customClass="GradientView" customModule="ChhappanBhog" customModuleProvider="target">
+                <viewController storyboardIdentifier="SidemenuController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xsr-es-XqL" customClass="SidemenuController" customModule="ChappanBhog" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="kMv-la-DCR" customClass="GradientView" customModule="ChappanBhog" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -7898,7 +7899,7 @@
                                 <rect key="frame" x="0.0" y="144" width="375" height="523"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="CustomTableVwCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="oOc-Ql-i2L" customClass="CustomTableVwCell" customModule="ChhappanBhog" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="CustomTableVwCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="oOc-Ql-i2L" customClass="CustomTableVwCell" customModule="ChappanBhog" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oOc-Ql-i2L" id="qfR-4b-dV7">

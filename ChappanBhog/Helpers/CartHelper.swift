@@ -69,10 +69,22 @@ class CartHelper: NSObject {
     }
     
     func deleteFromCart(cartItem: CartItem) {
+        // Delete its combination and add again
         let id = cartItem.item.id
-        cartItems.removeAll { (obj) -> Bool in
-            let objId = obj.item.id
-            return objId == id
+        let opId = cartItem.item.selectedOptionId
+        
+        if cartItem.item.options.count == 0 {
+            cartItems.removeAll { (obj) -> Bool in
+                let objId = obj.item.id
+                return objId == id
+            }
+        }
+        else {
+            cartItems.removeAll { (obj) -> Bool in
+                let objId = obj.item.id
+                let objOpId = obj.item.selectedOptionId
+                return objId == id && objOpId == opId
+            }
         }
         save()
     }
