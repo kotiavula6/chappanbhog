@@ -23,6 +23,7 @@ class MyAccountVC: UIViewController {
     @IBOutlet weak var shadowViewBottom: UIView!
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var btnEdit: UIButton!
+    @IBOutlet weak var btnBack: UIButton!
     
     let listArray = ["ADDRESS","PASSWORD","MY ORDERS","TRACK YOUR ORDER","PAYMENTS"]
     
@@ -38,7 +39,11 @@ class MyAccountVC: UIViewController {
         userNameTF.text = UserDefaults.standard.string(forKey: Constants.Name) ?? ""
         userNameTF.isUserInteractionEnabled = false
         setAppearance()
-        
+        if isFromSideMenu {
+            self.btnBack.isHidden = false
+        } else {
+            self.btnBack.isHidden = true
+        }
         profileImage.contentMode = .scaleAspectFill
         let imageStr = UserDefaults.standard.string(forKey: Constants.Image) ?? ""
         if !imageStr.isEmpty {

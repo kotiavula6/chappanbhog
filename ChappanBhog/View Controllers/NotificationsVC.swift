@@ -16,6 +16,7 @@ class NotificationsVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var notificationsTable: UITableView!
     @IBOutlet weak var lblNoNotifications: UILabel!
+    @IBOutlet weak var btnBack: UIButton!
     
     var notificationDataArr = [NotificationModel]()
     var currentPage: Int = 1
@@ -29,6 +30,7 @@ class NotificationsVC: UIViewController {
         // Do any additional setup after loading the view.
         notificationsTable.delegate = self
         notificationsTable.dataSource = self
+        self.btnBack.isHidden = true
         notificationsTable.register(UINib(nibName: "LoadMoreCell", bundle: nil), forCellReuseIdentifier: "LoadMoreCell")
         setAppearance()
         self.lblNoNotifications.isHidden = true

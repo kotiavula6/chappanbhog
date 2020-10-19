@@ -15,6 +15,7 @@ class OurMenuVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var menuTable: UITableView!
     @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var btnBack: UIButton!
     
     var colors: [UIColor] = [#colorLiteral(red: 0.9849506021, green: 0.8973115683, blue: 0.876331389, alpha: 1), #colorLiteral(red: 0.9407958388, green: 0.9658285975, blue: 0.9961531758, alpha: 1), #colorLiteral(red: 0.9904260039, green: 0.9232538342, blue: 0.8390535712, alpha: 1), #colorLiteral(red: 0.9181006551, green: 0.9216977954, blue: 0.924925983, alpha: 1), #colorLiteral(red: 0.9757087827, green: 0.8361513615, blue: 0.8480049372, alpha: 1)]
     var shopCategories: [ShopCategory] = []
@@ -27,7 +28,11 @@ class OurMenuVC: UIViewController {
         menuTable.register(UINib(nibName: "OurMenuTableCell", bundle: nil), forCellReuseIdentifier: "OurMenuTableCell")
         menuTable.separatorStyle = .none
         setAppearance()
-        
+        if isFromSidemenu {
+            self.btnBack.isHidden = false
+        } else {
+            self.btnBack.isHidden = true
+        }
         IJProgressView.shared.showProgressView()
         getCategories {
             IJProgressView.shared.hideProgressView()
@@ -118,6 +123,7 @@ extension OurMenuVC:UITableViewDelegate,UITableViewDataSource {
         if id == 0 { return }
         
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
+        vc.isFromNavgation = true
         vc.GET_CATEGORY_ITEMS(ItemId: id)
         self.navigationController?.pushViewController(vc, animated: true)
     }

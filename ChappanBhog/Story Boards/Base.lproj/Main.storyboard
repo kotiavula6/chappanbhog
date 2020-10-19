@@ -5374,6 +5374,7 @@
                     <connections>
                         <outlet property="bacVieww" destination="uNh-6A-1xo" id="05g-3d-dw2"/>
                         <outlet property="backView" destination="bZk-ir-thD" id="MS1-AG-AoW"/>
+                        <outlet property="btnBack" destination="73B-KB-8ys" id="gqE-mV-7Gv"/>
                         <outlet property="btnEdit" destination="IIJ-Sy-S94" id="6Kq-oR-kxK"/>
                         <outlet property="gradientView" destination="iaq-cS-mVH" id="Fbf-cZ-bex"/>
                         <outlet property="imageBackView" destination="Sco-ea-t0q" id="bHm-57-8sa"/>
@@ -5525,6 +5526,7 @@
                     <tabBarItem key="tabBarItem" title="" image="menuChappan" selectedImage="menuChappan" id="N4s-RB-yh6"/>
                     <connections>
                         <outlet property="backView" destination="nTg-9W-kuJ" id="k0B-aw-Ed5"/>
+                        <outlet property="btnBack" destination="qo8-PB-hl4" id="6U1-fo-6yS"/>
                         <outlet property="cartLBL" destination="bfK-Nu-SdI" id="nUj-De-vh0"/>
                         <outlet property="gradientView" destination="DZ4-yh-6K0" id="1UB-Vx-iCy"/>
                         <outlet property="menuTable" destination="gE6-r8-jo5" id="Vwl-C8-gns"/>
@@ -5697,6 +5699,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="notification_bottom" id="MUh-1d-eoB"/>
                     <connections>
+                        <outlet property="btnBack" destination="8WW-YW-PX9" id="adh-c2-IBm"/>
                         <outlet property="gradientView" destination="e34-At-P3U" id="wwO-em-GV9"/>
                         <outlet property="lblNoNotifications" destination="X9M-Du-elE" id="CFD-NV-28d"/>
                         <outlet property="notificationsTable" destination="Kcg-Vx-VaI" id="el1-WN-vMl"/>
@@ -7854,6 +7857,7 @@
                     <tabBarItem key="tabBarItem" title="" image="favorite_bottom" selectedImage="favorite_bottom" id="Mwa-Oy-w1E"/>
                     <connections>
                         <outlet property="backView" destination="y7g-i2-apD" id="4Up-vm-36E"/>
+                        <outlet property="btnBack" destination="B0o-xX-kZv" id="Wvz-GP-OYz"/>
                         <outlet property="gradientView" destination="NwI-eU-RYQ" id="uiq-18-Egm"/>
                         <outlet property="itemsCollection" destination="RSc-rf-dso" id="voA-Su-leY"/>
                         <outlet property="layoutConstaintItemtTop" destination="W1s-9s-wQU" id="rCw-2v-vhG"/>
