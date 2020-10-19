@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import FirebaseAuth
 //import TwitterKit
 
 class SignInVC: UIViewController  {
@@ -21,6 +22,8 @@ class SignInVC: UIViewController  {
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var signInBTN: UIButton!
     @IBOutlet weak var userNameTF: UITextField!
+    
+     var provider = OAuthProvider(providerID: "twitter.com")
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -131,6 +134,61 @@ class SignInVC: UIViewController  {
         }
     }
     @IBAction func twitterAccount(_ sender: UIButton) {
+        
+        IJProgressView.shared.showProgressView()
+        
+        provider.getCredentialWith(nil) { credential, error in
+            
+            // IJProgressView.shared.hideProgressView()
+            
+            if error != nil {
+                // Handle error.
+                IJProgressView.shared.hideProgressView()
+                print("error: \(error!.localizedDescription)");
+                return
+            }
+            if credential != nil {
+                
+                // IJProgressView.shared.showProgressView()
+                Auth.auth().signIn(with: credential!) { (authResult, error) in
+                    IJProgressView.shared.hideProgressView()
+                    if error != nil {
+                        // Handle error.
+                        print("error: \(String(describing: error?.localizedDescription))")
+                        self.message = error?.localizedDescription ?? ""
+                        alert("ChhappanBhog", message: self.message, view: self)
+                        return
+                    }
+                    
+                    if let userData = authResult {
+                        if let currentUserData = userData.additionalUserInfo {
+                            let currentUser = currentUserData.profile ?? [:]
+                            let userName = currentUser["name"] as? String ?? ""
+                            let userEmail = currentUser["email"] as? String ?? ""
+                            
+                            let parms : [String:Any] = ["user_email":userEmail,"user_pass":"","type":3,"social_id":"Twitter","name":userName]
+                            self.API_LOGIN(params: parms as NSDictionary)
+                        } else {
+                            print("error: \(String(describing: error?.localizedDescription))")
+                            self.message = error?.localizedDescription ?? ""
+                            alert("ChhappanBhog", message: self.message, view: self)
+                        }
+                    } else {
+                        print("error: \(String(describing: error?.localizedDescription))")
+                        self.message = error?.localizedDescription ?? ""
+                        alert("ChhappanBhog", message: self.message, view: self)
+                    }
+                }
+                
+                
+                
+            } else {
+                IJProgressView.shared.hideProgressView()
+                self.message = error?.localizedDescription ?? ""
+                alert("ChhappanBhog", message: self.message, view: self)
+            }
+        }
+        
         
         /*TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
             if (session != nil) {
