@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
-        GIDSignIn.sharedInstance().clientID = "574908180295-nuhnssptokucg4cr05sr0qihol6fg7v1.apps.googleusercontent.com"
+        
+        GIDSignIn.sharedInstance().clientID = "574908180295-s62bs9umoqrvuo366ri3es6ucrq0oqp8.apps.googleusercontent.com"
         FirebaseApp.configure()
 
         

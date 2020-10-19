@@ -19,9 +19,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb835499397256812</string>
+				<string>fb375494510158587</string>
 			</array>
 		</dict>
 		<dict>
@@ -29,7 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.574908180295-nuhnssptokucg4cr05sr0qihol6fg7v1</string>
+				<string>com.googleusercontent.apps.574908180295-s62bs9umoqrvuo366ri3es6ucrq0oqp8</string>
 			</array>
 		</dict>
 		<dict>
@@ -44,7 +46,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>835499397256812</string>
+	<string>375494510158587</string>
 	<key>FacebookDisplayName</key>
 	<string>ChappanBhog</string>
 	<key>LSApplicationQueriesSchemes</key>
