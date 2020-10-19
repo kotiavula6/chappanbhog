@@ -42,6 +42,10 @@ class VerifyPhoneVC: UIViewController {
     var userID = ""
     var editMode: Bool = false
     
+    lazy var progressView: IJProgressView = {
+       return IJProgressView()
+    }()
+    
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,9 +81,9 @@ class VerifyPhoneVC: UIViewController {
         flagIMG.image = selectedCountry?.flag
         mobileTF.text = phone
         
-        IJProgressView.shared.showProgressView()
+        self.progressView.showProgressView()
         sendVerificationCode {
-            IJProgressView.shared.hideProgressView()
+            self.progressView.hideProgressView()
         }
         
         mobileTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
@@ -95,9 +99,9 @@ class VerifyPhoneVC: UIViewController {
     
     
     @IBAction func ResendAction(_ sender: UIButton) {
-        IJProgressView.shared.showProgressView()
+        self.progressView.showProgressView()
         sendVerificationCode {
-            IJProgressView.shared.hideProgressView()
+            self.progressView.hideProgressView()
         }
     }
     
@@ -108,9 +112,9 @@ class VerifyPhoneVC: UIViewController {
             return
         }
         
-        IJProgressView.shared.showProgressView()
+        self.progressView.showProgressView()
         verifyPhoneNumber(code: code) { (success) in
-            IJProgressView.shared.hideProgressView()
+            self.progressView.hideProgressView()
             if !success {
                 // self.showAlertWithTitle(title: "", message: "Invalid verification code", okButton: "Ok", cancelButton: "", okSelectorName: nil)
                 return
@@ -141,10 +145,10 @@ class VerifyPhoneVC: UIViewController {
             self.selectedCountry = country
             self.code = country.dialingCode ?? "0"
             
-            IJProgressView.shared.showProgressView()
+            /*self.progressView.showProgressView()
             self.sendVerificationCode {
-                IJProgressView.shared.hideProgressView()
-            }
+                self.progressView.hideProgressView()
+            }*/
         }
         
         // can customize the countryPicker here e.g font and color
@@ -161,9 +165,9 @@ class VerifyPhoneVC: UIViewController {
             // Tick click
             // Send the verification code
             editMode = false
-            IJProgressView.shared.showProgressView()
+            self.progressView.showProgressView()
             sendVerificationCode {
-                IJProgressView.shared.hideProgressView()
+                self.progressView.hideProgressView()
             }
         }
         updateEditMode()
@@ -275,43 +279,44 @@ extension VerifyPhoneVC {
     }
 }
 extension VerifyPhoneVC {
-func API_GET_DASHBOARD_DATA() {
-    
-    IJProgressView.shared.showProgressView()
-    let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_VERIFY_ACCOUNT
-    let params:[String:Any] = ["":""]
-    
-    AFWrapperClass.requestPOSTURL(bannersUrl, params: params, success: { (dict) in
-        IJProgressView.shared.hideProgressView()
+    func API_GET_DASHBOARD_DATA() {
         
-        let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
-        if isTokenExpired {
-            return
-        }
-        
-        print(dict)
-        
-        let response = dict["data"] as? NSDictionary ?? NSDictionary()
-        let success = dict["success"] as? Int ?? 0
-        
-        if success == 0 {
-            
-            self.message = dict["message"] as? String ?? ""
-            alert("ChhappanBhog", message: self.message, view: self)
-            
-        }else {
-            
+        /*IJProgressView.shared.showProgressView()
+         let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_VERIFY_ACCOUNT
+         let params:[String:Any] = ["":""]
          
-        }
- 
-        
-    }) { (error) in
-        
-        IJProgressView.shared.hideProgressView()
-        
+         AFWrapperClass.requestPOSTURL(bannersUrl, params: params, success: { (dict) in
+         IJProgressView.shared.hideProgressView()
+         
+         let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
+         if isTokenExpired {
+         return
+         }
+         
+         print(dict)
+         
+         let response = dict["data"] as? NSDictionary ?? NSDictionary()
+         let success = dict["success"] as? Int ?? 0
+         
+         if success == 0 {
+         
+         self.message = dict["message"] as? String ?? ""
+         alert("ChhappanBhog", message: self.message, view: self)
+         
+         }else {
+         
+         
+         }
+         
+         
+         }) { (error) in
+         
+         IJProgressView.shared.hideProgressView()
+         
+         }*/
     }
 }
-}
+
 extension VerifyPhoneVC: UITextFieldDelegate {
     
     
