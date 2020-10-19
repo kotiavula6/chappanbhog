@@ -70,16 +70,19 @@ class CartViewVC: UIViewController {
         }
     }
     
+    func reloadTable() {
+        DispatchQueue.main.async {
+            self.listTable.reloadData()
+        }
+    }
+    
     // MARK:- ACTIONS
     @IBAction func backButton(_ sender: Any) {
-        
         if isFromProduct {
-          self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
         } else {
             AppDelegate.shared.showHomeScreen()
         }
-        
-       //
     }
 }
 
@@ -111,22 +114,31 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
             cell.PriceLBL.text = "0".prefixINR
         }
         
+        cell.quantityLBL.text = "\(cartItem.item.quantity)"
         cell.quantityIncBlock = {
             let cartItem = CartHelper.shared.cartItems[indexPath.row]
             cartItem.item.quantity += 1
             cell.quantityLBL.text = "\(cartItem.item.quantity)"
+            CartHelper.shared.save()
         }
         
         cell.quantityDecBlock = {
             let cartItem = CartHelper.shared.cartItems[indexPath.row]
             cartItem.item.quantity -= 1
-            if cartItem.item.quantity < 1 { cartItem.item.quantity = 1}
+            if cartItem.item.quantity < 1 { cartItem.item.quantity = 1 }
             cell.quantityLBL.text = "\(cartItem.item.quantity)"
+            CartHelper.shared.save()
         }
         
         cell.chooseOptioncBlock = {
             self.currentIndexPath = indexPath
             self.showOptions(indexPath: indexPath)
+        }
+        
+        cell.deleteBlock = {
+            let cartItem = CartHelper.shared.cartItems[indexPath.row]
+            CartHelper.shared.deleteFromCart(cartItem: cartItem)
+            self.reloadTable()
         }
         
         return cell

@@ -25,12 +25,14 @@ class CartTableCell: UITableViewCell {
     var quantityIncBlock: SimpleBlock?
     var quantityDecBlock: SimpleBlock?
     var chooseOptioncBlock: SimpleBlock?
+    var deleteBlock: SimpleBlock?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         quantityIncreaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
         quantityDecreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
         weightSelectBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
+        deleteBTN.addTarget(self, action: #selector(deleteAction(_:)), for: UIControl.Event.touchUpInside)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -52,6 +54,12 @@ class CartTableCell: UITableViewCell {
     
     @objc func optionAction(_ sender: UIButton) {
         if let block = chooseOptioncBlock {
+            block()
+        }
+    }
+    
+    @objc func deleteAction(_ sender: UIButton) {
+        if let block = deleteBlock {
             block()
         }
     }
