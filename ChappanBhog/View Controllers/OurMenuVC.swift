@@ -18,6 +18,8 @@ class OurMenuVC: UIViewController {
     
     var colors: [UIColor] = [#colorLiteral(red: 0.9849506021, green: 0.8973115683, blue: 0.876331389, alpha: 1), #colorLiteral(red: 0.9407958388, green: 0.9658285975, blue: 0.9961531758, alpha: 1), #colorLiteral(red: 0.9904260039, green: 0.9232538342, blue: 0.8390535712, alpha: 1), #colorLiteral(red: 0.9181006551, green: 0.9216977954, blue: 0.924925983, alpha: 1), #colorLiteral(red: 0.9757087827, green: 0.8361513615, blue: 0.8480049372, alpha: 1)]
     var shopCategories: [ShopCategory] = []
+    var isFromSidemenu = false
+    
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -75,7 +77,11 @@ class OurMenuVC: UIViewController {
         
     // MARK:- Actions
     @IBAction func backButtonAction(_ sender: UIButton) {
-        AppDelegate.shared.showHomeScreen()
+        
+        if isFromSidemenu {
+            AppDelegate.shared.showHomeScreen()
+        }
+        
        // self.navigationController?.popViewController(animated: true)
     }
 }
