@@ -160,7 +160,6 @@ class SignInVC: UIViewController  {
                         return
                     }
                     
-                    print(authResult)
                     if let userData = authResult {
                         if let currentUserData = userData.additionalUserInfo {
                             let currentUser = currentUserData.profile ?? [:]
