@@ -147,7 +147,7 @@
 		EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackYourOrderVC.swift; sourceTree = "<group>"; };
 		EE25617B2509FEE3001C54AA /* MyOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderVC.swift; sourceTree = "<group>"; };
 		EE318C222510703F00160640 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
-		EE31C6C7250774DF00E87E98 /* ChhappanBhog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChhappanBhog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE31C6C7250774DF00E87E98 /* ChappanBhog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChappanBhog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE31C6CA250774DF00E87E98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE31C6D1250774DF00E87E98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE31C6D4250774DF00E87E98 /* ChappanBhog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChappanBhog.xcdatamodel; sourceTree = "<group>"; };
@@ -384,7 +384,7 @@
 		EE31C6C8250774DF00E87E98 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EE31C6C7250774DF00E87E98 /* ChhappanBhog.app */,
+				EE31C6C7250774DF00E87E98 /* ChappanBhog.app */,
 				EE31C6E0250774E300E87E98 /* ChappanBhogTests.xctest */,
 				EE31C6EB250774E300E87E98 /* ChappanBhogUITests.xctest */,
 			);
@@ -596,7 +596,7 @@
 			);
 			name = ChappanBhog;
 			productName = ChappanBhog;
-			productReference = EE31C6C7250774DF00E87E98 /* ChhappanBhog.app */;
+			productReference = EE31C6C7250774DF00E87E98 /* ChappanBhog.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EE31C6DF250774E300E87E98 /* ChappanBhogTests */ = {
@@ -1112,7 +1112,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201016.1;
+				CURRENT_PROJECT_VERSION = 20201019;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1120,12 +1120,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
-				PRODUCT_NAME = ChhappanBhog;
+				PRODUCT_NAME = ChappanBhog;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1137,7 +1138,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201016.1;
+				CURRENT_PROJECT_VERSION = 20201019;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1145,11 +1146,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
-				PRODUCT_NAME = ChhappanBhog;
+				PRODUCT_NAME = ChappanBhog;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

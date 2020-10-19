@@ -48,6 +48,7 @@ class searchRecordVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateCartCount()
+        reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
     }
     
@@ -159,6 +160,14 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
             cell.layoutConstraintWeightTrailing.constant = 0
         }
         cell.layoutIfNeeded()
+        
+        cell.favBTN.tintColor = CartHelper.shared.isItemInFavouriteList(itemId: data.id) ? .red : .lightGray
+        cell.favouriteBlock = {
+            let item = self.categoryArr[indexPath.row]
+            let favourite = !CartHelper.shared.isItemInFavouriteList(itemId: item.id)
+            CartHelper.shared.markFavourite(itemId: item.id, favourite: favourite)
+            cell.favBTN.tintColor = favourite ? .red : .lightGray
+        }
 
         cell.cartBlock = {
             let item = self.categoryArr[indexPath.row]

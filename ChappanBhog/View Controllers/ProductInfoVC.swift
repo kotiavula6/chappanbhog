@@ -42,7 +42,6 @@ class ProductInfoVC: UIViewController {
         super.viewDidLoad()
         setAppearance()
         fillData()
-        weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +89,7 @@ class ProductInfoVC: UIViewController {
                 self.layoutConstraintWeightTraling.constant = -30
             }
             
+            self.favroteBTN.tintColor = CartHelper.shared.isItemInFavouriteList(itemId: self.item.id) ? .red : .lightGray
             self.descriptionLBL.text = self.item.desc
             self.quantityLBL.text = "\(self.item.quantity)"
             self.totalReviewsLBL.text = "\(self.item.reviews) \(self.item.reviews == 1 ? "review" : "reviews")"
@@ -130,8 +130,10 @@ class ProductInfoVC: UIViewController {
     
     //MARK:- ACTIONS
     @IBAction func weightButtonAction(_ sender: UIButton) {
-        
-        
+        if self.item.options.count == 0 {
+            return
+        }
+        showOptions()
     }
     
     @IBAction func increseBTN(_ sender: UIButton) {
@@ -162,20 +164,15 @@ class ProductInfoVC: UIViewController {
     }
     
     @IBAction func favroteButtonClicked(_ sender: UIButton) {
-        
+        let favourite = !CartHelper.shared.isItemInFavouriteList(itemId: item.id)
+        CartHelper.shared.markFavourite(itemId: item.id, favourite: favourite)
+        favroteBTN.tintColor = favourite ? .red : .lightGray
     }
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         vc.isFromProduct = true
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func optionAction(_ sender: UIButton) {
-        if self.item.options.count == 0 {
-            return
-        }
-        showOptions()
     }
 }
 

@@ -25,7 +25,6 @@ class sideMenu: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-     
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +37,6 @@ class sideMenu: UIViewController {
    
 
         let name = UserDefaults.standard.value(forKey: Constants.Name) as? String ?? ""
-            print(name)
         nameLBL.text = name
         
         profileIMG.contentMode = .scaleAspectFill

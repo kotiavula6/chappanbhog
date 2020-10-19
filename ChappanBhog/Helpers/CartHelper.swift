@@ -72,6 +72,29 @@ class CartHelper: NSObject {
         cartItems.removeAll()
         save()
     }
+    
+    func markFavourite(itemId: Int, favourite: Bool) {
+        if favourite {
+            var allFavouriteItems = UserDefaults.standard.array(forKey: "kAllFavourites") as? [Int] ?? []
+            if allFavouriteItems.contains(itemId) { return }
+            allFavouriteItems.append(itemId)
+            UserDefaults.standard.set(allFavouriteItems, forKey: "kAllFavourites")
+        }
+        else {
+            removeFromFavourite(itemId: itemId)
+        }
+    }
+    
+    func isItemInFavouriteList(itemId: Int) -> Bool {
+        let allFavouriteItems = UserDefaults.standard.array(forKey: "kAllFavourites") as? [Int] ?? []
+        return allFavouriteItems.contains(itemId)
+    }
+    
+    func removeFromFavourite(itemId: Int) {
+        var allFavouriteItems = UserDefaults.standard.array(forKey: "kAllFavourites") as? [Int] ?? []
+        allFavouriteItems.removeAll {$0 == itemId}
+        UserDefaults.standard.set(allFavouriteItems, forKey: "kAllFavourites")
+    }
 }
 
 

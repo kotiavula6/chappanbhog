@@ -42,6 +42,11 @@ class CategoryAndItemsVC: UIViewController {
         setGradientBackground(view: self.gradientView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        reloadData()
+    }
+    
     //MARK:- UI SETUP
     func setAppearance() {
         DispatchQueue.main.async {
@@ -122,6 +127,14 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.layoutConstraintWeightTrailing.constant = 0
             }
             cell.layoutIfNeeded()
+            
+            cell.favBTN.tintColor = CartHelper.shared.isItemInFavouriteList(itemId: data.id) ? .red : .lightGray
+            cell.favouriteBlock = {
+                let item = self.categoryArr[indexPath.row]
+                let favourite = !CartHelper.shared.isItemInFavouriteList(itemId: item.id)
+                CartHelper.shared.markFavourite(itemId: item.id, favourite: favourite)
+                cell.favBTN.tintColor = favourite ? .red : .lightGray
+            }
             
             cell.cartBlock = {
                 let item = self.categoryArr[indexPath.row]
@@ -292,6 +305,7 @@ class itemsCollectionCell: UICollectionViewCell {
     var quantityIncBlock: SimpleBlock?
     var quantityDecBlock: SimpleBlock?
     var chooseOptioncBlock: SimpleBlock?
+    var favouriteBlock: SimpleBlock?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -299,6 +313,7 @@ class itemsCollectionCell: UICollectionViewCell {
         increaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
         decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
         weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
+        favBTN.addTarget(self, action: #selector(favouriteAction), for: UIControl.Event.touchUpInside)
     }
     
     @objc func cartAction(_ sender: UIButton) {
@@ -321,6 +336,12 @@ class itemsCollectionCell: UICollectionViewCell {
     
     @objc func optionAction(_ sender: UIButton) {
         if let block = chooseOptioncBlock {
+            block()
+        }
+    }
+    
+    @objc func favouriteAction(_ sender: UIButton) {
+        if let block = favouriteBlock {
             block()
         }
     }

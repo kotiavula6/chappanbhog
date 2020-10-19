@@ -72,6 +72,7 @@ class DashBoardVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateCartCount()
+        reloadTable()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
     }
     
@@ -88,9 +89,11 @@ class DashBoardVC: UIViewController {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
             cartLBL.text = ""
+            cartLBL.superview?.isHidden = true
         }
         else {
             cartLBL.text = "\(data.count)"
+            cartLBL.superview?.isHidden = false
         }
     }
     
@@ -188,6 +191,23 @@ class DashBoardVC: UIViewController {
         picker.removeFromSuperview()
     }
     
+    func reloadTable() {
+        DispatchQueue.main.async {
+            self.topPicsTable.reloadData()
+        }
+    }
+    
+    func reloadTopPageCollection() {
+        DispatchQueue.main.async {
+            self.topPageCollection.reloadData()
+        }
+    }
+    
+    func reloadProductsCollection() {
+        DispatchQueue.main.async {
+            self.productsCatCollection.reloadData()
+        }
+    }
     
     //OPEN SIDE MENU
     @objc func menuClicked() {
@@ -289,6 +309,14 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
             cell.layoutConstraintWeightTrailing.constant = 0
         }
         cell.layoutIfNeeded()
+        
+        cell.favButton.tintColor = CartHelper.shared.isItemInFavouriteList(itemId: data.id) ? .red : .lightGray
+        cell.favouriteBlock = {
+            let item = self.toppicsArr[indexPath.row]
+            let favourite = !CartHelper.shared.isItemInFavouriteList(itemId: item.id)
+            CartHelper.shared.markFavourite(itemId: item.id, favourite: favourite)
+            cell.favButton.tintColor = favourite ? .red : .lightGray
+        }
         
         cell.cartBlock = {
             let item = self.toppicsArr[indexPath.row]

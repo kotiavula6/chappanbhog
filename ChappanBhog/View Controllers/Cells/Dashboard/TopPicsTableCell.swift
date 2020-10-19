@@ -27,40 +27,49 @@ class TopPicsTableCell: UITableViewCell {
     @IBOutlet weak var layoutConstraintWeightWidth: NSLayoutConstraint!
     @IBOutlet weak var layoutConstraintWeightTrailing: NSLayoutConstraint!
     
-     var cartBlock: SimpleBlock?
-     var quantityIncBlock: SimpleBlock?
-     var quantityDecBlock: SimpleBlock?
-     var chooseOptioncBlock: SimpleBlock?
-     
-     override func awakeFromNib() {
-         super.awakeFromNib()
-         addTocartButton.addTarget(self, action: #selector(cartAction(_:)), for: UIControl.Event.touchUpInside)
-         increaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
-         decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
-         weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
-     }
-     
-     @objc func cartAction(_ sender: UIButton) {
-         if let block = cartBlock {
-             block()
-         }
-     }
-     
-     @objc func qtyIncAction(_ sender: UIButton) {
-         if let block = quantityIncBlock {
-             block()
-         }
-     }
-     
-     @objc func qtyDecAction(_ sender: UIButton) {
-         if let block = quantityDecBlock {
-             block()
-         }
-     }
-     
-     @objc func optionAction(_ sender: UIButton) {
-         if let block = chooseOptioncBlock {
-             block()
-         }
-     }
+    var cartBlock: SimpleBlock?
+    var quantityIncBlock: SimpleBlock?
+    var quantityDecBlock: SimpleBlock?
+    var chooseOptioncBlock: SimpleBlock?
+    var favouriteBlock: SimpleBlock?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addTocartButton.addTarget(self, action: #selector(cartAction(_:)), for: UIControl.Event.touchUpInside)
+        increaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
+        decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
+        weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
+        favButton.addTarget(self, action: #selector(favouriteAction), for: UIControl.Event.touchUpInside)
+    }
+    
+    @objc func cartAction(_ sender: UIButton) {
+        if let block = cartBlock {
+            block()
+        }
+    }
+    
+    @objc func qtyIncAction(_ sender: UIButton) {
+        if let block = quantityIncBlock {
+            block()
+        }
+    }
+    
+    @objc func qtyDecAction(_ sender: UIButton) {
+        if let block = quantityDecBlock {
+            block()
+        }
+    }
+    
+    @objc func optionAction(_ sender: UIButton) {
+        if let block = chooseOptioncBlock {
+            block()
+        }
+    }
+    
+    @objc func favouriteAction(_ sender: UIButton) {
+        if let block = favouriteBlock {
+            block()
+        }
+    }
+
 }
