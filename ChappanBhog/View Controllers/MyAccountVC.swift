@@ -28,6 +28,7 @@ class MyAccountVC: UIViewController {
     
     var imagePicker = UIImagePickerController()
     var selectedImage: UIImage?
+    var isFromSideMenu = false
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -85,7 +86,10 @@ class MyAccountVC: UIViewController {
     
     //MARK:- ACTIONS
     @IBAction func backButtonAction(_ sender: UIButton) {
-        AppDelegate.shared.showHomeScreen()
+        if isFromSideMenu {
+            AppDelegate.shared.showHomeScreen()
+        }
+        
       //  self.navigationController?.popViewController(animated: true)
     }
     

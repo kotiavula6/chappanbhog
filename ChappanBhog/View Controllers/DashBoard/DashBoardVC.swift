@@ -122,10 +122,12 @@ class DashBoardVC: UIViewController {
             }
             self.sidemenu.myAccountAction = {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
+                vc.isFromSideMenu = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             self.sidemenu.settingsAction = {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
+                vc.isFromSideMenu = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             self.sidemenu.cartAction = {

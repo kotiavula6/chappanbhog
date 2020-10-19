@@ -91,6 +91,7 @@ extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
         if (selecteItem == "SHOP") {
             
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "OurMenuVC") as! OurMenuVC
+            vc.isFromSidemenu = true
             let navController   = UINavigationController(rootViewController: vc)
             navController.isNavigationBarHidden = true
             slideMenuController()?.changeMainViewController(navController, close: true)
@@ -98,14 +99,17 @@ extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
         }
         else if (selecteItem == "MY ACCOUNT") {
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
+            vc.isFromSideMenu = true
             let navController   = UINavigationController(rootViewController: vc)
             navController.isNavigationBarHidden = true
+            vc.isFromSideMenu = true
             slideMenuController()?.changeMainViewController(navController, close: true)
             
         }
             
         else if (selecteItem == "SETTINGS") {
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
+            vc.isFromSideMenu = true
             let navController   = UINavigationController(rootViewController: vc)
             navController.isNavigationBarHidden = true
             slideMenuController()?.changeMainViewController(navController, close: true)
