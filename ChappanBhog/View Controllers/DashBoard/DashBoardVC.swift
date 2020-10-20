@@ -88,7 +88,7 @@ class DashBoardVC: UIViewController {
     @objc func updateCartCount() {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
-            cartLBL.text = ""
+            cartLBL.text = "0"
             cartLBL.superview?.isHidden = true
         }
         else {
@@ -437,6 +437,7 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             let type = bannerArr[indexPath.row].type
             if type == 0 {
                 let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
+                vc.isFromNavgation = true
                 let id = bannerArr[indexPath.row].id ?? 0
                 vc.GET_CATEGORY_ITEMS(ItemId: id)
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -453,6 +454,7 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         } else {
             
             let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
+            vc.isFromNavgation = true
             let id = categoriesArr[indexPath.row].id ?? 0
             vc.GET_CATEGORY_ITEMS(ItemId: id)
             self.navigationController?.pushViewController(vc, animated: true)

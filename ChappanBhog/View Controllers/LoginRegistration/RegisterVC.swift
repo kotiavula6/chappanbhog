@@ -77,7 +77,7 @@ class RegisterVC: UIViewController {
         
         if (nameTF.text?.isEmpty)!{
             
-            ValidateData(strMessage: " Please enter username")
+            ValidateData(strMessage: " Please enter name")
         }
         else if (emailTF.text?.isEmpty)!{
             

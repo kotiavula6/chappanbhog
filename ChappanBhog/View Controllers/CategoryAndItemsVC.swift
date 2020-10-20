@@ -25,6 +25,9 @@ class CategoryAndItemsVC: UIViewController {
     @IBOutlet weak var itemsCollection: UICollectionView!
     @IBOutlet weak var layoutConstaintItemtTop: NSLayoutConstraint!
     @IBOutlet weak var tFSearch: UITextField!
+    @IBOutlet weak var btnBack: UIButton!
+    
+    var isFromNavgation = false
     
     //MARK:- APPLICATION LIFECYCLE
     override func viewDidLoad() {
@@ -35,6 +38,11 @@ class CategoryAndItemsVC: UIViewController {
         tFSearch.delegate = self
         topCollectionHeight.constant = 0
         itemsCollection.contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        if isFromNavgation {
+            self.btnBack.isHidden = false
+        } else {
+            self.btnBack.isHidden = true
+        }
         //layoutConstaintItemtTop.constant = 0
     }
     

@@ -361,6 +361,10 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             return
         }
         
+        if !(kPhone.count >= 7 && kPhone.count <= 14) {
+                alert("ChhappanBhog", message: "Phone number should be in 7 to 14 digit.", view: self)
+                return
+        }
         
         let kZipCodeShipping = zipCodeTFShipping.text ?? ""
         let kCountryShipping = countryTFShipping.text ?? ""
@@ -402,6 +406,10 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             if kZipCodeShipping.count < 1 {
                 alert("ChappanBhog", message: "Shipping zip code can't be empty.", view: self)
                 return
+            }
+            if !(kPhoneShipping.count >= 7 && kPhoneShipping.count <= 14) {
+                    alert("ChhappanBhog", message: "Phone number should be in 7 to 14 digit.", view: self)
+                    return
             }
         }
         

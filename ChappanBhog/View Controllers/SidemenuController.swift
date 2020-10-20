@@ -14,7 +14,7 @@ class SidemenuController: UIViewController{
 
     var myIndex = -1
 
-    var listArray: [String] = ["SHOP", "MY ACCOUNT", "SETTINGS", "CART", "ABOUT"]
+    var listArray: [String] = ["SHOP", "MY ACCOUNT", "CART", "ABOUT"]
 
     @IBOutlet weak var myimgvw: UIImageView!
     @IBOutlet weak var myTableView: UITableView!
@@ -106,16 +106,16 @@ extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
             slideMenuController()?.changeMainViewController(navController, close: true)
             
         }
-            
-        else if (selecteItem == "SETTINGS") {
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
-            vc.isFromSideMenu = true
-            let navController   = UINavigationController(rootViewController: vc)
-            navController.isNavigationBarHidden = true
-            slideMenuController()?.changeMainViewController(navController, close: true)
-            
-            
-        }
+//
+//        else if (selecteItem == "SETTINGS") {
+//            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
+//            vc.isFromSideMenu = true
+//            let navController   = UINavigationController(rootViewController: vc)
+//            navController.isNavigationBarHidden = true
+//            slideMenuController()?.changeMainViewController(navController, close: true)
+//
+//
+//        }
             
         else if (selecteItem == "CART") {
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
