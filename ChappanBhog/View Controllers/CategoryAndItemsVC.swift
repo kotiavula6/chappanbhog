@@ -205,9 +205,8 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
 //MARK:- API'S
 extension CategoryAndItemsVC {
     
-    func GET_CATEGORY_ITEMS(ItemId:Int){
+    func GET_CATEGORY_ITEMS(ItemId: Int) {
     
-        
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEMS + "/\(userID ?? 0)" + "/\(ItemId)"
         

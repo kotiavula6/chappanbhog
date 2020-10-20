@@ -13,7 +13,7 @@ class CartHelper: NSObject {
     static let shared = CartHelper()
     var cartItems: [CartItem] = []
     
-    fileprivate func save() {
+    func save() {
         var all: [[String: Any]] = []
         for item in cartItems {
             all.append(item.getDict())
@@ -35,9 +35,18 @@ class CartHelper: NSObject {
         // Refresh
         // Check if the sameoption item is already added in the cart
         let result = cartItems.filter { (currentItem) -> Bool in
-            let id = currentItem.item.id ?? -1
-            let ciid = cartItem.item.id ?? 0
+            let id = currentItem.item.id
+            let ciid = cartItem.item.id
             if id == ciid {
+                // Check if there is options or not
+                if cartItem.item.options.count == 0 {
+                    // No options
+                    // Same option added
+                    // Increase its quntity only
+                    currentItem.item.quantity += cartItem.item.quantity
+                    return true
+                }
+                
                 // Check if both have same options
                 let oid = currentItem.item.selectedOption().id
                 let ociid = cartItem.item.selectedOption().id
@@ -60,10 +69,22 @@ class CartHelper: NSObject {
     }
     
     func deleteFromCart(cartItem: CartItem) {
-        let id = cartItem.item.id ?? -1
-        cartItems.removeAll { (obj) -> Bool in
-            let objId = obj.item.id ?? 0
-            return objId == id
+        // Delete its combination and add again
+        let id = cartItem.item.id
+        let opId = cartItem.item.selectedOptionId
+        
+        if cartItem.item.options.count == 0 {
+            cartItems.removeAll { (obj) -> Bool in
+                let objId = obj.item.id
+                return objId == id
+            }
+        }
+        else {
+            cartItems.removeAll { (obj) -> Bool in
+                let objId = obj.item.id
+                let objOpId = obj.item.selectedOptionId
+                return objId == id && objOpId == opId
+            }
         }
         save()
     }

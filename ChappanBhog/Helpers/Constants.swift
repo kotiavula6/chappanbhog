@@ -312,8 +312,8 @@ extension UIViewController {
 func setShadowRadius(view:UIView) {
     view.layer.shadowColor = UIColor.black.cgColor
     view.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-    view.layer.shadowOpacity = 0.8
-    view.layer.shadowRadius = 9.0
+    view.layer.shadowOpacity = 0.6
+    view.layer.shadowRadius = 15.0
     view.layer.cornerRadius = 20
   //  view.layer.masksToBounds = true
 }

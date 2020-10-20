@@ -122,9 +122,11 @@ class ProductInfoVC: UIViewController {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
             cartLBL.text = ""
+            cartLBL.superview?.isHidden = true
         }
         else {
             cartLBL.text = "\(data.count)"
+            cartLBL.superview?.isHidden = false
         }
     }
     

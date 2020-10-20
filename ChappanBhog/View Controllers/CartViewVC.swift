@@ -25,14 +25,6 @@ class CartViewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
-        
-        let itemStr = (CartHelper.shared.cartItems.count == 1) ? "item" : "items"
-        self.itemsLeftLBL.text = "You have \(CartHelper.shared.cartItems.count) \(itemStr) in your cart"
-        if CartHelper.shared.cartItems.count < 1 {
-            self.cartLBL.text = ""
-        } else {
-            self.cartLBL.text = "\(CartHelper.shared.cartItems.count)"
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,22 +56,33 @@ class CartViewVC: UIViewController {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
             cartLBL.text = ""
+            cartLBL.superview?.isHidden = true
         }
         else {
             cartLBL.text = "\(data.count)"
+            cartLBL.superview?.isHidden = false
+        }
+        updateCartCountInText()
+    }
+    
+    func updateCartCountInText() {
+        let itemStr = (CartHelper.shared.cartItems.count == 1) ? "item" : "items"
+        self.itemsLeftLBL.text = "You have \(CartHelper.shared.cartItems.count) \(itemStr) in your cart"
+    }
+    
+    func reloadTable() {
+        DispatchQueue.main.async {
+            self.listTable.reloadData()
         }
     }
     
     // MARK:- ACTIONS
     @IBAction func backButton(_ sender: Any) {
-        
         if isFromProduct {
-          self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
         } else {
             AppDelegate.shared.showHomeScreen()
         }
-        
-       //
     }
 }
 
@@ -111,22 +114,32 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
             cell.PriceLBL.text = "0".prefixINR
         }
         
+        cell.quantityLBL.text = "\(cartItem.item.quantity)"
         cell.quantityIncBlock = {
             let cartItem = CartHelper.shared.cartItems[indexPath.row]
             cartItem.item.quantity += 1
             cell.quantityLBL.text = "\(cartItem.item.quantity)"
+            CartHelper.shared.save()
         }
         
         cell.quantityDecBlock = {
             let cartItem = CartHelper.shared.cartItems[indexPath.row]
             cartItem.item.quantity -= 1
-            if cartItem.item.quantity < 1 { cartItem.item.quantity = 1}
+            if cartItem.item.quantity < 1 { cartItem.item.quantity = 1 }
             cell.quantityLBL.text = "\(cartItem.item.quantity)"
+            CartHelper.shared.save()
         }
         
         cell.chooseOptioncBlock = {
             self.currentIndexPath = indexPath
             self.showOptions(indexPath: indexPath)
+        }
+        
+        cell.deleteBlock = {
+            let cartItem = CartHelper.shared.cartItems[indexPath.row]
+            CartHelper.shared.deleteFromCart(cartItem: cartItem)
+            self.reloadTable()
+            AppDelegate.shared.notifyCartUpdate()
         }
         
         return cell
@@ -178,8 +191,12 @@ extension CartViewVC: PickerViewDelegate {
             let item = cartItem.item
             let result = item.options.filter{$0.name == option}
             if let option = result.first {
+                // Remove this item and add it again to perform calculation
+                CartHelper.shared.deleteFromCart(cartItem: cartItem)
                 item.selectedOptionId = option.id
-                listTable.reloadRows(at: [indexPath], with: .automatic)
+                CartHelper.shared.addToCart(cartItem: cartItem)
+                self.reloadTable()
+                AppDelegate.shared.notifyCartUpdate()
             }
         }
     }
