@@ -73,7 +73,7 @@ class OurMenuVC: UIViewController {
     @objc func updateCartCount() {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
-            cartLBL.text = ""
+            cartLBL.text = "0"
             cartLBL.superview?.isHidden = true
         }
         else {
@@ -85,9 +85,9 @@ class OurMenuVC: UIViewController {
     // MARK:- Actions
     @IBAction func backButtonAction(_ sender: UIButton) {
         
-        if isFromSidemenu {
+        //if isFromSidemenu {
             AppDelegate.shared.showHomeScreen()
-        }
+       // }
         
        // self.navigationController?.popViewController(animated: true)
     }

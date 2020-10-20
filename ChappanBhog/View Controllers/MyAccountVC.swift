@@ -25,7 +25,11 @@ class MyAccountVC: UIViewController {
     @IBOutlet weak var btnEdit: UIButton!
     @IBOutlet weak var btnBack: UIButton!
     
-    let listArray = ["ADDRESS","PASSWORD","MY ORDERS","TRACK YOUR ORDER","PAYMENTS"]
+    @IBOutlet weak var lblPlusPlaceholder: UILabel!
+    @IBOutlet weak var lblUploadPlaceholder: UILabel!
+    
+    var listArray = ["ADDRESS","PASSWORD","MY ORDERS","TRACK YOUR ORDER","PAYMENTS"]
+    
     
     var imagePicker = UIImagePickerController()
     var selectedImage: UIImage?
@@ -44,21 +48,40 @@ class MyAccountVC: UIViewController {
         } else {
             self.btnBack.isHidden = true
         }
+        
+        let type = UserDefaults.standard.integer(forKey: Constants.type)
+        
+        if type != 0 {
+            listArray.remove(at: 1)
+            self.listTable.reloadData()
+        }
+        
         profileImage.contentMode = .scaleAspectFill
         let imageStr = UserDefaults.standard.string(forKey: Constants.Image) ?? ""
+        visiablePlaceholder(isTrue: false)
         if !imageStr.isEmpty {
             let urlString = ApplicationUrl.IMAGE_BASE_URL + imageStr
             profileImage.sd_setImage(with: URL(string: urlString), completed: nil)
+            visiablePlaceholder(isTrue: true)
+            
         }
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setGradientBackground(view: self.gradientView)
     }
+    
+    
  
     
     //MARK:- FUNCTIONS
+    func visiablePlaceholder(isTrue: Bool) {
+        self.lblPlusPlaceholder.isHidden = isTrue
+        self.lblUploadPlaceholder.isHidden = isTrue
+    }
+    
+    
     func setAppearance() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
@@ -214,31 +237,35 @@ extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        
+       // ["ADDRESS","PASSWORD","MY ORDERS","TRACK YOUR ORDER","PAYMENTS"]
+        let listName = listArray[indexPath.row]
+        if listName == "ADDRESS" {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        if indexPath.row == 1 {
+        if listName == "PASSWORD" {
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "UpdatePasswordVC") as! UpdatePasswordVC
             self.navigationController?.pushViewController(vc, animated: true)
             
         }
-        if indexPath.row == 2 {
+        if listName == "MY ORDERS" {
             
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyOrderVC") as! MyOrderVC
             self.navigationController?.pushViewController(vc, animated: true)
             
         }
-        if indexPath.row == 3 {
+        if listName == "TRACK YOUR ORDER" {
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrackYourOrderVC") as! TrackYourOrderVC
             self.navigationController?.pushViewController(vc, animated: true)
             
         }
-        if indexPath.row == 4 {
+        if listName == "PAYMENTS" {
             
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
@@ -256,6 +283,7 @@ extension MyAccountVC: UINavigationControllerDelegate, UIImagePickerControllerDe
         let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         selectedImage = chosenImage
         self.profileImage.image = chosenImage
+        visiablePlaceholder(isTrue: true)
         dismiss(animated:true, completion: nil)
     }
     

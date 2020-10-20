@@ -77,7 +77,7 @@ class PaymentVC: UIViewController {
     @objc func updateCartCount() {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
-            cartLBL.text = ""
+            cartLBL.text = "0"
             cartLBL.superview?.isHidden = true
         }
         else {
@@ -94,8 +94,8 @@ class PaymentVC: UIViewController {
     
     @IBAction func makePaymentButtonClicked(_ sender: Any) {
         
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
-        self.navigationController?.pushViewController(vc, animated: true)
+      //  let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
+     //   self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
