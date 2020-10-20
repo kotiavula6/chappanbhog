@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by Vakul Saini on 14/10/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -12,6 +12,38 @@ class CartHelper: NSObject {
 
     static let shared = CartHelper()
     var cartItems: [CartItem] = []
+    var manageAddress: ManageAddress = ManageAddress(dict: [:])
+    
+    lazy var postalCodesShipping50: [String] = {
+        return ["226004", "226002", "226001"]
+    }()
+    
+    lazy var postalCodesShipping75: [String] = {
+        return ["227105",
+                "226026",
+                "226025",
+                "226024",
+                "226003",
+                "226005",
+                "226011",
+                "226012",
+                "226013",
+                "226014",
+                "226015",
+                "226016",
+                "226017",
+                "226018",
+                "226019",
+                "226006",
+                "226007",
+                "226008",
+                "226009",
+                "226010",
+                "226020",
+                "226021",
+                "226022",
+                "226023"]
+    }()
     
     func save() {
         var all: [[String: Any]] = []
@@ -94,7 +126,7 @@ class CartHelper: NSObject {
         save()
     }
     
-    func markFavourite(itemId: Int, favourite: Bool) {
+    /*func markFavourite(itemId: Int, favourite: Bool) {
         if favourite {
             var allFavouriteItems = UserDefaults.standard.array(forKey: "kAllFavourites") as? [Int] ?? []
             if allFavouriteItems.contains(itemId) { return }
@@ -115,6 +147,59 @@ class CartHelper: NSObject {
         var allFavouriteItems = UserDefaults.standard.array(forKey: "kAllFavourites") as? [Int] ?? []
         allFavouriteItems.removeAll {$0 == itemId}
         UserDefaults.standard.set(allFavouriteItems, forKey: "kAllFavourites")
+    }*/
+    
+    func syncAddress(completion: @escaping (_ success: Bool, _ msg: String) -> Void) {
+        let url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ADDRESS
+        AFWrapperClass.requestGETURL(url, success: { (response) in
+            if let dict = response as? [String: Any] {
+                let success = dict["success"] as? Bool ?? false
+                if success {
+                    let data = dict["data"] as? [String: Any] ?? [:]
+                    self.manageAddress.setDict(data)
+                    completion(true, "")
+                }
+                else {
+                    let message = dict["message"] as? String ?? "Some error occured"
+                    completion(false, message)
+                }
+            }
+            else {
+                completion(false, "Some error occured")
+            }
+        }) { (error) in
+            completion(false, error.localizedDescription)
+        }
+    }
+    
+    func calculateShipping(totalWeight: Double) -> Double {
+        let shippingCode = self.manageAddress.shipping_zip
+        let shippingCity = self.manageAddress.shipping_city
+        let shippingCountry = self.manageAddress.shipping_country
+        
+        // See if country is India
+        if shippingCountry.lowercased() == "india" {
+            // See if city is Lucknow
+            if shippingCity.lowercased().contains("lucknow") {
+                if postalCodesShipping50.contains(shippingCode) { return 50 }
+                if postalCodesShipping75.contains(shippingCode) { return 75 }
+                else { return 150 }
+            }
+            
+            // Outside Lucknow in india
+            var weight = totalWeight * 1.4
+            weight = weight / 1000
+            weight = ceil(weight)
+            let price = weight * 196
+            return price
+        }
+        
+        // Outside India
+        var weight = totalWeight * 1.4
+        weight = weight / 1000
+        weight = ceil(weight)
+        let price = weight * 1256
+        return price
     }
 }
 
@@ -138,3 +223,4 @@ class CartItem: NSObject {
         return dict
     }
 }
+

@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by AAVULA KOTI on 11/09/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -89,7 +89,7 @@ class ProductInfoVC: UIViewController {
                 self.layoutConstraintWeightTraling.constant = -30
             }
             
-            self.favroteBTN.tintColor = CartHelper.shared.isItemInFavouriteList(itemId: self.item.id) ? .red : .lightGray
+            self.favroteBTN.tintColor = self.item.isFavourite ? .red : .lightGray
             self.descriptionLBL.text = self.item.desc
             self.quantityLBL.text = "\(self.item.quantity)"
             self.totalReviewsLBL.text = "\(self.item.reviews) \(self.item.reviews == 1 ? "review" : "reviews")"
@@ -166,9 +166,14 @@ class ProductInfoVC: UIViewController {
     }
     
     @IBAction func favroteButtonClicked(_ sender: UIButton) {
-        let favourite = !CartHelper.shared.isItemInFavouriteList(itemId: item.id)
-        CartHelper.shared.markFavourite(itemId: item.id, favourite: favourite)
-        favroteBTN.tintColor = favourite ? .red : .lightGray
+        let favourite = !item.isFavourite
+        sender.isUserInteractionEnabled = false
+        item.markFavourite(favourite) { (success) in
+            DispatchQueue.main.async {
+                sender.isUserInteractionEnabled = true
+                sender.tintColor = self.item.isFavourite ? .red : .lightGray
+            }
+        }
     }
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {

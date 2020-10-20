@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by AAVULA KOTI on 09/09/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -108,6 +108,7 @@ struct WebserviceName {
     static let API_notification_read = "notification_read"
     static let API_search = "search"
     static let API_FORGOT_PASSWORD = "forget_password"
+    static let API_MARK_FAVOURITE = "add_favorite"
 }
 
 struct Constants

@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by AAVULA KOTI on 06/10/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -24,6 +24,9 @@ class Categores: NSObject {
     // Only for local use - Start
     var selectedOptionId: Int = 0
     var quantity: Int = 1
+    var isFavourite: Bool {
+        return favorite == 1
+    }
     // Only for local use - End
     
     
@@ -96,6 +99,24 @@ class Categores: NSObject {
     func selectedOption() -> Options {
         let result = self.options.filter({$0.id == selectedOptionId})
         return result.first ?? Options()
+    }
+    
+    func markFavourite(_ favourite: Bool, completion: @escaping (_ success: Bool) -> Void) {
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
+        if userID == 0 {
+            completion(false)
+            return
+        }
+        
+        let url = ApplicationUrl.WEB_SERVER + WebserviceName.API_MARK_FAVOURITE
+        let params: [String: Any] = ["user_id": "\(userID)", "product_id": "\(self.id)", "type": favourite ? "1" : "0"]
+        AFWrapperClass.requestPOSTURL(url, params: params, success: { (dict) in
+            let success = dict["success"] as? Bool ?? false
+            if success { self.favorite = favourite ? 1 : 0}
+            completion(true)
+        }) { (error) in
+            completion(false)
+        }
     }
 }
 

@@ -72,6 +72,11 @@ PODS:
   - NVActivityIndicatorView (5.0.1):
     - NVActivityIndicatorView/Base (= 5.0.1)
   - NVActivityIndicatorView/Base (5.0.1)
+  - PayUIndia-Custom-Browser (6.0)
+  - PayUmoney_CoreSDK (4.1):
+    - PayUIndia-Custom-Browser (~> 6.0)
+  - PayUmoney_PnP (2.5.2):
+    - PayUmoney_CoreSDK
   - PromisesObjC (1.2.10)
   - SCLAlertView (0.8)
   - SDWebImage (5.9.0):
@@ -89,6 +94,7 @@ DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManagerSwift
   - NVActivityIndicatorView
+  - PayUmoney_PnP
   - SCLAlertView
   - SDWebImage
   - SKCountryPicker
@@ -114,6 +120,9 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - nanopb
     - NVActivityIndicatorView
+    - PayUIndia-Custom-Browser
+    - PayUmoney_CoreSDK
+    - PayUmoney_PnP
     - PromisesObjC
     - SCLAlertView
     - SDWebImage
@@ -139,6 +148,9 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   NVActivityIndicatorView: 738e843cb8924e9e4fc3e559d0728031624bf860
+  PayUIndia-Custom-Browser: 61097aa039fdf579193cf8cf8ecfe6d81574966d
+  PayUmoney_CoreSDK: ba7f43dabacec2658dcceda0cf9d957bd1d826ac
+  PayUmoney_PnP: 322171ad495ee6d925bdbc013feced0b77433ad9
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
@@ -147,6 +159,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 58aed6a867d47d0ffd5d22edd004a658f5c4ee30
+PODFILE CHECKSUM: 60f8b89e273cfb64fb80056412919090f697bf9b
 
 COCOAPODS: 1.9.3

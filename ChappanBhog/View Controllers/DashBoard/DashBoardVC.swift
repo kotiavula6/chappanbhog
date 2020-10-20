@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by AAVULA KOTI on 08/09/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -220,6 +220,29 @@ class DashBoardVC: UIViewController {
     //MARK:- ACTIONS
     @IBAction func cartButtonClicked(_ sender: UIButton) {
         
+        /*let model: PayUHelperModel = PayUHelperModel()
+        model.amount = "200"
+        model.customerName = "Vakul"
+        model.email = "vakul@enacteservices.com"
+        model.merchantDisplayName = "ChhappanBhog"
+        model.phone = "9090900909"
+        model.productName = "Kaju Katli - 500gm"
+        PayUHelper.sharedInstance().presentPaymentScreen(from: self, for: model) { (response, error, extra) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if let response = response {
+                print(response)
+            }
+            
+            if let extra = extra {
+                print(extra)
+            }
+        }
+        
+        return;*/
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -312,12 +335,17 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         }
         cell.layoutIfNeeded()
         
-        cell.favButton.tintColor = CartHelper.shared.isItemInFavouriteList(itemId: data.id) ? .red : .lightGray
+        cell.favButton.tintColor = data.isFavourite ? .red : .lightGray
         cell.favouriteBlock = {
             let item = self.toppicsArr[indexPath.row]
-            let favourite = !CartHelper.shared.isItemInFavouriteList(itemId: item.id)
-            CartHelper.shared.markFavourite(itemId: item.id, favourite: favourite)
-            cell.favButton.tintColor = favourite ? .red : .lightGray
+            let favourite = !item.isFavourite
+            cell.favButton.isUserInteractionEnabled = false
+            item.markFavourite(favourite) { (success) in
+                DispatchQueue.main.async {
+                    cell.favButton.isUserInteractionEnabled = true
+                    cell.favButton.tintColor = item.isFavourite ? .red : .lightGray
+                }
+            }
         }
         
         cell.cartBlock = {

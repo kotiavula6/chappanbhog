@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by AAVULA KOTI on 11/09/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -85,11 +85,17 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         phoneNoTFShipping.keyboardType = .phonePad
         
         IJProgressView.shared.showProgressView()
-        getAddress {
+        CartHelper.shared.syncAddress { (success, message) in
             IJProgressView.shared.hideProgressView()
+            self.manageAddress = CartHelper.shared.manageAddress
             // Bind data
             self.bindData()
         }
+        /*getAddress {
+            IJProgressView.shared.hideProgressView()
+            // Bind data
+            self.bindData()
+        }*/
     }
     
     // MARK:- FUCNTIONS
@@ -495,7 +501,6 @@ extension ManageAddressVC {
     }
     
     func saveAddress(params: [String: Any], completion: @escaping () -> Void) {
-        print(params)
         let addAddressUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_ADD_ADDRESS
         AFWrapperClass.requestPOSTURLWithHeader(addAddressUrl, params: params , success: { (dict) in
             
@@ -507,7 +512,7 @@ extension ManageAddressVC {
         
             let status = dict["success"] as? Bool ?? false
             if status {
-                
+                CartHelper.shared.manageAddress.setDict(params)
                 let msg = dict["message"] as? String ?? "Successfully updated!"
                 showAlertMessage(title: "ChhappanBhog", message: msg, okButton: "Ok", controller: self) {
                     self.navigationController?.popViewController(animated: true)

@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by AAVULA KOTI on 06/10/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -128,12 +128,17 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             }
             cell.layoutIfNeeded()
             
-            cell.favBTN.tintColor = CartHelper.shared.isItemInFavouriteList(itemId: data.id) ? .red : .lightGray
+            cell.favBTN.tintColor = data.isFavourite ? .red : .lightGray
             cell.favouriteBlock = {
                 let item = self.categoryArr[indexPath.row]
-                let favourite = !CartHelper.shared.isItemInFavouriteList(itemId: item.id)
-                CartHelper.shared.markFavourite(itemId: item.id, favourite: favourite)
-                cell.favBTN.tintColor = favourite ? .red : .lightGray
+                let favourite = !item.isFavourite
+                cell.favBTN.isUserInteractionEnabled = false
+                item.markFavourite(favourite) { (success) in
+                    DispatchQueue.main.async {
+                        cell.favBTN.isUserInteractionEnabled = true
+                        cell.favBTN.tintColor = item.isFavourite ? .red : .lightGray
+                    }
+                }
             }
             
             cell.cartBlock = {

@@ -19,6 +19,7 @@ pod 'GoogleSignIn'
 pod 'STRatingControl'
 #pod 'TwitterKit'
 pod 'Firebase/Auth'
+pod 'PayUmoney_PnP'
 
 
   target 'ChappanBhogTests' do

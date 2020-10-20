@@ -98,6 +98,7 @@
 		EF32D44B2539617A00D27C50 /* PickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32D4462539617A00D27C50 /* PickerView.xib */; };
 		EF32FBD6253052DF00BF25FC /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */; };
 		EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */; };
+		EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34B699253EB72F009A41D2 /* PayUHelper.m */; };
 		EF83B6642536C24300E1F3CD /* CartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF83B6632536C24300E1F3CD /* CartHelper.swift */; };
 		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
 /* End PBXBuildFile section */
@@ -225,6 +226,9 @@
 		EF32D4462539617A00D27C50 /* PickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerView.xib; sourceTree = "<group>"; };
 		EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
 		EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
+		EF34B697253EB72F009A41D2 /* ChappanBhog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChappanBhog-Bridging-Header.h"; sourceTree = "<group>"; };
+		EF34B698253EB72F009A41D2 /* PayUHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayUHelper.h; sourceTree = "<group>"; };
+		EF34B699253EB72F009A41D2 /* PayUHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayUHelper.m; sourceTree = "<group>"; };
 		EF83B6632536C24300E1F3CD /* CartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -329,6 +333,7 @@
 		EE0887CA25089C8D00FC8FDB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EF34B696253EB71B009A41D2 /* PayUHelper */,
 				EECDFF1C250FEB83000B293C /* CountryCodes */,
 				EF32D4412539617A00D27C50 /* Dropdown */,
 				EEA8EF8C2508D73100DFD80F /* Constants.swift */,
@@ -566,6 +571,16 @@
 			path = Dropdown;
 			sourceTree = "<group>";
 		};
+		EF34B696253EB71B009A41D2 /* PayUHelper */ = {
+			isa = PBXGroup;
+			children = (
+				EF34B698253EB72F009A41D2 /* PayUHelper.h */,
+				EF34B699253EB72F009A41D2 /* PayUHelper.m */,
+				EF34B697253EB72F009A41D2 /* ChappanBhog-Bridging-Header.h */,
+			);
+			path = PayUHelper;
+			sourceTree = "<group>";
+		};
 		FB4A14B890CDCB3711F7B036 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +666,7 @@
 				TargetAttributes = {
 					EE31C6C6250774DF00E87E98 = {
 						CreatedOnToolsVersion = 11.6;
+						LastSwiftMigration = 1120;
 					};
 					EE31C6DF250774E300E87E98 = {
 						CreatedOnToolsVersion = 11.6;
@@ -883,6 +899,7 @@
 				EE0D3435250A1B1A00CA77A1 /* UpdatePasswordVC.swift in Sources */,
 				EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */,
 				EF1742A7253431A60067E646 /* OurMenuTableCell.swift in Sources */,
+				EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */,
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
 				EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */,
 				EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */,
@@ -1109,6 +1126,7 @@
 			baseConfigurationReference = 80EE80C662FDED952E79BC31 /* Pods-ChappanBhog.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1125,6 +1143,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
 				PRODUCT_NAME = ChappanBhog;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChappanBhog/Helpers/PayUHelper/ChappanBhog-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1135,6 +1155,7 @@
 			baseConfigurationReference = D51D90C04B8F3C70B0121A8C /* Pods-ChappanBhog.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1150,6 +1171,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
 				PRODUCT_NAME = ChappanBhog;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ChappanBhog/Helpers/PayUHelper/ChappanBhog-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

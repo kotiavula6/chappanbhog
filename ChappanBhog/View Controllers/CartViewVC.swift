@@ -3,7 +3,7 @@
 //  ChappanBhog
 //
 //  Created by AAVULA KOTI on 09/09/20.
-//  Copyright © 2020 AAvula. All rights reserved.
+//  Copyright © 2020 enAct eServices. All rights reserved.
 //
 
 import UIKit
@@ -25,6 +25,11 @@ class CartViewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
+        
+        IJProgressView.shared.showProgressView()
+        CartHelper.shared.syncAddress { (success, message) in
+            IJProgressView.shared.hideProgressView()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,11 +68,16 @@ class CartViewVC: UIViewController {
             cartLBL.superview?.isHidden = false
         }
         updateCartCountInText()
+        updateDeliveryCharges()
     }
     
     func updateCartCountInText() {
         let itemStr = (CartHelper.shared.cartItems.count == 1) ? "item" : "items"
         self.itemsLeftLBL.text = "You have \(CartHelper.shared.cartItems.count) \(itemStr) in your cart"
+    }
+    
+    func updateDeliveryCharges() {
+        
     }
     
     func reloadTable() {
