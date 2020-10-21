@@ -10,7 +10,7 @@ import UIKit
 
 class CartViewVC: UIViewController {
     
-    //MARK:- OUTLETS
+    // MARK:- OUTLETS
     @IBOutlet weak var subTitleView: UIView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
@@ -29,12 +29,14 @@ class CartViewVC: UIViewController {
         IJProgressView.shared.showProgressView()
         CartHelper.shared.syncAddress { (success, message) in
             IJProgressView.shared.hideProgressView()
+            self.reloadTable()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateCartCount()
+        self.reloadTable()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
     }
     
@@ -68,16 +70,11 @@ class CartViewVC: UIViewController {
             cartLBL.superview?.isHidden = false
         }
         updateCartCountInText()
-        updateDeliveryCharges()
     }
     
     func updateCartCountInText() {
         let itemStr = (CartHelper.shared.cartItems.count == 1) ? "item" : "items"
         self.itemsLeftLBL.text = "You have \(CartHelper.shared.cartItems.count) \(itemStr) in your cart"
-    }
-    
-    func updateDeliveryCharges() {
-        
     }
     
     func reloadTable() {
@@ -94,69 +91,103 @@ class CartViewVC: UIViewController {
             AppDelegate.shared.showHomeScreen()
         }
     }
+    
+    @IBAction func paymentButton(_ sender: Any) {
+        
+    }
+    
+    @objc func addAddress() {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 //MARK:- TABLEVIEW METHODS
 extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CartHelper.shared.cartItems.count
+        if CartHelper.shared.cartItems.count == 0 { return 0 }
+        return CartHelper.shared.cartItems.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableCell") as! CartTableCell
-        let cartItem = CartHelper.shared.cartItems[indexPath.row]
+        if indexPath.row < CartHelper.shared.cartItems.count {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableCell") as! CartTableCell
+            cell.selectionStyle = .none
+            let cartItem = CartHelper.shared.cartItems[indexPath.row]
+            
+            let image = cartItem.item.image.first ?? ""
+            cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
+            
+            let name = cartItem.item.title
+            cell.productName.text = name
+            
+            let option = cartItem.item.selectedOption()
+            if  option.id > 0 {
+                cell.weightLBL.text = option.name
+                cell.PriceLBL.text = String(format: "%.0f", option.price).prefixINR
+            }
+            else {
+                cell.weightLBL.text = " "
+                cell.PriceLBL.text = "0".prefixINR
+            }
+            
+            cell.quantityLBL.text = "\(cartItem.item.quantity)"
+            cell.quantityIncBlock = {
+                let cartItem = CartHelper.shared.cartItems[indexPath.row]
+                cartItem.item.quantity += 1
+                cell.quantityLBL.text = "\(cartItem.item.quantity)"
+                CartHelper.shared.save()
+            }
+            
+            cell.quantityDecBlock = {
+                let cartItem = CartHelper.shared.cartItems[indexPath.row]
+                cartItem.item.quantity -= 1
+                if cartItem.item.quantity < 1 { cartItem.item.quantity = 1 }
+                cell.quantityLBL.text = "\(cartItem.item.quantity)"
+                CartHelper.shared.save()
+            }
+            
+            cell.chooseOptioncBlock = {
+                self.currentIndexPath = indexPath
+                self.showOptions(indexPath: indexPath)
+            }
+            
+            cell.deleteBlock = {
+                let cartItem = CartHelper.shared.cartItems[indexPath.row]
+                CartHelper.shared.deleteFromCart(cartItem: cartItem)
+                self.reloadTable()
+                AppDelegate.shared.notifyCartUpdate()
+            }
+            
+            return cell
+        }
         
-        let image = cartItem.item.image.first ?? ""
-        cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
-        
-        let name = cartItem.item.title
-        cell.productName.text = name
-        
-        let option = cartItem.item.selectedOption()
-        if  option.id > 0 {
-            cell.weightLBL.text = option.name
-            cell.PriceLBL.text = String(format: "%.0f", option.price).prefixINR
+        let addressCell = tableView.dequeueReusableCell(withIdentifier: "CartFinalAddressCell") as! CartFinalAddressCell
+        addressCell.selectionStyle = .none
+        addressCell.lblAddress.text = CartHelper.shared.manageAddress.fullShippingAddress.defaultIfEmpty("-")
+        addressCell.btnChangeAddress.addTarget(self, action: #selector(addAddress), for: .touchUpInside)
+        if CartHelper.shared.manageAddress.fullShippingAddress.isEmpty {
+            addressCell.btnChangeAddress.setTitle("Add", for: .normal)
         }
         else {
-            cell.weightLBL.text = " "
-            cell.PriceLBL.text = "0".prefixINR
+            addressCell.btnChangeAddress.setTitle("Change", for: .normal)
         }
         
-        cell.quantityLBL.text = "\(cartItem.item.quantity)"
-        cell.quantityIncBlock = {
-            let cartItem = CartHelper.shared.cartItems[indexPath.row]
-            cartItem.item.quantity += 1
-            cell.quantityLBL.text = "\(cartItem.item.quantity)"
-            CartHelper.shared.save()
-        }
+        let price = CartHelper.shared.calculateTotal()
+        let shipping = CartHelper.shared.calculateShipping(totalWeight: 2) // 2kg
         
-        cell.quantityDecBlock = {
-            let cartItem = CartHelper.shared.cartItems[indexPath.row]
-            cartItem.item.quantity -= 1
-            if cartItem.item.quantity < 1 { cartItem.item.quantity = 1 }
-            cell.quantityLBL.text = "\(cartItem.item.quantity)"
-            CartHelper.shared.save()
-        }
-        
-        cell.chooseOptioncBlock = {
-            self.currentIndexPath = indexPath
-            self.showOptions(indexPath: indexPath)
-        }
-        
-        cell.deleteBlock = {
-            let cartItem = CartHelper.shared.cartItems[indexPath.row]
-            CartHelper.shared.deleteFromCart(cartItem: cartItem)
-            self.reloadTable()
-            AppDelegate.shared.notifyCartUpdate()
-        }
-        
-        return cell
+        addressCell.lblOrderPrice.text = "\(price)".prefixINR.remove00IfInt
+        addressCell.lblShippingPrice.text = "\(shipping)".prefixINR.remove00IfInt
+        addressCell.lblTotalPrice.text = "\(price + shipping)".prefixINR.remove00IfInt
+        return addressCell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row >= CartHelper.shared.cartItems.count { return }
         let cartItem = CartHelper.shared.cartItems[indexPath.row]
         let id = cartItem.item.id
         if id == 0 { return }
@@ -214,4 +245,13 @@ extension CartViewVC: PickerViewDelegate {
     func pickerDidSelectDate(_ date: Date, picker: PickerView) {
         
     }
+}
+
+
+class CartFinalAddressCell: UITableViewCell {
+    @IBOutlet weak var lblAddress: UILabel!
+    @IBOutlet weak var lblOrderPrice: UILabel!
+    @IBOutlet weak var lblShippingPrice: UILabel!
+    @IBOutlet weak var lblTotalPrice: UILabel!
+    @IBOutlet weak var btnChangeAddress: UIButton!
 }

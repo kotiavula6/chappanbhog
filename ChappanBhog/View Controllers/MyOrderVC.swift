@@ -135,10 +135,18 @@ extension String {
         if self.contains(".00") {
             return self.replacingOccurrences(of: ".00", with: "")
         }
+        if self.contains(".0") {
+            return self.replacingOccurrences(of: ".0", with: "")
+        }
         return self
     }
     
     var replceINRWithR: String {
         return self.replacingOccurrences(of: "INR", with: "₹")
+    }
+    
+    func defaultIfEmpty(_ str: String) -> String {
+        if self.isEmpty { return str}
+        return self
     }
 }

@@ -27,6 +27,17 @@ class Categores: NSObject {
     var isFavourite: Bool {
         return favorite == 1
     }
+    var totalPrice: Double {
+        let option = self.selectedOption()
+        if  option.id > 0 {
+            let price = option.price * Double(self.quantity)
+            return price
+        }
+        else {
+            let price = self.price * Double(self.quantity)
+            return price
+        }
+    }
     // Only for local use - End
     
     

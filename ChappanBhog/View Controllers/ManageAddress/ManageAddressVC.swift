@@ -518,9 +518,13 @@ extension ManageAddressVC {
                 return
             }
         
+            print(dict)
             let status = dict["success"] as? Bool ?? false
             if status {
-                CartHelper.shared.manageAddress.setDict(params)
+                
+                let data = dict["data"] as? [String: Any] ?? [:]
+                CartHelper.shared.manageAddress.setDict(data)
+                
                 let msg = dict["message"] as? String ?? "Successfully updated!"
                 showAlertMessage(title: "ChhappanBhog", message: msg, okButton: "Ok", controller: self) {
                     self.navigationController?.popViewController(animated: true)
@@ -584,6 +588,26 @@ class ManageAddress: NSObject {
     var shipping_country = ""
     var shipping_name = ""
     var same_as_shipping: Bool = true
+    
+    var fullShippingAddress: String {
+        var str = ""
+        if !shipping_address.isEmpty {
+            str = self.shipping_address
+        }
+        if !self.shipping_city.isEmpty {
+            str.append(", \(self.shipping_city)")
+        }
+        if !self.shipping_state.isEmpty {
+            str.append(", \(self.shipping_state)")
+        }
+        if !self.shipping_zip.isEmpty {
+            str.append(", \(self.shipping_zip)")
+        }
+        if !self.shipping_country.isEmpty {
+            str.append(", \(self.shipping_country)")
+        }
+        return str
+    }
     
     init(dict: [String: Any]) {
         super.init()

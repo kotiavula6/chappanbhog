@@ -201,6 +201,14 @@ class CartHelper: NSObject {
         let price = weight * 1256
         return price
     }
+    
+    func calculateTotal() -> Double {
+        var price: Double = 0
+        for cartItem in self.cartItems {
+            price += cartItem.item.totalPrice
+        }
+        return price
+    }
 }
 
 
