@@ -99,6 +99,7 @@
 		EF32FBD6253052DF00BF25FC /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */; };
 		EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */; };
 		EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34B699253EB72F009A41D2 /* PayUHelper.m */; };
+		EF3C7FFA2541A975000D1DE8 /* OrderDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */; };
 		EF83B6642536C24300E1F3CD /* CartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF83B6632536C24300E1F3CD /* CartHelper.swift */; };
 		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
 /* End PBXBuildFile section */
@@ -229,6 +230,7 @@
 		EF34B697253EB72F009A41D2 /* ChappanBhog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChappanBhog-Bridging-Header.h"; sourceTree = "<group>"; };
 		EF34B698253EB72F009A41D2 /* PayUHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayUHelper.h; sourceTree = "<group>"; };
 		EF34B699253EB72F009A41D2 /* PayUHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayUHelper.m; sourceTree = "<group>"; };
+		EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsVC.swift; sourceTree = "<group>"; };
 		EF83B6632536C24300E1F3CD /* CartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -469,16 +471,17 @@
 				EE82482F2509438800C263F1 /* PaymentVC.swift */,
 				EE82482625090EDC00C263F1 /* AboutVCcontact.swift */,
 				EE2561792509EFD2001C54AA /* TrackYourOrderVC.swift */,
-				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
 				61CB3AFE2539732800F0A39E /* SidemenuController.swift */,
 				61CB3B00253976B200F0A39E /* SlideMenuController.swift */,
 				EE0D3434250A1B1A00CA77A1 /* UpdatePasswordVC.swift */,
-				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 				EEDD1B20250B9598000671EA /* MyAccountVC.swift */,
 				EE458EE4250BA63B00BAA7E7 /* OurMenuVC.swift */,
 				EE458EE6250BAB2300BAA7E7 /* NotificationsVC.swift */,
 				EE5E384A250BB82300DCDE18 /* ProductInfoVC.swift */,
 				EEA76BBD250E80EB00B11560 /* searchRecordVC.swift */,
+				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
+				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
+				EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -900,6 +903,7 @@
 				EEEF99BA250F8CE2001DE12F /* countryContainer.swift in Sources */,
 				EF1742A7253431A60067E646 /* OurMenuTableCell.swift in Sources */,
 				EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */,
+				EF3C7FFA2541A975000D1DE8 /* OrderDetailsVC.swift in Sources */,
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
 				EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */,
 				EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */,

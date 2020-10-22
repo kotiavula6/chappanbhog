@@ -20,6 +20,7 @@ class CartViewVC: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var itemsLeftLBL: UILabel!
     @IBOutlet weak var btnPay: UIButton!
+    @IBOutlet weak var btnBack: UIButton!
     
     var currentIndexPath: IndexPath?
     var isFromSideMenu = false
@@ -91,7 +92,7 @@ class CartViewVC: UIViewController {
     }
     
     // MARK:- ACTIONS
-    @IBAction func backButton(_ sender: Any) {
+    @IBAction func backButton(_ sender: UIButton) {
         if isFromSideMenu {
             AppDelegate.shared.showHomeScreen()
         } else {
@@ -140,7 +141,7 @@ class CartViewVC: UIViewController {
         let amount = price + shipping
         
         let model: PayUHelperModel = PayUHelperModel()
-        model.amount = "\(amount)".remove00IfInt
+        model.amount = String(format: "%.2f", amount)
         model.customerName = CartHelper.shared.manageAddress.firstName
         model.email = CartHelper.shared.manageAddress.email
         model.merchantDisplayName = "ChhappanBhog"
@@ -177,26 +178,36 @@ class CartViewVC: UIViewController {
                             }
                             
                             if let response = response as? [String: Any] {
-                                print(response)
+                                // print(response)
                                 let status  = response["status"] as? Int ?? 1
                                 if status == 0 {
                                     let result = response["result"] as? [String: Any] ?? [:]
                                     let paymentResponseHash = result["hash"] as? String ?? ""
-                                    let localResponseHash = PayUHelper.sharedInstance().getResponseHashForPaymentParams()
+                                    // let localResponseHash = PayUHelper.sharedInstance().getResponseHashForPaymentParams()
                                     
                                     // Fetch hash value from server
                                     let responseParams = ["firstname": model.customerName, "email": model.email, "amount": model.amount, "txnid": model.txnId, "status": "success", "type": "response"]
                                     AF.request(urlwithPercentEscapes!, method: .put, parameters: responseParams, encoding: JSONEncoding.default, headers:header).responseJSON { (response) in
                                         switch response.result {
                                             case .success(let value):
-                                                print(value)
+                                                // print(value)
+                                                var responseHash = ""
                                                 if let data = value as? [String : String] {
-                                                    let responseHash = data["hash"] ?? ""
+                                                    responseHash = data["hash"] ?? ""
+                                                }
+                                            
+                                                if paymentResponseHash == responseHash {
+                                                    self.proceedToPlaceOrder(shipping: shipping, paymentMethod: "payu_in", paymentMethodTitle: "PayUmoney")
+                                                }
+                                                else {
+                                                    // Response hash values do not match
+                                                    alert("ChhappanBhog", message: "Some error occured.", view: self)
+                                                    IJProgressView.shared.hideProgressView()
                                                 }
                                             case .failure(let error):
                                                 let error : NSError = error as NSError
                                                 print(error.localizedDescription)
-                                                alert("ChhappanBhog", message: "Unable to proceed.", view: self)
+                                                alert("ChhappanBhog", message: "Some error occured.", view: self)
                                                 IJProgressView.shared.hideProgressView()
                                         }
                                     }
@@ -207,10 +218,6 @@ class CartViewVC: UIViewController {
                                     alert("ChhappanBhog", message: message, view: self)
                                     IJProgressView.shared.hideProgressView()
                                 }
-                                
-                                
-                                /**/
-                                // self.proceedToPlaceOrder(shipping: shipping, paymentMethod: "bacs", paymentMethodTitle: "Direct Bank Transfer")
                             }
                         }
                     }
@@ -269,20 +276,35 @@ class CartViewVC: UIViewController {
         
         print(params)
         let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
-        let strURL = "http://drstuckey.codeable.online/apicall/apicall.php"
+        let strURL = "http://chhappanbhog.com/restapi/example/postorder.php"
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers:header)
             .responseJSON { (response) in
+                IJProgressView.shared.hideProgressView()
                 switch response.result {
                 case .success(let value):
                     print(value)
+                    
+                    let data = value as? [String: Any] ?? [:]
+                    let orderIdInt = data["order_id"] as? Int ?? 0
+                    let orderIdStr = data["order_id"] as? String ?? ""
+                    if orderIdInt == 0 && orderIdStr.isEmpty {
+                        alert("ChhappanBhog", message: "Some error occured.", view: self)
+                        return
+                    }
+                    
+                    let orderId = orderIdInt > 0 ? "\(orderIdInt)" : orderIdStr
+                    showAlertMessage(title: "Order Id: \(orderId)", message: "Your order has been placed successfully. You can track your order in your order history.", okButton: "Ok", controller: self) {
+                        CartHelper.shared.clearCart()
+                        AppDelegate.shared.notifyCartUpdate()
+                        self.backButton(self.btnBack)
+                    }
                     
                 case .failure(let error):
                     print(error.localizedDescription)
                     let error : NSError = error as NSError
                     alert("ChhappanBhog", message: error.localizedDescription, view: self)
-                    IJProgressView.shared.hideProgressView()
                 }
         }
     }

@@ -40,6 +40,8 @@ class OurMenuVC: UIViewController {
                 self.reload()
             }
         }
+        
+        self.view.layoutIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {

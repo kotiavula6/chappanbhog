@@ -8,12 +8,21 @@
 
 import UIKit
 
+enum CBOrderStatus: String {
+    case pending    = "pending"
+    case processing = "processing"
+    case shipped    = "shipped"
+    case completed  = "completed"
+    case cancelled  = "cancelled"
+}
+
 class MyOrderVC: UIViewController {
     
     //MARK:- OUTLETS
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var myOrdersTable: UITableView!
+    @IBOutlet weak var lblNoData: UILabel!
     
     var orderDataObj : MyOrderModel?
     
@@ -37,6 +46,14 @@ class MyOrderVC: UIViewController {
     func reloadTable() {
         DispatchQueue.main.async {
             self.myOrdersTable.reloadData()
+            if let dataObj = self.orderDataObj, dataObj.data.count > 0 {
+                self.myOrdersTable.isHidden = false
+                self.lblNoData.isHidden = true
+            }
+            else {
+                self.myOrdersTable.isHidden = true
+                self.lblNoData.isHidden = false
+            }
         }
     }
     
@@ -63,16 +80,31 @@ extension MyOrderVC: UITableViewDelegate,UITableViewDataSource {
         cell.selectionStyle = .none
         if let dataObj = self.orderDataObj {
             cell.lblPrice.text = "\(dataObj.data[indexPath.row].currency) \(dataObj.data[indexPath.row].total)".remove00IfInt.replceINRWithR
-            cell.productNameLBL.text = dataObj.data[indexPath.row].lineItems[0].name.uppercased()
             cell.lblCurrentDate.text = dataObj.data[indexPath.row].createdAt
             
-            let status = dataObj.data[indexPath.row].status.capitalized
-            cell.lblItemStatus.text = status
-            if status.contains("Cancel") {
+            var itemText = dataObj.data[indexPath.row].lineItems[0].name.uppercased()
+            let itemCount = dataObj.data[indexPath.row].lineItems.count
+            if itemCount > 1 {
+                itemText += " AND \(itemCount - 1) MORE"
+            }
+            cell.productNameLBL.text = itemText
+
+            let status = dataObj.data[indexPath.row].status
+            cell.lblItemStatus.text = status.capitalized
+            if status.lowercased().contains("cancel") {
                 cell.iVStatus.image = #imageLiteral(resourceName: "cancel_order")
             }
-            else {
+            else if status.lowercased().contains("complete") {
                 cell.iVStatus.image = #imageLiteral(resourceName: "delivered")
+            }
+            else {
+                cell.iVStatus.image = #imageLiteral(resourceName: "pending")
+            }
+            
+            cell.viewDetailsBlock = {
+                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "OrderDetailsVC") as! OrderDetailsVC
+                vc.dataObj = dataObj.data[indexPath.row]
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
         return cell
@@ -88,17 +120,28 @@ class MyordreTableCell: UITableViewCell {
     @IBOutlet weak var lblItemStatus: UILabel!
     @IBOutlet weak var lblCurrentDate: UILabel!
     @IBOutlet weak var iVStatus: UIImageView!
+    @IBOutlet weak var btnViewDetails: UIButton!
+    
+    var viewDetailsBlock: SimpleBlock?
     
     override func awakeFromNib() {
         setShadowRadius(view: shadowView)
+        btnViewDetails.addTarget(self, action: #selector(viewDetailsAction(_:)), for: UIControl.Event.touchUpInside)
+    }
+    
+    @objc func viewDetailsAction(_ sender: UIButton) {
+        if let block = viewDetailsBlock {
+            block()
+        }
     }
 }
 
 
 extension MyOrderVC {
     func getMyOrders() {
-        // let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
-        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=44918"
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
+        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=\(userID)"
+        // let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=44918"
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestGETURLWithoutToken(ordersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()

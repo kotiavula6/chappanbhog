@@ -76,6 +76,35 @@ struct IngAddress: Codable {
     let address2, city, state, postcode: String
     let country: String
     let email, phone: String?
+    
+    var fullAddress: String {
+        var str = ""
+        if !firstName.isEmpty {
+            str = self.firstName
+        }
+        if !lastName.isEmpty {
+            str.append(" \(lastName)")
+        }
+        if !address1.isEmpty {
+            str.append(", \(address1)")
+        }
+        if !address2.isEmpty {
+            str.append(", \(address2)")
+        }
+        if !city.isEmpty {
+            str.append(", \(city)")
+        }
+        if !state.isEmpty {
+            str.append(", \(state)")
+        }
+        if !postcode.isEmpty {
+            str.append(", \(postcode)")
+        }
+        if !country.isEmpty {
+            str.append(", \(country)")
+        }
+        return str
+    }
 
     enum CodingKeys: String, CodingKey {
         case firstName = "first_name"
