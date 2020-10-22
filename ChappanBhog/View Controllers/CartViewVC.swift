@@ -370,6 +370,19 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
                 AppDelegate.shared.notifyCartUpdate()
             }
             
+            cell.favBTN.tintColor = cartItem.item.isFavourite ? .red : .lightGray
+            cell.favouriteBlock = {
+                let item = CartHelper.shared.cartItems[indexPath.row].item
+                let favourite = !item.isFavourite
+                cell.favBTN.isUserInteractionEnabled = false
+                item.markFavourite(favourite) { (success) in
+                    DispatchQueue.main.async {
+                        cell.favBTN.isUserInteractionEnabled = true
+                        cell.favBTN.tintColor = item.isFavourite ? .red : .lightGray
+                    }
+                }
+            }
+            
             return cell
         }
         
