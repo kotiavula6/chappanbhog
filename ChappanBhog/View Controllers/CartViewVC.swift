@@ -276,7 +276,7 @@ class CartViewVC: UIViewController {
         
         print(params)
         let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
-        let strURL = "http://chhappanbhog.com/restapi/example/postorder.php"
+        let strURL = "http://www.chhappanbhog.com/restapi/example/postorder.php"
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers:header)
