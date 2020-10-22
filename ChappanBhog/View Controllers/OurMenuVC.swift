@@ -12,6 +12,7 @@ class OurMenuVC: UIViewController {
     
     //MARK:- OUTLETS
     @IBOutlet weak var cartLBL: UILabel!
+    @IBOutlet weak var btnCart: UIButton!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var menuTable: UITableView!
     @IBOutlet weak var backView: UIView!
@@ -28,15 +29,16 @@ class OurMenuVC: UIViewController {
         menuTable.register(UINib(nibName: "OurMenuTableCell", bundle: nil), forCellReuseIdentifier: "OurMenuTableCell")
         menuTable.separatorStyle = .none
         setAppearance()
-        if isFromSidemenu {
-            self.btnBack.isHidden = false
-        } else {
-            self.btnBack.isHidden = true
+        
+        if let controllers = self.navigationController?.viewControllers, let controller = controllers.first, controller is UITabBarController, controllers.count == 1 {
+            // Will be fetch in viewWillAppear
         }
-        IJProgressView.shared.showProgressView()
-        getCategories {
-            IJProgressView.shared.hideProgressView()
-            self.reload()
+        else {
+            IJProgressView.shared.showProgressView()
+            getCategories {
+                IJProgressView.shared.hideProgressView()
+                self.reload()
+            }
         }
     }
     
@@ -44,6 +46,18 @@ class OurMenuVC: UIViewController {
         super.viewWillAppear(animated)
         updateCartCount()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+        
+        // Check if its from tabbar
+        if let controllers = self.navigationController?.viewControllers, let controller = controllers.first, controller is UITabBarController, controllers.count == 1 {
+            // For tabbar, Hide back button and load favourites
+            btnBack.isHidden = true
+            
+            IJProgressView.shared.showProgressView()
+            getCategories {
+                IJProgressView.shared.hideProgressView()
+                self.reload()
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,11 +88,11 @@ class OurMenuVC: UIViewController {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
             cartLBL.text = "0"
-            cartLBL.superview?.isHidden = true
+            cartLBL.isHidden = true
         }
         else {
             cartLBL.text = "\(data.count)"
-            cartLBL.superview?.isHidden = false
+            cartLBL.isHidden = false
         }
     }
         
@@ -90,6 +104,11 @@ class OurMenuVC: UIViewController {
        // }
         
        // self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func cartAction(_ sender: UIButton) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

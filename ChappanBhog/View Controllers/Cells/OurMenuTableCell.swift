@@ -74,7 +74,7 @@ class OurMenuTableCell: UITableViewCell {
         lblTitle.text = category.name
         // lblDesc.text =
         self.iVIcon.sd_imageIndicator = AppDelegate.shared.sd_indicator()
-        self.iVIcon.sd_setImage(with: URL(string: category.image )) { (image, error, type, _url) in }
+        self.iVIcon.sd_setImage(with: URL(string: category.image), placeholderImage: PlaceholderImage.Category)
     }
     
     func clear() {

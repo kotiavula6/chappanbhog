@@ -10,16 +10,28 @@
 #import <PlugNPlay/PlugNPlay.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#define kPayUMerchantKey  @"mdyCKV"
-#define kPayUMerchantID   @"4914106"
-#define kPayUMerchantSalt @"Je7q3652"
 
 #define kPayUSuccessURL @"https://www.payumoney.com/mobileapp/payumoney/success.php"
 #define kPayUFailureURL @"https://www.payumoney.com/mobileapp/payumoney/failure.php"
-#define IS_STAGE
+
+//#define IS_STAGE
+
+#ifdef IS_STAGE
+    // My Account
+    #define kPayUMerchantKey  @"mdyCKV"
+    #define kPayUMerchantID   @"4914106"
+    #define kPayUMerchantSalt @"Je7q3652"
+#else
+    // Client Account
+    #define kPayUMerchantKey  @"g497XxdV"
+    #define kPayUMerchantID   @"7144230"
+    #define kPayUMerchantSalt @"XiQUkxBYej"
+#endif
+
 
 @interface PayUHelper()
 @property (nonatomic, strong) PayUHelperModel *currentPaymentModel;
+@property (nonatomic, strong) PUMTxnParam *txnParams;
 @end
 
 @implementation PayUHelper
@@ -34,18 +46,16 @@
 }
 
 - (PUMEnvironment)enviorenment {
-#ifdef IS_STAGE
     return PUMEnvironmentTest;
-#else
-    return PUMEnvironmentProduction;
-#endif
 }
 
 - (void)presentPaymentScreenFromController:(UIViewController *)controller
                                   forModel:(PayUHelperModel *)paymentModel
                                 completion:(PayUHelperCompletionBlock)completion {
     [PlugNPlay setMerchantDisplayName:paymentModel.merchantDisplayName];
-    [PlugNPlay setOrderDetails:@[@{@"From": @"Delhi"}, @{@"To": @"Pune"}]];
+    // [PlugNPlay setOrderDetails:@[@{@"From": @"Delhi"}, @{@"To": @"Pune"}]];
+    
+    [PlugNPlay setOrderDetails: paymentModel.details];
     PUMTxnParam *txnParam = [self txnParamsForModel:paymentModel];
     [PlugNPlay presentPaymentViewControllerWithTxnParams:txnParam
           onViewController:controller
@@ -79,15 +89,14 @@
     txnParam.phone       = paymentModel.phone;
     txnParam.environment = [self enviorenment];
     txnParam.firstname   = paymentModel.customerName;
-    txnParam.key         =  kPayUMerchantKey;
+    txnParam.key         = kPayUMerchantKey;
     txnParam.merchantid  = kPayUMerchantID;
-    //    params.txnid = [NSString stringWithFormat:@"0nf7%@",[self getRandomString:4]];
-    txnParam.txnID       = @"12";
+    txnParam.txnID       = paymentModel.txnId;
     txnParam.surl        = kPayUSuccessURL;
     txnParam.furl        = kPayUFailureURL;
-    txnParam.productInfo = paymentModel.productName;
-    txnParam.udf1        = @"as";
-    txnParam.udf2        = @"sad";
+    txnParam.productInfo = @"App";
+    txnParam.udf1        = @"";
+    txnParam.udf2        = @"";
     txnParam.udf3        = @"";
     txnParam.udf4        = @"";
     txnParam.udf5        = @"";
@@ -96,17 +105,34 @@
     txnParam.udf8        = @"";
     txnParam.udf9        = @"";
     txnParam.udf10       = @"";
-    txnParam.hashValue   = [self getHashForPaymentParams:txnParam];
+    // txnParam.hashValue = [self getRequestHashForPaymentParams:txnParam];
+    
+    txnParam.hashValue = paymentModel.requestHash;
+
+    self.txnParams = txnParam;
+    
     return txnParam;
 }
 
 #pragma mark - Helper Methods
 //TODO: get rid of this function for test environemnt
--(NSString*)getHashForPaymentParams:(PUMTxnParam*)txnParam {
+-(NSString*)getRequestHashForPaymentParams:(PUMTxnParam*)txnParam {
     NSString *salt = kPayUMerchantSalt;
     NSString *hashSequence = [NSString stringWithFormat:@"%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@",txnParam.key,txnParam.txnID,txnParam.amount,txnParam.productInfo,txnParam.firstname,txnParam.email,txnParam.udf1,txnParam.udf2,txnParam.udf3,txnParam.udf4,txnParam.udf5,txnParam.udf6,txnParam.udf7,txnParam.udf8,txnParam.udf9,txnParam.udf10, salt];
     
     NSString *hash = [[[[[self createSHA512:hashSequence] description]stringByReplacingOccurrencesOfString:@"<" withString:@""]stringByReplacingOccurrencesOfString:@">" withString:@""]stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    return hash;
+}
+
+-(NSString*)getResponseHashForPaymentParams {
+    NSString *salt = kPayUMerchantSalt;
+    // salt|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key
+    NSString *hashSequence = [NSString stringWithFormat:@"%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@|%@",salt,@"success",self.txnParams.udf10,self.txnParams.udf9,self.txnParams.udf8,self.txnParams.udf7,self.txnParams.udf6,self.txnParams.udf5,self.txnParams.udf4,self.txnParams.udf3,self.txnParams.udf2,self.txnParams.udf1,self.txnParams.email,self.txnParams.firstname,self.txnParams.productInfo,self.txnParams.amount,self.txnParams.txnID,self.txnParams.key];
+    
+    NSLog(@"%@", hashSequence);
+    NSString *hash = [[[[[self createSHA512:hashSequence] description]stringByReplacingOccurrencesOfString:@"<" withString:@""]stringByReplacingOccurrencesOfString:@">" withString:@""]stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"%@", hash);
     
     return hash;
 }

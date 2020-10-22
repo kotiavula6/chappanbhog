@@ -11,6 +11,7 @@ import GoogleSignIn
 import SDWebImage
 //import TwitterKit
 import STRatingControl
+import Alamofire
 
 var bannerImageBaseURL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
 
@@ -54,11 +55,8 @@ class DashBoardVC: UIViewController {
         super.viewDidLoad()
         self.categorySearchBar.setTextField(color: UIColor.white.withAlphaComponent(1.0))
         self.categorySearchBar.delegate = self
-        print(bannerArr)
         setAppearence()
-        API_GET_DASHBOARD_DATA()
-        API_GET_DASHBOARD_IMAGES()
-        
+
         CartHelper.shared.syncCarts()
         
         /*let phone = "7017777239"
@@ -74,6 +72,8 @@ class DashBoardVC: UIViewController {
         updateCartCount()
         reloadTable()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+        API_GET_DASHBOARD_DATA()
+        API_GET_DASHBOARD_IMAGES()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -227,22 +227,47 @@ class DashBoardVC: UIViewController {
         model.merchantDisplayName = "ChhappanBhog"
         model.phone = "9090900909"
         model.productName = "Kaju Katli - 500gm"
-        PayUHelper.sharedInstance().presentPaymentScreen(from: self, for: model) { (response, error, extra) in
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            if let response = response {
-                print(response)
-            }
-            
-            if let extra = extra {
-                print(extra)
-            }
-        }
+        model.details = CartHelper.shared.generateOrderDetails()
         
+        let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
+        let strURL = "https://www.chhappanbhog.com/restapi/example/payu.php"
+        let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let params: [String: String] = ["firstname": model.customerName, "email": model.email, "amount": model.amount, "type": "request"]
+        
+        AF.request(urlwithPercentEscapes!, method: .put, parameters: params, encoding: JSONEncoding.default, headers:header)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                    if let data = value as? [String : String] {
+                        model.requestHash = data["hash"] ?? ""
+                        model.txnId = data["txnid"] ?? ""
+                    }
+                    
+                    if model.requestHash.isEmpty || model.txnId.isEmpty { return }
+                    DispatchQueue.main.async {
+                        PayUHelper.sharedInstance().presentPaymentScreen(from: self, for: model) { (response, error, extra) in
+                            if let error = error {
+                                print(error)
+                                return
+                            }
+                            
+                            if let response = response {
+                                print(response)
+                            }
+                            
+                            if let extra = extra {
+                                print(extra)
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    let error : NSError = error as NSError
+                    print(error)
+                }
+        }
         return;*/
+        
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         self.navigationController?.pushViewController(vc, animated: true)
     }

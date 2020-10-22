@@ -172,7 +172,7 @@ class CartHelper: NSObject {
         }
     }
     
-    func calculateShipping(totalWeight: Double) -> Double {
+    func calculateShipping(totalWeight: Double, isInPcs: Bool) -> Double {
         let shippingCode = self.manageAddress.shipping_zip
         let shippingCity = self.manageAddress.shipping_city
         let shippingCountry = self.manageAddress.shipping_country
@@ -208,6 +208,50 @@ class CartHelper: NSObject {
             price += cartItem.item.totalPrice
         }
         return price
+    }
+    
+    func calculateTotalWeight() -> (weight: Double, isInPcs: Bool) {
+        var totalWeight = 0.0
+        var isInPcs = false
+        for cartItem in cartItems {
+            let option = cartItem.item.selectedOption()
+            if option.name.lowercased().contains("pc") || option.name.lowercased().contains("pcs") {
+                isInPcs = true
+                totalWeight = 0
+                break
+            }
+            else {
+                // Fetch numeric value only
+                let weight = option.name.numberOnly.doubleValue
+                if option.name.lowercased().contains("kg") || option.name.lowercased().contains("kgs") {
+                    // Weight is in kgs
+                    totalWeight += weight * 1000
+                }
+                else {
+                    totalWeight += weight
+                    // Weight is in grams
+                }
+            }
+        }
+        return (totalWeight, isInPcs)
+    }
+    
+    func generateOrderDetails() -> [[String: String]] {
+        var details: [[String: String]] = []
+        
+        var d : [String : String] = [:]
+        for cartItem in self.cartItems {
+            d[cartItem.item.title] = "\(cartItem.item.selectedOption().name) x \(cartItem.item.quantity)"
+        }
+        details.append(d)
+        details.append(["" : ""])
+        details.append(["" : ""])
+        
+        if !self.manageAddress.fullShippingAddress.isEmpty {
+            details.append(["Shipping to": self.manageAddress.fullShippingAddress])
+        }
+        
+        return details
     }
 }
 

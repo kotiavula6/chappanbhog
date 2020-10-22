@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)presentPaymentScreenFromController:(UIViewController *)controller
                                   forModel:(PayUHelperModel *)paymentModel
                                 completion:(PayUHelperCompletionBlock)completion;
+-(NSString*)getResponseHashForPaymentParams;
 
 @end
 
@@ -31,6 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *customerName;
 @property (nonatomic, strong) NSString *productName;
 @property (nonatomic, strong) NSString *merchantDisplayName;
+
+@property (nonatomic, strong) NSString *requestHash;
+@property (nonatomic, strong) NSString *txnId;
+@property (nonatomic, strong) NSArray *details;
+
 @end
 
 NS_ASSUME_NONNULL_END

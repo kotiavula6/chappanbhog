@@ -178,7 +178,6 @@ class ProductInfoVC: UIViewController {
     
     @IBAction func cartButtonClicked(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
-        vc.isFromProduct = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

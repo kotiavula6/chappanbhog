@@ -250,6 +250,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         if self.countryStateArr.count < 1 {
             return
         }
+        
         self.shippingAddressSelected = false
         self.stateSelected = true
         self.stateCityPicker.reloadAllComponents()
@@ -258,10 +259,19 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     @IBAction func stateTFAction(_ sender: UIButton) {
+        
+        if !self.manageAddress.country.isEmpty && self.countryStateArr.count > 0 && self.selectedCountry == nil {
+            let result = self.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.country.lowercased()}
+            if let first = result.first {
+                self.selectedCountry = first
+            }
+        }
+        
         guard let countryAvailabel = self.selectedCountry else {
             // show alert
             return
         }
+        
         self.shippingAddressSelected = false
         self.selectedStateArr = countryAvailabel.states ?? []
         self.stateSelected = false
@@ -284,6 +294,14 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     }
       
     @IBAction func shippingStateTFAction(_ sender: UIButton) {
+        
+        if !self.manageAddress.country.isEmpty && self.countryStateArr.count > 0 && self.selectedCountry == nil {
+            let result = self.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.shipping_country.lowercased()}
+            if let first = result.first {
+                self.selectedCountry = first
+            }
+        }
+        
         guard let countryAvailabel = self.selectedCountry else {
             // show alert
             return
@@ -464,6 +482,7 @@ extension ManageAddressVC {
                         let countryStateObj = try jsonDecoder.decode([CountryStateModel].self, from: jsonData)
                         self.countryStateArr = countryStateObj
                         self.stateCityPicker.reloadAllComponents()
+                        
                        // print(countryStateObj)
                     }  catch {
                         print("Unexpected error: \(error).")
@@ -607,6 +626,16 @@ class ManageAddress: NSObject {
             str.append(", \(self.shipping_country)")
         }
         return str
+    }
+    
+    var firstName: String {
+        let components = name.components(separatedBy: " ")
+        return (components.first ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    var lastName: String {
+        let components = name.components(separatedBy: " ")
+        return (components.last ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     init(dict: [String: Any]) {

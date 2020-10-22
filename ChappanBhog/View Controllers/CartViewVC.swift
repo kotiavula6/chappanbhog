@@ -7,19 +7,22 @@
 //
 
 import UIKit
+import Alamofire
 
 class CartViewVC: UIViewController {
     
     // MARK:- OUTLETS
+    @IBOutlet weak var cartLBL: UILabel!
+    @IBOutlet weak var btnCart: UIButton!
     @IBOutlet weak var subTitleView: UIView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var gradientView: UIView!
-    @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var itemsLeftLBL: UILabel!
+    @IBOutlet weak var btnPay: UIButton!
     
     var currentIndexPath: IndexPath?
-    var isFromProduct = false
+    var isFromSideMenu = false
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -63,11 +66,15 @@ class CartViewVC: UIViewController {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
             cartLBL.text = "0"
-            cartLBL.superview?.isHidden = true
+            cartLBL.isHidden = true
+            btnCart.isHidden = true
+            btnPay.isHidden = true
         }
         else {
             cartLBL.text = "\(data.count)"
-            cartLBL.superview?.isHidden = false
+            cartLBL.isHidden = false
+            btnCart.isHidden = false
+            btnPay.isHidden = false
         }
         updateCartCountInText()
     }
@@ -85,20 +92,199 @@ class CartViewVC: UIViewController {
     
     // MARK:- ACTIONS
     @IBAction func backButton(_ sender: Any) {
-        if isFromProduct {
-            self.navigationController?.popViewController(animated: true)
-        } else {
+        if isFromSideMenu {
             AppDelegate.shared.showHomeScreen()
+        } else {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
     @IBAction func paymentButton(_ sender: Any) {
         
+        if CartHelper.shared.manageAddress.shipping_zip.isEmpty {
+            alert("ChhappanBhog", message: "Please add your address.", view: self)
+            return
+        }
+        
+        let weightInfo = CartHelper.shared.calculateTotalWeight()
+        if weightInfo.isInPcs {
+            // Make sure shipping is in Lucknow area
+            if CartHelper.shared.manageAddress.shipping_country.lowercased() == "india" && CartHelper.shared.manageAddress.shipping_city.lowercased() == "lucknow" {
+                proceedToPayment()
+            }
+            else {
+                // We don't ship item in pcs outside lucknow
+                alert("ChhappanBhog", message: "One of the item contains weight in pcs. For these items shipping is available in Lucknow only. Please update your cart or shipping location.", view: self)
+            }
+        }
+        else {
+            proceedToPayment()
+        }
     }
     
     @objc func addAddress() {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func proceedToPayment() {
+        
+        IJProgressView.shared.showProgressView()
+        
+        let price = CartHelper.shared.calculateTotal()
+        var shipping = 150.0
+        let weightInfo = CartHelper.shared.calculateTotalWeight()
+        if weightInfo.weight > 0 {
+            shipping = CartHelper.shared.calculateShipping(totalWeight: weightInfo.weight, isInPcs: weightInfo.isInPcs)
+        }
+        let amount = price + shipping
+        
+        let model: PayUHelperModel = PayUHelperModel()
+        model.amount = "\(amount)".remove00IfInt
+        model.customerName = CartHelper.shared.manageAddress.firstName
+        model.email = CartHelper.shared.manageAddress.email
+        model.merchantDisplayName = "ChhappanBhog"
+        model.phone = CartHelper.shared.manageAddress.phone
+        model.productName = "App"
+        model.details = CartHelper.shared.generateOrderDetails()
+        
+        let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
+        let strURL = "https://www.chhappanbhog.com/restapi/example/payu.php"
+        let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let params: [String: String] = ["firstname": model.customerName, "email": model.email, "amount": model.amount, "type": "request"]
+        
+        AF.request(urlwithPercentEscapes!, method: .put, parameters: params, encoding: JSONEncoding.default, headers:header)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                    if let data = value as? [String : String] {
+                        model.requestHash = data["hash"] ?? ""
+                        model.txnId = data["txnid"] ?? ""
+                    }
+                    
+                    if model.requestHash.isEmpty || model.txnId.isEmpty {
+                        IJProgressView.shared.hideProgressView()
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        PayUHelper.sharedInstance().presentPaymentScreen(from: self, for: model) { (response, error, extra) in
+                            if let error = error {
+                                alert("ChhappanBhog", message: error.localizedDescription, view: self)
+                                IJProgressView.shared.hideProgressView()
+                                return
+                            }
+                            
+                            if let response = response as? [String: Any] {
+                                print(response)
+                                let status  = response["status"] as? Int ?? 1
+                                if status == 0 {
+                                    let result = response["result"] as? [String: Any] ?? [:]
+                                    let paymentResponseHash = result["hash"] as? String ?? ""
+                                    let localResponseHash = PayUHelper.sharedInstance().getResponseHashForPaymentParams()
+                                    
+                                    // Fetch hash value from server
+                                    let responseParams = ["firstname": model.customerName, "email": model.email, "amount": model.amount, "txnid": model.txnId, "status": "success", "type": "response"]
+                                    AF.request(urlwithPercentEscapes!, method: .put, parameters: responseParams, encoding: JSONEncoding.default, headers:header).responseJSON { (response) in
+                                        switch response.result {
+                                            case .success(let value):
+                                                print(value)
+                                                if let data = value as? [String : String] {
+                                                    let responseHash = data["hash"] ?? ""
+                                                }
+                                            case .failure(let error):
+                                                let error : NSError = error as NSError
+                                                print(error.localizedDescription)
+                                                alert("ChhappanBhog", message: "Unable to proceed.", view: self)
+                                                IJProgressView.shared.hideProgressView()
+                                        }
+                                    }
+                                }
+                                else {
+                                    // Payment failed
+                                    let message = response["message"] as? String ?? "Payment failed"
+                                    alert("ChhappanBhog", message: message, view: self)
+                                    IJProgressView.shared.hideProgressView()
+                                }
+                                
+                                
+                                /**/
+                                // self.proceedToPlaceOrder(shipping: shipping, paymentMethod: "bacs", paymentMethodTitle: "Direct Bank Transfer")
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    let error : NSError = error as NSError
+                    alert("ChhappanBhog", message: error.localizedDescription, view: self)
+                    IJProgressView.shared.hideProgressView()
+                }
+        }
+    }
+
+    
+    
+    func proceedToPlaceOrder(shipping: Double, paymentMethod: String, paymentMethodTitle: String) {
+        
+        var lineItems: [[String: Any]] = []
+        for cartItem in CartHelper.shared.cartItems {
+            lineItems.append(["product_id": cartItem.item.id, "quantity": cartItem.item.quantity])
+        }
+        
+        let params: [String: Any] = [
+            "payment_method": paymentMethod,
+            "payment_method_title": paymentMethodTitle,
+            "set_paid": true,
+            "billing" : [
+                "first_name": CartHelper.shared.manageAddress.firstName,
+                "last_name": CartHelper.shared.manageAddress.lastName,
+                "address_1": CartHelper.shared.manageAddress.address,
+                "address_2": "",
+                "city": CartHelper.shared.manageAddress.city,
+                "state": CartHelper.shared.manageAddress.state,
+                "postcode": CartHelper.shared.manageAddress.zip,
+                "country": CartHelper.shared.manageAddress.country,
+                "email": CartHelper.shared.manageAddress.email,
+                "phone":CartHelper.shared.manageAddress.phone
+            ],
+            "shipping" : [
+                "first_name": CartHelper.shared.manageAddress.firstName,
+                "last_name": CartHelper.shared.manageAddress.lastName,
+                "address_1": CartHelper.shared.manageAddress.shipping_address,
+                "address_2": "",
+                "city": CartHelper.shared.manageAddress.shipping_city,
+                "state": CartHelper.shared.manageAddress.shipping_state,
+                "postcode": CartHelper.shared.manageAddress.shipping_zip,
+                "country": CartHelper.shared.manageAddress.shipping_country,
+            ],
+            "line_items": lineItems,
+            "shipping_lines":[
+                [
+                    "method_id": "flat_rate",
+                    "method_title": "Flat Rate",
+                    "total": "\(shipping)"
+                ]
+            ]
+        ]
+        
+        print(params)
+        let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
+        let strURL = "http://drstuckey.codeable.online/apicall/apicall.php"
+        let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        
+        AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers:header)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    let error : NSError = error as NSError
+                    alert("ChhappanBhog", message: error.localizedDescription, view: self)
+                    IJProgressView.shared.hideProgressView()
+                }
+        }
     }
 }
 
@@ -177,7 +363,11 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
         }
         
         let price = CartHelper.shared.calculateTotal()
-        let shipping = CartHelper.shared.calculateShipping(totalWeight: 2) // 2kg
+        var shipping = 150.0
+        let weightInfo = CartHelper.shared.calculateTotalWeight()
+        if weightInfo.weight > 0 {
+            shipping = CartHelper.shared.calculateShipping(totalWeight: weightInfo.weight, isInPcs: weightInfo.isInPcs)
+        }
         
         addressCell.lblOrderPrice.text = "\(price)".prefixINR.remove00IfInt
         addressCell.lblShippingPrice.text = "\(shipping)".prefixINR.remove00IfInt

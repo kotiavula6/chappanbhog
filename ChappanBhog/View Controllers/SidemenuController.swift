@@ -102,7 +102,6 @@ extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
             vc.isFromSideMenu = true
             let navController   = UINavigationController(rootViewController: vc)
             navController.isNavigationBarHidden = true
-            vc.isFromSideMenu = true
             slideMenuController()?.changeMainViewController(navController, close: true)
             
         }
@@ -119,6 +118,7 @@ extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
             
         else if (selecteItem == "CART") {
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
+            vc.isFromSideMenu = true
             let navController   = UINavigationController(rootViewController: vc)
             navController.isNavigationBarHidden = true
             slideMenuController()?.changeMainViewController(navController, close: true)

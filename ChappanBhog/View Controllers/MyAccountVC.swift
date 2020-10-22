@@ -43,11 +43,6 @@ class MyAccountVC: UIViewController {
         userNameTF.text = UserDefaults.standard.string(forKey: Constants.Name) ?? ""
         userNameTF.isUserInteractionEnabled = false
         setAppearance()
-        if isFromSideMenu {
-            self.btnBack.isHidden = false
-        } else {
-            self.btnBack.isHidden = true
-        }
         
         let type = UserDefaults.standard.integer(forKey: Constants.type)
         
@@ -65,6 +60,12 @@ class MyAccountVC: UIViewController {
             visiablePlaceholder(isTrue: true)
             
         }
+        
+        // Check if its from tabbar
+        if let controller = self.navigationController?.viewControllers.first, controller is UITabBarController {
+            // For tabbar, Hide back button and load favourites
+            btnBack.isHidden = true
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -72,9 +73,7 @@ class MyAccountVC: UIViewController {
         setGradientBackground(view: self.gradientView)
     }
     
-    
  
-    
     //MARK:- FUNCTIONS
     func visiablePlaceholder(isTrue: Bool) {
         self.lblPlusPlaceholder.isHidden = isTrue

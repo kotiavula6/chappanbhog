@@ -30,7 +30,7 @@ class NotificationsVC: UIViewController {
         // Do any additional setup after loading the view.
         notificationsTable.delegate = self
         notificationsTable.dataSource = self
-        self.btnBack.isHidden = true
+        
         notificationsTable.register(UINib(nibName: "LoadMoreCell", bundle: nil), forCellReuseIdentifier: "LoadMoreCell")
         setAppearance()
         self.lblNoNotifications.isHidden = true
@@ -49,6 +49,12 @@ class NotificationsVC: UIViewController {
         getNotifications {
             self.isRequestOnGoing = false
             IJProgressView.shared.hideProgressView()
+        }
+        
+        // Check if its from tabbar
+        if let controller = self.navigationController?.viewControllers.first, controller is UITabBarController {
+            // For tabbar, Hide back button and load favourites
+            btnBack.isHidden = true
         }
     }
     

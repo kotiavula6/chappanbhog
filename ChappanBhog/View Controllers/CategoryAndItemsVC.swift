@@ -18,6 +18,9 @@ class CategoryAndItemsVC: UIViewController {
     var currentIndexPath: IndexPath!
     
     //MARK:- OUTLETS
+    @IBOutlet weak var cartLBL: UILabel!
+    @IBOutlet weak var btnCart: UIButton!
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var gradientView: UIView!
@@ -38,11 +41,7 @@ class CategoryAndItemsVC: UIViewController {
         tFSearch.delegate = self
         topCollectionHeight.constant = 0
         itemsCollection.contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-        if isFromNavgation {
-            self.btnBack.isHidden = false
-        } else {
-            self.btnBack.isHidden = true
-        }
+        
         //layoutConstaintItemtTop.constant = 0
     }
     
@@ -53,22 +52,61 @@ class CategoryAndItemsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         reloadData()
+        updateCartCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+        
+        // Check if its from tabbar
+        if let controllers = self.navigationController?.viewControllers, let controller = controllers.first, controller is UITabBarController, controllers.count == 1 {
+            // For tabbar, Hide back button and load favourites
+            GET_FAVOURTIE_ITEMS()
+            btnBack.isHidden = true
+            lblTitle.isHidden = false
+            searchView.isHidden = true
+        }
+        else {
+            lblTitle.isHidden = true
+            searchView.isHidden = false
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK:- UI SETUP
     func setAppearance() {
         DispatchQueue.main.async {
-            self.searchView.cornerRadius = self.searchView.frame.height/2
+            /*self.searchView.cornerRadius = self.searchView.frame.height/2
             self.backView.layer.cornerRadius = 30
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             //self.scrollView.layer.cornerRadius = 30
-            //self.scrollView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            //self.scrollView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]*/
+            self.searchView.layer.cornerRadius = self.searchView.frame.size.height / 2
+            setGradientBackground(view: self.gradientView)
+            self.backView.layer.cornerRadius = 30
+            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            
+            self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
+            self.cartLBL.layer.masksToBounds = true
         }
     }
     
     func reloadData() {
         DispatchQueue.main.async {
             self.itemsCollection.reloadData()
+        }
+    }
+    
+    @objc func updateCartCount() {
+        let data = CartHelper.shared.cartItems
+        if data.count == 0 {
+            cartLBL.text = "0"
+            cartLBL.isHidden = true
+        }
+        else {
+            cartLBL.text = "\(data.count)"
+            cartLBL.isHidden = false
         }
     }
     
@@ -82,6 +120,11 @@ class CategoryAndItemsVC: UIViewController {
     //MARK:- ACTIONS
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func cartButtonClicked(_ sender: UIButton) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -104,6 +147,7 @@ extension CategoryAndItemsVC: UITextFieldDelegate {
 
 //MARK:- COLLECTIONVIEW METHODS
 extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categoryArr.count
     }
@@ -188,7 +232,7 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             return CGSize(width: topCategoryCollection.frame.height/1.5, height: topCategoryCollection.frame.height)
         }else {
             let width = (self.itemsCollection.frame.size.width/2)-30
-            return CGSize(width: width, height: 220)
+            return CGSize(width: width, height: 235)
         }
     }
     
@@ -214,6 +258,44 @@ extension CategoryAndItemsVC {
     
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEMS + "/\(userID ?? 0)" + "/\(ItemId)"
+        
+        IJProgressView.shared.showProgressView()
+        AFWrapperClass.requestGETURL(getCat ,success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            
+            print(dict)
+
+            if let result = dict as? [String: Any] {
+                let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
+                if isTokenExpired {
+                    return
+                }
+            }
+            
+            let response = dict["data"] as? NSArray ?? NSArray()
+            let success = dict["success"] as? Bool ?? false
+            if success {
+                self.categoryArr.removeAll()
+                for i in 0..<response.count {
+                    self.categoryArr.append(Categores(dict: response.object(at: i) as! [String:Any]))
+                }
+                self.reloadData()
+                self.updateHeight()
+            } else {
+                let msg = dict["message"] as? String ?? ""
+                alert("ChhappanBhog", message: msg, view: self)
+            }
+            
+        }) { (error) in
+            let msg = error.localizedDescription
+            alert("ChhappanBhog", message: msg, view: self)
+        }
+    }
+    
+    func GET_FAVOURTIE_ITEMS() {
+    
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId)
+        let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_FAVOURITES + "/\(userID ?? 0)"
         
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestGETURL(getCat ,success: { (dict) in

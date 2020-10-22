@@ -109,6 +109,7 @@ struct WebserviceName {
     static let API_search = "search"
     static let API_FORGOT_PASSWORD = "forget_password"
     static let API_MARK_FAVOURITE = "add_favorite"
+    static let API_GET_FAVOURITES = "get_favorite"
 }
 
 struct Constants

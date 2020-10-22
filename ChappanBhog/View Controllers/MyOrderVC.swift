@@ -149,4 +149,14 @@ extension String {
         if self.isEmpty { return str}
         return self
     }
+    
+    var numberOnly: String {
+        if self.isEmpty { return "" }
+        let set = CharacterSet(charactersIn: "0123456789")
+        return self.components(separatedBy: set.inverted).joined()
+    }
+    
+    var doubleValue: Double {
+        return Double(self) ?? 0
+    }
 }

@@ -85,11 +85,11 @@ class searchRecordVC: UIViewController {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
             cartLBL.text = "0"
-            cartLBL.superview?.isHidden = true
+            cartLBL.isHidden = true
         }
         else {
             cartLBL.text = "\(data.count)"
-            cartLBL.superview?.isHidden = false
+            cartLBL.isHidden = false
         }
     }
     
@@ -100,10 +100,6 @@ class searchRecordVC: UIViewController {
             API_GET_SEARCH_DATA()
             recordsCollection.reloadData()
         }*/
-    }
-    
-    @IBAction func cartButtonClicked(_ sender: UIButton) {
-        
     }
     
     @IBAction func ClearButtonClicked(_ sender: UIButton) {
@@ -118,6 +114,11 @@ class searchRecordVC: UIViewController {
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func cartButtonClicked(_ sender: UIButton) {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -210,7 +211,7 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (self.recordsCollection.frame.size.width/2)-30
-        return CGSize(width: width, height: 220)
+        return CGSize(width: width, height: 235)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
