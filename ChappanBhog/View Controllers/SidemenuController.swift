@@ -49,13 +49,14 @@ class SidemenuController: UIViewController{
         myimgvw.layer.borderColor = UIColor.black.cgColor
         myimgvw.layer.borderWidth = 1
         myimgvw.clipsToBounds = true
-        let imageStr = UserDefaults.standard.string(forKey: Constants.Image) ?? ""
-        if !imageStr.isEmpty {
-            let urlString = ApplicationUrl.IMAGE_BASE_URL + imageStr
-            myimgvw.sd_setImage(with: URL(string: urlString), completed: nil)
-        }
-        
 
+        if let imageStr = UserDefaults.standard.string(forKey: Constants.Image) {
+            let urlString = ApplicationUrl.IMAGE_BASE_URL + imageStr
+            myimgvw.sd_setImage(with: URL(string: urlString), placeholderImage: PlaceholderImage.Category)
+        }
+        else {
+            myimgvw.image = PlaceholderImage.Category
+        }
     }
     
     @objc func logout() {

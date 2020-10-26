@@ -25,11 +25,10 @@ class MyAccountVC: UIViewController {
     @IBOutlet weak var btnEdit: UIButton!
     @IBOutlet weak var btnBack: UIButton!
     
-    @IBOutlet weak var lblPlusPlaceholder: UILabel!
+    @IBOutlet weak var lblPlusPlaceholder  : UILabel!
     @IBOutlet weak var lblUploadPlaceholder: UILabel!
     
-    var listArray = ["ADDRESS","PASSWORD","MY ORDERS","TRACK YOUR ORDER","PAYMENTS"]
-    
+    var listArray = ["ADDRESS", "PASSWORD", "MY ORDERS", "TRACK YOUR ORDER"]
     
     var imagePicker = UIImagePickerController()
     var selectedImage: UIImage?
@@ -51,14 +50,14 @@ class MyAccountVC: UIViewController {
             self.listTable.reloadData()
         }
         
+        editMode(false)
         profileImage.contentMode = .scaleAspectFill
-        let imageStr = UserDefaults.standard.string(forKey: Constants.Image) ?? ""
-        visiablePlaceholder(isTrue: false)
-        if !imageStr.isEmpty {
+        if let imageStr = UserDefaults.standard.string(forKey: Constants.Image) {
             let urlString = ApplicationUrl.IMAGE_BASE_URL + imageStr
-            profileImage.sd_setImage(with: URL(string: urlString), completed: nil)
-            visiablePlaceholder(isTrue: true)
-            
+            profileImage.sd_setImage(with: URL(string: urlString), placeholderImage: PlaceholderImage.Category)
+        }
+        else {
+            profileImage.image = PlaceholderImage.Category
         }
         
         // Check if its from tabbar
@@ -75,12 +74,6 @@ class MyAccountVC: UIViewController {
     
  
     //MARK:- FUNCTIONS
-    func visiablePlaceholder(isTrue: Bool) {
-        self.lblPlusPlaceholder.isHidden = isTrue
-        self.lblUploadPlaceholder.isHidden = isTrue
-    }
-    
-    
     func setAppearance() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
@@ -111,6 +104,21 @@ class MyAccountVC: UIViewController {
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    func editMode(_ edit: Bool) {
+        if edit {
+            btnEdit.setTitle("Save", for: .normal)
+            userNameTF.isUserInteractionEnabled = true
+            lblPlusPlaceholder.isHidden = false
+            lblUploadPlaceholder.isHidden = false
+        }
+        else {
+            btnEdit.setTitle("Edit", for: .normal)
+            userNameTF.isUserInteractionEnabled = false
+            lblPlusPlaceholder.isHidden = true
+            lblUploadPlaceholder.isHidden = true
+        }
+    }
+    
     //MARK:- ACTIONS
     @IBAction func backButtonAction(_ sender: UIButton) {
         if isFromSideMenu {
@@ -121,7 +129,13 @@ class MyAccountVC: UIViewController {
     }
     
     @IBAction func btnPickImage(_ sender: UIButton) {
+        
+        if btnEdit.title(for: .normal) == "Edit" {
+            // Edit mode is not enabled
+            return;
+        }
      
+        userNameTF.resignFirstResponder()
         let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
            let cameraAction = UIAlertAction(title: "Camera", style: UIAlertAction.Style.default) {
                UIAlertAction in
@@ -147,8 +161,7 @@ class MyAccountVC: UIViewController {
     @IBAction func btnUpdateProfile(_ sender: UIButton) {
         
         if btnEdit.title(for: .normal) == "Edit" {
-            btnEdit.setTitle("Save", for: .normal)
-            userNameTF.isUserInteractionEnabled = true
+            self.editMode(true)
             userNameTF.becomeFirstResponder()
             return
         }
@@ -186,8 +199,7 @@ class MyAccountVC: UIViewController {
                 let status = result["success"] as? Bool ?? false
                 if status {
                     DispatchQueue.main.async {
-                        self.userNameTF.isUserInteractionEnabled = false
-                        self.btnEdit.setTitle("Edit", for: .normal)
+                        self.editMode(false)
                     }
                     
                     if let data = result["data"] as? [String: Any] {
@@ -260,15 +272,15 @@ extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
         }
         if listName == "TRACK YOUR ORDER" {
             
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrackYourOrderVC") as! TrackYourOrderVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            //let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrackYourOrderVC") as! TrackYourOrderVC
+            //self.navigationController?.pushViewController(vc, animated: true)
             
         }
         if listName == "PAYMENTS" {
             
             
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
-            self.navigationController?.pushViewController(vc, animated: true)
+           // let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+           // self.navigationController?.pushViewController(vc, animated: true)
             
         }
     }
@@ -277,12 +289,10 @@ extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
 
 extension MyAccountVC: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let chosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         selectedImage = chosenImage
         self.profileImage.image = chosenImage
-        visiablePlaceholder(isTrue: true)
         dismiss(animated:true, completion: nil)
     }
     

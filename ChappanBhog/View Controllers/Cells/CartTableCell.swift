@@ -22,6 +22,9 @@ class CartTableCell: UITableViewCell {
     @IBOutlet weak var quantityDecreaseBTN: UIButton!
     @IBOutlet weak var shadowView: UIView!
     
+    @IBOutlet weak var layoutConstraintWeightWidth: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstraintPriceLading: NSLayoutConstraint!
+    
     var quantityIncBlock: SimpleBlock?
     var quantityDecBlock: SimpleBlock?
     var chooseOptioncBlock: SimpleBlock?

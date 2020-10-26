@@ -58,6 +58,9 @@ class DashBoardVC: UIViewController {
         setAppearence()
 
         CartHelper.shared.syncCarts()
+        CartHelper.shared.syncCountries { (success, msg) in
+            
+        }
         
         /*let phone = "7017777239"
         let code = "+91"
@@ -506,7 +509,7 @@ extension DashBoardVC {
         
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         IJProgressView.shared.showProgressView()
-        let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_DATA + "/\(userID ?? 0)"
+        let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_DATA + "/\(userID ?? 0)" + "/\(AppDelegate.shared.isLucknow ? 1 : 0)"
         AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             

@@ -1,27 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XyF-4f-GC5">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Brandon_bld.otf">
+            <string>BrandonGrotesque-Bold</string>
+        </array>
+        <array key="Brandon_reg_it.otf">
+            <string>BrandonGrotesque-RegularItalic</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="UtK-XS-MIR">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                <viewController id="XyF-4f-GC5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sq8-N5-UJu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Qiu-Eu-p0e">
+                                <rect key="frame" x="72.5" y="179" width="269" height="269"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Qiu-Eu-p0e" secondAttribute="height" multiplier="1:1" id="VKt-hH-5aL"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Romancing with the taste is our Passion . Profession too!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyP-7H-SKo">
+                                <rect key="frame" x="50" y="463" width="314" height="112"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-RegularItalic" family="Brandon Grotesque" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdt-5M-cZN">
+                                <rect key="frame" x="65" y="801" width="284.5" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HANDCRAFTED WITH " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTZ-SR-nqc">
+                                        <rect key="frame" x="0.0" y="0.0" width="155.5" height="41"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_heart" translatesAutoresizingMaskIntoConstraints="NO" id="MRq-6P-7xv">
+                                        <rect key="frame" x="155.5" y="0.0" width="41" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="MRq-6P-7xv" secondAttribute="height" multiplier="1:1" id="73p-rU-t0E"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" IN INDIA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-ss-DP2">
+                                        <rect key="frame" x="196.5" y="0.0" width="62" height="41"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Bold" family="Brandon Grotesque" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="MRq-6P-7xv" secondAttribute="trailing" constant="88" id="2oR-1V-1gI"/>
+                                    <constraint firstAttribute="bottom" secondItem="PmG-ss-DP2" secondAttribute="bottom" id="6mK-Rv-3Q5"/>
+                                    <constraint firstItem="MRq-6P-7xv" firstAttribute="top" secondItem="bdt-5M-cZN" secondAttribute="top" id="Dvg-lA-nNE"/>
+                                    <constraint firstAttribute="height" constant="41" id="JNG-xh-F2o"/>
+                                    <constraint firstAttribute="bottom" secondItem="bTZ-SR-nqc" secondAttribute="bottom" id="JqQ-wH-Fps"/>
+                                    <constraint firstAttribute="bottom" secondItem="MRq-6P-7xv" secondAttribute="bottom" id="Mat-2h-qaR"/>
+                                    <constraint firstItem="PmG-ss-DP2" firstAttribute="top" secondItem="bdt-5M-cZN" secondAttribute="top" id="VLO-CM-5p3"/>
+                                    <constraint firstItem="bTZ-SR-nqc" firstAttribute="top" secondItem="bdt-5M-cZN" secondAttribute="top" id="j4n-k0-7sI"/>
+                                    <constraint firstItem="PmG-ss-DP2" firstAttribute="leading" secondItem="MRq-6P-7xv" secondAttribute="trailing" id="mS4-t1-wdZ"/>
+                                    <constraint firstItem="MRq-6P-7xv" firstAttribute="leading" secondItem="bTZ-SR-nqc" secondAttribute="trailing" constant="-2.8421709430404007e-14" id="vFe-Ng-O7V"/>
+                                    <constraint firstItem="bTZ-SR-nqc" firstAttribute="leading" secondItem="bdt-5M-cZN" secondAttribute="leading" id="xRG-aB-09k"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1242-2208" translatesAutoresizingMaskIntoConstraints="NO" id="4fu-r1-q10">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <constraints>
+                            <constraint firstItem="4fu-r1-q10" firstAttribute="leading" secondItem="sq8-N5-UJu" secondAttribute="leading" id="0nv-ry-AlZ"/>
+                            <constraint firstItem="CCj-ct-2oI" firstAttribute="bottom" secondItem="bdt-5M-cZN" secondAttribute="bottom" constant="20" id="8eJ-Ai-tEz"/>
+                            <constraint firstItem="Qiu-Eu-p0e" firstAttribute="centerX" secondItem="sq8-N5-UJu" secondAttribute="centerX" id="B5h-12-TPV"/>
+                            <constraint firstItem="CCj-ct-2oI" firstAttribute="trailing" secondItem="pyP-7H-SKo" secondAttribute="trailing" constant="50" id="Pfd-gg-04Y"/>
+                            <constraint firstItem="pyP-7H-SKo" firstAttribute="top" secondItem="Qiu-Eu-p0e" secondAttribute="bottom" constant="15" id="YSX-fS-kvC"/>
+                            <constraint firstItem="bdt-5M-cZN" firstAttribute="centerX" secondItem="sq8-N5-UJu" secondAttribute="centerX" id="avg-kz-UUk"/>
+                            <constraint firstAttribute="bottom" secondItem="4fu-r1-q10" secondAttribute="bottom" id="eeJ-rT-5Oc"/>
+                            <constraint firstItem="4fu-r1-q10" firstAttribute="top" secondItem="sq8-N5-UJu" secondAttribute="top" id="j4c-2s-oKN"/>
+                            <constraint firstItem="pyP-7H-SKo" firstAttribute="leading" secondItem="CCj-ct-2oI" secondAttribute="leading" constant="50" id="lHB-fK-8kV"/>
+                            <constraint firstItem="Qiu-Eu-p0e" firstAttribute="height" secondItem="sq8-N5-UJu" secondAttribute="height" multiplier="0.3" id="lUJ-mF-bQw"/>
+                            <constraint firstItem="Qiu-Eu-p0e" firstAttribute="centerY" secondItem="sq8-N5-UJu" secondAttribute="centerY" multiplier="0.7" id="nJn-oG-rEU"/>
+                            <constraint firstAttribute="trailing" secondItem="4fu-r1-q10" secondAttribute="trailing" id="v4H-Xb-RCL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CCj-ct-2oI"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ZKt-Qv-Zd4"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n9w-Po-Na2" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+            <point key="canvasLocation" x="46" y="20"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="1242-2208" width="1242" height="2208"/>
+        <image name="red_heart" width="28" height="24.5"/>
+        <image name="splash_logo" width="266.5" height="250"/>
+    </resources>
 </document>

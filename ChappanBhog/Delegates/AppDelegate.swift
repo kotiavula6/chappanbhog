@@ -15,6 +15,7 @@ import FBSDKCoreKit
 //import TwitterKit
 import Firebase
 import SDWebImage
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,18 +26,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var tabbarController: UITabBarController?
     var sideMenuViewController: SlideMenuController!
     
-    
+    let manager = CLLocationManager()
+    var currentLocation: CLLocation?
+    var currentCity: String = ""
+    var isLucknow: Bool {
+        return currentCity.lowercased() == "lucknow"
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         //TWTRTwitter.sharedInstance().start(withConsumerKey:"4Z8hpvQBOxBbtfXtjmtLWtt9Y", consumerSecret:"RfLtpt7X2RS34CAJICJqsTfV3U7kfgfk3XaHWA5oPa2k2GXE6U")
 
+        FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         
         GIDSignIn.sharedInstance().clientID = "574908180295-s62bs9umoqrvuo366ri3es6ucrq0oqp8.apps.googleusercontent.com"
-        FirebaseApp.configure()
+        
 
         
 //        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -53,16 +60,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if loggedIn {
             if type == 0 && verified == 0 {
                 // Type = Email and Phone number is not verified
-                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
+                 _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
             }
             else {
-                
-                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(showHomeScreen), userInfo: nil, repeats: false)
+                 _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(showHomeScreen), userInfo: nil, repeats: false)
             }
         }
         else {
             _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(goToLoginScreen), userInfo: nil, repeats: false)
         }
+        
+        // Location Manager
+        startLocationUpdate()
         
         return true
     }
@@ -128,15 +137,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = sideMenuViewController
     }
     
-    @objc func goToDashBoard() {
-        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-        let rootVc = storyBoard.instantiateViewController(withIdentifier: "Home") as! UITabBarController
-        let nav = UINavigationController(rootViewController: rootVc)
-        nav.isNavigationBarHidden = true
-        self.window?.rootViewController = nav
-        self.window?.makeKeyAndVisible()
-    }
-    
     @objc func goToLoginScreen() {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         let rootVc = storyBoard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
@@ -199,5 +199,108 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     func sd_indicator() -> SDWebImageActivityIndicator {
         return SDWebImageActivityIndicator.gray
+    }
+}
+
+
+// MARK:- Locations
+extension AppDelegate: CLLocationManagerDelegate {
+    
+    func startLocationUpdate() {
+        // Location Manager
+        manager.delegate = self
+        manager.pausesLocationUpdatesAutomatically = false
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+    }
+    
+    func stopLocationUpdate() {
+        manager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if (locations.count > 0) {
+            // let preLocation = locations[1]
+            let location = locations[0]
+            
+            if let lastLocation = self.currentLocation {
+                // Check if distance difference is atleast 500 meters
+                let distance = fabs(lastLocation.distance(from: location))
+                if distance < 500 {
+                    return
+                }
+                
+                /// Update current location
+                self.currentLocation = location
+                self.getPlaceMark(location) { (placeMark) in
+                    self.currentCity = placeMark?.locality ?? ""
+                }
+            }
+            else {
+                // First time
+                /// Update current location
+                self.currentLocation = location
+                self.getPlaceMark(location) { (placeMark) in
+                    self.currentCity = placeMark?.locality ?? ""
+                }
+            }
+        }
+    }
+    
+    func canTrackLocation() -> (message: String, canTrack: Bool) {
+        let message = "Location is needed to fetch the nearby gyms.\nGo to settings -> `ChhappanBhog` and enable the location."
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+            case .notDetermined: return (message, false);
+            case .restricted: return (message, false);
+            case .denied: return (message, false);
+            case .authorizedAlways: return ("", true);
+            case .authorizedWhenInUse: return ("", true);
+        @unknown default:
+            return (message, false);
+        }
+    }
+}
+
+
+// MARK:- GeoCoding
+import Contacts
+extension AppDelegate {
+    
+    func getPlaceMark(_ lat: Double, lng: Double, completion: @escaping (_ placeMark: CLPlacemark?) -> Void) {
+        let coordinates : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        getPlaceMark(coordinates, completion: completion)
+    }
+    
+    func getPlaceMark(_ coordinates: CLLocationCoordinate2D, completion: @escaping (_ placeMark: CLPlacemark?) -> Void) {
+        let location: CLLocation = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+        getPlaceMark(location, completion: completion)
+    }
+    
+    func getPlaceMark(_ location: CLLocation, completion: @escaping (_ placeMark: CLPlacemark?) -> Void) {
+        let geo: CLGeocoder = CLGeocoder()
+        geo.reverseGeocodeLocation(location) { (placeMarks, error) in
+            if (error != nil) {
+                print("reverse geodcode fail: \(error!.localizedDescription)")
+                completion(nil)
+            }
+            if let pms = placeMarks, let pm = pms.first {
+                completion(pm)
+            }
+            else {
+                completion(nil)
+            }
+        }
+    }
+
+    func getAddress(placeMark: CLPlacemark) -> String {
+        if let postalAddress = placeMark.postalAddress {
+            let postalAddressFormatter = CNPostalAddressFormatter()
+            postalAddressFormatter.style = .mailingAddress
+            return postalAddressFormatter.string(from: postalAddress)
+        }
+        return ""
     }
 }

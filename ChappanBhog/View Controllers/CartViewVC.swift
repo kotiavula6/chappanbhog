@@ -29,6 +29,8 @@ class CartViewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAppearance()
+        cartLBL.isHidden = true
+        btnCart.isHidden = true
         
         IJProgressView.shared.showProgressView()
         CartHelper.shared.syncAddress { (success, message) in
@@ -42,6 +44,11 @@ class CartViewVC: UIViewController {
         updateCartCount()
         self.reloadTable()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.reloadTable()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,15 +73,15 @@ class CartViewVC: UIViewController {
     @objc func updateCartCount() {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
-            cartLBL.text = "0"
-            cartLBL.isHidden = true
-            btnCart.isHidden = true
+            //cartLBL.text = "0"
+            //cartLBL.isHidden = true
+            //btnCart.isHidden = true
             btnPay.isHidden = true
         }
         else {
-            cartLBL.text = "\(data.count)"
-            cartLBL.isHidden = false
-            btnCart.isHidden = false
+            //cartLBL.text = "\(data.count)"
+            //cartLBL.isHidden = false
+            //btnCart.isHidden = false
             btnPay.isHidden = false
         }
         updateCartCountInText()
@@ -235,7 +242,8 @@ class CartViewVC: UIViewController {
         
         var lineItems: [[String: Any]] = []
         for cartItem in CartHelper.shared.cartItems {
-            lineItems.append(["product_id": cartItem.item.id, "quantity": cartItem.item.quantity])
+            let productId = cartItem.item.selectedOption().id > 0 ? cartItem.item.selectedOption().id : cartItem.item.id
+            lineItems.append(["product_id": productId, "quantity": cartItem.item.quantity])
         }
         
         let params: [String: Any] = [
@@ -336,18 +344,24 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
             if  option.id > 0 {
                 cell.weightLBL.text = option.name
                 cell.PriceLBL.text = String(format: "%.0f", option.price).prefixINR
+                cell.layoutConstraintWeightWidth.constant = 80 + (cell.shadowView.frame.size.width - 285)
+                cell.layoutConstraintPriceLading.constant = 5
             }
             else {
                 cell.weightLBL.text = " "
-                cell.PriceLBL.text = "0".prefixINR
+                cell.PriceLBL.text = String(format: "%.0f", cartItem.item.price).prefixINR
+                cell.layoutConstraintWeightWidth.constant = 0
+                cell.layoutConstraintPriceLading.constant = 0
             }
             
+            cell.layoutIfNeeded()
             cell.quantityLBL.text = "\(cartItem.item.quantity)"
             cell.quantityIncBlock = {
                 let cartItem = CartHelper.shared.cartItems[indexPath.row]
                 cartItem.item.quantity += 1
                 cell.quantityLBL.text = "\(cartItem.item.quantity)"
                 CartHelper.shared.save()
+                self.listTable.reloadRows(at: [IndexPath(row: CartHelper.shared.cartItems.count, section: 0)], with: .automatic)
             }
             
             cell.quantityDecBlock = {
@@ -356,6 +370,7 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
                 if cartItem.item.quantity < 1 { cartItem.item.quantity = 1 }
                 cell.quantityLBL.text = "\(cartItem.item.quantity)"
                 CartHelper.shared.save()
+                self.listTable.reloadRows(at: [IndexPath(row: CartHelper.shared.cartItems.count, section: 0)], with: .automatic)
             }
             
             cell.chooseOptioncBlock = {
@@ -370,7 +385,7 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
                 AppDelegate.shared.notifyCartUpdate()
             }
             
-            cell.favBTN.tintColor = cartItem.item.isFavourite ? .red : .lightGray
+            cell.favBTN.setImage(cartItem.item.isFavourite ? #imageLiteral(resourceName: "red_heart") : #imageLiteral(resourceName: "heart-1"), for: .normal)
             cell.favouriteBlock = {
                 let item = CartHelper.shared.cartItems[indexPath.row].item
                 let favourite = !item.isFavourite
@@ -378,7 +393,7 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
                 item.markFavourite(favourite) { (success) in
                     DispatchQueue.main.async {
                         cell.favBTN.isUserInteractionEnabled = true
-                        cell.favBTN.tintColor = item.isFavourite ? .red : .lightGray
+                        cell.favBTN.setImage(cartItem.item.isFavourite ? #imageLiteral(resourceName: "red_heart") : #imageLiteral(resourceName: "heart-1"), for: .normal)
                     }
                 }
             }

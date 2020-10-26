@@ -24,12 +24,12 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var descriptionLBL: UILabel!
     @IBOutlet weak var weightLBL: UILabel!
     @IBOutlet weak var productImageCollection: UICollectionView!
-    @IBOutlet weak var payBTN: UIButton!
     @IBOutlet weak var quantityLBL: UILabel!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var weightBTN: UIButton!
+    @IBOutlet weak var btnAddToCart: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var viewWeightContainer: UIView!
@@ -40,6 +40,7 @@ class ProductInfoVC: UIViewController {
     // MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        btnAddToCart.setTitle("ADD TO CART", for: .normal)
         setAppearance()
         fillData()
     }
@@ -93,7 +94,7 @@ class ProductInfoVC: UIViewController {
             self.descriptionLBL.text = self.item.desc
             self.quantityLBL.text = "\(self.item.quantity)"
             self.totalReviewsLBL.text = "\(self.item.reviews) \(self.item.reviews == 1 ? "review" : "reviews")"
-            self.updatePayButtonTitle()
+            //self.updatePayButtonTitle()
             self.view.layoutIfNeeded()
         }
     }
@@ -104,7 +105,7 @@ class ProductInfoVC: UIViewController {
         }
     }
     
-    func updatePayButtonTitle() {
+    /*func updatePayButtonTitle() {
         let option = self.item.selectedOption()
         if  option.id > 0 {
             let price = option.price * Double(self.item.quantity)
@@ -116,17 +117,29 @@ class ProductInfoVC: UIViewController {
             let priceText = "PAY " + String(format: "%.0f", price).prefixINR
             payBTN.setTitle(priceText, for: .normal)
         }
-    }
+    }*/
     
     @objc func updateCartCount() {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
             cartLBL.text = "0"
-            cartLBL.superview?.isHidden = true
+            cartLBL.isHidden = true
         }
         else {
             cartLBL.text = "\(data.count)"
-            cartLBL.superview?.isHidden = false
+            cartLBL.isHidden = false
+        }
+    }
+    
+    func updatePrice() {
+        let option = self.item.selectedOption()
+        if  option.id > 0 {
+            let price = Double(self.item.quantity) * option.price
+            self.productPrice.text = String(format: "%.0f", price).prefixINR
+        }
+        else {
+            let price = Double(self.item.quantity) * self.item.price
+            self.productPrice.text = String(format: "%.0f", price).prefixINR
         }
     }
     
@@ -139,12 +152,16 @@ class ProductInfoVC: UIViewController {
     }
     
     @IBAction func increseBTN(_ sender: UIButton) {
-        //if self.item.quantity >= self.item.available_quantity {
-          //  return
-        //}
+        if self.item.quantity >= self.item.available_quantity {
+            alert("ChhappanBhog", message: "Maximum quantities exceeded.", view: self)
+            return
+        }
+        
         self.item.quantity += 1
         self.quantityLBL.text = "\(self.item.quantity)"
-        self.updatePayButtonTitle()
+        updatePrice()
+        
+        //self.updatePayButtonTitle()
     }
     
     @IBAction func decreaseBTN(_ sender: UIButton) {
@@ -153,15 +170,23 @@ class ProductInfoVC: UIViewController {
             self.item.quantity = 1
         }
         self.quantityLBL.text = "\(self.item.quantity)"
-        self.updatePayButtonTitle()
+        updatePrice()
+        
+        //self.updatePayButtonTitle()
     }
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func payButtonClicked(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+    @IBAction func addToCartButtonClicked(_ sender: UIButton) {
+        //let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+        //self.navigationController?.pushViewController(vc, animated: true)
+        let cartItem = CartItem(item: self.item)
+        CartHelper.shared.addToCart(cartItem: cartItem)
+        AppDelegate.shared.notifyCartUpdate()
+        
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

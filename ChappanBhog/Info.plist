@@ -76,6 +76,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>To click profile image</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is needed to filter the products for your area. </string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To select profile image</string>
 	<key>UILaunchStoryboardName</key>

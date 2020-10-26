@@ -23,7 +23,7 @@ class SignInVC: UIViewController  {
     @IBOutlet weak var signInBTN: UIButton!
     @IBOutlet weak var userNameTF: UITextField!
     
-     var provider = OAuthProvider(providerID: "twitter.com")
+    let provider = OAuthProvider(providerID: "twitter.com")
     
     //MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
@@ -38,7 +38,7 @@ class SignInVC: UIViewController  {
         } else {
             // Fallback on earlier versions
         }
-        setAppearance()
+        //setAppearance()
         userNameTF.keyboardType = .emailAddress
         
         let loggedIn = UserDefaults.standard.bool(forKey: "ISUSERLOGGEDIN")
@@ -84,7 +84,7 @@ class SignInVC: UIViewController  {
         
         if (userNameTF.text?.isEmpty)!{
             
-            ValidateData(strMessage: " Please enter email address")
+            ValidateData(strMessage: "Please enter email address")
         }
         else if isValidEmail(email: (userNameTF.text)!) == false{
             
@@ -92,7 +92,7 @@ class SignInVC: UIViewController  {
         }
         else if (passwordTF.text?.isEmpty)!{
             
-            ValidateData(strMessage: " Please enter password")
+            ValidateData(strMessage: "Please enter password")
         }else if (passwordTF.text?.count)! < 4 || (passwordTF.text?.count)! > 15{
             
             ValidateData(strMessage: "Please enter minimum 4 digit password")
@@ -136,7 +136,6 @@ class SignInVC: UIViewController  {
     @IBAction func twitterAccount(_ sender: UIButton) {
         
         IJProgressView.shared.showProgressView()
-        
         provider.getCredentialWith(nil) { credential, error in
             
             // IJProgressView.shared.hideProgressView()

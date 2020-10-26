@@ -29,6 +29,7 @@ class CategoryAndItemsVC: UIViewController {
     @IBOutlet weak var layoutConstaintItemtTop: NSLayoutConstraint!
     @IBOutlet weak var tFSearch: UITextField!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var lblNoData: UILabel!
     
     var isFromNavgation = false
     
@@ -62,8 +63,10 @@ class CategoryAndItemsVC: UIViewController {
             btnBack.isHidden = true
             lblTitle.isHidden = false
             searchView.isHidden = true
+            lblNoData.text = "We could not find anything added to your favourites"
         }
         else {
+            lblNoData.text = "No items found"
             lblTitle.isHidden = true
             searchView.isHidden = false
         }
@@ -95,6 +98,14 @@ class CategoryAndItemsVC: UIViewController {
     func reloadData() {
         DispatchQueue.main.async {
             self.itemsCollection.reloadData()
+            if self.categoryArr.count == 0 {
+                self.itemsCollection.isHidden = true
+                self.lblNoData.isHidden = false
+            }
+            else {
+                self.itemsCollection.isHidden = false
+                self.lblNoData.isHidden = true
+            }
         }
     }
     
@@ -169,7 +180,9 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             if  option.id > 0 {
                 cell.weightLBL.text = option.name
                 cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
-                cell.layoutConstraintWeightWidth.constant = 40
+                
+                let width = (self.itemsCollection.frame.size.width/2) - 30
+                cell.layoutConstraintWeightWidth.constant = width - 35 - 50 // Padding + Max Label width
                 cell.layoutConstraintWeightTrailing.constant = 5
             }
             else {
@@ -232,7 +245,7 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             return CGSize(width: topCategoryCollection.frame.height/1.5, height: topCategoryCollection.frame.height)
         }else {
             let width = (self.itemsCollection.frame.size.width/2)-30
-            return CGSize(width: width, height: 235)
+            return CGSize(width: width, height: 255)
         }
     }
     
@@ -257,7 +270,7 @@ extension CategoryAndItemsVC {
     func GET_CATEGORY_ITEMS(ItemId: Int) {
     
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
-        let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEMS + "/\(userID ?? 0)" + "/\(ItemId)"
+        let getCat = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ITEMS + "/\(userID ?? 0)" + "/\(ItemId)" + "/\(AppDelegate.shared.isLucknow ? 1 : 0)"
         
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestGETURL(getCat ,success: { (dict) in
@@ -301,7 +314,7 @@ extension CategoryAndItemsVC {
         AFWrapperClass.requestGETURL(getCat ,success: { (dict) in
             IJProgressView.shared.hideProgressView()
             
-            print(dict)
+          //  print(dict)
 
             if let result = dict as? [String: Any] {
                 let isTokenExpired = AFWrapperClass.handle401Error(dict: result, self)
@@ -325,6 +338,7 @@ extension CategoryAndItemsVC {
             }
             
         }) { (error) in
+            IJProgressView.shared.hideProgressView()
             let msg = error.localizedDescription
             alert("ChhappanBhog", message: msg, view: self)
         }
@@ -403,6 +417,8 @@ class itemsCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        nameLBL.numberOfLines = 2
+        priceLBL.numberOfLines = 1
         addToCartBTN.addTarget(self, action: #selector(cartAction(_:)), for: UIControl.Event.touchUpInside)
         increaseBTN.addTarget(self, action: #selector(qtyIncAction(_:)), for: UIControl.Event.touchUpInside)
         decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)

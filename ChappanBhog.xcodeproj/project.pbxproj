@@ -34,7 +34,6 @@
 		EE31C6DA250774E300E87E98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE31C6D8250774E300E87E98 /* LaunchScreen.storyboard */; };
 		EE31C6E5250774E300E87E98 /* ChappanBhogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C6E4250774E300E87E98 /* ChappanBhogTests.swift */; };
 		EE31C6F0250774E300E87E98 /* ChappanBhogUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C6EF250774E300E87E98 /* ChappanBhogUITests.swift */; };
-		EE31C704250777C800E87E98 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C703250777C800E87E98 /* SplashVC.swift */; };
 		EE31C70625078A9200E87E98 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70525078A9200E87E98 /* SignInVC.swift */; };
 		EE31C70825078B8700E87E98 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C70725078B8700E87E98 /* RegisterVC.swift */; };
 		EE31C70A2507931600E87E98 /* VerifyPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */; };
@@ -99,6 +98,7 @@
 		EF32FBD6253052DF00BF25FC /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF32FBD4253052DF00BF25FC /* LoadMoreCell.xib */; };
 		EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */; };
 		EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34B699253EB72F009A41D2 /* PayUHelper.m */; };
+		EF384AA22546888300D62D89 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF384AA12546888300D62D89 /* SplashVC.swift */; };
 		EF3C7FFA2541A975000D1DE8 /* OrderDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */; };
 		EF83B6642536C24300E1F3CD /* CartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF83B6632536C24300E1F3CD /* CartHelper.swift */; };
 		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
@@ -162,7 +162,6 @@
 		EE31C6EB250774E300E87E98 /* ChappanBhogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChappanBhogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE31C6EF250774E300E87E98 /* ChappanBhogUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChappanBhogUITests.swift; sourceTree = "<group>"; };
 		EE31C6F1250774E300E87E98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE31C703250777C800E87E98 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		EE31C70525078A9200E87E98 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		EE31C70725078B8700E87E98 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneVC.swift; sourceTree = "<group>"; };
@@ -230,6 +229,7 @@
 		EF34B697253EB72F009A41D2 /* ChappanBhog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChappanBhog-Bridging-Header.h"; sourceTree = "<group>"; };
 		EF34B698253EB72F009A41D2 /* PayUHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayUHelper.h; sourceTree = "<group>"; };
 		EF34B699253EB72F009A41D2 /* PayUHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayUHelper.m; sourceTree = "<group>"; };
+		EF384AA12546888300D62D89 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsVC.swift; sourceTree = "<group>"; };
 		EF83B6632536C24300E1F3CD /* CartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -462,9 +462,9 @@
 				EE7740212511D72600E994B8 /* containers */,
 				EE21FDC3251BC5A70075EA5F /* WeightXIB */,
 				EEC5EA1725116A5E00E5529F /* SideMenu */,
-				EE80DB902522535600A51FE1 /* Splash */,
 				EE80DB8F2522534200A51FE1 /* LoginRegistration */,
 				EE80DB912522538C00A51FE1 /* DashBoard */,
+				EF384AA12546888300D62D89 /* SplashVC.swift */,
 				EEA8EF8E2508DB3C00DFD80F /* AboutVC.swift */,
 				EE211E66252C80F800918968 /* CategoryAndItemsVC.swift */,
 				EEEF99B9250F8CE2001DE12F /* countryContainer.swift */,
@@ -518,14 +518,6 @@
 				EE318C222510703F00160640 /* ForgotPasswordVC.swift */,
 			);
 			path = LoginRegistration;
-			sourceTree = "<group>";
-		};
-		EE80DB902522535600A51FE1 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				EE31C703250777C800E87E98 /* SplashVC.swift */,
-			);
-			path = Splash;
 			sourceTree = "<group>";
 		};
 		EE80DB912522538C00A51FE1 /* DashBoard */ = {
@@ -932,13 +924,13 @@
 				EEA76BBE250E80EB00B11560 /* searchRecordVC.swift in Sources */,
 				EECC6EF0251CC5BC00A0B2D1 /* AFWrapperClass.swift in Sources */,
 				EECDFF1B250FEB18000B293C /* Extensions.swift in Sources */,
-				EE31C704250777C800E87E98 /* SplashVC.swift in Sources */,
 				EE31C70F2507BA0900E87E98 /* TopPicsTableCell.swift in Sources */,
 				EEC5EA1A25116A8600E5529F /* sideMenu.swift in Sources */,
 				EF83B6642536C24300E1F3CD /* CartHelper.swift in Sources */,
 				EE52F4B12509D3F00026BE68 /* UIColor+NewColors.swift in Sources */,
 				EE31C70825078B8700E87E98 /* RegisterVC.swift in Sources */,
 				EE31C6D5250774DF00E87E98 /* ChappanBhog.xcdatamodeld in Sources */,
+				EF384AA22546888300D62D89 /* SplashVC.swift in Sources */,
 				EE7740232511D74500E994B8 /* EnquirlyFormVC.swift in Sources */,
 				EE3382DA252B90250067CAEA /* SearchRecordModel.swift in Sources */,
 				61B7DD2E2539C81D008D72FD /* MyOrderModel.swift in Sources */,
@@ -1134,7 +1126,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201022;
+				CURRENT_PROJECT_VERSION = 20201023;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1163,7 +1155,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201022;
+				CURRENT_PROJECT_VERSION = 20201023;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

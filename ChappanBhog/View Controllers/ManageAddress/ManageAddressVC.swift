@@ -45,7 +45,6 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
    // let States = ["Telangana", "Punjab", "NewDelhi","Gujarath","HimachalPradesh"]
     var stateSelected = true
     
-    var countryStateArr = [CountryStateModel]()
     var selectedCountry: CountryStateModel?
     var selectedStateArr = [States]()
     var shippingAddressSelected = false
@@ -62,7 +61,13 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         self.shippingAddressContentView.isHidden = true
         self.pickerContainerView.isHidden = true
         self.stateCityPicker.delegate = self
-        self.getCountryState()
+        
+        CartHelper.shared.syncCountries { (success, msg) in
+            DispatchQueue.main.async {
+                self.stateCityPicker.reloadAllComponents()
+            }
+        }
+        
         //        gradePicker = UIPickerView()
         //
         //        gradePicker.dataSource = self
@@ -173,7 +178,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         if stateSelected {
-            return countryStateArr.count
+            return CartHelper.shared.countryStateArr.count
         } else {
             return selectedStateArr.count
         }
@@ -182,7 +187,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if stateSelected {
-            return countryStateArr[row].name ?? ""
+            return CartHelper.shared.countryStateArr[row].name ?? ""
         } else {
             return selectedStateArr[row].name ?? ""
         }
@@ -191,12 +196,12 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if stateSelected {
-            if countryStateArr.count > 0 {
-                self.selectedCountry = countryStateArr[row]
+            if CartHelper.shared.countryStateArr.count > 0 {
+                self.selectedCountry = CartHelper.shared.countryStateArr[row]
                 if self.shippingAddressSelected {
-                    countryTFShipping.text = countryStateArr[row].name ?? ""
+                    countryTFShipping.text = CartHelper.shared.countryStateArr[row].name ?? ""
                 } else {
-                    countryTF.text = countryStateArr[row].name ?? ""
+                    countryTF.text = CartHelper.shared.countryStateArr[row].name ?? ""
                 }
             }
         } else {
@@ -247,7 +252,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     //MARK:- ACTIONS
     @IBAction func countryTFAction(_ sender: UIButton) {
        // self.view.bringSubviewToFront(statesContainer)
-        if self.countryStateArr.count < 1 {
+        if CartHelper.shared.countryStateArr.count < 1 {
             return
         }
         
@@ -260,8 +265,8 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func stateTFAction(_ sender: UIButton) {
         
-        if !self.manageAddress.country.isEmpty && self.countryStateArr.count > 0 && self.selectedCountry == nil {
-            let result = self.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.country.lowercased()}
+        if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
+            let result = CartHelper.shared.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.country.lowercased()}
             if let first = result.first {
                 self.selectedCountry = first
             }
@@ -283,7 +288,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func shippingCountryTFAction(_ sender: UIButton) {
         // self.view.bringSubviewToFront(statesContainer)
-        if self.countryStateArr.count < 1 {
+        if CartHelper.shared.countryStateArr.count < 1 {
             return
         }
         self.shippingAddressSelected = true
@@ -295,8 +300,8 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
       
     @IBAction func shippingStateTFAction(_ sender: UIButton) {
         
-        if !self.manageAddress.country.isEmpty && self.countryStateArr.count > 0 && self.selectedCountry == nil {
-            let result = self.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.shipping_country.lowercased()}
+        if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
+            let result = CartHelper.shared.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.shipping_country.lowercased()}
             if let first = result.first {
                 self.selectedCountry = first
             }
@@ -358,10 +363,16 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             alert("ChhappanBhog", message: "Address can't be empty.", view: self)
             return
         }
+        
         if kPhone.count < 1 {
             alert("ChhappanBhog", message: "Phone can't be empty.", view: self)
             return
         }
+        if kPhone.count < 7 || kPhone.count > 14 {
+            alert("ChhappanBhog", message: "Please enter valid phone number.", view: self)
+            return
+        }
+        
         if kCountry.count < 1 {
             alert("ChhappanBhog", message: "Country can't be empty.", view: self)
             return
@@ -407,6 +418,10 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             }
             if kPhoneShipping.count < 1 {
                 alert("ChappanBhog", message: "Shipping phone can't be empty.", view: self)
+                return
+            }
+            if kPhoneShipping.count < 7 || kPhoneShipping.count > 14 {
+                alert("ChhappanBhog", message: "Please enter valid shipping phone number.", view: self)
                 return
             }
             if kCountryShipping.count < 1 {
@@ -469,42 +484,6 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
 
 // MARK:- APIs
 extension ManageAddressVC {
-    
-    func getCountryState() {
-        
-        let countryUrl = "https://www.chhappanbhog.com/wp-json/wc/v3/data/countries?consumer_key=ck_f8fb349b9f8885516ac6cddfb8b26426315d0469&consumer_secret=cs_abf949b0f1a187b60829ee1e78c905c5397e95ff"
-        AFWrapperClass.requestGETURLWithoutToken(countryUrl, success: { (dict) in
-            if let result = dict as? [Dictionary<String, Any>]{
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
-                    do {
-                        let jsonDecoder = JSONDecoder()
-                        let countryStateObj = try jsonDecoder.decode([CountryStateModel].self, from: jsonData)
-                        self.countryStateArr = countryStateObj
-                        self.stateCityPicker.reloadAllComponents()
-                        
-                       // print(countryStateObj)
-                    }  catch {
-                        print("Unexpected error: \(error).")
-                        alert("ChhappanBhog", message: error.localizedDescription, view: self)
-                        
-                    }
-                    
-                } catch {
-                    print("Unexpected error: \(error).")
-                    
-                }
-                
-                
-            } else {
-                
-            }
-        }) { (error) in
-            // IJProgressView.shared.hideProgressView()
-            print("Unexpected error: \(error).")
-        }
-    }
-    
     
     func getAddress(completion: @escaping () -> Void) {
         let url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ADDRESS

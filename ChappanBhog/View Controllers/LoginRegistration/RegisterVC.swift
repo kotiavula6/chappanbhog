@@ -77,25 +77,22 @@ class RegisterVC: UIViewController {
         
         if (nameTF.text?.isEmpty)!{
             
-            ValidateData(strMessage: " Please enter name")
+            ValidateData(strMessage: "Please enter name")
         }
         else if (emailTF.text?.isEmpty)!{
             
-            ValidateData(strMessage: " Please enter email address")
-        }
-        else if (mobileTF.text?.count)! > 10 || (mobileTF.text?.count)! < 10 {
-            
-            ValidateData(strMessage: " Please enter valid mobile")
+            ValidateData(strMessage: "Please enter email address")
         }
         else if isValidEmail(email: (emailTF.text)!) == false{
             
             ValidateData(strMessage: "Enter valid email")
         }
+        else if (mobileTF.text?.count)! < 7 || (mobileTF.text?.count)! > 14 {
+            ValidateData(strMessage: "Please enter valid phone number")
+        }
         else if (passwordTF.text?.isEmpty)!{
-            
-            ValidateData(strMessage: " Please enter password")
-        }else if (passwordTF.text?.count)! < 4 || (passwordTF.text?.count)! > 15{
-            
+            ValidateData(strMessage: "Please enter password")
+        } else if (passwordTF.text?.count)! < 4 {
             ValidateData(strMessage: "Please enter minimum 4 digit password")
             UserDefaults.standard.set(passwordTF.text, forKey: "password")
             UserDefaults.standard.string(forKey: "password")

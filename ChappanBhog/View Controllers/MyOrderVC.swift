@@ -93,12 +93,15 @@ extension MyOrderVC: UITableViewDelegate,UITableViewDataSource {
             cell.lblItemStatus.text = status.capitalized
             if status.lowercased().contains("cancel") {
                 cell.iVStatus.image = #imageLiteral(resourceName: "cancel_order")
+                cell.shadowView.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.6352941176, blue: 0.662745098, alpha: 1)
             }
             else if status.lowercased().contains("complete") {
                 cell.iVStatus.image = #imageLiteral(resourceName: "delivered")
+                cell.shadowView.backgroundColor = .white
             }
             else {
                 cell.iVStatus.image = #imageLiteral(resourceName: "pending")
+                cell.shadowView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.7176470588, blue: 0.462745098, alpha: 1)
             }
             
             cell.viewDetailsBlock = {
@@ -140,8 +143,8 @@ class MyordreTableCell: UITableViewCell {
 extension MyOrderVC {
     func getMyOrders() {
         let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
-        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=\(userID)"
-        // let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=44918"
+        // let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=\(userID)"
+        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=44918"
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestGETURLWithoutToken(ordersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()

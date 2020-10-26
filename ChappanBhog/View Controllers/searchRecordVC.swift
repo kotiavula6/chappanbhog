@@ -153,7 +153,8 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
         if  option.id > 0 {
             cell.weightLBL.text = option.name
             cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
-            cell.layoutConstraintWeightWidth.constant = 40
+            let width = (self.recordsCollection.frame.size.width/2) - 30
+            cell.layoutConstraintWeightWidth.constant = width - 35 - 50 // Padding + Max Label width
             cell.layoutConstraintWeightTrailing.constant = 5
         }
         else {
@@ -211,7 +212,7 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (self.recordsCollection.frame.size.width/2)-30
-        return CGSize(width: width, height: 235)
+        return CGSize(width: width, height: 255)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -235,7 +236,7 @@ extension searchRecordVC {
         let Url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_SEARCH
         let userId = UserDefaults.standard.value(forKey: Constants.UserId)
         let searchData = searchTF.text ?? ""
-        let params:[String:Any] = ["user_id":userId ?? 0,"keyword":searchData]
+        let params: [String:Any] = ["user_id":userId ?? 0, "keyword": searchData, "lucknow": AppDelegate.shared.isLucknow ? 1 : 0]
         
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestPOSTURLWithHeader(Url, params: params, success: { (dict) in

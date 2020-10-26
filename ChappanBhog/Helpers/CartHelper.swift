@@ -13,6 +13,7 @@ class CartHelper: NSObject {
     static let shared = CartHelper()
     var cartItems: [CartItem] = []
     var manageAddress: ManageAddress = ManageAddress(dict: [:])
+    var countryStateArr = [CountryStateModel]()
     
     lazy var postalCodesShipping50: [String] = {
         return ["226004", "226002", "226001"]
@@ -50,12 +51,19 @@ class CartHelper: NSObject {
         for item in cartItems {
             all.append(item.getDict())
         }
-        UserDefaults.standard.set(all, forKey: "kCarts")
+        
+        let userId = "\(UserDefaults.standard.value(forKey: Constants.UserId) ?? 0)"
+        if (userId == "0") { return }
+        let key = "kCarts_\(userId)"
+        UserDefaults.standard.set(all, forKey: key)
     }
     
     func syncCarts() {
         cartItems.removeAll()
-        let values = UserDefaults.standard.array(forKey: "kCarts") as? [[String: Any]] ?? []
+        let userId = "\(UserDefaults.standard.value(forKey: Constants.UserId) ?? 0)"
+        if (userId == "0") { return }
+        let key = "kCarts_\(userId)"
+        let values = UserDefaults.standard.array(forKey: key) as? [[String: Any]] ?? []
         for value in values {
             let item = CartItem()
             item.setDict(value)
@@ -149,28 +157,6 @@ class CartHelper: NSObject {
         UserDefaults.standard.set(allFavouriteItems, forKey: "kAllFavourites")
     }*/
     
-    func syncAddress(completion: @escaping (_ success: Bool, _ msg: String) -> Void) {
-        let url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ADDRESS
-        AFWrapperClass.requestGETURL(url, success: { (response) in
-            if let dict = response as? [String: Any] {
-                let success = dict["success"] as? Bool ?? false
-                if success {
-                    let data = dict["data"] as? [String: Any] ?? [:]
-                    self.manageAddress.setDict(data)
-                    completion(true, "")
-                }
-                else {
-                    let message = dict["message"] as? String ?? "Some error occured"
-                    completion(false, message)
-                }
-            }
-            else {
-                completion(false, "Some error occured")
-            }
-        }) { (error) in
-            completion(false, error.localizedDescription)
-        }
-    }
     
     func calculateShipping(totalWeight: Double, isInPcs: Bool) -> Double {
         let shippingCode = self.manageAddress.shipping_zip
@@ -252,6 +238,59 @@ class CartHelper: NSObject {
         }
         
         return details
+    }
+}
+
+
+// MARK:- APIs
+extension CartHelper {
+    
+    func syncAddress(completion: @escaping (_ success: Bool, _ msg: String) -> Void) {
+        let url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_ADDRESS
+        AFWrapperClass.requestGETURL(url, success: { (response) in
+            if let dict = response as? [String: Any] {
+                let success = dict["success"] as? Bool ?? false
+                if success {
+                    let data = dict["data"] as? [String: Any] ?? [:]
+                    self.manageAddress.setDict(data)
+                    completion(true, "")
+                }
+                else {
+                    let message = dict["message"] as? String ?? "Some error occured"
+                    completion(false, message)
+                }
+            }
+            else {
+                completion(false, "Some error occured")
+            }
+        }) { (error) in
+            completion(false, error.localizedDescription)
+        }
+    }
+    
+    func syncCountries(completion: @escaping (_ success: Bool, _ msg: String) -> Void) {
+        let countryUrl = "https://www.chhappanbhog.com/wp-json/wc/v3/data/countries?consumer_key=ck_e9c8ebddaf31043d087218a472fdd3bd517cbbda&consumer_secret=cs_3bf6a3bc42e4319b33238e0450ccd76e76fa9fad"
+        AFWrapperClass.requestGETURLWithoutToken(countryUrl, success: { (dict) in
+            if let result = dict as? [Dictionary<String, Any>]{
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
+                    do {
+                        let jsonDecoder = JSONDecoder()
+                        let countryStateObj = try jsonDecoder.decode([CountryStateModel].self, from: jsonData)
+                        self.countryStateArr = countryStateObj
+                        completion(true, "")
+                    }  catch let error {
+                        completion(false, error.localizedDescription)
+                    }
+                } catch let error {
+                    completion(false, error.localizedDescription)
+                }
+            } else {
+                completion(false, "Some error occured")
+            }
+        }) { (error) in
+            completion(false, error.localizedDescription)
+        }
     }
 }
 
