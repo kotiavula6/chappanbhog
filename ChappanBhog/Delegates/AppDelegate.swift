@@ -29,8 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let manager = CLLocationManager()
     var currentLocation: CLLocation?
     var currentCity: String = ""
+    var currentCountry: String = ""
     var isLucknow: Bool {
         return currentCity.lowercased() == "lucknow"
+    }
+    
+    var isIndia: Bool {
+        return currentCountry.lowercased() == "india"
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -73,9 +78,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Location Manager
         startLocationUpdate()
         
+        syncCountriesFromLocalJson()
+        
         return true
     }
     
+    func syncCountriesFromLocalJson() {
+        // Sync countries from local json
+        if let url = Bundle.main.url(forResource: "countries", withExtension: "json") {
+            do {
+                let jsonData = try Data(contentsOf: url)
+                do {
+                    let jsonObj = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String: Any]]
+                    if let result = jsonObj {
+                        CartHelper.shared.countryStateArr.removeAll()
+                        for value in result {
+                            let country = CountryStateModel(dict: value)
+                            CartHelper.shared.countryStateArr.append(country)
+                        }
+                    }
+                } catch _ {
+                    
+                }
+            } catch let error {
+                print(error)
+            }
+        }
+    }
 
 
     // MARK: - Core Data stack
@@ -236,6 +265,7 @@ extension AppDelegate: CLLocationManagerDelegate {
                 self.currentLocation = location
                 self.getPlaceMark(location) { (placeMark) in
                     self.currentCity = placeMark?.locality ?? ""
+                    self.currentCountry = placeMark?.country ?? ""
                 }
             }
             else {
@@ -244,6 +274,7 @@ extension AppDelegate: CLLocationManagerDelegate {
                 self.currentLocation = location
                 self.getPlaceMark(location) { (placeMark) in
                     self.currentCity = placeMark?.locality ?? ""
+                    self.currentCountry = placeMark?.country ?? ""
                 }
             }
         }

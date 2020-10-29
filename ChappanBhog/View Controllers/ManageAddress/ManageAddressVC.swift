@@ -56,6 +56,9 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nameTF.placeholder = "Name"
+        nameTFShipping.placeholder = "Name"
+        
         self.imgSelected.image = UIImage(named: "uncheck_box")
         self.updateAddressBTN.setTitle("UPDATE ADDRESS", for: .normal)
         self.shippingAddressContentView.isHidden = true
@@ -266,7 +269,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func stateTFAction(_ sender: UIButton) {
         
         if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
-            let result = CartHelper.shared.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.country.lowercased()}
+            let result = CartHelper.shared.countryStateArr.filter {$0.name.lowercased() ==  self.manageAddress.country.lowercased()}
             if let first = result.first {
                 self.selectedCountry = first
             }
@@ -301,7 +304,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func shippingStateTFAction(_ sender: UIButton) {
         
         if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
-            let result = CartHelper.shared.countryStateArr.filter {$0.name?.lowercased() ==  self.manageAddress.shipping_country.lowercased()}
+            let result = CartHelper.shared.countryStateArr.filter {$0.name.lowercased() ==  self.manageAddress.shipping_country.lowercased()}
             if let first = result.first {
                 self.selectedCountry = first
             }
@@ -348,9 +351,9 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func updateAddressButtonClicked(_ sender: UIButton) {
         
         let kZipCode = zipCodeTF.text ?? ""
-        let kCountry = countryTF.text ?? ""
+        var kCountry = countryTF.text ?? ""
         let kCity = cityTF.text ?? ""
-        let kState = stateTF.text ?? ""
+        var kState = stateTF.text ?? ""
         let kPhone = phoneNoTF.text ?? ""
         let kAddress = addressTF.text ?? ""
         let kName = nameTF.text ?? ""
@@ -396,9 +399,9 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         }
         
         let kZipCodeShipping = zipCodeTFShipping.text ?? ""
-        let kCountryShipping = countryTFShipping.text ?? ""
+        var kCountryShipping = countryTFShipping.text ?? ""
         let kCityShipping = cityTFShipping.text ?? ""
-        let kStateShipping = stateTFShipping.text ?? ""
+        var kStateShipping = stateTFShipping.text ?? ""
         let kPhoneShipping = phoneNoTFShipping.text ?? ""
         let kAddressShipping = addressTFShipping.text ?? ""
         let kNameShipping = nameTFShipping.text ?? ""
@@ -449,6 +452,9 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         
+        kCountry = CartHelper.shared.countryCodeFromName(kCountry)
+        kState = CartHelper.shared.stateCodeFromName(kState)
+        
         var params : [String: Any] = [:]
         params["user_id"] =  userID
         params["name"] = kName
@@ -462,18 +468,23 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         
         if !sameAsBilling {
             // add shipping params
-            params["same_as_shipping"] = "0"
-            params["shipping_name"] = kName
-            params["shipping_address"] = kAddress
-            params["shipping_phone_number"] = kPhone
-            params["shipping_country"] = kState
-            params["shipping_city"] = kCity
-            params["shipping_state"] = kState
-            params["shipping_zip"] = kZipCode
+            kCountryShipping = CartHelper.shared.countryCodeFromName(kCountryShipping)
+            kStateShipping = CartHelper.shared.stateCodeFromName(kStateShipping)
+            
+            params["same_as_shipping"] = "1"
+            params["shipping_name"] = kNameShipping
+            params["shipping_address"] = kAddressShipping
+            params["shipping_phone_number"] = kPhoneShipping
+            params["shipping_country"] = kCountryShipping
+            params["shipping_city"] = kCityShipping
+            params["shipping_state"] = kStateShipping
+            params["shipping_zip"] = kZipCodeShipping
+            
         } else {
             params["same_as_shipping"] = "1"
         }
         
+        print(params)
         IJProgressView.shared.showProgressView()
         saveAddress(params: params) {
             IJProgressView.shared.hideProgressView()
@@ -493,6 +504,7 @@ extension ManageAddressVC {
                 if success {
                     let data = dict["data"] as? [String: Any] ?? [:]
                     self.manageAddress.setDict(data)
+                    self.manageAddress.updateToLocal()
                 }
                 else {
                     let message = dict["message"] as? String ?? "Some error occured"
@@ -522,6 +534,7 @@ extension ManageAddressVC {
                 
                 let data = dict["data"] as? [String: Any] ?? [:]
                 CartHelper.shared.manageAddress.setDict(data)
+                CartHelper.shared.manageAddress.updateToLocal()
                 
                 let msg = dict["message"] as? String ?? "Successfully updated!"
                 showAlertMessage(title: "ChhappanBhog", message: msg, okButton: "Ok", controller: self) {
@@ -653,5 +666,21 @@ class ManageAddress: NSObject {
         
         let shipping = dict["same_as_shipping"] as? String ?? "0"
         self.same_as_shipping = shipping == "0" ? false : true
+    }
+    
+    func updateToLocal() {
+        // We get code from server
+        // Update them with names
+        let stateName = CartHelper.shared.stateNameFromCode(self.state)
+        if !stateName.isEmpty { self.state = stateName }
+        
+        let countryName = CartHelper.shared.countryNameFromCode(self.country)
+        if !countryName.isEmpty { self.country = countryName }
+        
+        let shippingStateName = CartHelper.shared.stateNameFromCode(self.shipping_state)
+        if !shippingStateName.isEmpty { self.shipping_state = shippingStateName }
+        
+        let shippingCountryName = CartHelper.shared.countryNameFromCode(self.shipping_country)
+        if !shippingCountryName.isEmpty { self.shipping_country = shippingCountryName }
     }
 }

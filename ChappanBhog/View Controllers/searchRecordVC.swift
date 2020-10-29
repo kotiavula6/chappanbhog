@@ -142,18 +142,42 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = recordsCollection.dequeueReusableCell(withReuseIdentifier: "itemsCollectionCell", for: indexPath) as! itemsCollectionCell
         let data = categoryArr[indexPath.row]
+        data.performAvailabilityCheck()
+        
+        // Add to Cart button
+        cell.addToCartBTN.appEnabled(data.canAddToCart)
+        
+        // Shelf life
+        let shelfLife = data.meta.shelf_life
+        if shelfLife.isEmpty {
+            cell.lblShelfLife.superview?.isHidden = true
+        }
+        else {
+            cell.lblShelfLife.superview?.isHidden = false
+            cell.lblShelfLife.text = "Shelf Life: " + shelfLife
+        }
+        
+        // Availability text
+        if data.isAvailable {
+            cell.lblAvailabilityText.superview?.isHidden = true
+        }
+        else {
+            cell.lblAvailabilityText.text = data.meta.availabilitytext
+            cell.lblAvailabilityText.superview?.isHidden = false
+        }
 
         let image = data.image.first ?? ""
         cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
         
         cell.nameLBL.text = data.title
         cell.ratingView.rating = data.ratings
+        cell.quantityLBL.text = "\(data.quantity)"
         
         let option = data.selectedOption()
         if  option.id > 0 {
             cell.weightLBL.text = option.name
             cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
-            let width = (self.recordsCollection.frame.size.width/2) - 30
+            let width = (self.recordsCollection.frame.size.width/(CartHelper.shared.isRunningOnIpad ? 4 : 2)) - 30
             cell.layoutConstraintWeightWidth.constant = width - 35 - 50 // Padding + Max Label width
             cell.layoutConstraintWeightTrailing.constant = 5
         }
@@ -183,12 +207,14 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
             let cartItem = CartItem(item: item)
             CartHelper.shared.addToCart(cartItem: cartItem)
             AppDelegate.shared.notifyCartUpdate()
+            CartHelper.shared.vibratePhone()
         }
         
         cell.quantityIncBlock = {
             let item = self.categoryArr[indexPath.row]
             item.quantity += 1
             cell.quantityLBL.text = "\(item.quantity)"
+            CartHelper.shared.vibratePhone()
         }
         
         cell.quantityDecBlock = {
@@ -196,6 +222,7 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
             item.quantity -= 1
             if item.quantity < 1 { item.quantity = 1}
             cell.quantityLBL.text = "\(item.quantity)"
+            CartHelper.shared.vibratePhone()
         }
         
         cell.chooseOptioncBlock = {
@@ -211,8 +238,19 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        if CartHelper.shared.isRunningOnIpad {
+            let width = (self.recordsCollection.frame.size.width/4)-30
+            return CGSize(width: width, height: 270)
+        }
+        
         let width = (self.recordsCollection.frame.size.width/2)-30
-        return CGSize(width: width, height: 255)
+        /*var height: CGFloat = 325
+        if UIScreen.main.bounds.width < 375 {
+            height = 375
+        }*/
+        return CGSize(width: width, height: 270)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -222,7 +260,8 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
             if itemId == 0 { return }
             
             let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
-            vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+            vc.item = data
+            //vc.GET_PRODUCT_DETAILS(ItemId: itemId)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -252,8 +291,13 @@ extension searchRecordVC {
             let success = dict["success"] as? Bool ?? false
             if success {
                 self.categoryArr.removeAll()
-                for value in response {
-                    self.categoryArr.append(Categores(dict: value))
+                for dict in response {
+                    // Availability Check
+                    let item = Categores(dict: dict)
+                    item.performAvailabilityCheck()
+                    if item.canShow {
+                        self.categoryArr.append(item)
+                    }
                 }
                 self.reloadData()
                 self.updateCounts()

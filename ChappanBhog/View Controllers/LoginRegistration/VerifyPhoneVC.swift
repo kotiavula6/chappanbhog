@@ -81,9 +81,16 @@ class VerifyPhoneVC: UIViewController {
         flagIMG.image = selectedCountry?.flag
         mobileTF.text = phone
         
-        self.progressView.showProgressView()
-        sendVerificationCode {
-            self.progressView.hideProgressView()
+        if self.phone.isEmpty {
+            alert("ChhappanBhog", message: "Please enter your mobile number.", view: self)
+            mobileTF.becomeFirstResponder()
+            editMode = true
+        }
+        else {
+            self.progressView.showProgressView()
+            sendVerificationCode {
+                self.progressView.hideProgressView()
+            }
         }
         
         mobileTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
@@ -92,13 +99,19 @@ class VerifyPhoneVC: UIViewController {
     //http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/api/verify_account
     
     // MARK:- ACTIONS
-    
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
     @IBAction func ResendAction(_ sender: UIButton) {
+        
+        if !validatePhoneNumber() {
+            mobileTF.becomeFirstResponder()
+            editMode = true
+            updateEditMode()
+            return
+        }
+        
         self.progressView.showProgressView()
         sendVerificationCode {
             self.progressView.hideProgressView()
@@ -106,6 +119,13 @@ class VerifyPhoneVC: UIViewController {
     }
     
     @IBAction func verifyClicked(_ sender: UIButton) {
+        
+        if !validatePhoneNumber() {
+            mobileTF.becomeFirstResponder()
+            editMode = true
+            updateEditMode()
+            return
+        }
         
         let result = validate()
         if !result.success {
@@ -163,6 +183,11 @@ class VerifyPhoneVC: UIViewController {
         }
         else {
             // Tick click
+            if !validatePhoneNumber() {
+                mobileTF.becomeFirstResponder()
+                return
+            }
+            
             // Send the verification code
             editMode = false
             self.progressView.showProgressView()
@@ -198,6 +223,19 @@ class VerifyPhoneVC: UIViewController {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         phone = textField.text ?? ""
+    }
+    
+    func validatePhoneNumber() -> Bool {
+        let _phone = mobileTF.text ?? ""
+        if _phone.isEmpty {
+            alert("ChhappanBhog", message: "Please enter your mobile number.", view: self)
+            return false
+        }
+        if _phone.count < 7 || _phone.count > 14 {
+            alert("ChhappanBhog", message: "Please enter a valid mobile number.", view: self)
+            return false
+        }
+        return true
     }
 }
 

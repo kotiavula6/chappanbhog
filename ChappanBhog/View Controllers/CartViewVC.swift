@@ -122,7 +122,7 @@ class CartViewVC: UIViewController {
             }
             else {
                 // We don't ship item in pcs outside lucknow
-                alert("ChhappanBhog", message: "One of the item contains weight in pcs. For these items shipping is available in Lucknow only. Please update your cart or shipping location.", view: self)
+                alert("ChhappanBhog", message: "Unfortunately we can't ship your order. Please refine the cart.", view: self)
             }
         }
         else {
@@ -157,7 +157,7 @@ class CartViewVC: UIViewController {
         model.details = CartHelper.shared.generateOrderDetails()
         
         let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
-        let strURL = "https://www.chhappanbhog.com/restapi/example/payu.php"
+        let strURL = "http://3.7.199.43/restapi/example/payu.php"
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let params: [String: String] = ["firstname": model.customerName, "email": model.email, "amount": model.amount, "type": "request"]
         
@@ -239,7 +239,7 @@ class CartViewVC: UIViewController {
     
     
     func proceedToPlaceOrder(shipping: Double, paymentMethod: String, paymentMethodTitle: String) {
-        
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
         var lineItems: [[String: Any]] = []
         for cartItem in CartHelper.shared.cartItems {
             let productId = cartItem.item.selectedOption().id > 0 ? cartItem.item.selectedOption().id : cartItem.item.id
@@ -249,6 +249,7 @@ class CartViewVC: UIViewController {
         let params: [String: Any] = [
             "payment_method": paymentMethod,
             "payment_method_title": paymentMethodTitle,
+            "customer_id": userID,
             "set_paid": true,
             "billing" : [
                 "first_name": CartHelper.shared.manageAddress.firstName,
@@ -284,7 +285,7 @@ class CartViewVC: UIViewController {
         
         print(params)
         let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
-        let strURL = "http://www.chhappanbhog.com/restapi/example/postorder.php"
+        let strURL = "http://3.7.199.43/restapi/example/postorder.php"
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers:header)
@@ -344,7 +345,7 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
             if  option.id > 0 {
                 cell.weightLBL.text = option.name
                 cell.PriceLBL.text = String(format: "%.0f", option.price).prefixINR
-                cell.layoutConstraintWeightWidth.constant = 80 + (cell.shadowView.frame.size.width - 285)
+                cell.layoutConstraintWeightWidth.constant = min(80 + (cell.shadowView.frame.size.width - 285), 150)
                 cell.layoutConstraintPriceLading.constant = 5
             }
             else {
@@ -362,6 +363,7 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
                 cell.quantityLBL.text = "\(cartItem.item.quantity)"
                 CartHelper.shared.save()
                 self.listTable.reloadRows(at: [IndexPath(row: CartHelper.shared.cartItems.count, section: 0)], with: .automatic)
+                CartHelper.shared.vibratePhone()
             }
             
             cell.quantityDecBlock = {
@@ -371,6 +373,7 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
                 cell.quantityLBL.text = "\(cartItem.item.quantity)"
                 CartHelper.shared.save()
                 self.listTable.reloadRows(at: [IndexPath(row: CartHelper.shared.cartItems.count, section: 0)], with: .automatic)
+                CartHelper.shared.vibratePhone()
             }
             
             cell.chooseOptioncBlock = {

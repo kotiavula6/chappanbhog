@@ -47,6 +47,7 @@ class CategoryAndItemsVC: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         setGradientBackground(view: self.gradientView)
     }
     
@@ -170,18 +171,43 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
         } else {
             let cell = itemsCollection.dequeueReusableCell(withReuseIdentifier: "itemsCollectionCell", for: indexPath) as! itemsCollectionCell
             let data = categoryArr[indexPath.row]
+            data.performAvailabilityCheck()
+            
+            // Add to Cart button
+            cell.addToCartBTN.appEnabled(data.canAddToCart)
+            
+            // Shelf life
+            let shelfLife = data.meta.shelf_life
+            if shelfLife.isEmpty {
+                cell.lblShelfLife.superview?.isHidden = true
+            }
+            else {
+                cell.lblShelfLife.superview?.isHidden = false
+                cell.lblShelfLife.text = "Shelf Life: " + shelfLife
+            }
+            
+            // Availability text
+            if data.isAvailable {
+                cell.lblAvailabilityText.superview?.isHidden = true
+            }
+            else {
+                cell.lblAvailabilityText.text = data.meta.availabilitytext
+                cell.lblAvailabilityText.superview?.isHidden = false
+            }
+            
             let image = categoryArr[indexPath.row].image.first ?? ""
             cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
             
             cell.nameLBL.text = data.title
             cell.ratingView.rating = data.ratings
+            cell.quantityLBL.text = "\(data.quantity)"
             
             let option = data.selectedOption()
             if  option.id > 0 {
                 cell.weightLBL.text = option.name
                 cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
                 
-                let width = (self.itemsCollection.frame.size.width/2) - 30
+                let width = (self.itemsCollection.frame.size.width/(CartHelper.shared.isRunningOnIpad ? 4 : 2)) - 30
                 cell.layoutConstraintWeightWidth.constant = width - 35 - 50 // Padding + Max Label width
                 cell.layoutConstraintWeightTrailing.constant = 5
             }
@@ -191,7 +217,6 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.layoutConstraintWeightWidth.constant = 0
                 cell.layoutConstraintWeightTrailing.constant = 0
             }
-            cell.layoutIfNeeded()
             
             cell.favBTN.tintColor = data.isFavourite ? .red : .lightGray
             cell.favouriteBlock = {
@@ -211,12 +236,14 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
                 let cartItem = CartItem(item: item)
                 CartHelper.shared.addToCart(cartItem: cartItem)
                 AppDelegate.shared.notifyCartUpdate()
+                CartHelper.shared.vibratePhone()
             }
             
             cell.quantityIncBlock = {
                 let item = self.categoryArr[indexPath.row]
                 item.quantity += 1
                 cell.quantityLBL.text = "\(item.quantity)"
+                CartHelper.shared.vibratePhone()
             }
             
             cell.quantityDecBlock = {
@@ -224,6 +251,7 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
                 item.quantity -= 1
                 if item.quantity < 1 { item.quantity = 1}
                 cell.quantityLBL.text = "\(item.quantity)"
+                CartHelper.shared.vibratePhone()
             }
             
             cell.chooseOptioncBlock = {
@@ -235,6 +263,7 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
                 self.showOptions(indexPath: indexPath)
             }
             
+            cell.layoutIfNeeded()
             return cell
         }
         
@@ -243,9 +272,15 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == topCategoryCollection {
             return CGSize(width: topCategoryCollection.frame.height/1.5, height: topCategoryCollection.frame.height)
-        }else {
+        } else {
+            
+            if CartHelper.shared.isRunningOnIpad {
+                let width = (self.itemsCollection.frame.size.width/4)-30
+                return CGSize(width: width, height: 270)
+            }
+            
             let width = (self.itemsCollection.frame.size.width/2)-30
-            return CGSize(width: width, height: 255)
+            return CGSize(width: width, height: 270)
         }
     }
     
@@ -257,7 +292,8 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             if itemId == 0 { return }
             
             let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
-            vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+            vc.item = data
+            //vc.GET_PRODUCT_DETAILS(ItemId: itemId)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -285,13 +321,19 @@ extension CategoryAndItemsVC {
                 }
             }
             
-            let response = dict["data"] as? NSArray ?? NSArray()
+            let response = dict["data"] as? [[String: Any]] ?? []
             let success = dict["success"] as? Bool ?? false
             if success {
                 self.categoryArr.removeAll()
-                for i in 0..<response.count {
-                    self.categoryArr.append(Categores(dict: response.object(at: i) as! [String:Any]))
+                for dict in response {
+                    // Availability Check
+                    let item = Categores(dict: dict)
+                    item.performAvailabilityCheck()
+                    if item.canShow {
+                        self.categoryArr.append(item)
+                    }
                 }
+                
                 self.reloadData()
                 self.updateHeight()
             } else {
@@ -406,6 +448,9 @@ class itemsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var nameLBL: UILabel!
     @IBOutlet weak var ratingView: STRatingControl!
     
+    @IBOutlet weak var lblShelfLife: UILabel!
+    @IBOutlet weak var lblAvailabilityText: UILabel!
+    
     @IBOutlet weak var layoutConstraintWeightWidth: NSLayoutConstraint!
     @IBOutlet weak var layoutConstraintWeightTrailing: NSLayoutConstraint!
     
@@ -424,6 +469,12 @@ class itemsCollectionCell: UICollectionViewCell {
         decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
         weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
         favBTN.addTarget(self, action: #selector(favouriteAction), for: UIControl.Event.touchUpInside)
+        
+        lblShelfLife.superview?.layer.cornerRadius = 10
+        lblShelfLife.superview?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        lblAvailabilityText.superview?.layer.cornerRadius = 10
+        lblAvailabilityText.superview?.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     
     @objc func cartAction(_ sender: UIButton) {

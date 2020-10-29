@@ -99,8 +99,10 @@
 		EF32FBD7253052DF00BF25FC /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF32FBD5253052DF00BF25FC /* LoadMoreCell.swift */; };
 		EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34B699253EB72F009A41D2 /* PayUHelper.m */; };
 		EF384AA22546888300D62D89 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF384AA12546888300D62D89 /* SplashVC.swift */; };
+		EF384AA4254694AB00D62D89 /* OrderTrackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */; };
 		EF3C7FFA2541A975000D1DE8 /* OrderDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */; };
 		EF83B6642536C24300E1F3CD /* CartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF83B6632536C24300E1F3CD /* CartHelper.swift */; };
+		EFC4E9272549AEB1001E460A /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = EFC4E9262549AEB1001E460A /* countries.json */; };
 		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
 /* End PBXBuildFile section */
 
@@ -230,8 +232,10 @@
 		EF34B698253EB72F009A41D2 /* PayUHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayUHelper.h; sourceTree = "<group>"; };
 		EF34B699253EB72F009A41D2 /* PayUHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayUHelper.m; sourceTree = "<group>"; };
 		EF384AA12546888300D62D89 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTrackVC.swift; sourceTree = "<group>"; };
 		EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsVC.swift; sourceTree = "<group>"; };
 		EF83B6632536C24300E1F3CD /* CartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHelper.swift; sourceTree = "<group>"; };
+		EFC4E9262549AEB1001E460A /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -413,6 +417,7 @@
 				EE80DB4E252202E400A51FE1 /* GoogleService-Info.plist */,
 				EE31C6DB250774E300E87E98 /* Info.plist */,
 				EE31C6D3250774DF00E87E98 /* ChappanBhog.xcdatamodeld */,
+				EFC4E9262549AEB1001E460A /* countries.json */,
 			);
 			path = ChappanBhog;
 			sourceTree = "<group>";
@@ -482,6 +487,7 @@
 				EE82482B25093F0700C263F1 /* CartViewVC.swift */,
 				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 				EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */,
+				EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -710,6 +716,7 @@
 				EEA8EFA02508DC5C00DFD80F /* Brandon_bld_it.otf in Resources */,
 				EF32D44B2539617A00D27C50 /* PickerView.xib in Resources */,
 				EE31C6D7250774E300E87E98 /* Assets.xcassets in Resources */,
+				EFC4E9272549AEB1001E460A /* countries.json in Resources */,
 				EEA8EF9E2508DC5C00DFD80F /* Brandon_thin.otf in Resources */,
 				EE8248292509152100C263F1 /* Colors.xcassets in Resources */,
 				EF32D44A2539617A00D27C50 /* DropdownView.xib in Resources */,
@@ -942,6 +949,7 @@
 				EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */,
 				EE31C70625078A9200E87E98 /* SignInVC.swift in Sources */,
 				EECC6EF6251CD18100A0B2D1 /* HelperMethods.swift in Sources */,
+				EF384AA4254694AB00D62D89 /* OrderTrackVC.swift in Sources */,
 				EE52F4B32509D4440026BE68 /* Uiview+IBinspectable.swift in Sources */,
 				EE25617C2509FEE3001C54AA /* MyOrderVC.swift in Sources */,
 				61672A4E25347B1000112EE1 /* CountryStateModel.swift in Sources */,
@@ -1126,7 +1134,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201023;
+				CURRENT_PROJECT_VERSION = 20201028;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1155,7 +1163,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201023;
+				CURRENT_PROJECT_VERSION = 20201028;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

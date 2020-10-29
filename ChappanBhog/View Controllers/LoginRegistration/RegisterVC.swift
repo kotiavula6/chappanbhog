@@ -75,6 +75,7 @@ class RegisterVC: UIViewController {
     
     @IBAction func registerButtonAction(_ sender: UIButton) {
         
+        let _phone = mobileTF.text ?? ""
         if (nameTF.text?.isEmpty)!{
             
             ValidateData(strMessage: "Please enter name")
@@ -87,8 +88,11 @@ class RegisterVC: UIViewController {
             
             ValidateData(strMessage: "Enter valid email")
         }
-        else if (mobileTF.text?.count)! < 7 || (mobileTF.text?.count)! > 14 {
-            ValidateData(strMessage: "Please enter valid phone number")
+        else if _phone.isEmpty {
+            ValidateData(strMessage: "Please enter your mobile number")
+        }
+        else if _phone.count < 7 || _phone.count > 14 {
+            ValidateData(strMessage: "Please enter a valid mobile number")
         }
         else if (passwordTF.text?.isEmpty)!{
             ValidateData(strMessage: "Please enter password")
@@ -108,8 +112,9 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func loginButtonClicked(_ sender: UIButton) {
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        //let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        //self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func fbButtonAction(_ sender: UIButton) {

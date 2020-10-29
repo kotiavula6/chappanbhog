@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class CartHelper: NSObject {
 
@@ -14,6 +15,13 @@ class CartHelper: NSObject {
     var cartItems: [CartItem] = []
     var manageAddress: ManageAddress = ManageAddress(dict: [:])
     var countryStateArr = [CountryStateModel]()
+    var allStates = [States]()
+    
+    var df: DateFormatter = DateFormatter()
+    lazy var isRunningOnIpad = { UIDevice.current.userInterfaceIdiom == .pad }()
+    
+    let kgUnits = ["kg", "kgs", "kilogram", "kilograms", "kilo"]
+    let gmUnits = ["g", "gm", "gms", "gram", "grams"]
     
     lazy var postalCodesShipping50: [String] = {
         return ["226004", "226002", "226001"]
@@ -200,8 +208,44 @@ class CartHelper: NSObject {
         var totalWeight = 0.0
         var isInPcs = false
         for cartItem in cartItems {
+            
+            // Check for item weight
+            var weight  = cartItem.item.meta.weight
+            // var virtual = cartItem.item.meta.virtual
+            var hasWeight = (weight != nil && weight!.count > 0) // && (virtual == nil || virtual?.count == 0 || virtual == "no")
+            
+            // Check if item contains option or not
             let option = cartItem.item.selectedOption()
-            if option.name.lowercased().contains("pc") || option.name.lowercased().contains("pcs") {
+            if option.id > 0 {
+                // Check for option weight
+                // Update the weight, virtual and hasWeight for option
+                weight  = option.weight
+                // virtual = option.virtual
+                hasWeight = (weight != nil && weight!.count > 0) // && (virtual == nil || virtual?.count == 0 || virtual == "no")
+            }
+
+            if  hasWeight {
+                let itemWeight = Double(weight ?? "0") ?? 0
+                let itemTotalWeight = itemWeight * Double(cartItem.item.quantity)
+                totalWeight += itemTotalWeight
+            }
+            else {
+                isInPcs = true
+                totalWeight = 0
+                break
+            }
+        }
+        
+        return (totalWeight, isInPcs)
+    }
+    
+    /*func calculateTotalWeight() -> (weight: Double, isInPcs: Bool) {
+        var totalWeight = 0.0
+        var isInPcs = false
+        for cartItem in cartItems {
+            let option = cartItem.item.selectedOption()
+            let name = option.name.lowercased()
+            if !isInKg(name) && !isInGm(name) {
                 isInPcs = true
                 totalWeight = 0
                 break
@@ -209,7 +253,7 @@ class CartHelper: NSObject {
             else {
                 // Fetch numeric value only
                 let weight = option.name.numberOnly.doubleValue
-                if option.name.lowercased().contains("kg") || option.name.lowercased().contains("kgs") {
+                if isInKg(name) {
                     // Weight is in kgs
                     totalWeight += weight * 1000
                 }
@@ -217,9 +261,34 @@ class CartHelper: NSObject {
                     totalWeight += weight
                     // Weight is in grams
                 }
+                
+                totalWeight *= Double(cartItem.item.quantity)
             }
         }
+        
         return (totalWeight, isInPcs)
+    }*/
+    
+    func isInKg(_ name: String) -> Bool {
+        var flag = false
+        for unit in kgUnits {
+            if name.contains(unit) {
+                flag = true
+                break
+            }
+        }
+        return flag
+    }
+    
+    func isInGm(_ name: String) -> Bool {
+        var flag = false
+        for unit in gmUnits {
+            if name.contains(unit) {
+                flag = true
+                break
+            }
+        }
+        return flag
     }
     
     func generateOrderDetails() -> [[String: String]] {
@@ -239,6 +308,45 @@ class CartHelper: NSObject {
         
         return details
     }
+    
+    func vibratePhone() {
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+    }
+    
+    // MARK:- Countries & States
+    func countryCodeFromName(_ name: String) -> String {
+        let result = self.countryStateArr.filter { $0.name.lowercased() == name.lowercased() }
+        if let value = result.first {
+            return value.code
+        }
+        return ""
+    }
+    
+    func countryNameFromCode(_ code: String) -> String {
+        let result = self.countryStateArr.filter { $0.code.lowercased() == code.lowercased() }
+        if let value = result.first {
+            return value.name
+        }
+        return ""
+    }
+    
+    func stateCodeFromName(_ name: String) -> String {
+        if allStates.count == 0 { allStates = self.countryStateArr.flatMap { $0.states } }
+        let result = self.allStates.filter { $0.name.lowercased() == name.lowercased() }
+        if let value = result.first {
+            return value.code
+        }
+        return ""
+    }
+    
+    func stateNameFromCode(_ code: String) -> String {
+        if allStates.count == 0 { allStates = self.countryStateArr.flatMap { $0.states } }
+        let result = self.allStates.filter { $0.code.lowercased() == code.lowercased() }
+        if let value = result.first {
+            return value.name
+        }
+        return ""
+    }
 }
 
 
@@ -253,6 +361,7 @@ extension CartHelper {
                 if success {
                     let data = dict["data"] as? [String: Any] ?? [:]
                     self.manageAddress.setDict(data)
+                    self.manageAddress.updateToLocal()
                     completion(true, "")
                 }
                 else {
@@ -269,10 +378,18 @@ extension CartHelper {
     }
     
     func syncCountries(completion: @escaping (_ success: Bool, _ msg: String) -> Void) {
-        let countryUrl = "https://www.chhappanbhog.com/wp-json/wc/v3/data/countries?consumer_key=ck_e9c8ebddaf31043d087218a472fdd3bd517cbbda&consumer_secret=cs_3bf6a3bc42e4319b33238e0450ccd76e76fa9fad"
+        let countryUrl = "http://3.7.199.43/restapi/example/getcountries.php?consumer_key=ck_e9c8ebddaf31043d087218a472fdd3bd517cbbda&consumer_secret=cs_3bf6a3bc42e4319b33238e0450ccd76e76fa9fad"
         AFWrapperClass.requestGETURLWithoutToken(countryUrl, success: { (dict) in
-            if let result = dict as? [Dictionary<String, Any>]{
-                do {
+            if let result = dict as? [Dictionary<String, Any>] {
+                
+                self.countryStateArr.removeAll()
+                for value in result {
+                    let country = CountryStateModel(dict: value)
+                    self.countryStateArr.append(country)
+                }
+                completion(true, "")
+                
+                /*do {
                     let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
                     do {
                         let jsonDecoder = JSONDecoder()
@@ -284,7 +401,7 @@ extension CartHelper {
                     }
                 } catch let error {
                     completion(false, error.localizedDescription)
-                }
+                }*/
             } else {
                 completion(false, "Some error occured")
             }

@@ -59,7 +59,14 @@ class DashBoardVC: UIViewController {
 
         CartHelper.shared.syncCarts()
         CartHelper.shared.syncCountries { (success, msg) in
-            
+            /*if success && self.toppicsArr.count > 0 {
+                // Availability Check
+                for item in self.toppicsArr {
+                    item.performAvailabilityCheck()
+                }
+                self.toppicsArr.removeAll {!$0.canShow}
+                self.reloadTable()
+            }*/
         }
         
         /*let phone = "7017777239"
@@ -82,6 +89,7 @@ class DashBoardVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        categorySearchBar.resignFirstResponder()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -340,6 +348,42 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TopPicsTableCell") as! TopPicsTableCell
     
         let data = toppicsArr[indexPath.row]
+        data.performAvailabilityCheck()
+        
+        // Add to Cart button
+        cell.addTocartButton.appEnabled(data.canAddToCart)
+        
+        // Shelf life
+        let shelfLife = data.meta.shelf_life
+        if shelfLife.isEmpty {
+            cell.lblShelfLife.text = ""
+            cell.lblShelfLife.superview?.isHidden = true
+            cell.layoutConstraintShelfLifeTop.constant = 0
+            cell.layoutConstraintShelfLifeBottom.constant = 0
+        }
+        else {
+            cell.lblShelfLife.superview?.isHidden = false
+            cell.lblShelfLife.text = "Shelf Life: " + shelfLife
+            cell.layoutConstraintShelfLifeTop.constant = 5
+            cell.layoutConstraintShelfLifeBottom.constant = 5
+        }
+        
+        // Availability text
+        if data.isAvailable {
+            cell.addTocartButton.isHidden = false
+            cell.lblAvailabilityText.superview?.isHidden = true
+            cell.lblAvailabilityText.text = ""
+            cell.layoutConstraintAvailabilityTextTop.constant = 0
+            cell.layoutConstraintAvailabilityTextBottom.constant = 0
+        }
+        else {
+            cell.addTocartButton.isHidden = true
+            cell.lblAvailabilityText.text = data.meta.availabilitytext
+            cell.lblAvailabilityText.superview?.isHidden = false
+            cell.layoutConstraintAvailabilityTextTop.constant = 5
+            cell.layoutConstraintAvailabilityTextBottom.constant = 5
+        }
+        
         if let image = toppicsArr[indexPath.row].image.first {
             cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
         }
@@ -352,7 +396,7 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         if  option.id > 0 {
             cell.weightLBL.text = option.name
             cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
-            cell.layoutConstraintWeightWidth.constant = 60
+            cell.layoutConstraintWeightWidth.constant = CartHelper.shared.isRunningOnIpad ? 150 : 60
             cell.layoutConstraintWeightTrailing.constant = 10
         }
         else {
@@ -381,12 +425,14 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
             let cartItem = CartItem(item: item)
             CartHelper.shared.addToCart(cartItem: cartItem)
             AppDelegate.shared.notifyCartUpdate()
+            CartHelper.shared.vibratePhone()
         }
         
         cell.quantityIncBlock = {
             let item = self.toppicsArr[indexPath.row]
             item.quantity += 1
             cell.quantityLBL.text = "\(item.quantity)"
+            CartHelper.shared.vibratePhone()
         }
         
         cell.quantityDecBlock = {
@@ -394,6 +440,7 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
             item.quantity -= 1
             if item.quantity < 1 { item.quantity = 1}
             cell.quantityLBL.text = "\(item.quantity)"
+            CartHelper.shared.vibratePhone()
         }
         
         cell.chooseOptioncBlock = {
@@ -434,22 +481,17 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         
         if collectionView == topPageCollection {
             let cell = topPageCollection.dequeueReusableCell(withReuseIdentifier: "DashboardPageCollectionCell", for: indexPath) as! DashboardPageCollectionCell
-            
-            let baseUrl = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
-            cell.bannerIMG.sd_setImage(with: URL(string: baseUrl + bannerArr[indexPath.row].image!), placeholderImage: PlaceholderImage.Category)
-            
+            cell.bannerIMG.sd_setImage(with: URL(string: bannerArr[indexPath.row].image ?? ""), placeholderImage: PlaceholderImage.Category)
             return cell
         }
         else {
             let cell = productsCatCollection.dequeueReusableCell(withReuseIdentifier: "DashboardProdutsCatCollectionCell", for: indexPath) as! DashboardProdutsCatCollectionCell
-            
             cell.productIMG.sd_setImage(with: URL(string: categoriesArr[indexPath.row].image ?? ""), placeholderImage: PlaceholderImage.Category)
-            
             cell.productNameLBL.text = categoriesArr[indexPath.row].name
             return cell
         }
-        
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == topPageCollection {
@@ -464,19 +506,18 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             
             let type = bannerArr[indexPath.row].type
             if type == 0 {
+                // Product
+                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+                let itemId = bannerArr[indexPath.row].id ?? 0
+                vc.GET_PRODUCT_DETAILS(ItemId: itemId)
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else if type == 1 {
+                // Category
                 let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CategoryAndItemsVC") as! CategoryAndItemsVC
                 vc.isFromNavgation = true
                 let id = bannerArr[indexPath.row].id ?? 0
                 vc.GET_CATEGORY_ITEMS(ItemId: id)
                 self.navigationController?.pushViewController(vc, animated: true)
-                
-            } else if type == 1 {
-                
-                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
-                let itemId = bannerArr[indexPath.row].id ?? 0
-                vc.GET_PRODUCT_DETAILS(ItemId: itemId)
-                self.navigationController?.pushViewController(vc, animated: true)
-                
             }
             
         } else {
@@ -495,10 +536,13 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 extension DashBoardVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "searchRecordVC") as! searchRecordVC
         vc.iscomeFrom = "search"
         vc.searchedText = searchBar.text ?? ""
+        
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -544,7 +588,12 @@ extension DashBoardVC {
                 
                 for value in topPicks {
                     let item = Categores(dict: value)
-                    self.toppicsArr.append(item)
+                    
+                    // Availability check
+                    item.performAvailabilityCheck()
+                    if item.canShow {
+                        self.toppicsArr.append(item)
+                    }
                 }
             }
             self.topPageCollection.reloadData()
@@ -562,7 +611,7 @@ extension DashBoardVC {
     func API_GET_DASHBOARD_IMAGES() {
         
         IJProgressView.shared.showProgressView()
-        let bannersUrl = "https://www.chhappanbhog.com/restapi/example/getcategories.php"
+        let bannersUrl = "http://3.7.199.43/restapi/example/getcategories.php"
         AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             

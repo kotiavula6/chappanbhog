@@ -17,6 +17,7 @@ class ProductInfoVC: UIViewController {
     @IBOutlet weak var totalReviewsLBL: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var productNameLBL: UILabel!
+    @IBOutlet weak var lblShelfLife: UILabel!
     @IBOutlet weak var ratingView: STRatingControl!
     @IBOutlet weak var productBacView: UIView!
     
@@ -91,9 +92,38 @@ class ProductInfoVC: UIViewController {
             }
             
             self.favroteBTN.tintColor = self.item.isFavourite ? .red : .lightGray
-            self.descriptionLBL.text = self.item.desc
             self.quantityLBL.text = "\(self.item.quantity)"
             self.totalReviewsLBL.text = "\(self.item.reviews) \(self.item.reviews == 1 ? "review" : "reviews")"
+            
+            // Add to Cart button
+            self.btnAddToCart.appEnabled(self.item.canAddToCart)
+            
+            // Shelf life
+            self.lblShelfLife.superview?.layer.cornerRadius = 10
+            self.lblShelfLife.superview?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            let shelfLife = self.item.meta.shelf_life
+            if shelfLife.isEmpty {
+                self.lblShelfLife.superview?.isHidden = true
+            }
+            else {
+                self.lblShelfLife.superview?.isHidden = false
+                self.lblShelfLife.text = "Shelf Life: " + shelfLife
+            }
+            
+            // Availability text
+            if self.item.isAvailable {
+                self.descriptionLBL.text = self.item.desc
+                self.descriptionLBL.textColor = .black
+                self.descriptionLBL.textAlignment = .left
+                self.btnAddToCart.isHidden = false
+            }
+            else {
+                self.descriptionLBL.text = self.item.meta.availabilitytext
+                self.descriptionLBL.textColor = self.lblShelfLife.superview!.backgroundColor
+                self.descriptionLBL.textAlignment = .center
+                self.btnAddToCart.isHidden = true
+            }
+            
             //self.updatePayButtonTitle()
             self.view.layoutIfNeeded()
         }
@@ -152,14 +182,15 @@ class ProductInfoVC: UIViewController {
     }
     
     @IBAction func increseBTN(_ sender: UIButton) {
-        if self.item.quantity >= self.item.available_quantity {
+        /*if self.item.quantity >= self.item.available_quantity {
             alert("ChhappanBhog", message: "Maximum quantities exceeded.", view: self)
             return
-        }
+        }*/
         
         self.item.quantity += 1
         self.quantityLBL.text = "\(self.item.quantity)"
         updatePrice()
+        CartHelper.shared.vibratePhone()
         
         //self.updatePayButtonTitle()
     }
@@ -171,6 +202,7 @@ class ProductInfoVC: UIViewController {
         }
         self.quantityLBL.text = "\(self.item.quantity)"
         updatePrice()
+        CartHelper.shared.vibratePhone()
         
         //self.updatePayButtonTitle()
     }
@@ -185,6 +217,7 @@ class ProductInfoVC: UIViewController {
         let cartItem = CartItem(item: self.item)
         CartHelper.shared.addToCart(cartItem: cartItem)
         AppDelegate.shared.notifyCartUpdate()
+        CartHelper.shared.vibratePhone()
         
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         self.navigationController?.pushViewController(vc, animated: true)
@@ -252,7 +285,13 @@ extension ProductInfoVC {
             let success = dict["success"] as? Bool ?? false
             if success {
                 if let data = dict["data"] as? [String: Any] {
+                    let oldQuantity = self.item.quantity
                     self.item.setDict(data)
+                    if oldQuantity > 1 {
+                        self.item.quantity = oldQuantity
+                    }
+                    // Availability Check
+                    self.item.performAvailabilityCheck()
                     self.fillData()
                     self.reloadImages()
                 }

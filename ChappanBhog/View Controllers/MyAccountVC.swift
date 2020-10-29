@@ -94,8 +94,6 @@ class MyAccountVC: UIViewController {
             self.shadowViewBottom.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.scrollview.cornerRadius = 30
             self.scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            
-            
         }
     }
     
@@ -194,7 +192,9 @@ class MyAccountVC: UIViewController {
                 if isTokenExpired {
                     return
                 }
-                                
+                
+                print(result)
+                
                 //  let message = result["message"] as? String ?? ""
                 let status = result["success"] as? Bool ?? false
                 if status {
@@ -210,7 +210,7 @@ class MyAccountVC: UIViewController {
                         // Save image locally to avoid downloading for uploaded image
                         if let image = self.selectedImage {
                             let imageStr = data["image"] as? String ?? ""
-                             UserDefaults.standard.set(imageStr, forKey: Constants.Image)
+                            UserDefaults.standard.set(imageStr, forKey: Constants.Image)
                             SDImageCache.shared.store(image, forKey: ApplicationUrl.IMAGE_BASE_URL + imageStr, completion: nil)
                         }
                         
@@ -271,10 +271,8 @@ extension MyAccountVC:UITableViewDelegate,UITableViewDataSource {
             
         }
         if listName == "TRACK YOUR ORDER" {
-            
-            //let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrackYourOrderVC") as! TrackYourOrderVC
-            //self.navigationController?.pushViewController(vc, animated: true)
-            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrackYourOrderVC") as! TrackYourOrderVC
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         if listName == "PAYMENTS" {
             

@@ -304,7 +304,7 @@ class SignInVC: UIViewController  {
                     let token = data["token"] as? String ?? ""
                     let verified = Int(data["verified"] as? String ?? "0") ?? 0
                     let type = data["type"] as? Int ?? 0
-                    
+                    let imageStr = data["image"] as? String ?? ""
                     
                     print(user_id)
                     print(token)
@@ -319,6 +319,7 @@ class SignInVC: UIViewController  {
                     UserDefaults.standard.set(token, forKey: Constants.access_token)
                     UserDefaults.standard.set(verified, forKey: Constants.verified)
                     UserDefaults.standard.set(type, forKey: Constants.type)
+                    UserDefaults.standard.set(imageStr, forKey: Constants.Image)
                     
                     if verified == 0 && type == 0 {
                         // Ask for phone verification again

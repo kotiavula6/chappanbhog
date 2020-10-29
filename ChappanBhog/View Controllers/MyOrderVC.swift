@@ -80,7 +80,14 @@ extension MyOrderVC: UITableViewDelegate,UITableViewDataSource {
         cell.selectionStyle = .none
         if let dataObj = self.orderDataObj {
             cell.lblPrice.text = "\(dataObj.data[indexPath.row].currency) \(dataObj.data[indexPath.row].total)".remove00IfInt.replceINRWithR
-            cell.lblCurrentDate.text = dataObj.data[indexPath.row].createdAt
+            
+            var createdDateStr = dataObj.data[indexPath.row].createdAt // 2020-10-27T13:36:13Z
+            CartHelper.shared.df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            if let createdDate = CartHelper.shared.df.date(from: createdDateStr) {
+                CartHelper.shared.df.dateFormat = "yyyy-MM-dd hh:mm a"
+                createdDateStr = CartHelper.shared.df.string(from: createdDate)
+            }
+            cell.lblCurrentDate.text = createdDateStr
             
             var itemText = dataObj.data[indexPath.row].lineItems[0].name.uppercased()
             let itemCount = dataObj.data[indexPath.row].lineItems.count
@@ -143,12 +150,13 @@ class MyordreTableCell: UITableViewCell {
 extension MyOrderVC {
     func getMyOrders() {
         let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
-        // let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=\(userID)"
-        let ordersUrl = "https://www.chhappanbhog.com/restapi/example/getorder.php?customer_id=44918"
+        let ordersUrl = "http://3.7.199.43/restapi/example/getorder.php?customer_id=\(userID)"
+        //let ordersUrl = "http://3.7.199.43/restapi/example/getorder.php?customer_id=44918"
         IJProgressView.shared.showProgressView()
         AFWrapperClass.requestGETURLWithoutToken(ordersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             if let result = dict as? Dictionary<String, Any> {
+                print(result)
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: result , options: .prettyPrinted)
                     do {
@@ -177,6 +185,7 @@ extension MyOrderVC {
 
 
 extension String {
+    
     var remove00IfInt: String {
         if self.contains(".00") {
             return self.replacingOccurrences(of: ".00", with: "")
@@ -204,5 +213,17 @@ extension String {
     
     var doubleValue: Double {
         return Double(self) ?? 0
+    }
+    
+    var boolValue: Bool {
+        return ["yes", "1", "true"].contains(self.lowercased())
+    }
+}
+
+
+extension UIButton {
+    func appEnabled(_ enable: Bool) {
+        self.isUserInteractionEnabled = enable
+        self.alpha = enable ? 1.0 : 0.4
     }
 }

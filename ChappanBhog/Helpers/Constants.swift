@@ -78,9 +78,13 @@ func setGradientBackground(view: UIView) {
 //MARK:- BASE URL
 
 struct ApplicationUrl {
-    static let SERVER = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
+    /*static let SERVER = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com/"
     static let WEB_SERVER = SERVER + "api/"
-    static let IMAGE_BASE_URL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"
+    static let IMAGE_BASE_URL = "http://ec2-52-66-236-44.ap-south-1.compute.amazonaws.com"*/
+    
+    static let SERVER = "http://3.7.199.43/lumen/"
+    static let WEB_SERVER = SERVER + "api/"
+    static let IMAGE_BASE_URL = "http://3.7.199.43/lumen"
 }
 
 //MARK:- API

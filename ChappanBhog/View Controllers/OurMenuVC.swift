@@ -134,6 +134,11 @@ extension OurMenuVC:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if CartHelper.shared.isRunningOnIpad {
+            return 160
+        }
+        
         let totalWidth: CGFloat = UIScreen.main.bounds.width
         let iconWidth = totalWidth * 0.4
         let height = iconWidth * 86 / 100
@@ -160,7 +165,7 @@ extension OurMenuVC {
         // let userID = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
         // let url = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_CATEGORIES + "/\(userID)"
         
-        let url = "https://www.chhappanbhog.com/restapi/example/getcategories.php"
+        let url = "http://3.7.199.43/restapi/example/getcategories.php"
         AFWrapperClass.requestGETURL(url, success: { (response) in
             
             if let dict = response as? [String: Any] {

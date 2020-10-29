@@ -27,6 +27,15 @@ class TopPicsTableCell: UITableViewCell {
     @IBOutlet weak var layoutConstraintWeightWidth: NSLayoutConstraint!
     @IBOutlet weak var layoutConstraintWeightTrailing: NSLayoutConstraint!
     
+    @IBOutlet weak var layoutConstraintShelfLifeTop: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstraintShelfLifeBottom: NSLayoutConstraint!
+    
+    @IBOutlet weak var layoutConstraintAvailabilityTextTop: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstraintAvailabilityTextBottom: NSLayoutConstraint!
+    
+    @IBOutlet weak var lblShelfLife: UILabel!
+    @IBOutlet weak var lblAvailabilityText: UILabel!
+    
     var cartBlock: SimpleBlock?
     var quantityIncBlock: SimpleBlock?
     var quantityDecBlock: SimpleBlock?
@@ -40,6 +49,12 @@ class TopPicsTableCell: UITableViewCell {
         decreaseBTN.addTarget(self, action: #selector(qtyDecAction(_:)), for: UIControl.Event.touchUpInside)
         weightBTN.addTarget(self, action: #selector(optionAction(_:)), for: UIControl.Event.touchUpInside)
         favButton.addTarget(self, action: #selector(favouriteAction), for: UIControl.Event.touchUpInside)
+        
+        lblShelfLife.superview?.layer.cornerRadius = 10
+        lblShelfLife.superview?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        lblAvailabilityText.superview?.layer.cornerRadius = 10
+        lblAvailabilityText.superview?.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     
     @objc func cartAction(_ sender: UIButton) {
