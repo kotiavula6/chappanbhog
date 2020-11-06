@@ -13,14 +13,13 @@ import SDWebImage
 class SidemenuController: UIViewController{
 
     var myIndex = -1
-
     var listArray: [String] = ["SHOP", "MY ACCOUNT", "CART", "ABOUT"]
 
     @IBOutlet weak var myimgvw: UIImageView!
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var lblprofilename: UILabel!
     @IBOutlet weak var lblUserPosition: UILabel!
-    
+    @IBOutlet weak var btnLogout: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +30,15 @@ class SidemenuController: UIViewController{
         myTableView.isScrollEnabled = true
         update()
     }
+    
     func observeNotification( observer: Any,  selector: Selector,  name: String,  object: Any?) {
         NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name(rawValue: name), object: object)
+    
     }
     @objc func leftSideMenuDidOpen(_ notification: Notification) {
        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -57,6 +59,13 @@ class SidemenuController: UIViewController{
         else {
             myimgvw.image = PlaceholderImage.Category
         }
+        
+        if AppDelegate.shared.isGuestUser {
+            btnLogout.setTitle("Login", for: .normal)
+        }
+        else {
+            btnLogout.setTitle("Logout", for: .normal)
+        }
     }
     
     @objc func logout() {
@@ -65,9 +74,13 @@ class SidemenuController: UIViewController{
     
     @IBAction func btnLogout(_ sender: UIButton) {
         
+        if AppDelegate.shared.isGuestUser {
+            self.logout()
+            return
+        }
+        
         self.showAlertWithTitle(title: "", message: "Are you sure you want to logout?", okButton: "Yes", cancelButton: "No", okSelectorName: #selector(self.logout))
     }
-    
     
     func update() {
         myimgvw.layer.borderWidth = 0.1
@@ -75,8 +88,8 @@ class SidemenuController: UIViewController{
         myimgvw.layer.cornerRadius = myimgvw.frame.height/2
         myimgvw.clipsToBounds = true
     }
-   
 }
+
 extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
     
     
@@ -99,6 +112,10 @@ extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
             
         }
         else if (selecteItem == "MY ACCOUNT") {
+            
+            let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+            if loginNeeded { return }
+            
             let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
             vc.isFromSideMenu = true
             let navController   = UINavigationController(rootViewController: vc)
@@ -123,7 +140,6 @@ extension SidemenuController : UITableViewDelegate,UITableViewDataSource{
             let navController   = UINavigationController(rootViewController: vc)
             navController.isNavigationBarHidden = true
             slideMenuController()?.changeMainViewController(navController, close: true)
-            
         }
             
         else if (selecteItem == "ABOUT") {

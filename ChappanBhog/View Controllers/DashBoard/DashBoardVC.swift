@@ -31,14 +31,16 @@ class DashBoardVC: UIViewController {
     var message:String = ""
     var toolBar = UIToolbar()
     var picker  = UIPickerView()
+    var dashboardDataRequest: DataRequest?
     
     //MARK:- OUTLETS
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var alertHeightConstant: NSLayoutConstraint!
-    @IBOutlet weak var topPicsTableConstants: NSLayoutConstraint!
+    @IBOutlet weak var topPicsTableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var topPicsTable: UITableView!
     @IBOutlet weak var searchBackView: UIView!
     @IBOutlet weak var topPageCollection: UICollectionView!
+    @IBOutlet weak var topPageCollectionHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var productsCatCollection: UICollectionView!
     @IBOutlet weak var alertView: UIView!
     @IBOutlet weak var alertLBL: UILabel!
@@ -56,9 +58,9 @@ class DashBoardVC: UIViewController {
         self.categorySearchBar.setTextField(color: UIColor.white.withAlphaComponent(1.0))
         self.categorySearchBar.delegate = self
         setAppearence()
-
+        
         CartHelper.shared.syncCarts()
-        CartHelper.shared.syncCountries { (success, msg) in
+        /*CartHelper.shared.syncCountries { (success, msg) in
             /*if success && self.toppicsArr.count > 0 {
                 // Availability Check
                 for item in self.toppicsArr {
@@ -67,7 +69,7 @@ class DashBoardVC: UIViewController {
                 self.toppicsArr.removeAll {!$0.canShow}
                 self.reloadTable()
             }*/
-        }
+        }*/
         
         /*let phone = "7017777239"
         let code = "+91"
@@ -82,6 +84,7 @@ class DashBoardVC: UIViewController {
         updateCartCount()
         reloadTable()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(locationUpdated), name: NSNotification.Name(rawValue: "kLocationUpdate"), object: nil)
         API_GET_DASHBOARD_DATA()
         API_GET_DASHBOARD_IMAGES()
     }
@@ -96,6 +99,20 @@ class DashBoardVC: UIViewController {
         self.sidemenu.view.removeFromSuperview()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Update the table height according to its content size height
+        self.topPicsTableHeightConstraint.constant = self.topPicsTable.contentSize.height;
+        
+        // Update banner collection height in 565 x 235 ration
+        // - 20 = Left + Right padding 10 + 10
+        // + 20 = Bottom padding 20
+        var height: CGFloat = ((topPageCollection.frame.size.width - 20) * 235.0 / 565.0) + 20
+        if height < 170 { height = 170 }
+        topPageCollectionHeightConstraint.constant = height
+    }
+    
     @objc func updateCartCount() {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
@@ -106,6 +123,10 @@ class DashBoardVC: UIViewController {
             cartLBL.text = "\(data.count)"
             cartLBL.superview?.isHidden = false
         }
+    }
+    
+    @objc func locationUpdated() {
+        API_GET_DASHBOARD_DATA()
     }
     
     //MARK:- UI APPEARENCE
@@ -132,19 +153,29 @@ class DashBoardVC: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             self.sidemenu.myAccountAction = {
+                
+                let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+                if loginNeeded { return }
+                
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
                 vc.isFromSideMenu = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             self.sidemenu.settingsAction = {
+                
+                let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+                if loginNeeded { return }
+                
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyAccountVC") as! MyAccountVC
                 vc.isFromSideMenu = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }
+            
             self.sidemenu.cartAction = {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
+            
             self.sidemenu.aboutAction = {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AboutVC") as! AboutVC
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -388,20 +419,25 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
             cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
         }
         
-        cell.productNameLBL.text = data.title
+        if data.meta.sub_title.isEmpty {
+            cell.productNameLBL.text = data.title
+        }
+        else {
+            cell.productNameLBL.attributedText = data.fullTitleAttributedText(titleFont: cell.productNameLBL.font)
+        }
+        
         cell.totalReviewsLBL.text = "\(data.reviews) \(data.reviews == 1 ? "review" : "reviews")"
         cell.starRating.rating = data.ratings
+        cell.priceLBL.text = String(format: "%.0f", data.totalPriceWithoutQuantity).prefixINR
         
         let option = data.selectedOption()
         if  option.id > 0 {
             cell.weightLBL.text = option.name
-            cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
             cell.layoutConstraintWeightWidth.constant = CartHelper.shared.isRunningOnIpad ? 150 : 60
             cell.layoutConstraintWeightTrailing.constant = 10
         }
         else {
             cell.weightLBL.text = " "
-            cell.priceLBL.text = String(format: "%.0f", data.price).prefixINR
             cell.layoutConstraintWeightWidth.constant = 0
             cell.layoutConstraintWeightTrailing.constant = 0
         }
@@ -409,6 +445,10 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         
         cell.favButton.tintColor = data.isFavourite ? .red : .lightGray
         cell.favouriteBlock = {
+            
+            let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+            if loginNeeded { return }
+            
             let item = self.toppicsArr[indexPath.row]
             let favourite = !item.isFavourite
             cell.favButton.isUserInteractionEnabled = false
@@ -428,6 +468,7 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
             CartHelper.shared.vibratePhone()
         }
         
+        cell.quantityLBL.text = "\(data.quantity)"
         cell.quantityIncBlock = {
             let item = self.toppicsArr[indexPath.row]
             item.quantity += 1
@@ -462,19 +503,17 @@ extension DashBoardVC:UITableViewDelegate,UITableViewDataSource {
         vc.item = self.toppicsArr[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
-//MARK:- COLLECTIONVIEW METHODS
+
+// MARK:- COLLECTIONVIEW METHODS
 extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == topPageCollection {
             return bannerArr.count
-        }else {
+        } else {
             return categoriesArr.count
         }
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -493,14 +532,15 @@ extension DashBoardVC:UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         if collectionView == topPageCollection {
-            return CGSize(width: topPageCollection.frame.width, height: topPageCollection.frame.height)
-        }else {
+            var height: CGFloat = ((topPageCollection.frame.size.width - 20) * 235.0 / 565.0) + 20
+            if height < 170 { height = 170 }
+            return CGSize(width: topPageCollection.frame.width, height: height)
+        } else {
             return CGSize(width: productsCatCollection.frame.height/1.3, height: productsCatCollection.frame.height)
         }
-        
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == topPageCollection {
             
@@ -551,10 +591,14 @@ extension DashBoardVC: UISearchBarDelegate {
 extension DashBoardVC {
     func API_GET_DASHBOARD_DATA() {
         
+        if let request = dashboardDataRequest {
+            request.cancel()
+        }
+        
         let userID = UserDefaults.standard.value(forKey: Constants.UserId)
         IJProgressView.shared.showProgressView()
         let bannersUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_GET_DASHBOARD_DATA + "/\(userID ?? 0)" + "/\(AppDelegate.shared.isLucknow ? 1 : 0)"
-        AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
+        dashboardDataRequest = AFWrapperClass.requestGETURL(bannersUrl, success: { (dict) in
             IJProgressView.shared.hideProgressView()
             
             if let result = dict as? [String : Any] {
@@ -596,9 +640,9 @@ extension DashBoardVC {
                     }
                 }
             }
-            self.topPageCollection.reloadData()
-            self.topPicsTable.reloadData()
             
+            self.reloadTable()
+            self.reloadTopPageCollection()
             
         }) { (error) in
             
@@ -629,18 +673,15 @@ extension DashBoardVC {
             let success = dict["success"] as? Int ?? 0
             
             if success == 0 {
-                
                 self.message = dict["message"] as? String ?? ""
                 alert("ChhappanBhog", message: self.message, view: self)
-                
-            }else {
+            } else {
                 self.categoriesArr.removeAll()
                 for i in 0..<response.count {
                     self.categoriesArr.append(categories(dict: response.object(at: i) as! [String:Any]))
-                    
                 }
             }
-            self.productsCatCollection.reloadData()
+            self.reloadProductsCollection()
             
         }) { (error) in
             self.message = error.localizedDescription

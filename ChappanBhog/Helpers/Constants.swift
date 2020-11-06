@@ -92,6 +92,7 @@ struct WebserviceName {
     
     static let API_GET_LOGIN  = "login"
     static let API_GET_REGISTER = "register"
+    static let API_SAVE_USER = "save_user"
     static let API_CHANGE_PASSWORD = "change_password"
     static let API_GET_DASHBOARD_DATA = "dashboard"
     static let API_GET_VERIFY_ACCOUNT = "verify_account"
@@ -114,6 +115,9 @@ struct WebserviceName {
     static let API_FORGOT_PASSWORD = "forget_password"
     static let API_MARK_FAVOURITE = "add_favorite"
     static let API_GET_FAVOURITES = "get_favorite"
+    
+    static let API_PUSH_TOKEN_SAVE = "push_token"
+    static let API_LOGOUT = "logout"
 }
 
 struct Constants

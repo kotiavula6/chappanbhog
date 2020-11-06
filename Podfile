@@ -20,7 +20,8 @@ pod 'STRatingControl'
 #pod 'TwitterKit'
 pod 'Firebase/Auth'
 pod 'PayUmoney_PnP'
-
+pod 'Firebase/Messaging'
+pod 'PayPal-iOS-SDK'
 
   target 'ChappanBhogTests' do
     inherit! :search_paths

@@ -74,7 +74,6 @@ class SignInVC: UIViewController  {
     
  
     //MARK:- ACTIONS
-    
     @IBAction func creatAccountAction(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
         self.navigationController?.pushViewController(vc, animated: true)
@@ -229,6 +228,23 @@ class SignInVC: UIViewController  {
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
     }
     
+    @IBAction func continueAsGuestAction(_ sender: UIButton) {
+        
+        UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
+        UserDefaults.standard.set("", forKey: Constants.Name)
+        UserDefaults.standard.set("", forKey: Constants.EmailID)
+        UserDefaults.standard.set("", forKey: Constants.Phone)
+        UserDefaults.standard.set("", forKey: Constants.DialingCode)
+        UserDefaults.standard.set(0,  forKey: Constants.UserId)
+        UserDefaults.standard.set(false, forKey: Constants.IsLogin)
+        UserDefaults.standard.set("", forKey: Constants.access_token)
+        UserDefaults.standard.set(0, forKey: Constants.verified)
+        UserDefaults.standard.set(0, forKey: Constants.type)
+        UserDefaults.standard.set("", forKey: Constants.Image)
+        
+        AppDelegate.shared.showHomeScreen()
+    }
+    
     @IBAction func appleLoginClicked(_ sender: UIButton) {
         if #available(iOS 13.0, *) {
             
@@ -329,6 +345,7 @@ class SignInVC: UIViewController  {
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {
+                        AppDelegate.shared.uploadTokenToServer()
                         AppDelegate.shared.showHomeScreen()
 //                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
 //                        self.navigationController?.pushViewController(vc, animated: true)
@@ -336,6 +353,7 @@ class SignInVC: UIViewController  {
                 }
             }
         }) { (error) in
+            alert("ChhappanBhog", message: "We're facing an internal issue. Please try after sometime.", view: self)
         }
         
     }
@@ -353,11 +371,12 @@ extension SignInVC: LoginDelegate {
         let name = data["name"]  as? String ?? ""
         let kname = name.replacingOccurrences(of: "N/A", with: "")
         
-        let parms : [String:Any] = ["user_email":
-            kemail ,"password":"","type":4,"social_id":kuserID ,"name":kname ]
+        let parms : [String:Any] = ["user_email": kemail, "password": "", "type": 4, "social_id": kuserID, "name": kname]
+        
+       // print(data)
+       // print(parms)
+        
         API_LOGIN(params: parms as NSDictionary)
-        print(data)
-        print(parms)
         
         //  ["userID": Optional("000486.a05e27cfd4f14c4188201c423861cfd6.1307"), "email": Optional("N/A"), "tokenID": Optional(773 bytes), "status": Optional(1), "name": Optional("N/A")]
     }

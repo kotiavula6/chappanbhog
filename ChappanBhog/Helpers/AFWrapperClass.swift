@@ -115,7 +115,7 @@ class AFWrapperClass{
     
     
     
-    class func requestGETURL(_ strURL: String, success:@escaping (AnyObject) -> Void, failure:@escaping (NSError) -> Void) {
+    class func requestGETURL(_ strURL: String, success:@escaping (AnyObject) -> Void, failure:@escaping (NSError) -> Void) -> DataRequest {
         
         
         let token = UserDefaults.standard.value(forKey: Constants.access_token) as? String ?? ""
@@ -123,7 +123,7 @@ class AFWrapperClass{
         let header:HTTPHeaders = ["Authorization":"Bearer \(token)","Content-Type": "application/json"]
 
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        AF.request(urlwithPercentEscapes!, method: .get,encoding: JSONEncoding.default, headers:header)
+        return AF.request(urlwithPercentEscapes!, method: .get,encoding: JSONEncoding.default, headers:header)
             .responseJSON { (response) in
                 switch response.result {
                 case .success(let value):
@@ -182,7 +182,7 @@ class AFWrapperClass{
         if let status = dict["status"] as? Int, status == 401 {
             let message = dict["message"] as? String ?? "Your sessions has been expired. Please login again."
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "ChhappanBhog", message: message, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
                     AppDelegate.shared.logout()
                 }))

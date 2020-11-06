@@ -120,6 +120,10 @@ class searchRecordVC: UIViewController {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func homeAction(_ sender: UIButton) {
+        AppDelegate.shared.showHomeScreen()
+    }
 }
 
 extension searchRecordVC: UITextFieldDelegate {
@@ -169,21 +173,26 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
         let image = data.image.first ?? ""
         cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
         
-        cell.nameLBL.text = data.title
+        if data.meta.sub_title.isEmpty {
+            cell.nameLBL.text = data.title
+        }
+        else {
+            cell.nameLBL.attributedText = data.fullTitleAttributedText(titleFont: cell.nameLBL.font)
+        }
+        
         cell.ratingView.rating = data.ratings
         cell.quantityLBL.text = "\(data.quantity)"
+        cell.priceLBL.text = String(format: "%.0f", data.totalPriceWithoutQuantity).prefixINR
         
         let option = data.selectedOption()
         if  option.id > 0 {
             cell.weightLBL.text = option.name
-            cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
             let width = (self.recordsCollection.frame.size.width/(CartHelper.shared.isRunningOnIpad ? 4 : 2)) - 30
             cell.layoutConstraintWeightWidth.constant = width - 35 - 50 // Padding + Max Label width
             cell.layoutConstraintWeightTrailing.constant = 5
         }
         else {
             cell.weightLBL.text = " "
-            cell.priceLBL.text = String(format: "%.0f", data.price).prefixINR
             cell.layoutConstraintWeightWidth.constant = 0
             cell.layoutConstraintWeightTrailing.constant = 0
         }
@@ -191,6 +200,10 @@ extension searchRecordVC:UICollectionViewDelegate, UICollectionViewDataSource,UI
         
         cell.favBTN.tintColor = data.isFavourite ? .red : .lightGray
         cell.favouriteBlock = {
+            
+            let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+            if loginNeeded { return }
+            
             let item = self.categoryArr[indexPath.row]
             let favourite = !item.isFavourite
             cell.favBTN.isUserInteractionEnabled = false

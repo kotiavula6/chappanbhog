@@ -100,7 +100,9 @@
 		EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34B699253EB72F009A41D2 /* PayUHelper.m */; };
 		EF384AA22546888300D62D89 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF384AA12546888300D62D89 /* SplashVC.swift */; };
 		EF384AA4254694AB00D62D89 /* OrderTrackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */; };
+		EF3C3F76254BE62B002944CC /* ProfileDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C3F75254BE62B002944CC /* ProfileDetailsVC.swift */; };
 		EF3C7FFA2541A975000D1DE8 /* OrderDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */; };
+		EF70AC77254AB1F400F44B5D /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF70AC76254AB1F400F44B5D /* TabBarVC.swift */; };
 		EF83B6642536C24300E1F3CD /* CartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF83B6632536C24300E1F3CD /* CartHelper.swift */; };
 		EFC4E9272549AEB1001E460A /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = EFC4E9262549AEB1001E460A /* countries.json */; };
 		FF3E9A1A4BA796ECF044F4D7 /* Pods_ChappanBhog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A38E3BF349D6B86A467446 /* Pods_ChappanBhog.framework */; };
@@ -233,7 +235,9 @@
 		EF34B699253EB72F009A41D2 /* PayUHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayUHelper.m; sourceTree = "<group>"; };
 		EF384AA12546888300D62D89 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTrackVC.swift; sourceTree = "<group>"; };
+		EF3C3F75254BE62B002944CC /* ProfileDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailsVC.swift; sourceTree = "<group>"; };
 		EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsVC.swift; sourceTree = "<group>"; };
+		EF70AC76254AB1F400F44B5D /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		EF83B6632536C24300E1F3CD /* CartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHelper.swift; sourceTree = "<group>"; };
 		EFC4E9262549AEB1001E460A /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -488,6 +492,7 @@
 				EE25617B2509FEE3001C54AA /* MyOrderVC.swift */,
 				EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */,
 				EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */,
+				EF70AC76254AB1F400F44B5D /* TabBarVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -522,6 +527,7 @@
 				EE31C70725078B8700E87E98 /* RegisterVC.swift */,
 				EE31C7092507931600E87E98 /* VerifyPhoneVC.swift */,
 				EE318C222510703F00160640 /* ForgotPasswordVC.swift */,
+				EF3C3F75254BE62B002944CC /* ProfileDetailsVC.swift */,
 			);
 			path = LoginRegistration;
 			sourceTree = "<group>";
@@ -904,6 +910,7 @@
 				EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */,
 				EF3C7FFA2541A975000D1DE8 /* OrderDetailsVC.swift in Sources */,
 				EEDD1B1F250B8AC0000671EA /* ManageAddressVC.swift in Sources */,
+				EF3C3F76254BE62B002944CC /* ProfileDetailsVC.swift in Sources */,
 				EE04CAA52523A1B700BADC28 /* DashBoardModel.swift in Sources */,
 				EECC6EF2251CC94D00A0B2D1 /* checkNetwork.swift in Sources */,
 				EE82482E25093FD500C263F1 /* CartTableCell.swift in Sources */,
@@ -944,6 +951,7 @@
 				612E420D252B36AA0001FA6C /* NotificationModel.swift in Sources */,
 				61CB3B01253976B200F0A39E /* SlideMenuController.swift in Sources */,
 				EECC6EF4251CD0D500A0B2D1 /* activityLoader.swift in Sources */,
+				EF70AC77254AB1F400F44B5D /* TabBarVC.swift in Sources */,
 				EE7740252511E74B00E994B8 /* StatesPopUpVC.swift in Sources */,
 				EEA8EF8F2508DB3C00DFD80F /* AboutVC.swift in Sources */,
 				EE31C70C2507B03B00E87E98 /* DashBoardVC.swift in Sources */,
@@ -1134,7 +1142,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201028;
+				CURRENT_PROJECT_VERSION = 20201104;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1142,7 +1150,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
 				PRODUCT_NAME = ChappanBhog;
@@ -1163,7 +1171,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201028;
+				CURRENT_PROJECT_VERSION = 20201104;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1171,7 +1179,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
 				PRODUCT_NAME = ChappanBhog;
 				PROVISIONING_PROFILE_SPECIFIER = "";

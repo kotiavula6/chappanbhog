@@ -46,7 +46,7 @@
 }
 
 - (PUMEnvironment)enviorenment {
-    return PUMEnvironmentTest;
+    return PUMEnvironmentProduction;
 }
 
 - (void)presentPaymentScreenFromController:(UIViewController *)controller

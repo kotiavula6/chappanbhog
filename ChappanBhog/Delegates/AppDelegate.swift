@@ -16,6 +16,7 @@ import FBSDKCoreKit
 import Firebase
 import SDWebImage
 import CoreLocation
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,13 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     static let shared: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    var tabbarController: UITabBarController?
+    var tabbarController: TabBarVC?
     var sideMenuViewController: SlideMenuController!
     
     let manager = CLLocationManager()
     var currentLocation: CLLocation?
+    var isFromSaveUserSata = false
     var currentCity: String = ""
-    var currentCountry: String = ""
+    var currentCountry: String = "india"
     var isLucknow: Bool {
         return currentCity.lowercased() == "lucknow"
     }
@@ -37,18 +39,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isIndia: Bool {
         return currentCountry.lowercased() == "india"
     }
+    
+    var isGuestUser: Bool {
+        let userId = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
+        return userId == 0
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         //TWTRTwitter.sharedInstance().start(withConsumerKey:"4Z8hpvQBOxBbtfXtjmtLWtt9Y", consumerSecret:"RfLtpt7X2RS34CAJICJqsTfV3U7kfgfk3XaHWA5oPa2k2GXE6U")
 
+        // Firebase
         FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         
         GIDSignIn.sharedInstance().clientID = "574908180295-s62bs9umoqrvuo366ri3es6ucrq0oqp8.apps.googleusercontent.com"
         
+        //PayPalMobile.initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction: "", PayPalEnvironmentSandbox: "AbuR52xSzomjCqHRJg8mOFjE-tF40xLMIjydEsCukOK3Oo23PVFbbfUQw24Ey_myeNTkbRfIjXVVwpOH"])
 
         
 //        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -69,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else {
                  _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(showHomeScreen), userInfo: nil, repeats: false)
+                uploadTokenToServer()
             }
         }
         else {
@@ -78,9 +90,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Location Manager
         startLocationUpdate()
         
-        syncCountriesFromLocalJson()
+        // Push Notifications
+        registerPushNotification()
         
+        syncCountriesFromLocalJson() // Sync from local
+        CartHelper.shared.syncCountries { (success, msg) in } // Sync from server
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        application.applicationIconBadgeNumber = 0
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        application.applicationIconBadgeNumber = 0
     }
     
     func syncCountriesFromLocalJson() {
@@ -108,7 +131,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     // MARK: - Core Data stack
-
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -154,7 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func showHomeScreen() {
         let Storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let customTabbarViewController = Storyboard.instantiateViewController(withIdentifier: "Home") as? UITabBarController,
+        guard let customTabbarViewController = Storyboard.instantiateViewController(withIdentifier: "Home") as? TabBarVC,
             let leftVC = Storyboard.instantiateViewController(withIdentifier: "SidemenuController") as? SidemenuController else {
             return
         }
@@ -179,11 +201,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.shared.goToLoginScreen()
         UserDefaults.standard.set(false, forKey: "ISUSERLOGGEDIN")
         GIDSignIn.sharedInstance().signOut()
+        deleteTokenFromServer()
         clearDefaults()
+        
        // let store = TWTRTwitter.sharedInstance().sessionStore
         //if let userID = store.session()?.userID {
           //store.logOutUserID(userID)
         //}
+    }
+    
+    @objc func moveToDashboard() {
+        guard let tabbarVC = self.tabbarController, let controllers = tabbarVC.viewControllers else { return }
+        tabbarVC.selectedIndex = 0
+        controllers[0].navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func clearDefaults() {
@@ -204,25 +234,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
     }
     
-    /*func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
-    }*/
-
-//    @available(iOS 13.0, *)
-//    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-//        if let openURLContext = URLContexts.first {
-//            let url = openURLContext.url
-//            let options: [AnyHashable : Any] = [
-//                UIApplication.OpenURLOptionsKey.annotation : openURLContext.options.annotation as Any,
-//                UIApplication.OpenURLOptionsKey.sourceApplication : openURLContext.options.sourceApplication as Any,
-//                UIApplication.OpenURLOptionsKey.openInPlace : openURLContext.options.openInPlace
-//            ]
-//            print(options)
-//            TWTRTwitter.sharedInstance().application(UIApplication.shared, open: url, options: options)
-//        }
-//    }
+    @objc func notifyLocationUpdate() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kLocationUpdate"), object: nil)
+    }
     
-  
+    /// Returns true if login needed
+    func checkNeedLoginAndShowAlertInController(_ controller: UIViewController) -> Bool {
+        if !isGuestUser { return false } // User is logged in
+        
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "ChhappanBhog", message: "Please login to proceed.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: { (action) in
+                AppDelegate.shared.logout()
+            }))
+            alert.addAction(UIAlertAction(title: "Not Now", style: UIAlertAction.Style.default, handler: { (action) in
+                
+            }))
+            controller.present(alert, animated: true, completion: nil)
+        }
+        
+        return true
+    }
 }
 
 extension AppDelegate {
@@ -266,6 +298,11 @@ extension AppDelegate: CLLocationManagerDelegate {
                 self.getPlaceMark(location) { (placeMark) in
                     self.currentCity = placeMark?.locality ?? ""
                     self.currentCountry = placeMark?.country ?? ""
+                    self.notifyLocationUpdate()
+                    
+                    /*if !self.currentCity.isEmpty, let root = self.window?.rootViewController {
+                        ShowAlert(AlertTitle: "ChhappanBhog", AlertDisc: "City: \(self.currentCity)\nCountry: \(self.currentCountry)", View: root)
+                    }*/
                 }
             }
             else {
@@ -275,6 +312,11 @@ extension AppDelegate: CLLocationManagerDelegate {
                 self.getPlaceMark(location) { (placeMark) in
                     self.currentCity = placeMark?.locality ?? ""
                     self.currentCountry = placeMark?.country ?? ""
+                    self.notifyLocationUpdate()
+                    
+                    /*if !self.currentCity.isEmpty, let root = self.window?.rootViewController {
+                        ShowAlert(AlertTitle: "ChhappanBhog", AlertDisc: "City: \(self.currentCity)\nCountry: \(self.currentCountry)", View: root)
+                    }*/
                 }
             }
         }
@@ -333,5 +375,137 @@ extension AppDelegate {
             return postalAddressFormatter.string(from: postalAddress)
         }
         return ""
+    }
+}
+
+// MARK:- Push Notifications
+extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
+    
+    func isDeviceHasPushNotificationPermission(completionHandler: @escaping (_ enabled: Bool) -> Void) {
+        
+        if !UIApplication.shared.isRegisteredForRemoteNotifications {
+            completionHandler(false)
+            return
+        }
+        
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            switch settings.authorizationStatus {
+            case .authorized, .provisional:
+                completionHandler(true)
+            case .denied:
+                completionHandler(false)
+            case .notDetermined:
+                completionHandler(false)
+            @unknown default:
+                completionHandler(false)
+            }
+        }
+    }
+    
+    func uploadTokenToServer() {
+        // Update device token to server
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
+        guard userID > 0, let pushToken = getFCMToken() else {
+            return
+        }
+        let notificationUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_PUSH_TOKEN_SAVE
+        AFWrapperClass.requestPOSTURL(notificationUrl, params: ["user_id": userID, "token": pushToken], success: { (dict) in
+            let success = dict["success"] as? Bool ?? false
+            if success { print("Token updated...") }
+        }) { (error) in
+            
+        }
+    }
+    
+    func deleteTokenFromServer() {
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId) as? Int ?? 0
+        guard userID > 0 else {
+            return
+        }
+        let notificationUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_LOGOUT
+        AFWrapperClass.requestPOSTURL(notificationUrl, params: ["user_id": userID], success: { (dict) in
+            let success = dict["success"] as? Bool ?? false
+            if success { print("Logout API success...") }
+        }) { (error) in
+            
+        }
+    }
+    
+    func saveFCMToken(_ token: String) {
+        UserDefaults.standard.set(token, forKey: "FCM_TOKEN")
+    }
+    
+    func getFCMToken() -> String? {
+        return UserDefaults.standard.string(forKey: "FCM_TOKEN")
+    }
+    
+    func registerPushNotification() {
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print("D'oh: \(error.localizedDescription)")
+            } else {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+        }
+    }
+    
+    /*func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let hexDeviceToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        print("DeviceToken: ", hexDeviceToken)
+        saveDeviceToken(hexDeviceToken)
+        uploadTokenToServer()
+    }*/
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        //let hexDeviceToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        //print("DeviceToken: ", hexDeviceToken)
+        
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+
+        saveFCMToken(fcmToken)
+        uploadTokenToServer()
+        
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register for notifications: \(error.localizedDescription)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        // TODO: Handle data of notification
+        
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print message ID.
+        // Print full message.
+        print(userInfo)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        guard let userId = UserDefaults.standard.value(forKey: Constants.UserId) as? Int, userId > 0 else {
+            UIApplication.shared.applicationIconBadgeNumber = 0
+            return
+        }
+
+        // let userInfo = notification.request.content.userInfo
+        completionHandler(UNNotificationPresentationOptions.alert)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
     }
 }

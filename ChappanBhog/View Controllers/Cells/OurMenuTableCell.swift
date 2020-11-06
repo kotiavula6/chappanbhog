@@ -71,7 +71,8 @@ class OurMenuTableCell: UITableViewCell {
     func refresh() {
         clear()
         guard let category = self.shopCategory else { return }
-        lblTitle.text = category.name
+        lblTitle.text = category.name.replacingOccurrences(of: "&amp;", with: "&")
+        
         // lblDesc.text =
         self.iVIcon.sd_imageIndicator = AppDelegate.shared.sd_indicator()
         self.iVIcon.sd_setImage(with: URL(string: category.image), placeholderImage: PlaceholderImage.Category)

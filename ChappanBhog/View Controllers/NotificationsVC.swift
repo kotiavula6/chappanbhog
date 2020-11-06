@@ -17,6 +17,7 @@ class NotificationsVC: UIViewController {
     @IBOutlet weak var notificationsTable: UITableView!
     @IBOutlet weak var lblNoNotifications: UILabel!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var backView: UIView!
     
     var notificationDataArr = [NotificationModel]()
     var currentPage: Int = 1
@@ -49,6 +50,7 @@ class NotificationsVC: UIViewController {
         getNotifications {
             self.isRequestOnGoing = false
             IJProgressView.shared.hideProgressView()
+            self.reloadData()
         }
         
         // Check if its from tabbar
@@ -62,6 +64,9 @@ class NotificationsVC: UIViewController {
     func setAppearance() {
         DispatchQueue.main.async {
             setGradientBackground(view: self.gradientView)
+            self.backView.backgroundColor = .white
+            self.backView.layer.cornerRadius = 30
+            self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.notificationsTable.layer.cornerRadius = 30
             self.notificationsTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         }
@@ -135,6 +140,7 @@ extension NotificationsVC: UITableViewDelegate, UITableViewDataSource, UIScrollV
                 // Request for more data
                 self.getNotifications {
                     self.isRequestOnGoing = false
+                    self.reloadData()
                 }
             }
         }
@@ -193,7 +199,6 @@ extension NotificationsVC {
                             let jsonDecoder = JSONDecoder()
                             let notificationData = try jsonDecoder.decode([NotificationModel].self, from: jsonData)
                             self.notificationDataArr.append(contentsOf: notificationData)
-                            self.reloadData()
                             
                             if self.notificationDataArr.count >= totalItems {
                                 self.noMoreResult = true

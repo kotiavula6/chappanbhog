@@ -91,7 +91,7 @@ class RegisterVC: UIViewController {
         else if _phone.isEmpty {
             ValidateData(strMessage: "Please enter your mobile number")
         }
-        else if _phone.count < 7 || _phone.count > 14 {
+        else if _phone.count != 10 {
             ValidateData(strMessage: "Please enter a valid mobile number")
         }
         else if (passwordTF.text?.isEmpty)!{
@@ -362,6 +362,7 @@ class RegisterVC: UIViewController {
                     }
                     else {
                         // Show home
+                        AppDelegate.shared.uploadTokenToServer()
                         AppDelegate.shared.showHomeScreen()
 //                        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
 //                        self.navigationController?.pushViewController(vc, animated: true)

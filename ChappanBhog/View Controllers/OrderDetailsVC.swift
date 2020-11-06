@@ -66,9 +66,8 @@ extension OrderDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             let item = dataObj.lineItems[indexPath.row]
             
-            let image = ""
-            cell.productIMG.image = PlaceholderImage.Category
-            //cell.productIMG.sd_setImage(with: URL(string: image), placeholderImage: PlaceholderImage.Category)
+            let image = dataObj.lineItems[indexPath.row].image
+            cell.productIMG.sd_setImage(with: URL(string: image), placeholderImage: PlaceholderImage.Category)
             
             var name = item.name.uppercased()
             if item.quantity > 1 {

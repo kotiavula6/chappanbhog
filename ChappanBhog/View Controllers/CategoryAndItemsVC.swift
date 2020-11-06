@@ -20,6 +20,7 @@ class CategoryAndItemsVC: UIViewController {
     //MARK:- OUTLETS
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var btnCart: UIButton!
+    @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var searchView: UIView!
@@ -64,12 +65,14 @@ class CategoryAndItemsVC: UIViewController {
             btnBack.isHidden = true
             lblTitle.isHidden = false
             searchView.isHidden = true
-            lblNoData.text = "We could not find anything added to your favourites"
+            lblNoData.text = "We could not find anything added to your favorites"
+            btnHome.isHidden = true
         }
         else {
             lblNoData.text = "No items found"
             lblTitle.isHidden = true
             searchView.isHidden = false
+            btnHome.isHidden = false
         }
     }
     
@@ -138,6 +141,10 @@ class CategoryAndItemsVC: UIViewController {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func homeAction(_ sender: UIButton) {
+        AppDelegate.shared.showHomeScreen()
+    }
 }
 
 extension CategoryAndItemsVC: UITextFieldDelegate {
@@ -198,28 +205,37 @@ extension CategoryAndItemsVC: UICollectionViewDelegate, UICollectionViewDataSour
             let image = categoryArr[indexPath.row].image.first ?? ""
             cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
             
-            cell.nameLBL.text = data.title
+            if data.meta.sub_title.isEmpty {
+                cell.nameLBL.text = data.title
+            }
+            else {
+                cell.nameLBL.attributedText = data.fullTitleAttributedText(titleFont: cell.nameLBL.font)
+            }
+            
             cell.ratingView.rating = data.ratings
             cell.quantityLBL.text = "\(data.quantity)"
+            cell.priceLBL.text = String(format: "%.0f", data.totalPriceWithoutQuantity).prefixINR
             
             let option = data.selectedOption()
             if  option.id > 0 {
                 cell.weightLBL.text = option.name
-                cell.priceLBL.text = String(format: "%.0f", option.price).prefixINR
-                
                 let width = (self.itemsCollection.frame.size.width/(CartHelper.shared.isRunningOnIpad ? 4 : 2)) - 30
                 cell.layoutConstraintWeightWidth.constant = width - 35 - 50 // Padding + Max Label width
                 cell.layoutConstraintWeightTrailing.constant = 5
             }
             else {
                 cell.weightLBL.text = " "
-                cell.priceLBL.text = String(format: "%.0f", data.price).prefixINR
+                cell.priceLBL.text = String(format: "%.0f", data.meta.totalPrice).prefixINR
                 cell.layoutConstraintWeightWidth.constant = 0
                 cell.layoutConstraintWeightTrailing.constant = 0
             }
             
             cell.favBTN.tintColor = data.isFavourite ? .red : .lightGray
             cell.favouriteBlock = {
+                
+                let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+                if loginNeeded { return }
+                
                 let item = self.categoryArr[indexPath.row]
                 let favourite = !item.isFavourite
                 cell.favBTN.isUserInteractionEnabled = false

@@ -19,7 +19,11 @@ class Categores: NSObject {
     var price:Double = 0
     var ratings:Int = 1
     var reviews:Int = 0
-    var title:String = ""
+    var title:String = "" {
+        didSet {
+            title.parseHTML()
+        }
+    }
     var desc: String = ""
     
     // Only for local use - Start
@@ -46,12 +50,37 @@ class Categores: NSObject {
         }
     }
     
+    var totalPriceWithoutQuantity: Double {
+        let option = self.selectedOption()
+        if  option.id > 0 {
+            let price = option.totalPrice
+            return price
+        }
+        else {
+            let metaPrice = meta.totalPrice
+            if metaPrice > 0 {
+                let price = metaPrice
+                return price
+            }
+            
+            let price = self.price
+            return price
+        }
+    }
     
-    var canShow: Bool = true
-    var canAddToCart: Bool = true
-    var showAvailabilityText: Bool = false
-    var isAvailable: Bool = true
-    var useLucknowPrice: Bool = false {
+    func fullTitleAttributedText(titleFont: UIFont) -> NSMutableAttributedString {
+        let fullStr = "\(title) (\(meta.sub_title))" as NSString
+        let attributedText = NSMutableAttributedString(string: fullStr as String)
+        attributedText.addAttributes([NSAttributedString.Key.font: titleFont], range: fullStr.range(of: title)) // BrandonGrotesque-Bold 15.0
+        attributedText.addAttributes([NSAttributedString.Key.font: UIFont(name: "BrandonGrotesque-Regular", size: titleFont.pointSize - 3) ?? UIFont.systemFont(ofSize: titleFont.pointSize - 3)], range: fullStr.range(of: "(\(meta.sub_title))"))
+        return attributedText
+    }
+    
+    var canShow: Bool = true // If false don't show
+    var canAddToCart: Bool = true // If false disable add to cart button
+    var showAvailabilityText: Bool = false // If true show availablity text
+    var isAvailable: Bool = true // if false product is not available now
+    var useLucknowPrice: Bool = false { // If true we have to use lucknow location price
         didSet {
             for option in options { option.useLucknowPrice = self.useLucknowPrice }
             meta.useLucknowPrice = self.useLucknowPrice
@@ -136,13 +165,13 @@ class Categores: NSObject {
             }
             
         } else {
-            if let ship_to_international = meta.ship_to_international, (ship_to_international == "" && ship_to_international == "no") {
+            if let ship_to_international = meta.ship_to_international, (ship_to_international == "" || ship_to_international == "no") {
                 // don't show this product
                 // echo "Don't show this product 4.";
                 canShow = false
                 return
             } else {
-                if let enable_for_restoflko = meta.enable_for_restoflko, (enable_for_restoflko == "" && enable_for_restoflko == "no") {
+                if let enable_for_restoflko = meta.enable_for_restoflko, (enable_for_restoflko == "" || enable_for_restoflko == "no") {
                     // donít show this product
                     // echo "Don't show this product 5.";
                     canShow = false
@@ -288,8 +317,10 @@ class Categores: NSObject {
         
         ratings = dict["ratings"] as? Int ?? 1
         reviews = dict["reviews"] as? Int ?? 0
-        title = dict["title"] as? String ?? ""
         
+        title = dict["title"] as? String ?? ""
+        title.parseHTML()
+                
         if let value = dict["selectedOptionId"] as? Int {
             selectedOptionId = value
         }
@@ -411,6 +442,8 @@ class CategoryMeta: NSObject {
     var lko_price: Double = 0
     var regular_price: Double = 0
     
+    var sub_title: String = ""
+    
     // Only for local use - Start
     var totalPrice: Double {
         if useLucknowPrice {
@@ -460,6 +493,7 @@ class CategoryMeta: NSObject {
         availabilitytext     = dict["availabilitytext"] as? String ?? ""
         end_time             = dict["end_time"] as? String ?? ""
         start_time           = dict["start_time"] as? String ?? ""
+        sub_title            = dict["sub_title"] as? String ?? ""
         
         weight  = dict["weight"] as? String
         virtual = dict["virtual"] as? String
@@ -487,6 +521,7 @@ class CategoryMeta: NSObject {
         dict["end_time"]             = self.end_time
         dict["start_time"]           = self.start_time
         dict["shelf_life"]           = self.shelf_life
+        dict["sub_title"]            = self.sub_title
         
         dict["lko_price"]     = self.lko_price
         dict["regular_price"] = self.regular_price

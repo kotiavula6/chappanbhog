@@ -61,7 +61,7 @@ class CartHelper: NSObject {
         }
         
         let userId = "\(UserDefaults.standard.value(forKey: Constants.UserId) ?? 0)"
-        if (userId == "0") { return }
+        // if (userId == "0") { return }
         let key = "kCarts_\(userId)"
         UserDefaults.standard.set(all, forKey: key)
     }
@@ -69,7 +69,7 @@ class CartHelper: NSObject {
     func syncCarts() {
         cartItems.removeAll()
         let userId = "\(UserDefaults.standard.value(forKey: Constants.UserId) ?? 0)"
-        if (userId == "0") { return }
+        // if (userId == "0") { return }
         let key = "kCarts_\(userId)"
         let values = UserDefaults.standard.array(forKey: key) as? [[String: Any]] ?? []
         for value in values {
@@ -110,7 +110,9 @@ class CartHelper: NSObject {
         
         if result.first == nil {
             // Add as new item
-            cartItems.append(cartItem)
+            let item = CartItem()
+            item.setDict(cartItem.getDict())
+            cartItems.append(item)
         }
 
         save()
@@ -231,7 +233,7 @@ class CartHelper: NSObject {
             }
             else {
                 isInPcs = true
-                totalWeight = 0
+                //totalWeight = 0
                 break
             }
         }
@@ -315,6 +317,7 @@ class CartHelper: NSObject {
     
     // MARK:- Countries & States
     func countryCodeFromName(_ name: String) -> String {
+        if name.isEmpty { return "" }
         let result = self.countryStateArr.filter { $0.name.lowercased() == name.lowercased() }
         if let value = result.first {
             return value.code
@@ -323,6 +326,7 @@ class CartHelper: NSObject {
     }
     
     func countryNameFromCode(_ code: String) -> String {
+        if code.isEmpty { return "" }
         let result = self.countryStateArr.filter { $0.code.lowercased() == code.lowercased() }
         if let value = result.first {
             return value.name
@@ -331,6 +335,7 @@ class CartHelper: NSObject {
     }
     
     func stateCodeFromName(_ name: String) -> String {
+        if name.isEmpty { return "" }
         if allStates.count == 0 { allStates = self.countryStateArr.flatMap { $0.states } }
         let result = self.allStates.filter { $0.name.lowercased() == name.lowercased() }
         if let value = result.first {
@@ -339,11 +344,15 @@ class CartHelper: NSObject {
         return ""
     }
     
-    func stateNameFromCode(_ code: String) -> String {
-        if allStates.count == 0 { allStates = self.countryStateArr.flatMap { $0.states } }
-        let result = self.allStates.filter { $0.code.lowercased() == code.lowercased() }
+    func stateNameFromCode(countryCode: String, _ code: String) -> String {
+        if code.isEmpty || countryCode.isEmpty { return "" }
+        let result = self.countryStateArr.filter { $0.code.lowercased() == countryCode.lowercased() }
         if let value = result.first {
-            return value.name
+            // Check for its state
+            let result = value.states.filter { $0.code.lowercased() == code.lowercased() }
+            if let value = result.first {
+                return value.name
+            }
         }
         return ""
     }

@@ -75,18 +75,22 @@ class ProductInfoVC: UIViewController {
         
         DispatchQueue.main.async {
             self.ratingView.rating = self.item.ratings
-            self.productNameLBL.text = self.item.title
+            if self.item.meta.sub_title.isEmpty {
+                self.productNameLBL.text = self.item.title
+            }
+            else {
+                self.productNameLBL.attributedText = self.item.fullTitleAttributedText(titleFont: self.productNameLBL.font)
+            }
             
+            // self.productPrice.text = String(format: "%.0f", self.item.totalPriceWithoutQuantity).prefixINR
             let option = self.item.selectedOption()
             if  option.id > 0 {
                 self.weightLBL.text = option.name
-                self.productPrice.text = String(format: "%.0f", option.price).prefixINR
                 self.viewWeightContainer.isHidden = false
                 self.layoutConstraintWeightTraling.constant = 15
             }
             else {
                 self.weightLBL.text = " "
-                self.productPrice.text = String(format: "%.0f", self.item.price).prefixINR
                 self.viewWeightContainer.isHidden = true
                 self.layoutConstraintWeightTraling.constant = -30
             }
@@ -124,6 +128,7 @@ class ProductInfoVC: UIViewController {
                 self.btnAddToCart.isHidden = true
             }
             
+            self.updatePrice()
             //self.updatePayButtonTitle()
             self.view.layoutIfNeeded()
         }
@@ -162,7 +167,9 @@ class ProductInfoVC: UIViewController {
     }
     
     func updatePrice() {
-        let option = self.item.selectedOption()
+        self.productPrice.text = String(format: "%.0f", self.item.totalPrice).prefixINR
+        
+        /*let option = self.item.selectedOption()
         if  option.id > 0 {
             let price = Double(self.item.quantity) * option.price
             self.productPrice.text = String(format: "%.0f", price).prefixINR
@@ -170,7 +177,7 @@ class ProductInfoVC: UIViewController {
         else {
             let price = Double(self.item.quantity) * self.item.price
             self.productPrice.text = String(format: "%.0f", price).prefixINR
-        }
+        }*/
     }
     
     //MARK:- ACTIONS
@@ -212,6 +219,7 @@ class ProductInfoVC: UIViewController {
     }
     
     @IBAction func addToCartButtonClicked(_ sender: UIButton) {
+    
         //let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
         //self.navigationController?.pushViewController(vc, animated: true)
         let cartItem = CartItem(item: self.item)
@@ -219,11 +227,15 @@ class ProductInfoVC: UIViewController {
         AppDelegate.shared.notifyCartUpdate()
         CartHelper.shared.vibratePhone()
         
-        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        /*let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
+        self.navigationController?.pushViewController(vc, animated: true)*/
     }
     
     @IBAction func favroteButtonClicked(_ sender: UIButton) {
+        
+        let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+        if loginNeeded { return }
+        
         let favourite = !item.isFavourite
         sender.isUserInteractionEnabled = false
         item.markFavourite(favourite) { (success) in
@@ -237,6 +249,10 @@ class ProductInfoVC: UIViewController {
     @IBAction func cartButtonClicked(_ sender: UIButton) {
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "CartViewVC") as! CartViewVC
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func homeAction(_ sender: UIButton) {
+        AppDelegate.shared.showHomeScreen()
     }
 }
 

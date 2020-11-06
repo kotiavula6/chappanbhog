@@ -9,11 +9,9 @@
 import UIKit
 import Alamofire
 
-class CartViewVC: UIViewController {
+class CartViewVC: UIViewController, UITextFieldDelegate {
     
     // MARK:- OUTLETS
-    @IBOutlet weak var cartLBL: UILabel!
-    @IBOutlet weak var btnCart: UIButton!
     @IBOutlet weak var subTitleView: UIView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var backView: UIView!
@@ -21,20 +19,39 @@ class CartViewVC: UIViewController {
     @IBOutlet weak var itemsLeftLBL: UILabel!
     @IBOutlet weak var btnPay: UIButton!
     @IBOutlet weak var btnBack: UIButton!
+    let lblNote: UILabel = UILabel(frame: CGRect(x: 15, y: 10, width: UIScreen.main.bounds.width - 30, height: 30))
+    let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
     
     var currentIndexPath: IndexPath?
     var isFromSideMenu = false
+    var saveAction: UIAlertAction?
     
-    //MARK:- APPLICATION LIFE CYCLE
+    /*var environment: String = PayPalEnvironmentSandbox {
+        willSet(newEnvironment) {
+            if (newEnvironment != environment) {
+                PayPalMobile.preconnect(withEnvironment: newEnvironment)
+            }
+        }
+    }
+    var payPalConfig = PayPalConfiguration()*/
+    
+    // MARK:- APPLICATION LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        // configurePaypal()
+        footerView.backgroundColor = .white
+        lblNote.backgroundColor = .clear
+        footerView.addSubview(lblNote)
+        lblNote.text = "Orders placed after 09:15 PM will be delivered tomorrow."
+        lblNote.textAlignment = .center
+        lblNote.numberOfLines = 0
+        
         setAppearance()
-        cartLBL.isHidden = true
-        btnCart.isHidden = true
         
         IJProgressView.shared.showProgressView()
         CartHelper.shared.syncAddress { (success, message) in
             IJProgressView.shared.hideProgressView()
+            self.updateNoteLabel()
             self.reloadTable()
         }
     }
@@ -42,8 +59,15 @@ class CartViewVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateCartCount()
+        updateNoteLabel()
         self.reloadTable()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCartCount), name: NSNotification.Name(rawValue: "kCartCount"), object: nil)
+        //PayPalMobile.preconnect(withEnvironment: environment)
+        
+        /*if AppDelegate.shared.isFromSaveUserSata {
+            AppDelegate.shared.isFromSaveUserSata = false
+            paymentButton(btnPay)
+        }*/
     }
     
     override func viewWillLayoutSubviews() {
@@ -65,23 +89,17 @@ class CartViewVC: UIViewController {
             self.subTitleView.layer.masksToBounds = true
             self.subTitleView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-            self.cartLBL.layer.cornerRadius = self.cartLBL.frame.height/2
-            self.cartLBL.layer.masksToBounds = true
+            self.lblNote.font = UIFont(name: "BrandonGrotesque-Regular", size: 12.0)
+            self.lblNote.textColor = .black
         }
     }
     
     @objc func updateCartCount() {
         let data = CartHelper.shared.cartItems
         if data.count == 0 {
-            //cartLBL.text = "0"
-            //cartLBL.isHidden = true
-            //btnCart.isHidden = true
             btnPay.isHidden = true
         }
         else {
-            //cartLBL.text = "\(data.count)"
-            //cartLBL.isHidden = false
-            //btnCart.isHidden = false
             btnPay.isHidden = false
         }
         updateCartCountInText()
@@ -90,6 +108,27 @@ class CartViewVC: UIViewController {
     func updateCartCountInText() {
         let itemStr = (CartHelper.shared.cartItems.count == 1) ? "item" : "items"
         self.itemsLeftLBL.text = "You have \(CartHelper.shared.cartItems.count) \(itemStr) in your cart"
+    }
+    
+    func updateNoteLabel() {
+        DispatchQueue.main.async {
+            if self.isAfter9_15PM() && CartHelper.shared.manageAddress.city.lowercased() == "lucknow" && CartHelper.shared.manageAddress.country.lowercased() == "india" {
+                self.listTable.tableFooterView = self.footerView
+                self.listTable.sectionFooterHeight = 50
+            }
+            else {
+                self.listTable.tableFooterView = nil
+                self.listTable.sectionFooterHeight = 0
+            }
+        }
+    }
+    
+    func isAfter9_15PM() -> Bool {
+        CartHelper.shared.df.dateFormat = "HH"
+        let time24Hours = Int(CartHelper.shared.df.string(from: Date())) ?? 0
+        CartHelper.shared.df.dateFormat = "mm"
+        let timeMinutes = Int(CartHelper.shared.df.string(from: Date())) ?? 0
+        return time24Hours >= 21 && timeMinutes >= 15
     }
     
     func reloadTable() {
@@ -107,10 +146,38 @@ class CartViewVC: UIViewController {
         }
     }
     
-    @IBAction func paymentButton(_ sender: Any) {
+    @IBAction func homeAction(_ sender: UIButton) {
+        AppDelegate.shared.showHomeScreen()
+    }
+    
+    @IBAction func paymentButton(_ sender: UIButton) {
+        // pay()
+        // return
+        
+        
+        let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+        if loginNeeded { return }
         
         if CartHelper.shared.manageAddress.shipping_zip.isEmpty {
             alert("ChhappanBhog", message: "Please add your address.", view: self)
+            return
+        }
+        
+        /*if CartHelper.shared.manageAddress.email.isEmpty || CartHelper.shared.manageAddress.name.isEmpty || CartHelper.shared.manageAddress.phone.isEmpty {
+            showAlertWithTitle(title: "ChhappanBhog", message: "We need your name, phone number and email to place the order. Please fill the all details.", okButton: "Ok", cancelButton: "Cancel", okSelectorName: #selector(fillDetails))
+            return
+        }*/
+        
+        let email = CartHelper.shared.manageAddress.email
+        if email.isEmpty || !validateEmail(email) {
+            showTextFieldAlert { (alert) in
+                let text = alert.textFields![0].text ?? ""
+                self.API_SAVE_USER_EMAIL(params: ["user_email": text]) { (success) in
+                    if success {
+                        self.paymentButton(self.btnPay)
+                    }
+                }
+            }
             return
         }
         
@@ -131,8 +198,60 @@ class CartViewVC: UIViewController {
     }
     
     @objc func addAddress() {
+        
+        let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+        if loginNeeded { return }
+        
         let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ManageAddressVC") as! ManageAddressVC
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func fillDetails() {
+        let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "ProfileDetailsVC") as! ProfileDetailsVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showTextFieldAlert(saveBlock: @escaping (_ alert: UIAlertController) -> Void) {
+        
+        let alert = UIAlertController(title:"ChhappanBhog", message: "Email address is mandatory to place the order. Please enter your email.", preferredStyle:UIAlertController.Style.alert)
+
+        alert.addTextField { (textField : UITextField!) in
+            textField.placeholder = "Email"
+            textField.delegate = self
+            textField.keyboardType = .emailAddress
+            textField.addTarget(self, action: #selector(self.textFieldDidEditingChange(_:)), for: UIControl.Event.editingChanged)
+        }
+
+        let save = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { saveAction -> Void in
+            saveBlock(alert)
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+            (action : UIAlertAction!) -> Void in })
+
+        alert.addAction(save)
+        alert.addAction(cancel)
+        
+        save.isEnabled = false
+        self.saveAction = save
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @objc func textFieldDidEditingChange(_ textField: UITextField) {
+        let text = textField.text ?? ""
+        if !text.isEmpty && validateEmail(text) {
+            textField.textColor = .black
+            saveAction?.isEnabled = true
+        }
+        else {
+            textField.textColor = .red
+            saveAction?.isEnabled = false
+        }
     }
     
     func proceedToPayment() {
@@ -146,6 +265,9 @@ class CartViewVC: UIViewController {
             shipping = CartHelper.shared.calculateShipping(totalWeight: weightInfo.weight, isInPcs: weightInfo.isInPcs)
         }
         let amount = price + shipping
+        
+        // Overwrite amount for testing purpose
+        // amount = 20
         
         let model: PayUHelperModel = PayUHelperModel()
         model.amount = String(format: "%.2f", amount)
@@ -208,20 +330,19 @@ class CartViewVC: UIViewController {
                                                 }
                                                 else {
                                                     // Response hash values do not match
-                                                    alert("ChhappanBhog", message: "Some error occured.", view: self)
+                                                    alert("ChhappanBhog", message: "Unfortunately, your payment didn't go through. Please try again with another card.", view: self)
                                                     IJProgressView.shared.hideProgressView()
                                                 }
                                             case .failure(let error):
                                                 let error : NSError = error as NSError
-                                                print(error.localizedDescription)
-                                                alert("ChhappanBhog", message: "Some error occured.", view: self)
+                                                alert("ChhappanBhog", message: error.localizedDescription, view: self)
                                                 IJProgressView.shared.hideProgressView()
                                         }
                                     }
                                 }
                                 else {
                                     // Payment failed
-                                    let message = response["message"] as? String ?? "Payment failed"
+                                    let message = response["message"] as? String ?? "Unfortunately, your payment didn't go through. Please try again with another card."
                                     alert("ChhappanBhog", message: message, view: self)
                                     IJProgressView.shared.hideProgressView()
                                 }
@@ -283,7 +404,7 @@ class CartViewVC: UIViewController {
             ]
         ]
         
-        print(params)
+        // print(params)
         let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
         let strURL = "http://3.7.199.43/restapi/example/postorder.php"
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
@@ -292,14 +413,12 @@ class CartViewVC: UIViewController {
             .responseJSON { (response) in
                 IJProgressView.shared.hideProgressView()
                 switch response.result {
-                case .success(let value):
-                    print(value)
-                    
+                case .success(let value):                    
                     let data = value as? [String: Any] ?? [:]
                     let orderIdInt = data["order_id"] as? Int ?? 0
                     let orderIdStr = data["order_id"] as? String ?? ""
                     if orderIdInt == 0 && orderIdStr.isEmpty {
-                        alert("ChhappanBhog", message: "Some error occured.", view: self)
+                        alert("ChhappanBhog", message: "Unfortunately, your order is not placed. If amount has been deducted please contact support to do the needful.", view: self)
                         return
                     }
                     
@@ -311,7 +430,6 @@ class CartViewVC: UIViewController {
                     }
                     
                 case .failure(let error):
-                    print(error.localizedDescription)
                     let error : NSError = error as NSError
                     alert("ChhappanBhog", message: error.localizedDescription, view: self)
                 }
@@ -323,7 +441,7 @@ class CartViewVC: UIViewController {
 extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if CartHelper.shared.cartItems.count == 0 { return 0 }
+        if CartHelper.shared.cartItems.count == 0 { return 0}
         return CartHelper.shared.cartItems.count + 1
     }
     
@@ -334,23 +452,28 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableCell") as! CartTableCell
             cell.selectionStyle = .none
             let cartItem = CartHelper.shared.cartItems[indexPath.row]
+            cartItem.item.performAvailabilityCheck()
             
             let image = cartItem.item.image.first ?? ""
             cell.productIMG.sd_setImage(with: URL(string: image ), placeholderImage: PlaceholderImage.Category)
             
-            let name = cartItem.item.title
-            cell.productName.text = name
+            if cartItem.item.meta.sub_title.isEmpty {
+                cell.productName.text = cartItem.item.title
+            }
+            else {
+                cell.productName.attributedText = cartItem.item.fullTitleAttributedText(titleFont: cell.productName.font)
+            }
+            
+            cell.PriceLBL.text = String(format: "%.0f", cartItem.item.totalPriceWithoutQuantity).prefixINR
             
             let option = cartItem.item.selectedOption()
             if  option.id > 0 {
                 cell.weightLBL.text = option.name
-                cell.PriceLBL.text = String(format: "%.0f", option.price).prefixINR
                 cell.layoutConstraintWeightWidth.constant = min(80 + (cell.shadowView.frame.size.width - 285), 150)
                 cell.layoutConstraintPriceLading.constant = 5
             }
             else {
                 cell.weightLBL.text = " "
-                cell.PriceLBL.text = String(format: "%.0f", cartItem.item.price).prefixINR
                 cell.layoutConstraintWeightWidth.constant = 0
                 cell.layoutConstraintPriceLading.constant = 0
             }
@@ -390,6 +513,10 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
             
             cell.favBTN.setImage(cartItem.item.isFavourite ? #imageLiteral(resourceName: "red_heart") : #imageLiteral(resourceName: "heart-1"), for: .normal)
             cell.favouriteBlock = {
+                
+                let loginNeeded = AppDelegate.shared.checkNeedLoginAndShowAlertInController(self)
+                if loginNeeded { return }
+                
                 let item = CartHelper.shared.cartItems[indexPath.row].item
                 let favourite = !item.isFavourite
                 cell.favBTN.isUserInteractionEnabled = false
@@ -498,3 +625,97 @@ class CartFinalAddressCell: UITableViewCell {
     @IBOutlet weak var lblTotalPrice: UILabel!
     @IBOutlet weak var btnChangeAddress: UIButton!
 }
+
+
+extension CartViewVC {
+    func API_SAVE_USER_EMAIL(params: [String: Any], completion: @escaping (_ success: Bool) -> Void) {
+        print(params)
+        IJProgressView.shared.showProgressView()
+        let saveUrl = ApplicationUrl.WEB_SERVER + WebserviceName.API_SAVE_USER
+        AFWrapperClass.requestPOSTURLWithHeader(saveUrl, params: params, success: { (dict) in
+            IJProgressView.shared.hideProgressView()
+            print(dict)
+            
+            let isTokenExpired = AFWrapperClass.handle401Error(dict: dict, self)
+            if isTokenExpired {
+                return
+            }
+            
+            let message = dict["message"] as? String ?? ""
+            let success = dict["success"] as? Int ?? 0
+            
+            if success == 0 {
+                alert("ChhappanBhog", message: message, view: self)
+                completion(false)
+            } else {
+                let data = dict["data"] as? [String:Any] ?? [:]
+                let email = data["email"] as? String ?? ""
+                UserDefaults.standard.set(email, forKey: Constants.EmailID)
+                CartHelper.shared.manageAddress.email = email
+                completion(true)
+            }
+            
+        }) { (error) in
+            alert("ChhappanBhog", message: error.localizedDescription, view: self)
+            completion(false)
+        }
+    }
+}
+
+// MARK:- Paypal
+/*extension CartViewVC: PayPalPaymentDelegate {
+
+    func configurePaypal() {
+        payPalConfig.acceptCreditCards = false
+        payPalConfig.merchantName = "ChhappanBhog" //Give your company name here.
+        payPalConfig.merchantPrivacyPolicyURL = URL(string: "https://www.paypal.com/webapps/mpp/ua/privacy-full")
+        payPalConfig.merchantUserAgreementURL = URL(string: "https://www.paypal.com/webapps/mpp/ua/useragreement-full")
+        //This is the language in which your paypal sdk will be shown to users.
+        payPalConfig.languageOrLocale = Locale.preferredLanguages[0]
+        //Here you can set the shipping address. You can choose either the address associated with PayPal account or different address. We’ll use .both here.
+        payPalConfig.payPalShippingAddressOption = .both;
+    }
+
+    func pay() {
+        //These are the items choosen by user, for example
+        let item1 = PayPalItem(name: "Old jeans with holes", withQuantity: 2, withPrice: NSDecimalNumber(string: "84.99"), withCurrency: "USD", withSku: "Hip-0037")
+        let item2 = PayPalItem(name: "Free rainbow patch", withQuantity: 1, withPrice: NSDecimalNumber(string: "0.00"), withCurrency: "USD", withSku: "Hip-00066")
+        let item3 = PayPalItem(name: "Long-sleeve plaid shirt (mustache not included)", withQuantity: 1, withPrice: NSDecimalNumber(string: "37.99"), withCurrency: "USD", withSku: "Hip-00291")
+        let items = [item1, item2, item3]
+        let subtotal = PayPalItem.totalPrice(forItems: items) //This is the total price of all the items
+        // Optional: include payment details
+        let shipping = NSDecimalNumber(string: "5.99")
+        let tax = NSDecimalNumber(string: "2.50")
+        let paymentDetails = PayPalPaymentDetails(subtotal: subtotal, withShipping: shipping, withTax: tax)
+        let total = subtotal.adding(shipping).adding(tax) //This is the total price including shipping and tax
+        let payment = PayPalPayment(amount: total, currencyCode: "USD", shortDescription: "ChhappanBhog", intent: .sale)
+        payment.items = items
+        payment.paymentDetails = paymentDetails
+
+        if (payment.processable) {
+            let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: payPalConfig, delegate: self)
+            present(paymentViewController!, animated: true, completion: nil)
+        }
+        else {
+            // This particular payment will always be processable. If, for
+            // example, the amount was negative or the shortDescription was
+            // empty, this payment wouldn’t be processable, and you’d want
+            // to handle that here.
+            print("Payment not processalbe: (payment)")
+        }
+    }
+
+    // MARK:- PayPalPaymentDelegate
+    func payPalPaymentDidCancel(_ paymentViewController: PayPalPaymentViewController) {
+        print("PayPal Payment Cancelled")
+        paymentViewController.dismiss(animated: true, completion: nil)
+    }
+
+    func payPalPaymentViewController(_ paymentViewController: PayPalPaymentViewController, didComplete completedPayment: PayPalPayment) {
+        print("PayPal Payment Success !")
+        paymentViewController.dismiss(animated: true, completion: { () -> Void in
+            // send completed confirmaion to your server
+            print("Here is your proof of payment:nn(completedPayment.confirmation)nnSend this to your server for confirmation and fulfillment.")
+        })
+    }
+}*/

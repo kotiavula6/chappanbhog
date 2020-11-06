@@ -218,6 +218,17 @@ extension String {
     var boolValue: Bool {
         return ["yes", "1", "true"].contains(self.lowercased())
     }
+    
+    mutating func parseHTML() {
+        guard let data = self.data(using: .utf8) else { return }
+        do {
+            let str = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil).string
+            self = str
+        }
+        catch _ {
+            
+        }
+    }
 }
 
 

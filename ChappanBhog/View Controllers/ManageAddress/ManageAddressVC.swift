@@ -65,11 +65,11 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         self.pickerContainerView.isHidden = true
         self.stateCityPicker.delegate = self
         
-        CartHelper.shared.syncCountries { (success, msg) in
-            DispatchQueue.main.async {
-                self.stateCityPicker.reloadAllComponents()
-            }
-        }
+//        CartHelper.shared.syncCountries { (success, msg) in
+//            DispatchQueue.main.async {
+//                self.stateCityPicker.reloadAllComponents()
+//            }
+//        }
         
         //        gradePicker = UIPickerView()
         //
@@ -138,16 +138,24 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         DispatchQueue.main.async {
             self.zipCodeTF.text = self.manageAddress.zip
             self.cityTF.text = self.manageAddress.city
+            
+            self.manageAddress.state.parseHTML()
             self.stateTF.text = self.manageAddress.state
+            self.manageAddress.country.parseHTML()
             self.countryTF.text = self.manageAddress.country
+            
             self.phoneNoTF.text = self.manageAddress.phone
             self.addressTF.text = self.manageAddress.address
             self.nameTF.text = self.manageAddress.name
             
             self.zipCodeTFShipping.text = self.manageAddress.shipping_zip
             self.cityTFShipping.text = self.manageAddress.shipping_city
+            
+            self.manageAddress.shipping_state.parseHTML()
             self.stateTFShipping.text = self.manageAddress.shipping_state
+            self.manageAddress.shipping_country.parseHTML()
             self.countryTFShipping.text = self.manageAddress.shipping_country
+            
             self.phoneNoTFShipping.text = self.manageAddress.shipping_phone_number
             self.addressTFShipping.text = self.manageAddress.shipping_address
             self.nameTFShipping.text = self.manageAddress.shipping_name
@@ -190,34 +198,41 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if stateSelected {
-            return CartHelper.shared.countryStateArr[row].name ?? ""
+            if !CartHelper.shared.countryStateArr[row].parsed {
+                CartHelper.shared.countryStateArr[row].parsed = true
+                CartHelper.shared.countryStateArr[row].name.parseHTML()
+            }
+            return CartHelper.shared.countryStateArr[row].name
         } else {
-            return selectedStateArr[row].name ?? ""
+            if !selectedStateArr[row].parsed {
+                selectedStateArr[row].parsed = true
+                selectedStateArr[row].name.parseHTML()
+            }
+            return selectedStateArr[row].name
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        if stateSelected {
-            if CartHelper.shared.countryStateArr.count > 0 {
-                self.selectedCountry = CartHelper.shared.countryStateArr[row]
-                if self.shippingAddressSelected {
-                    countryTFShipping.text = CartHelper.shared.countryStateArr[row].name ?? ""
-                } else {
-                    countryTF.text = CartHelper.shared.countryStateArr[row].name ?? ""
-                }
-            }
-        } else {
-            if selectedStateArr.count > 0 {
-                if self.shippingAddressSelected {
-                    stateTFShipping.text = selectedStateArr[row].name ?? ""
-                } else{
-                    stateTF.text = selectedStateArr[row].name ?? ""
-                }
-            }
-        }
-        
-        self.view.endEditing(true)
+//        if stateSelected {
+//            if CartHelper.shared.countryStateArr.count > 0 {
+//                self.selectedCountry = CartHelper.shared.countryStateArr[row]
+//                if self.shippingAddressSelected {
+//                    countryTFShipping.text = CartHelper.shared.countryStateArr[row].name
+//                } else {
+//                    countryTF.text = CartHelper.shared.countryStateArr[row].name
+//                }
+//            }
+//        } else {
+//            if selectedStateArr.count > 0 {
+//                if self.shippingAddressSelected {
+//                    stateTFShipping.text = selectedStateArr[row].name
+//                } else{
+//                    stateTF.text = selectedStateArr[row].name
+//                }
+//            }
+//        }
+//
+//        self.view.endEditing(true)
     }
     
     //        @IBAction func stateTFAction(_ sender: UITextField) {
@@ -262,6 +277,14 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         self.shippingAddressSelected = false
         self.stateSelected = true
         self.stateCityPicker.reloadAllComponents()
+        //self.stateCityPicker.selectRow(0, inComponent: 0, animated: false)
+        
+        /*if let currentCountry = countryTF.text {
+            if let index = CartHelper.shared.countryStateArr.firstIndex(where: {$0.name.lowercased() == currentCountry.lowercased()}) {
+                self.stateCityPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+        }*/
+        
         self.pickerContainerView.isHidden = false
         resignAll()
     }
@@ -281,9 +304,17 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         }
         
         self.shippingAddressSelected = false
-        self.selectedStateArr = countryAvailabel.states ?? []
+        self.selectedStateArr = countryAvailabel.states
         self.stateSelected = false
         self.stateCityPicker.reloadAllComponents()
+        //self.stateCityPicker.selectRow(0, inComponent: 0, animated: false)
+        
+        /*if let currentState = stateTF.text {
+            if let index = countryAvailabel.states.firstIndex(where: {$0.name.lowercased() == currentState.lowercased()}) {
+                self.stateCityPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+        }*/
+        
         self.pickerContainerView.isHidden = false
         resignAll()
     }
@@ -297,6 +328,14 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         self.shippingAddressSelected = true
         self.stateSelected = true
         self.stateCityPicker.reloadAllComponents()
+        //self.stateCityPicker.selectRow(0, inComponent: 0, animated: false)
+        
+        /*if let currentCountry = countryTFShipping.text {
+            if let index = CartHelper.shared.countryStateArr.firstIndex(where: {$0.name.lowercased() == currentCountry.lowercased()}) {
+                self.stateCityPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+        }*/
+        
         self.pickerContainerView.isHidden = false
         resignAll()
     }
@@ -314,10 +353,19 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             // show alert
             return
         }
+        
         self.shippingAddressSelected = true
-        self.selectedStateArr = countryAvailabel.states ?? []
+        self.selectedStateArr = countryAvailabel.states
         self.stateSelected = false
         self.stateCityPicker.reloadAllComponents()
+        //self.stateCityPicker.selectRow(0, inComponent: 0, animated: false)
+        
+        /*if let currentState = stateTFShipping.text {
+            if let index = countryAvailabel.states.firstIndex(where: {$0.name.lowercased() == currentState.lowercased()}) {
+                self.stateCityPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+        }*/
+        
         self.pickerContainerView.isHidden = false
         resignAll()
     }
@@ -344,9 +392,38 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func btnDonePickingStateCity(_ sender: UIBarButtonItem) {
         self.pickerContainerView.isHidden = true
-        pickerView(stateCityPicker, didSelectRow: stateCityPicker.selectedRow(inComponent: 0), inComponent: 0)
+        performPickerDone()
+        
+       //  pickerView(stateCityPicker, didSelectRow: stateCityPicker.selectedRow(inComponent: 0), inComponent: 0)
     }
     
+    func performPickerDone() {
+        let row = stateCityPicker.selectedRow(inComponent: 0)
+        if stateSelected {
+            if CartHelper.shared.countryStateArr.count > 0 {
+                self.selectedCountry = CartHelper.shared.countryStateArr[row]
+                if self.shippingAddressSelected {
+                    countryTFShipping.text = CartHelper.shared.countryStateArr[row].name
+                } else {
+                    countryTF.text = CartHelper.shared.countryStateArr[row].name
+                }
+            }
+        } else {
+            if selectedStateArr.count > 0 {
+                if self.shippingAddressSelected {
+                    stateTFShipping.text = selectedStateArr[row].name
+                } else{
+                    stateTF.text = selectedStateArr[row].name
+                }
+            }
+        }
+        
+        self.view.endEditing(true)
+    }
+    
+    @IBAction func btnCancelStateCity(_ sender: UIBarButtonItem) {
+        self.pickerContainerView.isHidden = true
+    }
 
     @IBAction func updateAddressButtonClicked(_ sender: UIButton) {
         
@@ -371,7 +448,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             alert("ChhappanBhog", message: "Phone can't be empty.", view: self)
             return
         }
-        if kPhone.count < 7 || kPhone.count > 14 {
+        if kPhone.count != 10 {
             alert("ChhappanBhog", message: "Please enter valid phone number.", view: self)
             return
         }
@@ -391,11 +468,6 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
         if kZipCode.count < 1 {
             alert("ChhappanBhog", message: "Zip code can't be empty.", view: self)
             return
-        }
-        
-        if !(kPhone.count >= 7 && kPhone.count <= 14) {
-                alert("ChhappanBhog", message: "Phone number should be in 7 to 14 digit.", view: self)
-                return
         }
         
         let kZipCodeShipping = zipCodeTFShipping.text ?? ""
@@ -423,8 +495,8 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
                 alert("ChappanBhog", message: "Shipping phone can't be empty.", view: self)
                 return
             }
-            if kPhoneShipping.count < 7 || kPhoneShipping.count > 14 {
-                alert("ChhappanBhog", message: "Please enter valid shipping phone number.", view: self)
+            if kPhoneShipping.count != 10 {
+                alert("ChhappanBhog", message: "Please enter valid phone number.", view: self)
                 return
             }
             if kCountryShipping.count < 1 {
@@ -442,10 +514,6 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             if kZipCodeShipping.count < 1 {
                 alert("ChappanBhog", message: "Shipping zip code can't be empty.", view: self)
                 return
-            }
-            if !(kPhoneShipping.count >= 7 && kPhoneShipping.count <= 14) {
-                    alert("ChhappanBhog", message: "Phone number should be in 7 to 14 digit.", view: self)
-                    return
             }
         }
         
@@ -471,7 +539,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             kCountryShipping = CartHelper.shared.countryCodeFromName(kCountryShipping)
             kStateShipping = CartHelper.shared.stateCodeFromName(kStateShipping)
             
-            params["same_as_shipping"] = "1"
+            params["same_as_shipping"] = "0"
             params["shipping_name"] = kNameShipping
             params["shipping_address"] = kAddressShipping
             params["shipping_phone_number"] = kPhoneShipping
@@ -484,7 +552,7 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
             params["same_as_shipping"] = "1"
         }
         
-        print(params)
+        //print(params)
         IJProgressView.shared.showProgressView()
         saveAddress(params: params) {
             IJProgressView.shared.hideProgressView()
@@ -528,7 +596,7 @@ extension ManageAddressVC {
                 return
             }
         
-            print(dict)
+            //print(dict)
             let status = dict["success"] as? Bool ?? false
             if status {
                 
@@ -635,7 +703,31 @@ class ManageAddress: NSObject {
         setDict(dict)
     }
     
+    func reset() {
+        user_id = ""
+        name = ""
+        email = ""
+        phone = ""
+        type = ""
+        image = ""
+        city = ""
+        state = ""
+        zip = ""
+        address = ""
+        phone_number = ""
+        country = ""
+        shipping_phone_number = ""
+        shipping_city = ""
+        shipping_state = ""
+        shipping_zip = ""
+        shipping_address = ""
+        shipping_country = ""
+        shipping_name = ""
+        same_as_shipping = true
+    }
+    
     func setDict(_ dict: [String: Any]) {
+        reset()
         if let value = dict["user_id"] as? Int { user_id = "\(value)"}
         else if let value = dict["user_id"] as? String { user_id = value}
         
@@ -664,21 +756,21 @@ class ManageAddress: NSObject {
         if let value = dict["shipping_country"] as? String  { shipping_country = value}
         if let value = dict["shipping_name"] as? String     { shipping_name    = value}
         
-        let shipping = dict["same_as_shipping"] as? String ?? "0"
+        let shipping = dict["same_as_shipping"] as? String ?? "1"
         self.same_as_shipping = shipping == "0" ? false : true
     }
     
     func updateToLocal() {
         // We get code from server
         // Update them with names
-        let stateName = CartHelper.shared.stateNameFromCode(self.state)
+        let stateName = CartHelper.shared.stateNameFromCode(countryCode: self.country, self.state)
         if !stateName.isEmpty { self.state = stateName }
+        
+        let shippingStateName = CartHelper.shared.stateNameFromCode(countryCode: self.shipping_country, self.shipping_state)
+        if !shippingStateName.isEmpty { self.shipping_state = shippingStateName }
         
         let countryName = CartHelper.shared.countryNameFromCode(self.country)
         if !countryName.isEmpty { self.country = countryName }
-        
-        let shippingStateName = CartHelper.shared.stateNameFromCode(self.shipping_state)
-        if !shippingStateName.isEmpty { self.shipping_state = shippingStateName }
         
         let shippingCountryName = CartHelper.shared.countryNameFromCode(self.shipping_country)
         if !shippingCountryName.isEmpty { self.shipping_country = shippingCountryName }

@@ -156,6 +156,7 @@ struct LineItem: Codable {
     let productID: Int
     let sku: String
     let meta: [JSONAny]
+    let image: String
 
     enum CodingKeys: String, CodingKey {
         case id, subtotal
@@ -167,6 +168,7 @@ struct LineItem: Codable {
         case name
         case productID = "product_id"
         case sku, meta
+        case image
     }
 }
 

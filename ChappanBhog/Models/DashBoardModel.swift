@@ -82,13 +82,18 @@ class categories: NSObject {
     var display:String?
     var id:Int?
     var image:String?
-    var name:String?
+    var name:String? {
+        didSet {
+            if name != nil {
+                name!.parseHTML()
+            }
+        }
+    }
     var parent:Int?
     var slug:String?
     
     init(dict: [String:Any]) {
         super.init()
-        
         desc = dict["description"] as? String
         id = dict["id"] as? Int
         image = dict["image"] as? String
@@ -97,7 +102,9 @@ class categories: NSObject {
         parent = dict["parent"] as? Int
         slug = dict["slug"] as? String
         
+        if name != nil {
+            name!.parseHTML()
+        }
     }
-    
 }
 

@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import Alamofire
 import SKCountryPicker
+import IQKeyboardManagerSwift
 
 class VerifyPhoneVC: UIViewController {
     
@@ -17,6 +18,8 @@ class VerifyPhoneVC: UIViewController {
     let editImage = #imageLiteral(resourceName: "edit")
     
     var message:String = ""
+    var isFromSaveUser = false
+    
     //MARK:- OUTLETS
     @IBOutlet weak var TF6: UITextField!
     @IBOutlet weak var TF5: UITextField!
@@ -65,8 +68,8 @@ class VerifyPhoneVC: UIViewController {
         TF5.keyboardType = .numberPad
         TF6.keyboardType = .numberPad
         
-                
         mobileTF.keyboardType = .phonePad
+        mobileTF.addDoneOnKeyboardWithTarget(self, action: #selector(doneButtonClicked))
         
         if !code.isEmpty { selectedCountry = CountryManager.shared.country(withDigitCode: code) }
         if selectedCountry == nil {
@@ -144,7 +147,25 @@ class VerifyPhoneVC: UIViewController {
             self.updateVerifiedStatusOnServer(verified: true)
             
             // Move to home
-            AppDelegate.shared.showHomeScreen()
+            if self.isFromSaveUser {
+                var controller: UIViewController?
+                let controllers = self.navigationController?.viewControllers ?? []
+                for con in controllers {
+                    if con is CartViewVC {
+                        controller = con
+                        break
+                    }
+                }
+                
+                if let vc = controller {
+                    AppDelegate.shared.isFromSaveUserSata = true
+                    self.navigationController?.popToViewController(vc, animated: true)
+                }
+            }
+            else {
+                AppDelegate.shared.showHomeScreen()
+            }
+            
 //            DispatchQueue.main.async {
 //                let vc = AppConstant.APP_STOREBOARD.instantiateViewController(withIdentifier: "Home") as! UITabBarController
 //                self.navigationController?.pushViewController(vc, animated: true)
@@ -231,7 +252,7 @@ class VerifyPhoneVC: UIViewController {
             alert("ChhappanBhog", message: "Please enter your mobile number.", view: self)
             return false
         }
-        if _phone.count < 7 || _phone.count > 14 {
+        if _phone.count != 10 {
             alert("ChhappanBhog", message: "Please enter a valid mobile number.", view: self)
             return false
         }
@@ -428,11 +449,22 @@ extension VerifyPhoneVC: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        /*if textField == mobileTF {
-            IJProgressView.shared.showProgressView()
-            sendVerificationCode {
-                IJProgressView.shared.hideProgressView()
-            }
-        }*/
+        
+    }
+    
+    @objc func doneButtonClicked() {
+        // Tick click
+        if !validatePhoneNumber() {
+            mobileTF.becomeFirstResponder()
+            return
+        }
+        
+        // Send the verification code
+        editMode = false
+        mobileTF.resignFirstResponder()
+        self.progressView.showProgressView()
+        sendVerificationCode {
+            self.progressView.hideProgressView()
+        }
     }
 }

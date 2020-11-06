@@ -13,6 +13,7 @@ class OurMenuVC: UIViewController {
     //MARK:- OUTLETS
     @IBOutlet weak var cartLBL: UILabel!
     @IBOutlet weak var btnCart: UIButton!
+    @IBOutlet weak var btnHome: UIButton!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var menuTable: UITableView!
     @IBOutlet weak var backView: UIView!
@@ -53,12 +54,16 @@ class OurMenuVC: UIViewController {
         if let controllers = self.navigationController?.viewControllers, let controller = controllers.first, controller is UITabBarController, controllers.count == 1 {
             // For tabbar, Hide back button and load favourites
             btnBack.isHidden = true
+            btnHome.isHidden = true
             
             IJProgressView.shared.showProgressView()
             getCategories {
                 IJProgressView.shared.hideProgressView()
                 self.reload()
             }
+        }
+        else {
+            btnHome.isHidden = false
         }
     }
     
@@ -106,6 +111,10 @@ class OurMenuVC: UIViewController {
        // }
         
        // self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func homeAction(_ sender: UIButton) {
+        AppDelegate.shared.showHomeScreen()
     }
     
     @IBAction func cartAction(_ sender: UIButton) {

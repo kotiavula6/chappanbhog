@@ -46,6 +46,7 @@ class CountryStateModel: NSObject {
     var code = ""
     var name = ""
     var states: [States] = []
+    var parsed = false // local use
     
     convenience init(dict: [String: Any]) {
         self.init()
@@ -69,6 +70,7 @@ class CountryStateModel: NSObject {
 class States: NSObject {
     var code = ""
     var name = ""
+    var parsed = false // local use
     
     convenience init(dict: [String: Any]) {
         self.init()
