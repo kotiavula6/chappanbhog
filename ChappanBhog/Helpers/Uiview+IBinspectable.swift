@@ -104,9 +104,9 @@ extension UITextField
         return text
     }
     
-    @IBInspectable var paddingLeft: CGFloat {
+    /*@IBInspectable var paddingLeft: CGFloat {
         get {
-            return (leftView?.frame.width)!
+            return leftView?.frame.width ?? 0
         }
         set {
             self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: 0))
@@ -116,13 +116,13 @@ extension UITextField
     
     @IBInspectable var paddingRight: CGFloat {
         get {
-            return (rightView?.frame.width) ?? 0
+            return rightView?.frame.width ?? 0
         }
         set {
             self.rightView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: 0))
             rightViewMode = .always
         }
-    }
+    }*/
     
     @IBInspectable var bottomLineColor : UIColor {
         get {

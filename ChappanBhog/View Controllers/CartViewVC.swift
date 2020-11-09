@@ -185,7 +185,8 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
         if weightInfo.isInPcs {
             // Make sure shipping is in Lucknow area
             if CartHelper.shared.manageAddress.shipping_country.lowercased() == "india" && CartHelper.shared.manageAddress.shipping_city.lowercased() == "lucknow" {
-                proceedToPayment()
+                // proceedToPayment()
+                askForShippingTiming()
             }
             else {
                 // We don't ship item in pcs outside lucknow
@@ -193,7 +194,8 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
             }
         }
         else {
-            proceedToPayment()
+            // proceedToPayment()
+            askForShippingTiming()
         }
     }
     
@@ -254,6 +256,18 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func askForShippingTiming() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ShippingWebVC") as! ShippingWebVC
+        vc.url = "https://www.chhappanbhog.com/shipping/"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        vc.acceptBlock = {
+            // Remove this vc from the stack
+            // And call proceed to payment
+            self.proceedToPayment()
+        }
+    }
+    
     func proceedToPayment() {
         
         IJProgressView.shared.showProgressView()
@@ -287,7 +301,7 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
             .responseJSON { (response) in
                 switch response.result {
                 case .success(let value):
-                    print(value)
+                   // print(value)
                     if let data = value as? [String : String] {
                         model.requestHash = data["hash"] ?? ""
                         model.txnId = data["txnid"] ?? ""
@@ -295,17 +309,30 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
                     
                     if model.requestHash.isEmpty || model.txnId.isEmpty {
                         IJProgressView.shared.hideProgressView()
+                        alert("ChhappanBhog", message: "Unfortunately, your payment didn't go through. Please try again.", view: self)
                         return
                     }
                     
                     DispatchQueue.main.async {
+                        if var controllers = self.navigationController?.viewControllers {
+                            for index in 0..<controllers.count {
+                                let controller = controllers[index]
+                                if controller is ShippingWebVC {
+                                    controllers.remove(at: index)
+                                    self.navigationController?.viewControllers = controllers
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        IJProgressView.shared.hideProgressView()
                         PayUHelper.sharedInstance().presentPaymentScreen(from: self, for: model) { (response, error, extra) in
                             if let error = error {
                                 alert("ChhappanBhog", message: error.localizedDescription, view: self)
-                                IJProgressView.shared.hideProgressView()
                                 return
                             }
                             
+                            IJProgressView.shared.showProgressView()
                             if let response = response as? [String: Any] {
                                 // print(response)
                                 let status  = response["status"] as? Int ?? 1

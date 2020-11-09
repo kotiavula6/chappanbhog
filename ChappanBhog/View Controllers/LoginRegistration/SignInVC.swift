@@ -23,6 +23,13 @@ class SignInVC: UIViewController  {
     @IBOutlet weak var signInBTN: UIButton!
     @IBOutlet weak var userNameTF: UITextField!
     
+    
+    @IBOutlet weak var layoutConstaintAppleloginHeight: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstaintAppleloginORViewTop: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstaintAppleloginORViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstaintAppleloginORViewBottom: NSLayoutConstraint!
+    
+    
     let provider = OAuthProvider(providerID: "twitter.com")
     
     //MARK:- APPLICATION LIFE CYCLE
@@ -35,9 +42,18 @@ class SignInVC: UIViewController  {
         //set ASHelper class delegate
         if #available(iOS 13.0, *) {
             ASHelper.shared.delegate = self
+            layoutConstaintAppleloginHeight.constant = 54
+            layoutConstaintAppleloginORViewTop.constant = 15
+            layoutConstaintAppleloginORViewHeight.constant = 24.5
+            layoutConstaintAppleloginORViewBottom.constant = 14
         } else {
             // Fallback on earlier versions
+            layoutConstaintAppleloginHeight.constant = 0
+            layoutConstaintAppleloginORViewTop.constant = 0
+            layoutConstaintAppleloginORViewHeight.constant = 0
+            layoutConstaintAppleloginORViewBottom.constant = 0
         }
+        
         //setAppearance()
         userNameTF.keyboardType = .emailAddress
         

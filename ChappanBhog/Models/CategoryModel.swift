@@ -21,7 +21,7 @@ class Categores: NSObject {
     var reviews:Int = 0
     var title:String = "" {
         didSet {
-            title.parseHTML()
+            //title = title.parseHTML()
         }
     }
     var desc: String = ""
@@ -319,7 +319,7 @@ class Categores: NSObject {
         reviews = dict["reviews"] as? Int ?? 0
         
         title = dict["title"] as? String ?? ""
-        title.parseHTML()
+        // title = title.parseHTML()
                 
         if let value = dict["selectedOptionId"] as? Int {
             selectedOptionId = value

@@ -84,9 +84,9 @@ class categories: NSObject {
     var image:String?
     var name:String? {
         didSet {
-            if name != nil {
-                name!.parseHTML()
-            }
+            /*if let _name = name {
+                name = _name.parseHTML()
+            }*/
         }
     }
     var parent:Int?
@@ -102,9 +102,9 @@ class categories: NSObject {
         parent = dict["parent"] as? Int
         slug = dict["slug"] as? String
         
-        if name != nil {
-            name!.parseHTML()
-        }
+        /*if let _name = name {
+            name = _name.parseHTML()
+        }*/
     }
 }
 

@@ -323,7 +323,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     }
     
     func canTrackLocation() -> (message: String, canTrack: Bool) {
-        let message = "Location is needed to fetch the nearby gyms.\nGo to settings -> `ChhappanBhog` and enable the location."
+        let message = "Location is needed to filter the products for your area.\nGo to settings -> `ChhappanBhog` and enable the location."
         let status = CLLocationManager.authorizationStatus()
         switch status {
             case .notDetermined: return (message, false);

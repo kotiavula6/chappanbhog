@@ -26,6 +26,14 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var countryCodeTF: UITextField!
     @IBOutlet weak var registerBTN: UIButton!
+    
+    @IBOutlet weak var layoutConstaintAppleloginHeight: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstaintAppleloginTop: NSLayoutConstraint!
+    @IBOutlet weak var layoutConstaintAppleloginBottom: NSLayoutConstraint!
+    @IBOutlet weak var lblLeftLine: UILabel!
+    @IBOutlet weak var lblRightLine: UILabel!
+    @IBOutlet weak var lblOR: UILabel!
+    
     var message:String = ""
     var isEmailRegisteration: Bool = false
     var selectedCountry: Country?
@@ -40,11 +48,23 @@ class RegisterVC: UIViewController {
         nameTF.autocapitalizationType = .words
         
         //set ASHelper class delegate
-            if #available(iOS 13.0, *) {
-                ASHelper.shared.delegate = self
-            } else {
-                // Fallback on earlier versions
-            }
+        if #available(iOS 13.0, *) {
+            ASHelper.shared.delegate = self
+            layoutConstaintAppleloginHeight.constant = 54
+            layoutConstaintAppleloginTop.constant = 15
+            layoutConstaintAppleloginBottom.constant = 20
+            lblLeftLine.isHidden = false
+            lblRightLine.isHidden = false
+            lblOR.isHidden = false
+        } else {
+            // Fallback on earlier versions
+            layoutConstaintAppleloginHeight.constant = 0
+            layoutConstaintAppleloginTop.constant = 0
+            layoutConstaintAppleloginBottom.constant = 0
+            lblLeftLine.isHidden = true
+            lblRightLine.isHidden = true
+            lblOR.isHidden = true
+        }
         
         // Do any additional setup after loading the view.
         

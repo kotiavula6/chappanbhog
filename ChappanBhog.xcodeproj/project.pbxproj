@@ -100,6 +100,7 @@
 		EF34B69A253EB72F009A41D2 /* PayUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34B699253EB72F009A41D2 /* PayUHelper.m */; };
 		EF384AA22546888300D62D89 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF384AA12546888300D62D89 /* SplashVC.swift */; };
 		EF384AA4254694AB00D62D89 /* OrderTrackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */; };
+		EF3A1CB525555BD1005B6489 /* ShippingWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3A1CB425555BD1005B6489 /* ShippingWebVC.swift */; };
 		EF3C3F76254BE62B002944CC /* ProfileDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C3F75254BE62B002944CC /* ProfileDetailsVC.swift */; };
 		EF3C7FFA2541A975000D1DE8 /* OrderDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */; };
 		EF70AC77254AB1F400F44B5D /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF70AC76254AB1F400F44B5D /* TabBarVC.swift */; };
@@ -235,6 +236,7 @@
 		EF34B699253EB72F009A41D2 /* PayUHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayUHelper.m; sourceTree = "<group>"; };
 		EF384AA12546888300D62D89 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTrackVC.swift; sourceTree = "<group>"; };
+		EF3A1CB425555BD1005B6489 /* ShippingWebVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingWebVC.swift; sourceTree = "<group>"; };
 		EF3C3F75254BE62B002944CC /* ProfileDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailsVC.swift; sourceTree = "<group>"; };
 		EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsVC.swift; sourceTree = "<group>"; };
 		EF70AC76254AB1F400F44B5D /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				EF3C7FF92541A975000D1DE8 /* OrderDetailsVC.swift */,
 				EF384AA3254694AB00D62D89 /* OrderTrackVC.swift */,
 				EF70AC76254AB1F400F44B5D /* TabBarVC.swift */,
+				EF3A1CB425555BD1005B6489 /* ShippingWebVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -901,6 +904,7 @@
 				EE82482725090EDC00C263F1 /* AboutVCcontact.swift in Sources */,
 				EECDFF19250FE9FF000B293C /* CountryCodeCell.swift in Sources */,
 				EE8248302509438800C263F1 /* PaymentVC.swift in Sources */,
+				EF3A1CB525555BD1005B6489 /* ShippingWebVC.swift in Sources */,
 				EE52F4B52509D5250026BE68 /* Inspectable.swift in Sources */,
 				EEB9C621251DF97000A37490 /* AsHelper.swift in Sources */,
 				EE31C6CB250774DF00E87E98 /* AppDelegate.swift in Sources */,
@@ -1142,7 +1146,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201104;
+				CURRENT_PROJECT_VERSION = 20201109;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1150,7 +1154,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
 				PRODUCT_NAME = ChappanBhog;
@@ -1171,7 +1175,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChappanBhog/ChappanBhog.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20201104;
+				CURRENT_PROJECT_VERSION = 20201109;
 				DEVELOPMENT_TEAM = Y9VX633L28;
 				INFOPLIST_FILE = ChappanBhog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1179,7 +1183,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chapanbhog.chapanbhog;
 				PRODUCT_NAME = ChappanBhog;
 				PROVISIONING_PROFILE_SPECIFIER = "";
