@@ -60,8 +60,8 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameTF.placeholder = "Name"
-        nameTFShipping.placeholder = "Name"
+        // nameTF.placeholder = "Name"
+        // nameTFShipping.placeholder = "Name"
         
         self.imgSelected.image = UIImage(named: "uncheck_box")
         self.updateAddressBTN.setTitle("UPDATE ADDRESS", for: .normal)
@@ -382,8 +382,16 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func stateTFAction(_ sender: UIButton) {
         
-        if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
+        /*if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
             let result = CartHelper.shared.countryStateArr.filter {$0.name.lowercased() ==  self.manageAddress.country.lowercased()}
+            if let first = result.first {
+                self.selectedCountry = first
+            }
+        }*/
+        
+        let country = self.countryTF.text ?? ""
+        if !country.isEmpty && CartHelper.shared.countryStateArr.count > 0 {
+            let result = CartHelper.shared.countryStateArr.filter {$0.name.lowercased() ==  country.lowercased()}
             if let first = result.first {
                 self.selectedCountry = first
             }
@@ -434,8 +442,16 @@ class ManageAddressVC: UIViewController,UIPickerViewDelegate, UIPickerViewDataSo
       
     @IBAction func shippingStateTFAction(_ sender: UIButton) {
         
-        if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
+        /*if !self.manageAddress.country.isEmpty && CartHelper.shared.countryStateArr.count > 0 && self.selectedCountry == nil {
             let result = CartHelper.shared.countryStateArr.filter {$0.name.lowercased() ==  self.manageAddress.shipping_country.lowercased()}
+            if let first = result.first {
+                self.selectedCountry = first
+            }
+        }*/
+        
+        let country = self.countryTFShipping.text ?? ""
+        if !country.isEmpty && CartHelper.shared.countryStateArr.count > 0 {
+            let result = CartHelper.shared.countryStateArr.filter {$0.name.lowercased() ==  country.lowercased()}
             if let first = result.first {
                 self.selectedCountry = first
             }

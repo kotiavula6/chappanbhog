@@ -185,7 +185,6 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
         if weightInfo.isInPcs {
             // Make sure shipping is in Lucknow area
             if CartHelper.shared.manageAddress.shipping_country.lowercased() == "india" && CartHelper.shared.manageAddress.shipping_city.lowercased() == "lucknow" {
-                // proceedToPayment()
                 askForShippingTiming()
             }
             else {
@@ -194,7 +193,6 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
             }
         }
         else {
-            // proceedToPayment()
             askForShippingTiming()
         }
     }
@@ -264,26 +262,35 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
         vc.acceptBlock = {
             // Remove this vc from the stack
             // And call proceed to payment
-            self.proceedToPayment()
+            let model = self.getPaymentModel()
+            IJProgressView.shared.showProgressView()
+            self.proceedToPlaceOrder(shipping: model.shipping, paymentMethod: "payu_in", paymentMethodTitle: "PayUmoney") { (success, orderId) in
+                if !success {
+                    IJProgressView.shared.hideProgressView()
+                    alert("ChhappanBhog", message: "Unfortunately, your payment didn't go through. Please try again.", view: self)
+                    return
+                }
+                
+                self.proceedToPaymentForOrder(orderId: orderId, paymentModel: model)
+            }
         }
     }
     
-    func proceedToPayment() {
-        
-        IJProgressView.shared.showProgressView()
-        
+    func getPaymentModel() -> PayUHelperModel {
         let price = CartHelper.shared.calculateTotal()
         var shipping = 150.0
         let weightInfo = CartHelper.shared.calculateTotalWeight()
         if weightInfo.weight > 0 {
             shipping = CartHelper.shared.calculateShipping(totalWeight: weightInfo.weight, isInPcs: weightInfo.isInPcs)
         }
+        
         let amount = price + shipping
         
         // Overwrite amount for testing purpose
         // amount = 20
         
         let model: PayUHelperModel = PayUHelperModel()
+        model.shipping = String(format: "%.2f", shipping)
         model.amount = String(format: "%.2f", amount)
         model.customerName = CartHelper.shared.manageAddress.firstName
         model.email = CartHelper.shared.manageAddress.email
@@ -291,7 +298,13 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
         model.phone = CartHelper.shared.manageAddress.phone
         model.productName = "App"
         model.details = CartHelper.shared.generateOrderDetails()
+        return model
+    }
+    
+    func proceedToPaymentForOrder(orderId: String, paymentModel: PayUHelperModel) {
         
+        let model = paymentModel
+
         let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
         let strURL = "http://3.7.199.43/restapi/example/payu.php"
         let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
@@ -338,7 +351,14 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
                                 let status  = response["status"] as? Int ?? 1
                                 if status == 0 {
                                     let result = response["result"] as? [String: Any] ?? [:]
-                                    let paymentResponseHash = result["hash"] as? String ?? ""
+                                    let paymentResponseHash = result["hash"] as? String ?? "paymentResponseHash"
+                                    
+                                    var paymentId = result["paymentId"] as? String ?? ""
+                                    if paymentId.isEmpty {
+                                        let id = result["paymentId"] as? Int ?? 0
+                                        paymentId = "\(id)"
+                                    }
+                                    
                                     // let localResponseHash = PayUHelper.sharedInstance().getResponseHashForPaymentParams()
                                     
                                     // Fetch hash value from server
@@ -347,17 +367,17 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
                                         switch response.result {
                                             case .success(let value):
                                                 // print(value)
-                                                var responseHash = ""
+                                                var responseHash = "hash"
                                                 if let data = value as? [String : String] {
-                                                    responseHash = data["hash"] ?? ""
+                                                    responseHash = data["hash"] ?? "hash"
                                                 }
                                             
                                                 if paymentResponseHash == responseHash {
-                                                    self.proceedToPlaceOrder(shipping: shipping, paymentMethod: "payu_in", paymentMethodTitle: "PayUmoney")
+                                                    self.proceedToPlaceOrder2(orderId: orderId, transactionId: paymentId)
                                                 }
                                                 else {
                                                     // Response hash values do not match
-                                                    alert("ChhappanBhog", message: "Unfortunately, your payment didn't go through. Please try again with another card.", view: self)
+                                                    alert("ChhappanBhog", message: "Unfortunately, your order didn't go through. Please try again or contact support if payment is debited.", view: self)
                                                     IJProgressView.shared.hideProgressView()
                                                 }
                                             case .failure(let error):
@@ -374,6 +394,12 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
                                     IJProgressView.shared.hideProgressView()
                                 }
                             }
+                            else {
+                                // Payment failed
+                                let message = "Unfortunately, your order didn't go through. Please try again or contact support if payment is debited."
+                                alert("ChhappanBhog", message: message, view: self)
+                                IJProgressView.shared.hideProgressView()
+                            }
                         }
                     }
                 case .failure(let error):
@@ -386,7 +412,7 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
 
     
     
-    func proceedToPlaceOrder(shipping: Double, paymentMethod: String, paymentMethodTitle: String) {
+    func proceedToPlaceOrder(shipping: String, paymentMethod: String, paymentMethodTitle: String, completion: @escaping (_ success: Bool, _ orderId: String) -> Void) {
         let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
         var lineItems: [[String: Any]] = []
         for cartItem in CartHelper.shared.cartItems {
@@ -398,7 +424,7 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
             "payment_method": paymentMethod,
             "payment_method_title": paymentMethodTitle,
             "customer_id": userID,
-            "set_paid": true,
+            "set_paid": false,
             "billing" : [
                 "first_name": CartHelper.shared.manageAddress.firstName,
                 "last_name": CartHelper.shared.manageAddress.lastName,
@@ -426,7 +452,7 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
                 [
                     "method_id": "flat_rate",
                     "method_title": "Flat Rate",
-                    "total": "\(shipping)"
+                    "total": shipping
                 ]
             ]
         ]
@@ -440,24 +466,70 @@ class CartViewVC: UIViewController, UITextFieldDelegate {
             .responseJSON { (response) in
                 IJProgressView.shared.hideProgressView()
                 switch response.result {
-                case .success(let value):                    
+                case .success(let value):
                     let data = value as? [String: Any] ?? [:]
                     let orderIdInt = data["order_id"] as? Int ?? 0
                     let orderIdStr = data["order_id"] as? String ?? ""
                     if orderIdInt == 0 && orderIdStr.isEmpty {
-                        alert("ChhappanBhog", message: "Unfortunately, your order is not placed. If amount has been deducted please contact support to do the needful.", view: self)
+                        alert("ChhappanBhog", message: "Unfortunately, your order didn't go through. Please try again or contact support if payment is debited.", view: self)
+                        completion(false, "")
                         return
                     }
                     
                     let orderId = orderIdInt > 0 ? "\(orderIdInt)" : orderIdStr
-                    showAlertMessage(title: "Order Id: \(orderId)", message: "Your order has been placed successfully. You can track your order in your order history.", okButton: "Ok", controller: self) {
-                        CartHelper.shared.clearCart()
-                        AppDelegate.shared.notifyCartUpdate()
+                    completion(true, orderId)
+                    
+                    
+                    
+                    /*showAlertMessage(title: "Order Id: \(orderId)", message: "Your order has been placed successfully. You can track your order in your order history.", okButton: "Ok", controller: self) {
                         self.backButton(self.btnBack)
                     }
                     
+                    CartHelper.shared.clearCart()
+                    AppDelegate.shared.notifyCartUpdate()*/
+                    
                 case .failure(let error):
-                    let error : NSError = error as NSError
+                    alert("ChhappanBhog", message: error.localizedDescription, view: self)
+                    completion(false, "")
+                }
+        }
+    }
+    
+    func proceedToPlaceOrder2(orderId: String, transactionId: String) {
+        let userID = UserDefaults.standard.value(forKey: Constants.UserId) ?? ""
+        let params: [String: Any] = ["user_id": userID,
+                                     "order_id": orderId,
+                                     "transaction_id": transactionId,
+                                     "set_paid": 1]
+        
+        let header: HTTPHeaders = ["Content-Type": "application/json", "APIKEY": "Y2hoYXBwYW5iaG9nOk9RaDRZRXQ="]
+        let strURL = "http://3.7.199.43/restapi/example/postorder2.php"
+        let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        
+        AF.request(urlwithPercentEscapes!, method: .post, parameters: params, encoding: JSONEncoding.default, headers:header)
+            .responseJSON { (response) in
+                IJProgressView.shared.hideProgressView()
+                switch response.result {
+                case .success(let value):
+                    // print(value)
+                    let data = value as? [String: Any] ?? [:]
+                    let result = data["data"] as? [String: Any] ?? [:]
+                    let status = result["status"] as? String ?? ""
+                    if status != "processing" {
+                        alert("ChhappanBhog", message: "Unfortunately, your order didn't go through. Please try again or contact support if payment is debited.", view: self)
+                        return
+                    }
+                    
+                    showAlertMessage(title: "Order Id: \(orderId)", message: "Your order has been placed successfully. You can track your order in your order history.", okButton: "Ok", controller: self) {
+                        self.backButton(self.btnBack)
+                    }
+                    
+                    CartHelper.shared.clearCart()
+                    DispatchQueue.main.async {
+                        AppDelegate.shared.notifyCartUpdate()
+                    }
+                    
+                case .failure(let error):
                     alert("ChhappanBhog", message: error.localizedDescription, view: self)
                 }
         }
@@ -574,6 +646,10 @@ extension CartViewVC: UITableViewDelegate,UITableViewDataSource {
         let weightInfo = CartHelper.shared.calculateTotalWeight()
         if weightInfo.weight > 0 {
             shipping = CartHelper.shared.calculateShipping(totalWeight: weightInfo.weight, isInPcs: weightInfo.isInPcs)
+        }
+        
+        if CartHelper.shared.manageAddress.shipping_zip.isEmpty {
+            shipping = 50.0
         }
         
         addressCell.lblOrderPrice.text = "\(price)".prefixINR.remove00IfInt

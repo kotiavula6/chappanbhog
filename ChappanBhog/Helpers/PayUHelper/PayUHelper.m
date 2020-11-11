@@ -28,6 +28,7 @@
     #define kPayUMerchantSalt @"XiQUkxBYej"
 #endif
 
+#define PAY_U_THEME_COLOR [UIColor colorWithRed:236/255.0 green:160/255.0 blue:36/255.0 alpha:1.0]
 
 @interface PayUHelper()
 @property (nonatomic, strong) PayUHelperModel *currentPaymentModel;
@@ -52,10 +53,15 @@
 - (void)presentPaymentScreenFromController:(UIViewController *)controller
                                   forModel:(PayUHelperModel *)paymentModel
                                 completion:(PayUHelperCompletionBlock)completion {
-    [PlugNPlay setMerchantDisplayName:paymentModel.merchantDisplayName];
-    // [PlugNPlay setOrderDetails:@[@{@"From": @"Delhi"}, @{@"To": @"Pune"}]];
     
+    
+    [PlugNPlay setTopBarColor:PAY_U_THEME_COLOR];
+    [PlugNPlay setButtonColor: PAY_U_THEME_COLOR];
+    [PlugNPlay setDisableCompletionScreen:YES];
+    [PlugNPlay setTopBarColor:[UIColor orangeColor]];
+    [PlugNPlay setMerchantDisplayName:paymentModel.merchantDisplayName];
     [PlugNPlay setOrderDetails: paymentModel.details];
+    
     PUMTxnParam *txnParam = [self txnParamsForModel:paymentModel];
     [PlugNPlay presentPaymentViewControllerWithTxnParams:txnParam
           onViewController:controller

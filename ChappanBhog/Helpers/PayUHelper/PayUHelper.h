@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface PayUHelperModel : NSObject
+
+@property (nonatomic, strong) NSString *shipping;
 @property (nonatomic, strong) NSString *amount;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *phone;
